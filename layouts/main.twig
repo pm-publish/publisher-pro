@@ -81,13 +81,12 @@
     {% else %}
 
         <link rel='stylesheet' href='{{networkData.templatePath}}/static/deploy/concat.css' type='text/css' media='all' />
-        <link rel='stylesheet' href='{{networkData.templatePath}}/static/development/js/plugins/owl.carousel.css' type='text/css' media='all' />
-        <link rel='stylesheet' href='{{networkData.templatePath}}/static/development/js/plugins/owl.theme.default.css' type='text/css' media='all' />
+        {# <link rel='stylesheet' href='{{networkData.templatePath}}/static/development/js/plugins/owl.carousel.css' type='text/css' media='all' />
+        <link rel='stylesheet' href='{{networkData.templatePath}}/static/development/js/plugins/owl.theme.default.css' type='text/css' media='all' /> #}
 
     {% endif %}
 
 
-    <script src="https://js.stripe.com/v3/"></script>
 
 
 
@@ -229,7 +228,7 @@
 
 
     <script>
-        // main script is defered so event listener makes sure
+         // main script is defered so event listener makes sure
         // defered script is loaded before this runs
         document.addEventListener("DOMContentLoaded", function(event) {
             if (typeof window.Acme === 'undefined') {window.Acme = {};}
