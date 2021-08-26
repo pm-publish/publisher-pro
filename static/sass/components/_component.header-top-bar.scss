@@ -51,13 +51,28 @@
 .c-header {
     $selfHeader: &;
     &-top-bar {
+        background-color: $blue_sh1;
+        
+        &__container {
+            @include flexbox;
+            @include align-items(center);
+            @include justify-content(space-between);
+            @include padding(8 0);
+        }
 
+        &__date {
+            color: $white;
+            font-family: $primaryFont;
+            font-weight: $weightMedium;
+            @include font-size(12);
+            line-height: 1.33;
+        }
     }
 
     
     @include responsive(xs) {
         @include respond-to(xs) {
-            
+
         }
     }
 }

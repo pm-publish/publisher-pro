@@ -201,38 +201,44 @@
 {% set theDate = _AppHelper.getCurrentTimestampBasedOnTimezone() %}
 {% set date = _AppHelper.getDefaultTimezoneDateTime(theDate, dateFormat) %}
 <div class="c-header c-header-xs">
+    {# Begin header top bar #}
     <div class="c-header-top-bar">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="c-header-top-bar__container">
                         <aside class="c-header-top-bar__date">{{date}}</aside>
-                        <aside class="c-header-top-bar__nav">
-                            <ul>
-                                <li>
-                                    <a href="javascript:;">Custom page</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">Custom page</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">Custom page</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">Custom page</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">Custom page</a>
-                                </li>
-                                <li>
-                                    <a href="javascript:;">Custom page</a>
-                                </li>
-                            </ul>
+                        <aside class="c-navigation-0">
+                            {{this.render('../_header_top_nav.twig') | raw}}
                         </aside>
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    {# End header top bar #}
+
+    {# Begin header main #}
+    <div class="c-header-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    main header here
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End header main #}
+
+    {# Begin header navigation #}
+    <div class="c-header-navigation">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    navigation here
+                </div>
+            </div>
+        </div>
+    </div>
+    {# End header navigation #}
 </div>
