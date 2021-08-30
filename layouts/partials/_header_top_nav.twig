@@ -1,20 +1,14 @@
-<ul class="c-navigation__grid">
-    <li>
-        <a class="c-navigation__item" href="javascript:;">Custom page</a>
-    </li>
-    <li>
-        <a class="c-navigation__item" href="javascript:;">Custom page</a>
-    </li>
-    <li>
-        <a class="c-navigation__item" href="javascript:;">Custom page</a>
-    </li>
-    <li>
-        <a class="c-navigation__item" href="javascript:;">Custom page</a>
-    </li>
-    <li>
-        <a class="c-navigation__item" href="javascript:;">Custom page</a>
-    </li>
-    <li>
-        <a class="c-navigation__item" href="javascript:;">Custom page</a>
-    </li>
-</ul>
+{% for item in items %}
+<li>
+    <a href="{{item.link |raw}}" class="{{class}} {{activeClass}} {{externalClass}} c-navigation__item" {% if
+        item.target !="" %} target="{{item.target}}" {% endif %}>
+        {% if item.label != "" %}
+        {{item.label}}
+        {% elseif item.blogTitle != "" %}
+        {{item.blogTitle}}
+        {% elseif item.pageTitle != "" %}
+        {{item.pageTitle}}
+        {% endif %}
+    </a>
+</li>
+{% endfor %}

@@ -55,9 +55,13 @@
         
         &__container {
             @include flexbox;
-            @include align-items(center);
-            @include justify-content(space-between);
+            @include flex-direction(column,vertical);
+            @include align-items(flex-start);
             @include padding(8 0);
+
+            .c-navigation-0 {
+                display: none;
+            }
         }
 
         &__date {
@@ -71,8 +75,20 @@
 
     
     @include responsive(xs) {
-        @include respond-to(xs) {
+        @include respond-to(sm) {
+            #{$selfHeader} {
+                &-top-bar {
+                    &__container {
+                        @include flex-direction(row,horizontal);
+                        @include justify-content(space-between);
+                        @include align-items(center);
 
+                        .c-navigation-0 {
+                            @include flexbox;
+                        }
+                    }
+                }
+            }
         }
     }
 }

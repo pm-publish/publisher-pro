@@ -6,11 +6,14 @@
         #{$selfNav} {
             &__grid {
                 @include flexbox;
+                @include flex-direction(column,vertical);
                 @include align-items(center);
+                padding-left: 0;
+                margin-bottom: 0;
 
                 li {
                     + li {
-                        margin-left: 20px;
+                        margin-top: 20px;
                     }
                 }
             }
@@ -21,6 +24,95 @@
                 line-height: 1.6;
                 font-weight: $weightMedium;
                 text-decoration: none;
+                display: block;
+            }
+        }
+
+        @include responsive(xs) {
+            @include respond-to(sm) {
+                #{$selfNav} {
+                    &__grid {
+                        @include flex-direction(row,horizontal);
+
+                        li {
+                            + li {
+                                margin-top: 0;
+                                margin-left: 20px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &-3 {
+        #{$selfNav} {
+            &__grid {
+                @include flexbox;
+                @include flex-direction(column,vertical);
+                padding-left: 0;
+                li {
+                    + li {
+                        margin-top: 20px;
+                    }
+                }
+            }
+            &__item {
+                color: $white;
+                @include font-size(14);
+                line-height: 1.6;
+                font-weight: $weightRegular;
+                text-decoration: none;
+                display: block;
+                @include transition(all 0.3s ease);
+                &:hover {
+                    color: $blue_sh5;
+                }
+            }
+        }
+    }
+
+    &-4 {
+        @include flexbox;
+        @include justify-content(flex-end);
+        padding: 20px 0;
+
+        #{$selfNav} {
+            &__item {
+                color: $white;
+                @include font-size(12);
+                line-height: 1.33;
+                font-weight: $weightMedium;
+                text-decoration: none;
+                display: block;
+                @include transition(all 0.3s ease);
+                position: relative;
+                
+
+                &--borderred {
+                    border-bottom: 2px solid $white;
+                    &:hover {
+                        border-bottom-color: $blue_sh1;
+                    }
+                }
+
+                &:hover {
+                    color: $blue_sh1;
+                }
+
+                +  #{$selfNav}__item {
+                    margin-left: 30px;
+                    &:before {
+                        content: '';
+                        width: 1px;
+                        background-color: $white;
+                        left: -15px;
+                        top: 0;
+                        position: absolute;
+                        height: 100%;
+                    }
+                }
             }
         }
     }

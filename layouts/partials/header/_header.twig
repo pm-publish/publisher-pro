@@ -200,6 +200,7 @@
 {% endif %}
 {% set theDate = _AppHelper.getCurrentTimestampBasedOnTimezone() %}
 {% set date = _AppHelper.getDefaultTimezoneDateTime(theDate, dateFormat) %}
+{% set headerTopMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'header-top'}) %}
 <div class="c-header c-header-xs">
     {# Begin header top bar #}
     <div class="c-header-top-bar">
@@ -208,8 +209,12 @@
                 <div class="col-12">
                     <div class="c-header-top-bar__container">
                         <aside class="c-header-top-bar__date">{{date}}</aside>
-                        <aside class="c-navigation-0">
-                            {{this.render('../_header_top_nav.twig') | raw}}
+                        <aside class="c-navigation-0 c-navigation-0-xs">
+                            <ul class="c-navigation__grid">
+                                {{this.render('../_submenu_navigation.twig', {
+                                items: headerTopMenu
+                                }) | raw }}
+                            </ul>
                         </aside>
                     </div>
                 </div>

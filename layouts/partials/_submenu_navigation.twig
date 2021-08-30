@@ -1,11 +1,14 @@
 {% for item in items %}
-    <a href="{{item.link |raw}}" class="{{class}} {{activeClass}} {{externalClass}}" {% if item.target != "" %} target="{{item.target}}" {% endif %}>
+<li>
+    <a href="{{item.link |raw}}" class="{{class}} {{activeClass}} {{externalClass}} c-navigation__item" {% if
+        item.target !="" %} target="{{item.target}}" {% endif %}>
         {% if item.label != "" %}
-            {{item.label}}
+        {{item.label}}
         {% elseif item.blogTitle != "" %}
-            {{item.blogTitle}}
+        {{item.blogTitle}}
         {% elseif item.pageTitle != "" %}
-            {{item.pageTitle}}
+        {{item.pageTitle}}
         {% endif %}
     </a>
+</li>
 {% endfor %}

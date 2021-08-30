@@ -66,5 +66,21 @@
 	}
 }
 
+.u-generic-socialIcons {
+	@include flexbox;
+	@include align-items(center);
+
+	&__item {
+		color: $white;
+		text-decoration: none;
+		@include transition(all 0.3s ease);
+		&:hover {
+			color: $blue_sh5;
+		}
+		+ .u-generic-socialIcons__item {
+			margin-left: 20px;
+		}
+	}
+}
 
 /* Begin links view style */

@@ -6,30 +6,87 @@
 {% set footerMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer'}) %}
 {% set footerBottomMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer-bottom'}) %}
 
-{% if config['footer-settings']['statement'] is defined and config['footer-settings']['statement'] != '' %}
-<div class="container">
-    <div class="row">
-        <div class="col-12 u-margin-top-30 u-margin-bottom-30">
-            <p class="c-footer-white__statement">
-                {{config['footer-settings']['statement']|raw}}
-            </p>
+<div class="c-footer__top">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="c-navigation-4 c-navigation-4-xs">
+                    <a href="javascript:;" class="c-navigation__item">Log in</a>
+                    <a href="javascript:;" class="c-navigation__item c-navigation__item--borderred">Subscribe</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-{% endif %}
-
 <footer class="c-footer c-footer-sm c-footer--themecolour">
     <div class="container">
         <div class="row c-footer__container">
             <div class="col-12 col-md-3">
-                <a href="{{networkData.defaultBlogUrl}}" class="c-footer__logo">
-                    <img src="{{logo}}" class="image-fluid" />
-                </a>
-            </div>
-            <div class="col-12 col-md-6">
+                <div class="c-footer__logo">
+                    <a href="{{networkData.defaultBlogUrl}}" class="c-footer__logo--link">
+                        <img src="{{logo}}" class="image-fluid" />
+                    </a>
+                </div>
 
+
+                <div class="d-black d-xl-none u-margin-top-30 u-margin-bottom-30 text-center text-md-start">
+                    <div class="c-footer__addresses">
+                        {% if addresses.name != "" %}
+                        <p class="c-footer__addresses__content c-footer__addresses__content--name">{{addresses.name}}
+                        </p>
+                        {% endif %}
+                        {% if addresses.email != "" %}
+                        <p class="c-footer__addresses__content">{{addresses.email}}</p>
+                        {% endif %}
+                        <p class="c-footer__addresses__content">
+                            {{addresses.address}}<br />{{addresses.city}}<br />{{addresses.state}}
+                            {{addresses.postcode}}</p>
+                    </div>
+
+                    <div class="c-footer__social">
+                        <div class="u-generic-socialIcons justify-content-center justify-content-md-start">
+                            <a href="javascript:;" class="u-generic-socialIcons__item">
+                                <span class="fa fa-facebook"></span>
+                            </a>
+                            <a href="javascript:;" class="u-generic-socialIcons__item">
+                                <span class="fa fa-twitter"></span>
+                            </a>
+                            <a href="javascript:;" class="u-generic-socialIcons__item">
+                                <span class="fa fa-instagram"></span>
+                            </a>
+                            <a href="javascript:;" class="u-generic-socialIcons__item">
+                                <span class="fa fa-linkedin"></span>
+                            </a>
+                            <a href="javascript:;" class="u-generic-socialIcons__item">
+                                <span class="fa fa-vimeo"></span>
+                            </a>
+                            <a href="javascript:;" class="u-generic-socialIcons__item">
+                                <span class="fa fa-rss"></span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-9 col-xl-5 order-3 order-lg-2">
+                <div class="row flex-column flex-md-row">
+
+                    {% set footercols = 0 %}
+                    {% for i in 0..5 if footerMenu | length > footercols %}
+                    <div class="col">
+                        <div class="c-navigation-3 c-navigation-3-xs">
+                            <ul class="c-navigation__grid text-center text-md-start">
+                                {{this.render('../_submenu_navigation.twig', {
+                                items: footerMenu | slice(footercols, 6),
+                                class: '',
+                                }) | raw}}
+                            </ul>
+                        </div>
+                    </div>
+                    {% set footercols = footercols + 6 %}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-12 col-lg-3 offset-lg-1 order-2 order-lg-3 d-none d-xl-block">
                 <div class="c-footer__addresses">
                     {% if addresses.name != "" %}
                     <p class="c-footer__addresses__content c-footer__addresses__content--name">{{addresses.name}}</p>
@@ -63,6 +120,28 @@
                             <span class="fa fa-rss"></span>
                         </a>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="c-footer__bottom u-margin-top-80 u-tablet-margin-top-40">
+            <div class="row justify-content-between">
+                <div class="col col-lg-3">
+                    <div class="c-footer__bottom__powered-by">Designed & Powered by Pagemasters Publish</div>
+                </div>
+                <div class="col col-lg-5 d-none d-lg-flex">
+                    <div class="c-navigation-0 c-navigation-0-xs">
+                        <ul class="c-navigation__grid">
+                            {{this.render('../_submenu_navigation.twig', {
+                            items: footerBottomMenu
+                            }) | raw }}
+                        </ul>
+                    </div>
+                </div>
+                <div class="col col-lg-3 offset-lg-1">
+                    <div class="c-footer__bottom__copyright justify-content-end justify-content-lg-start">&copy; {{
+                        "now"|date("Y")}}
+                        {{networkData.title}}</div>
                 </div>
             </div>
         </div>
