@@ -36,6 +36,8 @@ $greyish: #595859;
 $grey: #d8d8d8;
 $grey2: #7f7f7f;
 $grey3: #f6f5f5;
+$grey4: #c0c0c0;
+$grey5: #636567;
 $black: #000000;
 $transparent: rgba(0, 0, 0, 0);
 $blue: #4a90e2;
@@ -69,10 +71,7 @@ $linkedin: #1f7bc2;
 $flickr: #377ede;
 
 $black_sh1: #333333;
-$black_sh2: lighten(
-  $black_sh1,
-  20%
-); /* color code == #666666 also (0,0,0,0.6) */
+$black_sh2: lighten($black_sh1, 20%); /* color code == #666666 also (0,0,0,0.6) */
 $black_sh3: lighten($black_sh1, 40%); /* color code == #999999 */
 $black_sh4: lighten($black_sh1, 60%); /* color code == #cccccc */
 $black_sh5: lighten($black_sh1, 41%); /* color code == #9c9c9c */
