@@ -6,9 +6,8 @@
 //     &-2{
 //         margin-top: 20px;
 //         margin-bottom: 15px;
-//         border-bottom: none; 
+//         border-bottom: none;
 //     }
-    
 
 //     &__link {
 //         color: $greyish;
@@ -38,7 +37,7 @@
 // .c-header-2-top-bar{
 //     margin-top: 20px;
 //     margin-bottom: 15px;
-//     border-bottom: none; 
+//     border-bottom: none;
 // }
 // .c-header-1-top-bar{
 //     border-bottom: 0;
@@ -47,20 +46,22 @@
 //     border-bottom: 0;
 // }
 
-
 .c-header {
     $selfHeader: &;
     &-top-bar {
         background-color: $blue_sh1;
-        
+
         &__container {
             @include flexbox;
-            @include flex-direction(column,vertical);
             @include align-items(flex-start);
+            @include justify-content(space-between);
             @include padding(8 0);
 
             .c-navigation-0 {
                 display: none;
+            }
+            .c-navigation-4 {
+                padding: 0;
             }
         }
 
@@ -73,14 +74,11 @@
         }
     }
 
-    
     @include responsive(xs) {
         @include respond-to(sm) {
             #{$selfHeader} {
                 &-top-bar {
                     &__container {
-                        @include flex-direction(row,horizontal);
-                        @include justify-content(space-between);
                         @include align-items(center);
 
                         .c-navigation-0 {

@@ -201,6 +201,42 @@
 {% set theDate = _AppHelper.getCurrentTimestampBasedOnTimezone() %}
 {% set date = _AppHelper.getDefaultTimezoneDateTime(theDate, dateFormat) %}
 {% set headerTopMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'header-top'}) %}
+{% set headerSubMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'header-sub-menu'}) %}
+{% set loggedin = _User.isGuest() ? false : true %}
+{% set user = loggedin ? _User.getUser() : null %}
+{% set logo = networkData.templatePath~'/static/images/logo.png'%}
+
+{% set logoWidth = 650 %}
+{% set logoHeight = 144 %}
+
+{% if config['logo'] is defined %}
+{% if config['logo']['width'] is defined %}
+{% set logoWidth = config['logo']['width'] %}
+
+{% if config['logo']['height'] is not defined %}
+{% set logoHeight = 0 %}
+{% endif %}
+{% endif %}
+
+{% if config['logo']['height'] is defined %}
+{% set logoHeight = config['logo']['height'] %}
+
+{% if config['logo']['width'] is not defined %}
+{% set logoWidth = 0 %}
+{% endif %}
+
+{% endif %}
+{% endif %}
+
+{% set paywall = true %}
+
+{% if config['paywall'] is defined and config['paywall'] == false %}
+{% set paywall = false %}
+{% endif %}
+
+{% if networkData.logoMedia | length > 0 %}
+{% set logo = _Media.getMediaUrl(networkData.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
+{% endif %}
 <div class="c-header c-header-xs">
     {# Begin header top bar #}
     <div class="c-header-top-bar">
@@ -209,6 +245,22 @@
                 <div class="col-12">
                     <div class="c-header-top-bar__container">
                         <aside class="c-header-top-bar__date">{{date}}</aside>
+                        {% if paywall %}
+                        {% if loggedin %}
+                        <div class="c-navigation-4 c-navigation-4-xs d-flex d-sm-none">
+                            <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
+                                account</a>
+                            <a href="{{_AppHelper.getLogoffUrl()}}"
+                                class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                        </div>
+                        {% else %}
+                        <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-flex d-sm-none">
+                            <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
+                            <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
+                                class="c-navigation__item c-navigation__item--borderred subscribe">Subscribe</a>
+                        </div>
+                        {% endif %}
+                        {% endif %}
                         <aside class="c-navigation-0 c-navigation-0-xs">
                             <ul class="c-navigation__grid">
                                 {{this.render('../_submenu_navigation.twig', {
@@ -228,7 +280,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    main header here
+                    <div class="c-header-main__container">
+                        <div class="">
+                            <div class="c-hamburger__wrap js-menu">
+                                <div class="c-hamburger__wrap-icons o-hamburger"></div>
+                                <div class="c-hamburger__wrap-text">Menu</div>
+                            </div>
+                        </div>
+                        <div class="c-header-main__logo">
+                            <a href="{{networkData.defaultBlogUrl}}" class="c-header-main__logo-item">
+                                <img src="{{logo}}" class="image-fluid" style="max-height:50px;" />
+                            </a>
+                        </div>
+
+                        {% if paywall %}
+                        {% if loggedin %}
+                        <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs d-none d-sm-flex">
+                            <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
+                                account</a>
+                            <a href="{{_AppHelper.getLogoffUrl()}}"
+                                class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                        </div>
+                        {% else %}
+                        <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-none d-sm-flex">
+                            <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
+                            <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
+                                class="c-navigation__item c-navigation__item--borderred subscribe">Subscribe</a>
+                        </div>
+                        {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -236,11 +317,18 @@
     {# End header main #}
 
     {# Begin header navigation #}
-    <div class="c-header-navigation">
+    <div class="c-header-navigation d-none d-sm-block">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    navigation here
+                    <div class="c-navigation-2 c-navigation-2-xs">
+                        <ul class="c-navigation__grid my-3">
+                            {{this.render('../_submenu_navigation.twig', {
+                            items: headerSubMenu
+                            }) | raw }}
+                        </ul>
+                    </div>
+                    <div class="u-generic-topBorder"></div>
                 </div>
             </div>
         </div>

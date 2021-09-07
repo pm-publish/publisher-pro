@@ -6,10 +6,20 @@
             @include margin-bottom(20);
             @include padding-bottom(15);
         }
-
         .left-border {
             + .left-border {
-                border-left: 1px solid $grey4;
+                padding-top: 15px;
+            }
+        }
+
+        @include responsive(xs) {
+            @include respond-to(md) {
+                .left-border {
+                    + .left-border {
+                        border-left: 1px solid $grey4;
+                        padding-top: 0px;
+                    }
+                }
             }
         }
     }
@@ -97,16 +107,9 @@
         }
 
         &.without-image {
-            background-color: rgba($grey, 0.8);
-
             .c-cards-view {
                 &__media {
                     display: none;
-                }
-
-                &__heading {
-                    min-height: inherit;
-                    max-height: 100px;
                 }
             }
         }
@@ -119,6 +122,16 @@
                 &__description {
                     display: block;
                 }
+            }
+        }
+    }
+
+    &--inverse {
+        .c-cards-view {
+            &__heading,
+            &__category,
+            &__description {
+                color: $white;
             }
         }
     }

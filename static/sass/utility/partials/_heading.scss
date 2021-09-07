@@ -2,12 +2,13 @@
 .u-heading {
     &__large {
         @include font-size(20);
+        font-family: $secondaryFont;
         font-weight: $weightBold;
         color: $black;
         z-index: 11;
 
-        @include responsive (xs) {
-            @include font-size(28);
+        @include responsive(xs) {
+            @include font-size(26);
         }
     }
 }
@@ -16,19 +17,19 @@
     &-white {
         background-color: $white;
     }
-    &-offwhite{
+    &-offwhite {
         background-color: $offwhite;
     }
 }
-.u-page-info{
-    $self: &; 
-    &__title{
+.u-page-info {
+    $self: &;
+    &__title {
         @include font-size(20);
         font-weight: $weightBold;
         color: $black;
         z-index: 11;
-        margin-bottom:19px;
-        @include responsive (xs) {
+        margin-bottom: 19px;
+        @include responsive(xs) {
             @include font-size(28);
         }
     }
@@ -36,9 +37,28 @@
         p {
             @include font-size(13);
             color: $greyish;
-            line-height:1.54;
-            margin-bottom:18px;
+            line-height: 1.54;
+            margin-bottom: 18px;
+        }
+    }
+}
 
+.c-page-head {
+    @include flexbox;
+    @include flex-direction(column, vertical);
+    margin: 20px 0;
+
+    @include responsive(xs) {
+        @include respond-to(md) {
+            @include flex-direction(row, horizontal);
+            @include align-items(center);
+            @include justify-content(space-between);
+        }
+    }
+
+    &.inverse {
+        .u-heading__large {
+            color: $white;
         }
     }
 }

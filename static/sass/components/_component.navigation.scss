@@ -1,12 +1,12 @@
 /* Begin header top navigation */
 
-.c-navigation { 
+.c-navigation {
     $selfNav: &;
     &-0 {
         #{$selfNav} {
             &__grid {
                 @include flexbox;
-                @include flex-direction(column,vertical);
+                @include flex-direction(column, vertical);
                 @include align-items(center);
                 padding-left: 0;
                 margin-bottom: 0;
@@ -32,7 +32,7 @@
             @include respond-to(sm) {
                 #{$selfNav} {
                     &__grid {
-                        @include flex-direction(row,horizontal);
+                        @include flex-direction(row, horizontal);
 
                         li {
                             + li {
@@ -46,11 +46,36 @@
         }
     }
 
+    &-2 {
+        #{$selfNav} {
+            &__grid {
+                @include flexbox;
+                @include justify-content(center);
+                padding-left: 0;
+                li {
+                    margin: 0 16px;
+                }
+            }
+            &__item {
+                color: $black;
+                @include font-size(14);
+                line-height: 1.14;
+                font-weight: $weightRegular;
+                text-decoration: none;
+                display: block;
+                @include transition(all 0.3s ease);
+                &:hover {
+                    color: $blue_sh5;
+                }
+            }
+        }
+    }
+
     &-3 {
         #{$selfNav} {
             &__grid {
                 @include flexbox;
-                @include flex-direction(column,vertical);
+                @include flex-direction(column, vertical);
                 padding-left: 0;
                 li {
                     + li {
@@ -88,7 +113,6 @@
                 display: block;
                 @include transition(all 0.3s ease);
                 position: relative;
-                
 
                 &--borderred {
                     border-bottom: 2px solid $white;
@@ -101,16 +125,43 @@
                     color: $blue_sh1;
                 }
 
-                +  #{$selfNav}__item {
+                + #{$selfNav}__item {
                     margin-left: 30px;
                     &:before {
-                        content: '';
+                        content: "";
                         width: 1px;
                         background-color: $white;
                         left: -15px;
                         top: 0;
                         position: absolute;
                         height: 100%;
+                    }
+                }
+            }
+        }
+
+        &--inverse {
+            #{$selfNav} {
+                &__item {
+                    color: $black;
+                    font-weight: $weightBold;
+
+                    + #{$selfNav}__item {
+                        margin-left: 15px;
+                        &:before {
+                            display: none;
+                        }
+                    }
+
+                    &.subscribe {
+                        color: $blue_sh5;
+                    }
+
+                    &--borderred {
+                        border-bottom: 2px solid $blue_sh5;
+                        &:hover {
+                            border-bottom-color: $blue_sh1;
+                        }
                     }
                 }
             }
