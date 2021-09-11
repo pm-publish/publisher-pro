@@ -48,6 +48,25 @@
     @include flex-direction(column, vertical);
     margin: 20px 0;
 
+    &__link {
+        color: $grey5;
+        @include font-size(12);
+        font-weight: $weightMedium;
+        line-height: 1.33;
+        text-decoration: none;
+        @include flexbox;
+        @include align-items(center);
+
+        &:after {
+            content: "";
+            background-image: url("../icons/icons-navigation-arrow.svg");
+            width: 24px;
+            height: 34px;
+            display: block;
+            margin-left: 10px;
+        }
+    }
+
     @include responsive(xs) {
         @include respond-to(md) {
             @include flex-direction(row, horizontal);
@@ -59,6 +78,12 @@
     &.inverse {
         .u-heading__large {
             color: $white;
+        }
+
+        .c-page-head {
+            &__link {
+                color: $white;
+            }
         }
     }
 }

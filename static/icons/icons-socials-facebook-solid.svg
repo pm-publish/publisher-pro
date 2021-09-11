@@ -1,13 +1,13 @@
-<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <path d="M4.978 5.265V3.902c0-.206.012-.367.036-.483a.896.896 0 0 1 .139-.328.589.589 0 0 1 .332-.224 2.21 2.21 0 0 1 .611-.069h1.38V.072H5.259c-1.28 0-2.201.299-2.76.897-.559.598-.838 1.484-.838 2.657v1.64H0V7.99h1.66v7.937h3.318V7.99h2.22l.296-2.726H4.978z" id="a"/>
+        <path d="M6.223 6.581V4.877c0-.257.014-.459.044-.604a1.12 1.12 0 0 1 .174-.409.736.736 0 0 1 .416-.28c.188-.057.444-.087.763-.087h1.726V.091H6.572c-1.6 0-2.75.373-3.45 1.12-.698.748-1.047 1.856-1.047 3.321v2.05H0v3.406h2.075v9.921h4.148V9.99h2.773l.372-3.408H6.223z" id="a"/>
     </defs>
-    <g transform="translate(4)" fill="none" fill-rule="evenodd">
+    <g transform="translate(5 1)" fill="none" fill-rule="evenodd">
         <mask id="b" fill="#fff">
             <use xlink:href="#a"/>
         </mask>
-        <g mask="url(#b)" fill="#FFF">
-            <rect width="80" height="80" rx="6" transform="translate(-40 -32)"/>
+        <g mask="url(#b)" fill="#5748F6">
+            <rect width="100" height="100" rx="7.5" transform="translate(-50 -40)"/>
         </g>
     </g>
 </svg>

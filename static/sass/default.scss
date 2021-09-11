@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
-@import 'vendors/bootstrap/bootstrap';
-@import 'vendors/font-awesome-4.7.0/font-awesome';
+// @import 'vendors/bootstrap/bootstrap';
+@import "vendors/font-awesome-4.7.0/font-awesome";
 // @import 'vendors/slick/slick';
 // @import 'vendors/slick/slick-theme';
 /* Basic Includes
@@ -13,35 +13,30 @@
 @import "tools.grid";
 @import "tools.placeholder";
 
-
-
 /* Components
    ================================ */
-@import 'component.article';
-@import 'component.author';
-@import 'component.buttons';
-@import 'component.cards';
-@import 'component.contact';
-@import 'component.eventform';
-@import 'component.events';
-@import 'component.faqs';
-@import 'component.footer';
-@import 'component.forms';
-@import 'component.header';
-@import 'component.listing';
-@import 'component.messagebox';
-@import 'component.modals';
-@import 'component.myAccount';
-@import 'component.pageHead';
-@import 'component.pagination';
-@import 'component.payWall';
-@import 'component.responsiveNav';
-@import 'component.search';
-@import 'component.section';
-@import 'component.subscribe'; 
+@import "component.article";
+@import "component.author";
+@import "component.buttons";
+@import "component.cards";
+@import "component.contact";
+@import "component.eventform";
+@import "component.events";
+@import "component.faqs";
+@import "component.footer";
+@import "component.forms";
+@import "component.header";
+@import "component.listing";
+@import "component.messagebox";
+@import "component.modals";
+@import "component.myAccount";
+@import "component.pageHead";
+@import "component.pagination";
+@import "component.payWall";
+@import "component.responsiveNav";
+@import "component.search";
+@import "component.section";
+@import "component.subscribe";
 
-
-
-
-@import 'objects/objects';
-@import 'utility/utility';
+@import "objects/objects";
+@import "utility/utility";

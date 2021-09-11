@@ -1,24 +1,6 @@
 @mixin card-4-tablet-base() {
     @include card-2-base();
     @include card-name("C4 tablet");
-
-    height: 100%;
-    .swap {
-        height: 100%;
-    }
-    .c-cards-view {
-        &.without-image {
-            .c-cards-view {
-                &__container {
-                    height: 100%;
-
-                    &-topSection {
-                        @include calc(height, "100% - 31px");
-                    }
-                }
-            }
-        }
-    }
 }
 
 .card-4-desktop {
@@ -29,6 +11,7 @@
         .c-cards-view {
             &__media {
                 max-height: 185px;
+                min-height: 185px;
             }
         }
     }

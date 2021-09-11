@@ -35,6 +35,11 @@
         &__container {
             @include calc(width, "100% - 96px");
             margin-left: 96px;
+
+            &-topSection {
+                height: initial;
+                margin: 0;
+            }
         }
 
         // ****************************

@@ -26,13 +26,22 @@
 
     &-view {
         @include flexbox();
-        @include calc(height, "100% - 40px");
+        //@include calc(height, "100% - 40px");
         position: relative;
+        height: 100%;
 
         &.draft {
             opacity: 0.3;
         }
-
+        &__container {
+            height: 100%;
+            @include flexbox;
+            @include flex-direction(column, vertical);
+            &-topSection {
+                @include calc(height, "100% - 31px");
+                margin-bottom: 15px;
+            }
+        }
         &__media {
             position: relative;
             margin: 0;
@@ -107,6 +116,8 @@
         }
 
         &.without-image {
+            height: 100%;
+
             .c-cards-view {
                 &__media {
                     display: none;
@@ -130,18 +141,25 @@
         .c-cards-view {
             &__heading,
             &__category,
-            &__description {
-                color: $white;
+            &__description,
+            &__time,
+            &__author-name {
+                &:before {
+                    background-color: $white !important;
+                }
+                color: $white !important;
             }
         }
     }
 }
 
 div[class^="card"] {
+    height: 100%;
     > a {
         position: relative;
         display: block;
         text-decoration: none;
+        height: 100%;
     }
 
     &:hover,
@@ -155,6 +173,18 @@ div[class^="card"] {
             visibility: visible;
             @include opacity(1);
             @include transition((opacity(1), 2s ease-out));
+        }
+    }
+}
+
+.card {
+    &--verticalMulti {
+        max-height: 302px;
+        margin-bottom: 20px;
+        + .card--verticalMulti {
+            border-top: 1px solid $grey4;
+            padding-top: 15px;
+            margin-top: 15px;
         }
     }
 }

@@ -79,7 +79,28 @@
 			color: $blue_sh5;
 		}
 		+ .u-generic-socialIcons__item {
-			margin-left: 20px;
+			margin-left: 8px;
+		}
+	}
+
+	&-text {
+		font-size: 12px;
+		margin-right: 20px;
+		color: #636567;
+	}
+
+	@include responsive(xs) {
+		@include respond-to(md) {
+			@include flex-direction(column, vertical);
+			@include align-items(flex-start);
+			position: sticky;
+			left: 0;
+			top: 15px;
+
+			.u-generic-socialIcons__item + .u-generic-socialIcons__item {
+				margin-top: 8px;
+				margin-left: 0;
+			}
 		}
 	}
 }

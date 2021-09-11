@@ -30,7 +30,7 @@
                     position: (articleCount+1),
                     imageSize: {width: 296, height: 260},
                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
-                    card-2-verticalMulti",
+                    card--verticalMulti",
                     timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -51,7 +51,8 @@
                     article: articles[articleCount],
                     position: (articleCount+1),
                     imageSize: {width: 296, height: 260},
-                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription",
+                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
+                    card--verticalMulti",
                     timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}

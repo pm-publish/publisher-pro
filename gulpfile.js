@@ -100,21 +100,22 @@ gulp.task("amp_sass", function () {
 });
 
 
-gulp.task('scripts-concat', function(){
+gulp.task('scripts-concat', function () {
   return gulp.src([
-      './static/js/vendor/jquery3.6.js',
-      './static/js/vendor/waypoint/lib/jquery.waypoints.min.js',
-      './static/js/vendor/jquery.lazyload.min.js',
-      './static/js/vendor/jquery.dotdotdot.min.js',
-      './static/js/vendor/owl.carousel.min.js',
-      './static/js/scripts.js',
-      // './assets/scripts/sdk/yii/yii.js',
-      ])
-      .pipe(concat('concat.js'))
-      .pipe(gulp.dest('./static/js'))
-      .pipe(gp_rename('vendor.js'))
-      .pipe(gulp.dest('./static/js'))
-      .pipe(hasher());        
+    './static/js/vendor/jquery3.6.js',
+    './static/js/vendor/waypoint/lib/jquery.waypoints.min.js',
+    './static/js/vendor/jquery.lazyload.min.js',
+    './static/js/vendor/jquery.dotdotdot.min.js',
+    './static/js/vendor/owl.carousel.min.js',
+    './static/js/vendor/owl.carousel2.thumbs.min.js',
+    './static/js/scripts.js',
+    // './assets/scripts/sdk/yii/yii.js',
+  ])
+    .pipe(concat('concat.js'))
+    .pipe(gulp.dest('./static/js'))
+    .pipe(gp_rename('vendor.js'))
+    .pipe(gulp.dest('./static/js'))
+    .pipe(hasher());
 
 });
 gulp.task("watch", function () {
@@ -138,7 +139,7 @@ gulp.task(
 
 gulp.task(
   "scripts",
-  gulp.series("scripts-concat",  function (done) {
+  gulp.series("scripts-concat", function (done) {
     done();
   })
 );

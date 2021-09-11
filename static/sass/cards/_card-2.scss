@@ -107,6 +107,7 @@
         .c-cards-view {
             &__media {
                 max-height: 185px;
+                min-height: 185px;
             }
         }
     }
