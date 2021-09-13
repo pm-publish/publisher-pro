@@ -31,3 +31,122 @@
         text-transform: uppercase;
     }
 }
+
+.c-sidebarMenu {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    max-width: 470px;
+    background-color: $blue_sh1;
+    height: 100%;
+    z-index: 99999;
+    @include box-shadow(3px 2px 13px 0 rgba(0, 0, 0, 0.3));
+    -webkit-transform: translate3d(-100%, 0, 0);
+    -moz-transition: translate3d(-100%, 0, 0);
+    -ms-transition: translate3d(-100%, 0, 0);
+    -o-transition: translate3d(-100%, 0, 0);
+    transform: translate3d(-100%, 0, 0);
+    @include transition(all 0.3s ease);
+    visibility: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &.sidebar-active {
+        visibility: visible;
+        -webkit-transform: translate3d(0, 0, 0);
+        -moz-transition: translate3d(0, 0, 0);
+        -ms-transition: translate3d(0, 0, 0);
+        -o-transition: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+
+    &__subscribe {
+        height: 50px;
+        background-color: $blue_sh5;
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(center);
+
+        span {
+            @include font-size(16);
+            line-height: 1.5;
+            color: $white;
+            font-weight: $weightBold;
+
+            + span {
+                margin-left: 10px;
+            }
+        }
+    }
+
+    &__closeInfo {
+        @include flexbox;
+        @include align-items(center);
+        @include justify-content(space-between);
+        padding: 20px;
+
+        button {
+            span {
+                @include font-size(10);
+                line-height: 1.6;
+                color: $grey3;
+                font-weight: $weightMedium;
+                + span {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        .u-generic-socialIcons__item {
+            + .u-generic-socialIcons__item {
+                margin-left: 18px;
+            }
+        }
+    }
+
+    .c-search-bar {
+        position: relative;
+        margin: 0;
+        width: 100%;
+
+        &__form {
+            width: 100%;
+            margin: 0 20px 0 70px;
+        }
+
+        &__input {
+            color: $black;
+            @include font-size(14);
+            font-weight: $weightRegular;
+            line-height: 1.14;
+            padding: 0 10px;
+
+            &:focus {
+                outline: none;
+            }
+
+            &::placeholder {
+                color: #c0c0c0;
+            }
+        }
+    }
+
+    &__mainNav,
+    &__subNav {
+        margin: 30px 40px 0 70px;
+        border-bottom: 1px solid $darkergrey;
+    }
+    &__copyInfo {
+        margin: 30px 40px 50px 70px;
+        .copy-text {
+            color: $grey3;
+            @include font-size(10);
+            line-height: 1;
+            font-weight: $weightMedium;
+            text-decoration: none;
+            display: block;
+            padding-left: 2rem;
+        }
+    }
+}

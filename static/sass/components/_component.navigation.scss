@@ -46,6 +46,141 @@
         }
     }
 
+    &-1 {
+        &__list {
+            padding: 0;
+            li {
+                position: relative;
+            }
+            > li {
+                > a {
+                    @include font-size(16);
+                    line-height: 1.5;
+                    font-weight: $weightBold;
+                    color: $white;
+                    text-decoration: none;
+                    display: block;
+                    margin-left: 30px;
+                }
+                + li {
+                    margin-top: 25px;
+                }
+
+                &.dropdown {
+                    > .menu-icon {
+                        position: absolute;
+                        left: 0;
+                        width: 14px;
+                        height: 15px;
+                        background-image: url("../icons/icon-plus.svg");
+                        top: 4px;
+                    }
+
+                    &.active {
+                        > .menu-icon {
+                            background-image: none;
+                            @include flexbox;
+                            @include align-items(center);
+                            @include justify-content(center);
+                            &:before {
+                                content: "";
+                                background-color: $white;
+                                height: 1px;
+                                width: 100%;
+                            }
+                        }
+                    }
+                    > ul {
+                        display: none;
+                    }
+                    &.active {
+                        > ul {
+                            display: block;
+                        }
+                    }
+                }
+
+                > ul {
+                    padding: 0;
+                    margin-left: 30px;
+                    > li {
+                        > a {
+                            @include font-size(14);
+                            line-height: 1.14;
+                            font-weight: $weightMedium;
+                            color: $white;
+                            text-decoration: none;
+                            display: block;
+                            margin-left: 30px;
+                            padding-top: 3px;
+                        }
+                        &.sub-dropdown {
+                            > .menu-icon {
+                                position: absolute;
+                                left: 0;
+                                width: 14px;
+                                height: 15px;
+                                background-image: url("../icons/icon-plus.svg");
+                                top: 4px;
+                            }
+
+                            &.active {
+                                > .menu-icon {
+                                    background-image: none;
+                                    @include flexbox;
+                                    @include align-items(center);
+                                    @include justify-content(center);
+                                    &:before {
+                                        content: "";
+                                        background-color: $white;
+                                        height: 1px;
+                                        width: 100%;
+                                    }
+                                }
+                            }
+
+                            > ul {
+                                display: none;
+                            }
+                            &.active {
+                                > ul {
+                                    display: block;
+                                }
+                            }
+                        }
+                        &:first-child {
+                            margin-top: 20px;
+                        }
+                        + li {
+                            margin-top: 16px;
+                        }
+                    }
+
+                    .sub-custom-menu {
+                        margin-left: 20px;
+                        li {
+                            &:first-child {
+                                margin-top: 16px;
+                            }
+                            + li {
+                                margin-top: 16px;
+                            }
+                            a {
+                                @include font-size(14);
+                                line-height: 1.14;
+                                font-weight: $weightRegular;
+                                font-style: italic;
+                                color: $grey4;
+                                text-decoration: none;
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &-2 {
         #{$selfNav} {
             &__grid {
@@ -164,6 +299,49 @@
                         }
                     }
                 }
+            }
+        }
+    }
+    &-5 {
+        #{$selfNav} {
+            &__grid {
+                li {
+                    + li {
+                        margin-top: 16px;
+                    }
+                }
+            }
+            &__item {
+                @include font-size(16);
+                color: $white;
+                line-height: 1.5;
+                font-weight: $weightRegular;
+                text-decoration: none;
+                display: block;
+            }
+        }
+    }
+    &-6 {
+        #{$selfNav} {
+            &__grid {
+                @include flexbox;
+                @include flex-direction(row, horizontal);
+
+                li {
+                    + li {
+                        border-left: 1px solid $grey3;
+                        margin-left: 5px;
+                        padding-left: 5px;
+                    }
+                }
+            }
+            &__item {
+                color: $grey3;
+                @include font-size(10);
+                line-height: 1;
+                font-weight: $weightMedium;
+                text-decoration: none;
+                display: block;
             }
         }
     }

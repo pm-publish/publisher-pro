@@ -83,6 +83,7 @@
     @include card-2-base();
     @include card-name("C2 tablet");
     .c-cards-view {
+        height: 322px;
         &__heading {
             @include font-size(18);
         }

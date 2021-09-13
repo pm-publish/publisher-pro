@@ -76,4 +76,26 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
         $('#counter').html(item + " of " + items)
     }
+
+    //sidebar function
+
+    function sidebarMenuOpen() {
+        let getMenuClick = document.querySelector('.js-menu');
+        getMenuClick.addEventListener('click', openMenuFunction);
+        function openMenuFunction() {
+            document.querySelector('.c-sidebarMenu').classList.add("sidebar-active");
+        }
+    }
+    sidebarMenuOpen();
+
+    function sidebarMenuClose() {
+        let getMenuClick = document.querySelector('.js-closeMenu');
+        getMenuClick.addEventListener('click', closeMenuFunction);
+        function closeMenuFunction() {
+            document.querySelector('.c-sidebarMenu').classList.remove("sidebar-active");
+        }
+    }
+
+    sidebarMenuClose();
+
 });

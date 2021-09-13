@@ -67,6 +67,11 @@
         }
     }
 
+    &--withBorder {
+        border-bottom: 1.5px solid $black;
+        padding-bottom: 15px;
+    }
+
     @include responsive(xs) {
         @include respond-to(md) {
             @include flex-direction(row, horizontal);

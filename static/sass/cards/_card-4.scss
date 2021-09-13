@@ -9,6 +9,7 @@
         @include card-name("C4 desktop");
 
         .c-cards-view {
+            height: 320px;
             &__media {
                 max-height: 185px;
                 min-height: 185px;

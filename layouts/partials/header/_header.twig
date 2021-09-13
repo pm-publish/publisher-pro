@@ -200,6 +200,7 @@
 {% endif %}
 {% set theDate = _AppHelper.getCurrentTimestampBasedOnTimezone() %}
 {% set date = _AppHelper.getDefaultTimezoneDateTime(theDate, dateFormat) %}
+{% set headermenu = _Menu.get({'menuType': 'header', "menuGroupName":"header-main"}) %}
 {% set headerTopMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'header-top'}) %}
 {% set headerSubMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'header-sub-menu'}) %}
 {% set loggedin = _User.isGuest() ? false : true %}
@@ -274,7 +275,7 @@
         </div>
     </div>
     {# End header top bar #}
-
+    
     {# Begin header main #}
     <div class="c-header-main">
         <div class="container">
@@ -335,3 +336,79 @@
     </div>
     {# End header navigation #}
 </div>
+
+{# Begin sidebar navigation #}
+
+<div class="c-sidebarMenu">
+    <a href="javascript" class="c-sidebarMenu__subscribe">
+        <span>Subscribe today</span>
+        <span>
+            <img src={{networkData.templatePath}}/static/icons/icons-navigation-arrow.svg />
+        </span>
+    </a>
+    <div class="c-sidebarMenu__closeInfo">
+        <button class="js-closeMenu">
+            <span>
+            <img src={{networkData.templatePath}}/static/icons/cross-reverse.svg />
+            </span>
+            <span>Close</span>
+        </button>
+        <div class="u-generic-socialIcons">
+            <a href="javascript:;" class="u-generic-socialIcons__item">
+                <span class="fa fa-facebook"></span>
+            </a>
+            <a href="javascript:;" class="u-generic-socialIcons__item">
+                <span class="fa fa-twitter"></span>
+            </a>
+            <a href="javascript:;" class="u-generic-socialIcons__item">
+                <span class="fa fa-instagram"></span>
+            </a>
+            <a href="javascript:;" class="u-generic-socialIcons__item">
+                <span class="fa fa-linkedin"></span>
+            </a>
+            <a href="javascript:;" class="u-generic-socialIcons__item">
+                <span class="fa fa-vimeo"></span>
+            </a>
+            <a href="javascript:;" class="u-generic-socialIcons__item">
+                <span class="fa fa-rss"></span>
+            </a>
+        </div>
+    </div>
+    <div class="c-search-bar">
+        <form class="c-search-bar__form" method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
+            <div class="c-search-bar__submit"></div>
+            <input class="c-search-bar__input" type="text" name="s" placeholder="Search" />
+            <button class="c-button c-button--rounded c-button--blue" type="submit" id="searchsubmit">Go</button>
+        </form>
+    </div>
+    <div class="c-sidebarMenu__mainNav">
+
+        <ul class="c-navigation-1__list">
+            {{ this.render('../../../partials/_menu.twig', {'menu': headermenu}) | raw }}
+        </ul>
+
+    </div>
+    <div class="c-sidebarMenu__subNav">
+        <div class="c-navigation-5 c-navigation-5-xs">
+            <ul class="c-navigation__grid">
+                {{this.render('../_submenu_navigation.twig', {
+                items: headerTopMenu
+                }) | raw }}
+            </ul>
+        </div>
+    </div>
+    <div class="c-sidebarMenu__copyInfo">
+        <div class="c-navigation-6">
+            <ul class="c-navigation__grid">
+                {{this.render('../_submenu_navigation.twig', {
+                items: headerTopMenu
+                }) | raw }}
+            </ul>
+        </div>
+        <div class="copy-text">&copy; {{
+                        "now"|date("Y")}}
+                        {{networkData.title}}</div>
+    </div>
+</div>
+
+{# End sidebar navigation #}

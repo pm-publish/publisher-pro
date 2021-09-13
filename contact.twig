@@ -1,4 +1,4 @@
-{{ set(this, 'title', 'Contact Us') }} 
+{{ set(this, 'title', 'Contact') }} 
 {% set networkData = _Network.getNetworkData() %}
 {% set config      = _Network.getThemeConfig() %}
 {% set flash = _AppHelper.getFlashMessages() %}
@@ -22,68 +22,51 @@
     
 
 
-
-    <main id="main" class="u-margin-top-60" role="main">
-        
-        <div class="o-body-container o-body-container-md">
-            <div class="c-contact">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12 col-lg-7">
-
-                            <div class="c-contact-container">
-
-
-                                {% if success  %}
-
-                                    <div class="c-messagebox u-bg-offwhite">
-                                        <div class="c-messagebox__title">Message sent.</div>
-                                        <div class="c-messagebox__text">
-                                            {{messages | raw}}
-                                            {# <p>Thank you for getting in touch with The News Regional Victoria. Your message has been sent. We will endeavour to respond within 48 hours. 
-                                            If you do not recieve a reply contact the head office via mail at 200 Theroad Road, Suburb 2222.</p> #}
-                                        </div>
-                                        {# <div class="text-center">
-                                            <button name="" class="c-button c-button--rounded c-button--blue c-button--inline u-mt--50">Log in</button>
-                                        </div> #}
-                                    </div>
-
-                                {% else %}
-
-                                    {% if error %}
-                                        <p class="c-error__message"> {{messages | raw}} </p>
-                                    {% endif %}
-
-
-
-                                    <div class="c-page-info">
-                                        <div class="c-page-info__title">Contact us</div>
-                                        <div class="c-page-info__discription">
-                                            {# <p>Fill out the form below and we will get back to you as soon as we are able.</p> #}
-                                        </div>
-                                    </div>
-
-                                    {{ this.render('partials/form.twig', {
-                                        page   : this.title,
-                                        config : config
-                                    }) | raw }}
-
-                                {% endif %}
-
+<main id="main" class="c-contact" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-10 mx-auto">
+                <div class="col-12 col-lg-8">
+                    <div class="u-heading__large u-heading__large-xs u-margin-bottom-30">Contact</div>
+                    <div class="c-contact-wrap c-contact-wrap--withBorder">
+                        <div class="c-contact-info">
+                            <div class="c-contact-info__title">Our details</div>
+                            <div class="c-contact-info__address">
+                                37 Rowan Street,<br/>
+                                Wangaratta Victoria 3677<br/>
                             </div>
-
+                            <div class="c-contact-info__otherInfo">
+                                <strong>Telephone:</strong> (03) 5723 0100<br/>
+                                <strong>Fax:</strong> (03) 5721 9447
+                            </div>
                         </div>
-                        
-                        <div class="col-12 offset-lg-1 col-lg-4">
-                            <div class="o-body-container__right-layout d-none d-lg-block">                                
-                                {% if config['inventory']['adSpace']['hpage'][0] is defined %}
-                                    <div class="j-adslot" id="{{config['inventory']['adSpace']['hpage'][0]}}" data-adshape="hpage"></div>
-                                {% endif %}
+                    </div>
+                
+                    <div class="c-contact-wrap">
+                        <div class="c-contact-info">
+                            <div class="c-contact-info__label">Classifieds</div>
+                            <div class="c-contact-info__otherInfo">
+                                <strong>Telephone:</strong> (03) 5723 0100<br/>
+                                <strong>Fax:</strong> <a href="mailto:classified@media.com.au">classified@media.com.au</a>
+                            </div>
+                        </div>
+                        <div class="c-contact-info">
+                            <div class="c-contact-info__label">Advertising</div>
+                            <div class="c-contact-info__otherInfo">
+                                <strong>Telephone:</strong> (03) 5723 0100<br/>
+                                <strong>Fax:</strong> <a href="mailto:advertising@media.com.au">advertising@media.com.au</a>
+                            </div>
+                        </div>
+                        <div class="c-contact-info">
+                            <div class="c-contact-info__label">Editorial</div>
+                            <div class="c-contact-info__otherInfo">
+                                <strong>Telephone:</strong> (03) 5723 0100<br/>
+                                <strong>Fax:</strong> <a href="mailto:editorial@media.com.au">editorial@media.com.au</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-
+    </div>
+</main>

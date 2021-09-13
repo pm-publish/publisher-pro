@@ -1,21 +1,44 @@
 .c-contact {
+    margin: 50px 0 100px;
+    &-wrap {
+        margin-bottom: 30px;
+        &--withBorder {
+            border-bottom: 1px solid $grey4;
+        }
+    }
 
-    // &__formsection {
-    //     background: $white;
-    //     @include padding-bottom(20);
-    // }
+    &-info {
+        margin-bottom: 30px;
 
-    // &__messageopen {
-    //     &__formsection {
-    //         display:none;  
-    //     }
-    //     .u-page-info{
-    //         .u-page-info__discription{
-    //             display:none;
-    //         }
-    //     }
-    //     .c-messagebox {
-    //         display:block;
-    //     }
-    // } 
+        &__label {
+            @include font-size(18);
+            line-height: 1.75;
+            font-weight: $weightBold;
+            color: $blue_sh5;
+            margin-bottom: 5px;
+        }
+        &__title {
+            @include font-size(20);
+            line-height: 1.2;
+            font-weight: $weightBold;
+            color: $black;
+            margin-bottom: 5px;
+        }
+        &__address {
+            margin-bottom: 30px;
+            @include font-size(16);
+            line-height: 1.75;
+            color: $grey5;
+        }
+        &__otherInfo {
+            @include font-size(16);
+            line-height: 1.75;
+            color: $grey5;
+
+            a {
+                color: $blue_sh5;
+                text-decoration: none;
+            }
+        }
+    }
 }

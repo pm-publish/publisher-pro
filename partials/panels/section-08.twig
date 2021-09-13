@@ -2,7 +2,7 @@
 {% set cardIndex = 0 %}
 
 
-<div class="row" data-section="02">
+<div class="row" data-section="08">
     <div class="col-12">
         <div class="u-generic-topBorder "></div>
         <div class="c-page-head c-page-head-xs">
@@ -13,47 +13,50 @@
 </div>
 
 
+
 <div class="row">
     <div class="col">
         <div class="c-cards-container c-cards-container-xs bottom-border">
             <div class="row">
+                {% for i in 0..3 if articles[articleCount] %}
+
                 <div class="col-12 col-lg-3 left-border">
-                    {% for i in 4..5 if articles[articleCount] %}
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
                     position: (articleCount+1),
                     imageSize: {width: 296, height: 260},
-                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
-                    card--verticalMulti",
-                    timeSuppress: timeSuppress
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                    {% endfor %}
-                </div>
-                <div class="col-12 col-lg-6 left-border">
-                    {{this.render('../_single-article.twig', {
-                    article: articles[articleCount],
-                    position: (articleCount+1),
-                    imageSize: {width: 296, height: 260},
-                    containerClass: "card-2-mobile card-2-tablet card-5-desktop",
+                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription",
                     timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 </div>
-                <div class="col-12 col-lg-3 left-border">
-                    {% for i in 6..7 if articles[articleCount] %}
-                    {{this.render('../_single-article.twig', {
-                    article: articles[articleCount],
-                    position: (articleCount+1),
-                    imageSize: {width: 296, height: 260},
-                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
-                    card--verticalMulti",
-                    timeSuppress: timeSuppress
-                    }) | raw}}
-                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                    {% endfor %}
-                </div>
+                {% endfor %}
             </div>
         </div>
+        <div class="c-cards-container c-cards-container-xs bottom-border">
+            <div class="row">
+                {% for i in 4..7 if articles[articleCount] %}
+
+                <div class="col-12 col-lg-3 left-border">
+                    {{this.render('../_single-article.twig', {
+                    article: articles[articleCount],
+                    position: (articleCount+1),
+                    imageSize: {width: 296, height: 260},
+                    containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                    timeSuppress: timeSuppress
+                    }) | raw}}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    
     </div>
 </div>
+{% if adslots[0] is defined %}
+    <div class="row">
+        <div class="col-12">
+            <div class="j-adslot" id="{{adslots[0]}}" data-adshape="mrec"></div>
+        </div>
+    </div>
+{% endif %}

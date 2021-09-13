@@ -1,15 +1,15 @@
-document.addEventListener("DOMContentLoaded", function(event) {
-    
+document.addEventListener("DOMContentLoaded", function (event) {
+
     // Lazyload, dotdotdot and owlCarousel curently run externallly to webpack bundle
-    
+
     $("img.lazyload").lazyload({
-        effect : "fadeIn"
+        effect: "fadeIn"
     });
 
 
     var cardHolder = '';
     clearTimeout(cardHolder);
-    cardHolder = setTimeout((function() {
+    cardHolder = setTimeout((function () {
         $('.j-truncate').dotdotdot({
             watch: true
         });
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         items: 1,
         thumbs: true,
         thumbsPrerendered: true,
-        URLhashListener:true,
+        URLhashListener: true,
         startPosition: 'URLHash',
         pagination: true,
         dots: false,
@@ -43,4 +43,28 @@ document.addEventListener("DOMContentLoaded", function(event) {
         }
         $('#counter').html(item + " of " + items)
     }
+
+    //sidebar function
+
+    function sidebarMenuOpen() {
+        let getMenuClick = document.querySelector('.js-menu');
+        getMenuClick.addEventListener('click', openMenuFunction);
+        function openMenuFunction() {
+            document.querySelector('.c-sidebarMenu').classList.add("sidebar-active");
+            document.querySelector('.body').classList.add("no-scroll");
+        }
+    }
+    sidebarMenuOpen();
+
+    function sidebarMenuClose() {
+        let getMenuClick = document.querySelector('.js-closeMenu');
+        getMenuClick.addEventListener('click', closeMenuFunction);
+        function closeMenuFunction() {
+            document.querySelector('.c-sidebarMenu').classList.remove("sidebar-active");
+            document.querySelector('.body').classList.remove("no-scroll");
+        }
+    }
+
+    sidebarMenuClose();
+
 });

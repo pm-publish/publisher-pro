@@ -5,10 +5,23 @@
 }
 
 .o-body-container__forvideo {
-   .c-sectionwrapper {
-     @include padding(36 0 50 0);
+    .c-sectionwrapper {
+        @include padding(36 0 50 0);
     }
-    
+}
+
+.section-page-firstRow {
+    .card-5-desktop {
+        .c-cards-view {
+            height: 720px;
+        }
+    }
+
+    .card-2-desktop {
+        .c-cards-view {
+            height: inherit;
+        }
+    }
 }
 
 /* End section page  style */

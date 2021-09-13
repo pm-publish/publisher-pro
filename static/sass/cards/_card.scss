@@ -153,13 +153,22 @@
     }
 }
 
+.card {
+    &--verticalMulti {
+        margin-bottom: 20px;
+        + .card--verticalMulti {
+            border-top: 1px solid $grey4;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+    }
+}
+
 div[class^="card"] {
-    height: 100%;
     > a {
         position: relative;
         display: block;
         text-decoration: none;
-        height: 100%;
     }
 
     &:hover,
@@ -173,18 +182,6 @@ div[class^="card"] {
             visibility: visible;
             @include opacity(1);
             @include transition((opacity(1), 2s ease-out));
-        }
-    }
-}
-
-.card {
-    &--verticalMulti {
-        max-height: 302px;
-        margin-bottom: 20px;
-        + .card--verticalMulti {
-            border-top: 1px solid $grey4;
-            padding-top: 15px;
-            margin-top: 15px;
         }
     }
 }

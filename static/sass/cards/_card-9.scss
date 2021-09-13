@@ -1,0 +1,155 @@
+@mixin card-9-base() {
+    @include card-name("C9 mobile");
+
+    .c-cards-view {
+        @include flex-direction(row, horizontal);
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid $grey4;
+
+        &__media {
+            width: 164px;
+            height: 128px;
+            position: absolute;
+            left: 0;
+            &--video {
+                &:before {
+                    @include size(88px);
+                }
+            }
+        }
+
+        &__heading {
+            @include font-size(14);
+            line-height: 1.43;
+            margin-top: 3px;
+            min-height: 36px;
+        }
+
+        &__description {
+            color: $grey5;
+            @include font-size(13);
+            line-height: 1.38;
+        }
+
+        &__author {
+            @include flexbox;
+            @include align-items(center);
+
+            &-name {
+                @include font-size(12);
+                color: $black;
+                line-height: 1.33;
+                font-family: $primaryFont;
+                font-weight: $weightMedium;
+                margin-right: 15px;
+                position: relative;
+                padding-left: 12px;
+
+                &:before {
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    @include translate(0, -50%);
+                    @include size(4px);
+                    background-color: $blue_sh5;
+                }
+            }
+        }
+
+        &__container {
+            @include calc(width, "100% - 185px");
+            margin-left: 185px;
+            min-height: 135px;
+
+            &-topSection {
+                height: initial;
+                margin: 0;
+                min-height: 120px;
+            }
+        }
+
+        // ****************************
+        //          SOCIAL
+        // ****************************
+        &.social {
+            .social-icon {
+                @include size(30px);
+
+                &:before {
+                    @include font-size(13);
+                    line-height: 32px;
+                }
+            }
+
+            &.without-image {
+                .c-cards-view {
+                    &__container {
+                        @include calc(width, "100% - 30px");
+                        margin-left: 0px;
+                        padding: 0 20px;
+                        background: none;
+                        margin-top: 40px;
+                    }
+                }
+            }
+        }
+
+        &.without-image {
+            background-color: transparent;
+            .c-cards-view {
+                &__container {
+                    width: 100%;
+                    margin-left: 0px;
+                }
+            }
+        }
+    }
+}
+
+.card-9-mobile {
+    @media #{$mobile} {
+        @include card-9-base();
+    }
+}
+
+@mixin card-9-tablet-base() {
+    @include card-9-base();
+    @include card-name("C9 tablet");
+
+    // ****************************
+    //          SOCIAL
+    // ****************************
+    &.social {
+        .social-icon {
+            @include size(50px);
+
+            &:before {
+                @include font-size(22);
+                line-height: 52px;
+            }
+        }
+
+        &.without-image {
+            .c-cards-view {
+                &__container {
+                    margin-top: 60px;
+                }
+            }
+        }
+    }
+}
+
+.card-9-tablet {
+    @media #{$tablet} {
+        @include card-9-tablet-base();
+        @include card-name("C9 desktop");
+    }
+}
+.card-9-desktop {
+    @media #{$desktop-up} {
+        @include card-9-tablet-base();
+        @include card-name("C9 desktop");
+    }
+}
