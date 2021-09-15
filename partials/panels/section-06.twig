@@ -19,17 +19,18 @@
     </div>
 </div>
 
-
-<div class="row">
-    {% for i in 0..5 if popularArticles[i] %}
-            <li class="col-12 col-lg-2">
-                {{this.render('../_single-article.twig', {
-                    article: popularArticles[i], 
-                    imageSuppress: true,
-                    containerClass: "card-6-mobile card-6-tablet card-6-desktop"
-                }) | raw}}
-            </li>
-    {% endfor %}
+<div class="c-cards-container c-cards-container-xs u-margin-bottom-50">
+    <div class="row">
+        {% for i in 0..5 if popularArticles[i] %}
+                <li class="col-12 col-lg-2 left-border">
+                    {{this.render('../_single-article.twig', {
+                        article: popularArticles[i], 
+                        imageSuppress: true,
+                        containerClass: "card-6-mobile card-6-tablet card-6-desktop"
+                    }) | raw}}
+                </li>
+        {% endfor %}
+    </div>
 </div>
 
 

@@ -1,19 +1,13 @@
 /* Begin cards view style */
 .c-cards {
     &-container {
-        &.bottom-border {
-            border-bottom: 1px solid $grey4;
-            @include margin-bottom(20);
-            @include padding-bottom(15);
-        }
-        .left-border {
-            + .left-border {
-                padding-top: 15px;
-            }
-        }
-
         @include responsive(xs) {
             @include respond-to(md) {
+                &.bottom-border {
+                    border-bottom: 1px solid $grey4;
+                    @include margin-bottom(20);
+                    @include padding-bottom(15);
+                }
                 .left-border {
                     + .left-border {
                         border-left: 1px solid $grey4;
@@ -103,9 +97,11 @@
             font-family: $secondaryFont;
             font-weight: $weightBold;
             min-height: 60px;
+            margin-bottom: 0;
         }
 
         &__description {
+            margin-top: 12px;
             @include font-size(14);
         }
 
@@ -155,11 +151,15 @@
 
 .card {
     &--verticalMulti {
-        margin-bottom: 20px;
-        + .card--verticalMulti {
-            border-top: 1px solid $grey4;
-            padding-top: 15px;
-            margin-top: 15px;
+        @include responsive(xs) {
+            @include respond-to(md) {
+                margin-bottom: 20px;
+                + .card--verticalMulti {
+                    border-top: 1px solid $grey4;
+                    padding-top: 15px;
+                    margin-top: 15px;
+                }
+            }
         }
     }
 }

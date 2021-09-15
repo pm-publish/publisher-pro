@@ -1,0 +1,56 @@
+@mixin card-6-base() {
+    @include card-name("C6 mobile");
+
+    .c-cards-view {
+        @include flex-direction(column, vertical);
+        border-bottom: 1px solid $grey4;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+
+        &__heading {
+            @include font-size(14);
+            line-height: 1.33;
+            margin-top: 5px;
+            margin-bottom: 0;
+            font-weight: $weightBold;
+        }
+        &__description,
+        &__author-name {
+            display: none;
+        }
+    }
+}
+
+.card-6-mobile {
+    @media #{$mobile} {
+        @include card-6-base();
+    }
+}
+
+@mixin card-6-tablet-base() {
+    @include card-6-base();
+}
+
+.card-6-tablet {
+    @media #{$tablet} {
+        @include card-6-tablet-base();
+        @include card-name("C6 desktop");
+    }
+}
+
+.card-6-desktop {
+    @media #{$desktop-up} {
+        @include card-6-tablet-base();
+        @include card-name("C6 desktop");
+
+        .c-cards-view {
+            border-bottom: none;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+
+            &__heading {
+                min-height: 72px;
+            }
+        }
+    }
+}

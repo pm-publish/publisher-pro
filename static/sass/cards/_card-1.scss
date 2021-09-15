@@ -3,6 +3,8 @@
 
     .c-cards-view {
         @include flex-direction(row, horizontal);
+        border-bottom: 1px solid $grey4;
+        padding-bottom: 15px;
         margin-bottom: 15px;
 
         &__media {
@@ -123,5 +125,11 @@
     @media #{$desktop-up} {
         @include card-1-tablet-base();
         @include card-name("C1 desktop");
+
+        .c-cards-view {
+            border-bottom: none;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+        }
     }
 }

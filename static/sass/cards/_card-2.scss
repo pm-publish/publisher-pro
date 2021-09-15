@@ -3,6 +3,9 @@
 
     .c-cards-view {
         @include flex-direction(column, vertical);
+        border-bottom: 1px solid $grey4;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
 
         &__media {
             margin-bottom: 15px;
@@ -83,7 +86,6 @@
     @include card-2-base();
     @include card-name("C2 tablet");
     .c-cards-view {
-        height: 322px;
         &__heading {
             @include font-size(18);
         }
@@ -106,6 +108,10 @@
         @include card-name("C2 desktop");
 
         .c-cards-view {
+            border-bottom: none;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
+            height: 322px;
             &__media {
                 max-height: 185px;
                 min-height: 185px;

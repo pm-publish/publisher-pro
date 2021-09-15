@@ -11,9 +11,6 @@
 
 {% set firstCount = events | length %}
 
-
-
-
 <!-- used to index each article as we loop over throughout the template -->
 {% set eventCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
