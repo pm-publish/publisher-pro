@@ -1,7 +1,7 @@
 /* Begin header style */
 
 .c-button {
-    position:relative;
+    position: relative;
     border: none;
     outline: none;
     background: none;
@@ -9,30 +9,34 @@
     padding: 0 16px;
     display: inline-block;
     border: 2px solid $transparent;
-    @include font-size(13);
-    line-height: 2.8;
-    letter-spacing: 1.4px;
+    @include font-size(16);
+    line-height: 1.5;
     font-weight: $weightMedium;
     @include transition(all 0.3s ease);
     min-width: 120px;
     text-align: center;
-    height: 40px;
-    // @include flexbox();
-    // @include align-items(center);
-    // @include justify-content(center);
-    text-transform: uppercase;
+    height: 48px;
+    @include inline-flex();
+    @include align-items(center);
+    @include justify-content(center);
+    text-decoration: none;
 
-    &--background-white{
+    &--background-white {
         background-color: white;
     }
-    
+
+    &--fwidth {
+        width: 100%;
+        max-width: 400px;
+    }
+
     &-block {
         width: $viewportSize;
         display: block;
     }
 
     &--inline {
-        display:inline-block;
+        display: inline-block;
     }
 
     &--rounded {
@@ -40,16 +44,12 @@
     }
 
     &--radius {
-        @include border-radius(4px);
+        @include border-radius(6px);
     }
 
     &--spinner {
-        color:white !important;
-        &:hover {
-            color:lightness( $mainColor, 0.82) !important;
-        }
+        color: white !important;
     }
-
 
     &--blue {
         background-color: $mainColor;
@@ -58,26 +58,24 @@
         border-color: $mainColor;
         color: $white;
 
-        &:hover {
-            background-color: $mainColor;
-            border-color: $mainColor;
-            background-color: lightness( $mainColor, 0.82);
-            border-color: lightness( $mainColor, 0.82);
-            color: $white;
-        }
-
         &-bordered {
-            border-color:  $mainColor;
+            border-color: $mainColor;
             color: $mainColor;
-
-            &:hover {
-                color: $white;
-                background-color: lightness( $mainColor, 0.82);
-                border-color: lightness( $mainColor, 0.82);
-            }
         }
     }
 
+    &--lightBlue {
+        background-color: $blue_sh5;
+        border-color: $blue_sh5;
+        background-color: $blue_sh5;
+        border-color: $blue_sh5;
+        color: $white;
+
+        &-bordered {
+            border-color: $blue_sh5;
+            color: $blue_sh5;
+        }
+    }
 
     &--red {
         color: $white;
@@ -103,43 +101,47 @@
         }
     }
 
-    &--center{
+    &--min-width180 {
+        min-width: 180px;
+    }
+
+    &--center {
         margin-right: auto;
         margin-left: auto;
     }
-    
+
     &--disabled {
-        @include opacity(.5);
+        @include opacity(0.5);
     }
 
     &--plan {
-        min-width:230px;
-        max-width:230px;
+        min-width: 230px;
+        max-width: 230px;
         @include margin-top(10);
-        &.c-button__blue-bordered{
+        &.c-button__blue-bordered {
             background-color: unset;
         }
     }
     &--right {
-        float:right;
+        float: right;
         @include margin-top(20);
     }
     &:focus {
         outline: 0;
     }
-    &--disabled{
+    &--disabled {
         border: none;
         background: $grey;
         cursor: unset;
-        &:hover{
+        &:hover {
             background: $grey;
         }
     }
-    &--subscribe{
+    &--subscribe {
         height: 50px;
-        padding-top:   5px;
+        padding-top: 5px;
     }
-    &__trial{
+    &__trial {
         font-size: rem(13);
         font-weight: 500;
         line-height: 1;

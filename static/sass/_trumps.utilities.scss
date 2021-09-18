@@ -617,7 +617,7 @@ hr.divide {
     border-top: 1px solid color(lightgrey);
 }
 
-.u-noscroll {overflow:hidden}
+.u-noscroll {overflow:hidden;height: 100%;}
 .clearfix {overflow:auto;overflow-x:hidden}
 .centerContent { display:inline; text-align: center;}
 .centerText {text-align: center;}

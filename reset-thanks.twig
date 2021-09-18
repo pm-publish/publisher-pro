@@ -1,12 +1,14 @@
 {{ set(this, 'title', "Thank You") }}
 {% set config       = _Network.getThemeConfig() %}
-<div class="login-page">
+<div class="login-page c-genericBg u-margin-top-40 u-margin-bottom-80">
+
     <div class="container">
         <div class="tab-content">
             <div class="row">
-                <div class="col-12 col-lg-7 u-margin-top-50 u-margin-bottom-60" style="min-height:500px;">
-                    <h4 class="helper-text">Success! Your password has been set. </h4>
-                    <a href="{{networkData.defaultBlogUrl}}/" class="c-button c-button--rounded c-button--blue u-margin-top-30 u-color--white">Home</a>
+                <div class="col-12 col-lg-7 u-margin-top-50 u-margin-bottom-60">
+                    <h4 class="u-heading__large u-heading__large_32 u-heading__large-xs">Set your password</h4>
+                    <p class="login-page__thanks-text">Thank you for resetting your password. Your can now log in using your new password.</p>
+                    <a href="{{networkData.defaultBlogUrl}}/" class="c-button c-button--min-width180 c-button--lightBlue u-margin-top-20 u-color--white">Log in</a>
                 </div>
                 {# <div class="col-12 offset-lg-1 col-lg-4">
                     {% if config['inventory']['adSpace']['side-fix'][0] is defined %}

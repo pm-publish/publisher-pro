@@ -1,7 +1,7 @@
 import Handlebars from 'handlebars'
 
 
-Handlebars.registerHelper('labelFix', function(text) {
+Handlebars.registerHelper('labelFix', function (text) {
     if (!text) return "";
     if (text === "year") return "Annual";
     if (text === "month") return "Monthly";
@@ -13,10 +13,10 @@ Handlebars.registerHelper('labelFix', function(text) {
     return label;
 });
 
-Handlebars.registerHelper('priceFix', function(price) {
+Handlebars.registerHelper('priceFix', function (price) {
     if (!price) return "";
     price = parseInt(price);
-    price = price/100;
+    price = price / 100;
     return price;
 });
 
@@ -51,8 +51,8 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
     }
 });
 
-const cardTemplateTop = 
-'<div class="{{cardClass}} {{containerClass}} walla walla"> \
+const cardTemplateTop =
+    '<div class="{{cardClass}} {{containerClass}} walla walla"> \
     <a  itemprop="url" \
         href="{{url}}" \
         class="card swap {{articleStatus}}  {{hasMediaClass}}" \
@@ -67,37 +67,38 @@ const cardTemplateTop =
     \
         <article class="{{cardType}}c-cards-view">';
 
-const cardTemplateBottom = 
-        '</article>'+
-        
-        '{{#if userHasBlogAccess}}'+
-            '<div class="btn_overlay articleMenu">'+
-                '<button title="Hide" data-guid="{{guid}}" class="btnhide social-tooltip HideBlogArticle" type="button" data-social="0">'+
-                    '<i class="fa fa-eye-slash"></i><span class="hide">Hide</span>'+
-                '</button>'+
-                '<button onclick="window.location=\'{{{editUrl}}}\'; return false;" title="Edit" class="btnhide social-tooltip" type="button">'+
-                    '<i class="fa fa-edit"></i><span class="hide">Edit</span>'+
-                '</button>'+
-                '<button data-position="{{position}}" data-social="0" data-id="{{articleId}}" title="{{pinTitle}}" class="btnhide social-tooltip PinArticleBtn {{# ifCond isPinned "==" 1}} selected {{/ifCond}} " type="button" data-status="{{isPinned}}">'+
-                    '<i class="fa fa-thumb-tack"></i><span class="hide">{{pinText}}</span>'+   
-                '</button>'+
-            '</div>'+
-        "{{/if}}"+
-    '</a>'+
-'</div>';
+const cardTemplateBottom =
+    '</article>' +
+
+    '{{#if userHasBlogAccess}}' +
+    '<div class="btn_overlay articleMenu">' +
+    '<button title="Hide" data-guid="{{guid}}" class="btnhide social-tooltip HideBlogArticle" type="button" data-social="0">' +
+    '<i class="fa fa-eye-slash"></i><span class="hide">Hide</span>' +
+    '</button>' +
+    '<button onclick="window.location=\'{{{editUrl}}}\'; return false;" title="Edit" class="btnhide social-tooltip" type="button">' +
+    '<i class="fa fa-edit"></i><span class="hide">Edit</span>' +
+    '</button>' +
+    '<button data-position="{{position}}" data-social="0" data-id="{{articleId}}" title="{{pinTitle}}" class="btnhide social-tooltip PinArticleBtn {{# ifCond isPinned "==" 1}} selected {{/ifCond}} " type="button" data-status="{{isPinned}}">' +
+    '<i class="fa fa-thumb-tack"></i><span class="hide">{{pinText}}</span>' +
+    '</button>' +
+    '</div>' +
+    "{{/if}}" +
+    '</a>' +
+    '</div>';
 
 
 
 
 export const Templates = {
-modal: 
-// style="scrolling == unusable position:fixed element might be fixing login for ios safari
-// also margin-top:10px
-'<div id="{{name}}" class="flex_col {{name}}"> \
+    modal:
+        // style="scrolling == unusable position:fixed element might be fixing login for ios safari
+        // also margin-top:10px
+        '<div id="{{name}}" class="flex_col {{name}}"> \
     <div id="dialog" class="{{name}}__window"> \
         <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="{{name}}__header"> \
                 <h2 class="{{name}}__title">{{{title}}}</h2> \
+                <p class="{{name}}__description">Welcome to The News Regional Victoria.</p> \
                 <a class="{{name}}__close" href="#" data-behaviour="close"></a> \
             </div> \
             <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
@@ -106,10 +107,10 @@ modal:
 </div>',
 
 
-donate_modal:
-// style="scrolling == unusable position:fixed element might be fixing login for ios safari
-// also margin-top:10px
-'<div id="{{name}}" class="flex_col {{name}}"> \
+    donate_modal:
+        // style="scrolling == unusable position:fixed element might be fixing login for ios safari
+        // also margin-top:10px
+        '<div id="{{name}}" class="flex_col {{name}}"> \
     <div id="dialog" class="{{name}}__window"> \
         <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
@@ -119,8 +120,8 @@ donate_modal:
 
 
 
-donations:
-'<div id="{{id}}" class="donate-form" data-selected="{{selected.price_id}}"> \
+    donations:
+        '<div id="{{id}}" class="donate-form" data-selected="{{selected.price_id}}"> \
     \
     <div class="donate-form__header"> \
         <div class="donate-form__periods j-donation-periods" data-active="{{active}}"> \
@@ -167,9 +168,9 @@ donations:
 
 
 
-donateSignupForm:
-    // <script> tag possible ios safari login fix
-'<div id="{{id}}" class="donate-form" data-selected="{{selected.price_id}}"> \
+    donateSignupForm:
+        // <script> tag possible ios safari login fix
+        '<div id="{{id}}" class="donate-form" data-selected="{{selected.price_id}}"> \
     <div class="donate-form__header"> \
         <div class="donate-form__close"> \
             <a class="donate-form__close-icon o-close" href="#" data-behaviour="close"></a> \
@@ -230,22 +231,22 @@ donateSignupForm:
 
 
 
-mailchimpList:
-    '<div> \
+    mailchimpList:
+        '<div> \
         <input type="checkbox" class="email-subscription__checkbox" name="summary-email" id="mailchimp" value="{{listId}}:{{groupId}}" {{checked}}> \
         <label class="email-subscription__label">{{{name}}}</label> \
     </div>',
 
-pulldown:
-'<div id="{{ name }}" class="Acme-pulldown {{class}}"> \
+    pulldown:
+        '<div id="{{ name }}" class="Acme-pulldown {{class}}"> \
     <p class="Acme-pulldown__selected-item"></p> \
     <span class="Acme-pulldown__span"></span> \
     <ul class="Acme-pulldown__list" data-key="{{ key }}"></ul> \
 </div>',
 
 
-create_user: 
-'<div class="" style="height:100%; overflow:auto; position:relative"> \
+    create_user:
+        '<div class="" style="height:100%; overflow:auto; position:relative"> \
     <div class="user-editor__input-container u-float-left"> \
         <input type="text" id="newuserfirstname" class="j-firstname account-form__input" value="" placeholder="{{firstname}}"> \
     </div> \
@@ -264,8 +265,8 @@ create_user:
 </div>',
 
 
-edit_user: 
-'<div class="" style="height:100%; overflow:auto"> \
+    edit_user:
+        '<div class="" style="height:100%; overflow:auto"> \
     <div class="user-editor__input-container u-float-left"> \
         <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="{{firstname}}" placeholder="First name"> \
         <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Email address"> \
@@ -279,8 +280,8 @@ edit_user:
     </div> \
 </div>',
 
-managed_user: 
-'<div class="u-float-left"> \
+    managed_user:
+        '<div class="u-float-left"> \
     <p class="userdetails__name"> \
         <span class="j-firstname">{{firstname}}</span> \
         <span class="j-lastname">{{lastname}}</span> \
@@ -291,8 +292,8 @@ managed_user:
 <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>',
 
 
-managed_user: 
-'<li id="{{id}}" class="userdetails {{cardClass}}"> \
+    managed_user:
+        '<li id="{{id}}" class="userdetails {{cardClass}}"> \
     <div class="u-float-left"> \
         <p class="userdetails__name"> \
             <span class="j-firstname">{{firstname}}</span> \
@@ -305,30 +306,33 @@ managed_user:
 </li>',
 
 
-signinFormTmpl: 
-    // <script> tag possible ios safari login fix
-    '<form name="loginForm" id="loginForm" class="{{class-prefix}}login-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    signinFormTmpl:
+        // <script> tag possible ios safari login fix
+        '<form name="loginForm" id="loginForm" class="{{class-prefix}}login-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
         \
-        <input id="loginName" class="{{class-prefix}}login-form__input j-register-username" type="text" name="username" placeholder="Email address" value="" /> \
-        <input id="loginPass" class="{{class-prefix}}login-form__input j-signin-password" type="password" name="password" placeholder="Password" value="" /> \
-        \
-        <div class="remember"> \
-            <p class="{{class-prefix}}login-form__forgot layout" data-layout="forgot" class="">Forgot password</p> \
+        <div class="signin-modal__form-group"> \
+            <div class="signin-modal__form-group__label"> \
+                <label class="signin-modal__form-group__label-text">Email address</label> \
+            </div> \
+            <input id="loginName" class="{{class-prefix}}login-form__input j-register-username" type="text" name="username" placeholder="Email address" value="" /> \
+        </div> \
+        <div class="signin-modal__form-group"> \
+            <div class="signin-modal__form-group__label"> \
+                <label class="signin-modal__form-group__label-text">Password</label> \
+                <p class="{{class-prefix}}login-form__forgot layout" data-layout="forgot" class="">Forgot password</p> \
+            </div> \
+            <input id="loginPass" class="{{class-prefix}}login-form__input j-signin-password" type="password" name="password" placeholder="Password" value="" /> \
         </div> \
         \
         <div class="{{class-prefix}}login-form__error message active u-hide"> \
             <div class="{{class-prefix}}login-form__error_text">Invalid Email or Password</div> \
         </div> \
         \
-        <button data-elem="signin" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button _btn _btn--red signin">SIGN IN</button> \
+        <div class="button-set"> \
+            <button type="submit" class="login-form__button cancel">Cancel</button> \
+            <button data-elem="signin" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button _btn _btn--red signin">Log in</button> \
+        </div> \
         \
-        <p class="{{class-prefix}}login-form__faq u-no-margin u-margin-top-15 login-form-faq">Trouble signing in? <a class="login-form-faq__link" href="'+_appJsConfig.appHostName +'/faq" target="_blank">Read our FAQ</a></p> \
-        \
-        {{# ifCond name "!=" "donate-"}} \
-            <div class="reset"> \
-                <p class="layout" data-layout="forgot" class="">Set my password</p> \
-            </div> \
-        {{/ifCond}} \
         <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script>\
     </form>',
 
@@ -338,8 +342,8 @@ signinFormTmpl:
 
 
 
-registerTmpl: 
-    '<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    registerTmpl:
+        '<form name="registerForm" id="registerForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
         \
         <input id="name" class="" type="text" name="name" placeholder="Name"> \
         <input id="email" class="" type="email" name="email" placeholder="Email"> \
@@ -352,8 +356,8 @@ registerTmpl:
     </form>',
 
 
-forgotFormTmpl: 
-    '<form name="forgotForm" id="forgotForm" class="password-reset-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    forgotFormTmpl:
+        '<form name="forgotForm" id="forgotForm" class="password-reset-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
         <input type="hidden" name="_csrf" value="" /> \
         <p class="password-reset-form__p">Enter your email below and we will send you a link to set your password.</p> \
         <input id="email" class="password-reset-form__input" type="text" name="email" placehold="Email" value=""> \
@@ -365,9 +369,9 @@ forgotFormTmpl:
         <button id="forgotBtn" type="submit" class="_btn _btn--red forgot">SEND EMAIL</button> \
     </form>',
 
-    
-spinner: 
-    '<div id="{{name}}" class="flex_col {{name}}"> \
+
+    spinner:
+        '<div id="{{name}}" class="flex_col {{name}}"> \
         <div id="dialog" class="{{name}}__window"> \
             <div class="{{name}}__header"> \
                 <h2 class="{{name}}__title">{{title}}</h2> \
@@ -375,14 +379,14 @@ spinner:
             <div class="{{name}}__content-window" id="dialogContent"></div> \
         </div> \
     </div>',
-    
 
-spinnerTmpl: '<div class="spinner"></div>',
 
-subscribeTerms:  '<p class="password-reset-form__p u-margin-bottom-20">Please agree to the terms of use.</p><div><form><button class="_btn _btn--red" data-role="okay">OK</button></form></div>',
+    spinnerTmpl: '<div class="spinner"></div>',
 
-ipnotice:  
-    '<p class="ipdialog__p u-margin-bottom-20">You can access Pro under this subscription – simply email <a href="mailto:pro@newsroom.co.nz"><strong>pro@newsroom.co.nz</strong></a> for a login.</p> \
+    subscribeTerms: '<p class="password-reset-form__p u-margin-bottom-20">Please agree to the terms of use.</p><div><form><button class="_btn _btn--red" data-role="okay">OK</button></form></div>',
+
+    ipnotice:
+        '<p class="ipdialog__p u-margin-bottom-20">You can access Pro under this subscription – simply email <a href="mailto:pro@newsroom.co.nz"><strong>pro@newsroom.co.nz</strong></a> for a login.</p> \
     <div> \
         <form> \
             <a href="mailto:pro@newsroom.co.nz" class="ipdialog__btn _btn _btn--red _btn--outline-red">CONTACT US</a> \
@@ -390,20 +394,20 @@ ipnotice:
         </form> \
     </div>',
 
-userPlanMessage: 
-'<p class="{{name}}__message centerText">{{{message}}}</p> \
+    userPlanMessage:
+        '<p class="{{name}}__message centerText">{{{message}}}</p> \
 <form name="loginForm" id="loginForm" class="active u-margin-top-20" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
      <button id="cancelbutton" class="_btn _btn--red close" data-role="cancel">OK</button> \
 </form>',
 
-userPlanOkCancel: 
-'<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+    userPlanOkCancel:
+        '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
      <button id="okaybutton" class="_btn _btn--red okay" data-role="okay">OK</button> \
      <button id="cancelbutton" class="_btn _btn--gray close" data-role="cancel">Cancel</button> \
 </form>',
 
-modalVideo: 
-'<div id="popupVideo" class="popup-video"> \
+    modalVideo:
+        '<div id="popupVideo" class="popup-video"> \
     <div class="popupVideo__logo-container"> \
         <img class="popupVideo__logo" src="{{path}}/static/images/nr-logo.svg" alt="logo"> \
     </div> \
@@ -412,8 +416,8 @@ modalVideo:
     </video> \
 </div>',
 
-registerPopup: 
-'<div id="register-popup" class="register-popup"> \
+    registerPopup:
+        '<div id="register-popup" class="register-popup"> \
     <div class="container"> \
         <div class="row"> \
             <div class="col-xs-6 "> \
@@ -458,8 +462,8 @@ registerPopup:
     </div> \
 </div>',
 
-systemCardTemplate: 
-    cardTemplateTop + 
+    systemCardTemplate:
+        cardTemplateTop +
         '{{#if hasMedia}}\
             <figure class="{{cardType}}c-cards-view__media">\
                 <img draggable="false" class="img-responsive {{imgClass}}" data-original="{{imageUrl}}" src="{{imageUrl}}" {{imgBackgroundStyle}}">\
@@ -474,8 +478,8 @@ systemCardTemplate:
                 <img src="{{profileImg}}" class="img-circle">\
                 <p>{{ author }}</p>\
             </div>\
-        </div>' + 
-    cardTemplateBottom
+        </div>' +
+        cardTemplateBottom
 };
 
 
@@ -508,7 +512,7 @@ systemCardTemplate:
 //                     </div>\
 //             </div>\
 //         </article>'+
-        
+
 //         '{{#if userHasBlogAccess}}'+
 //             '<div class="btn_overlay articleMenu">'+
 //                 '<button title="Hide" data-guid="{{guid}}" class="btnhide social-tooltip HideBlogArticle" type="button" data-social="0">'+

@@ -1,76 +1,71 @@
 .c-form {
+	&__group {
+		@include flexbox;
+		@include align-items(flex-start);
+		@include align-content(flex-start);
+		@include justify-content(flex-start);
+		@include flex-direction(column, vertical);
 
-
-    &__group {
-        @include flexbox;
-        @include align-items(flex-start);
-        @include align-content(flex-start);
-        @include justify-content(flex-start);
-        @include flex-direction(column, vertical);
-        
-        &:last-child, &:only-child {
-            margin-bottom:0px;
-        }
-
-        &--horizontal {
-            @include align-items(center);
-            @include flex-direction(row, horizontal);
-        }
-
-    }
-
-
-
-    &__input {
-        display:block;
-        width:100%;
-        padding: 4px 0;
-        outline:0;
-        border:0;
-        border-bottom: 1px solid $offwhite;
-        @include font-size(13);
-        @include transition(all .3s ease-out);
-        line-height:28px;
-
-        &--bordered {
-            border: 1px solid $offwhite;
-            border-radius:6px;
-            padding: 4px 8px;
+		&:last-child,
+		&:only-child {
+			margin-bottom: 0px;
 		}
 
-		&--inline{
-			@media #{$tablet-up}{
+		&--horizontal {
+			@include align-items(center);
+			@include flex-direction(row, horizontal);
+		}
+	}
+
+	&__input {
+		display: block;
+		width: 100%;
+		padding: 4px 0;
+		outline: 0;
+		border: 0;
+		border-bottom: 1px solid $offwhite;
+		@include font-size(13);
+		@include transition(all 0.3s ease-out);
+		line-height: 28px;
+
+		&--bordered {
+			border: 1px solid $offwhite;
+			border-radius: 6px;
+			padding: 4px 8px;
+		}
+
+		&--inline {
+			@media #{$tablet-up} {
 				display: inline-block;
 			}
-			@media #{$tablet}{
+			@media #{$tablet} {
 				width: 150px;
 			}
-			@media #{$desktop-up}{
+			@media #{$desktop-up} {
 				width: 200px;
 			}
 		}
-		
+
 		&.formError {
-			border-color:$error;
+			border-color: $error;
 
 			+ div {
-				display:block;
+				display: block;
 			}
 		}
+	}
 
-    }
+	&__label {
+		width: 100%;
+		flex: 0 0 100%;
+		max-width: 100%;
+		color: $greyish;
+		margin-bottom: 7px;
+		@include font-size(14);
+		line-height: 1.5;
+		font-weight: $weightBold;
 
-    &__label {
-        width:100%;
-        flex:0 0 100%;
-        max-width:100%;
-        color: $greyish;
-        margin-bottom:7px;
-        @include font-size(14);
-        line-height:1.5;
-		font-weight:$weightBold;
-		
-		&__popuplink{
+		&__popuplink {
 			@include font-size(11);
 			line-height: 2;
 			float: right;
@@ -78,74 +73,80 @@
 			text-decoration: underline;
 			cursor: pointer;
 		}
-    }
+	}
 
-    &__help-block {
-		display:none;
+	&__help-block {
+		display: none;
 		@include font-size(12);
-		color:$error;
+		color: $error;
 		padding-left: 5px;
+	}
 
-    }
-
-    &__buttons {
-        @include flexbox();
-        // @include flex-direction(row, horizontal);
-        @include justify-content(center);
-        margin-top: 50px;
+	&__buttons {
+		@include flexbox();
+		// @include flex-direction(row, horizontal);
+		@include justify-content(center);
+		margin-top: 50px;
 
 		&--left {
 			@include justify-content(flex-start);
 		}
 	}
-    
-    &__checkbox {
 
-		&[type="radio"], &[type="checkbox"] {
-			margin:0;
-			height:1px;
+	&__checkbox {
+		&[type="radio"],
+		&[type="checkbox"] {
+			margin: 0;
+			height: 1px;
 			@include padding(0);
 			@include opacity(0);
-			position:absolute;
-			pointer-events:none;
+			position: absolute;
+			pointer-events: none;
 		}
-		&[type="radio"] + span, &[type="checkbox"] + span {
+		&[type="radio"] + span,
+		&[type="checkbox"] + span {
 			@include size(20px);
-			text-align:center;
-			display:inline-block;
-			background-color:$white;
-			border:1px solid $border;
-			vertical-align:text-bottom;
-			position:relative;
-			margin-right:6px;
+			text-align: center;
+			display: inline-block;
+			background-color: $white;
+			border: 1px solid $border;
+			vertical-align: text-bottom;
+			position: relative;
+			margin-right: 6px;
 			@include transition(all 0.1s ease);
 			@include border-radius(6px);
 		}
-        &[type="radio"] + span {
-            top:1.5px;
-        }
-        &[type="checkbox"] + span {
-            top:1.5px;
-        }
-		&[type="radio"] + span::after, &[type="checkbox"] + span::after {
-			content:"";
-			display:inline-block;
+		&[type="radio"] + span {
+			top: 1.5px;
+		}
+		&[type="checkbox"] + span {
+			top: 1.5px;
+		}
+		&[type="radio"] + span::after,
+		&[type="checkbox"] + span::after {
+			content: "";
+			display: inline-block;
 			@include opacity(0);
-			width:100%;
-			position:absolute;
-			top:0;
-			left:0;
-			height:100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
 			@include transition(all 0.1s ease);
 		}
-		&[type="radio"]:focus + span, &[type="checkbox"]:focus + span, &[type="radio"]:active + span, &[type="checkbox"]:active + span {
-			border-color:$success;
+		&[type="radio"]:focus + span,
+		&[type="checkbox"]:focus + span,
+		&[type="radio"]:active + span,
+		&[type="checkbox"]:active + span {
+			border-color: $success;
 		}
-		&[type="radio"]:checked + span::after, &[type="checkbox"]:checked + span::after {
+		&[type="radio"]:checked + span::after,
+		&[type="checkbox"]:checked + span::after {
 			@include opacity(1);
 		}
-		&[type="radio"].error + span, &[type="checkbox"].error + span {
-			border-color:$error;
+		&[type="radio"].error + span,
+		&[type="checkbox"].error + span {
+			border-color: $error;
 		}
 		&[type="radio"] {
 			+ span {
@@ -153,18 +154,18 @@
 
 				&::after {
 					@include border-radius(4px);
-					background-color:$mainColor;
-					border-color:$mainColor;
+					background-color: $mainColor;
+					border-color: $mainColor;
 				}
 			}
 			&:checked + span {
-				border:1px solid $mainColor;
+				border: 1px solid $mainColor;
 				@include transition(all 0.1s ease);
 			}
 		}
 		&[type="radio"]:checked + span::after {
-			border:2px solid $white;
-            @include border-radius(6px);
+			border: 2px solid $white;
+			@include border-radius(6px);
 		}
 
 		&[type="checkbox"] {
@@ -173,20 +174,56 @@
 
 				&::after {
 					@include border-radius(4px);
-					background-color:$mainColor;
-					border-color:$mainColor;
+					background-color: $mainColor;
+					border-color: $mainColor;
 				}
 			}
 			&:checked + span {
-				border:1px solid $mainColor;
+				border: 1px solid $mainColor;
 				@include transition(all 0.1s ease);
 			}
 		}
 		&[type="checkbox"]:checked + span::after {
-			border:2px solid $white;
-            @include border-radius(6px);
+			border: 2px solid $white;
+			@include border-radius(6px);
 		}
 	}
+}
 
+.c-generic-form {
+	&__group {
+		margin-bottom: 20px;
+		&.m-width400 {
+			max-width: 400px;
+			width: 100%;
+		}
+		&-label {
+			&-text {
+				@include font-size(16);
+				line-height: 1.5;
+				font-family: $primaryFont;
+				font-weight: $weightBold;
+				color: $black;
+				margin-bottom: 8px;
+			}
+		}
 
+		.form-control {
+			height: 48px;
+			border: 1px solid $grey4;
+			@include border-radius(3px);
+		}
+	}
+}
+
+.c-genericBg {
+	background-color: $grey3;
+	padding: 30px 0 50px;
+}
+
+.login-page__thanks-text {
+	@include font-size(18);
+	line-height: 1.78;
+	color: $grey5;
+	margin-top: 30px;
 }

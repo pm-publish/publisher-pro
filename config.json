@@ -1,25 +1,32 @@
 {
-    "compressHtml" : false,
-    "module" : {
-        "debug" : {
-            "enabled" : true
+    "compressHtml": false,
+    "module": {
+        "debug": {
+            "enabled": true
         },
-        "event" : {
-            "enabled" : true
+        "event": {
+            "enabled": true
         },
-        "blog" : {    
+        "blog": {
             "routes": {
                 "allowOverride": true,
                 "comment": "allowing override is for single page apps that hand their own routing"
             },
-        
-            "endUserAccess" : [
-
-                                    "jobs",    "prop",     "events",
-                    "local",        "",         "426",      "422",    
-                    "Shepparton",   "",         "",         "1203",   
-                    "UAT",          "",         "3337"
-                
+            "endUserAccess": [
+                "jobs",
+                "prop",
+                "events",
+                "local",
+                "",
+                "426",
+                "422",
+                "Shepparton",
+                "",
+                "",
+                "1203",
+                "UAT",
+                "",
+                "3337"
             ],
             "extendedAttributes": [
                 {
@@ -58,6 +65,16 @@
                         "cropped": "Cropped",
                         "full": "Full"
                     }
+                },
+                {
+                    "name": "additional_label",
+                    "label": "Additional Label",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "publisher_name",
+                    "label": "Publisher Name",
+                    "type": "inputbox"
                 },
                 {
                     "name": "address",

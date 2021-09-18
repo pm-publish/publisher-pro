@@ -291,7 +291,7 @@ article.additionalInfo.image_crop == 'full' %}
                 <div class="col-12 col-lg-10">
                     <div class="row">
                         <div class="col-12 col-lg-8">
-                            {% if articleImg and article.media|length > 0 and article.media|length < 1 %} <div
+                            {% if article.media|length == 1 %} <div
                                 class="gallery-container relative">
                                 {% set galleryStyle = 'article' %}
 
@@ -350,7 +350,7 @@ article.additionalInfo.image_crop == 'full' %}
                     <div class="col-12 col-lg-4">
                         <div>
                             <div class="u-heading__large u-heading__large-xs">Top Stories</div>
-                            <div class="col-12 u-margin-top-30">
+                            <div class="col-12 u-margin-top-30 c-cards__top-stories">
                                 <div class="row">
                                     {% for i in 0..3 if recentArticles[i] %}
                                     <div class="col-12">

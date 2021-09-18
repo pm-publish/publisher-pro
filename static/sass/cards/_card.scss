@@ -91,6 +91,21 @@
             font-weight: $weightMedium;
         }
 
+        &__category-wrap {
+            @include flexbox;
+            @include align-items(center);
+        }
+
+        &__additional-category {
+            margin-right: 10px;
+            color: $white;
+            @include font-size(12);
+            line-height: 1.33;
+            font-weight: $weightMedium;
+            padding: 2px 5px;
+            background-color: $blue_sh5;
+        }
+
         &__heading {
             @include font-size(26);
             color: $black;
@@ -145,6 +160,12 @@
                 }
                 color: $white !important;
             }
+        }
+    }
+
+    &__top-stories {
+        div[class^="card"] {
+            margin-bottom: 15px;
         }
     }
 }

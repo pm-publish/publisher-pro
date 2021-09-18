@@ -9,6 +9,10 @@
 
         @include responsive(xs) {
             @include font-size(26);
+
+            &.u-heading__large_32 {
+                @include font-size(32);
+            }
         }
     }
 }

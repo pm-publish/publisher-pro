@@ -6,15 +6,38 @@
 {% set footerMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer'}) %}
 {% set footerBottomMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer-bottom'}) %}
 
+{% set paywall = true %}
+
+{% if config['paywall'] is defined and config['paywall'] == false %}
+{% set paywall = false %}
+{% endif %}
+
+{% set loggedin = _User.isGuest() ? false : true %}
+{% set user = loggedin ? _User.getUser() : null %}
+
+
 <div class="c-footer__top">
     <div class="container">
         <div class="row">
             <div class="col">
+
+
+                {% if paywall %}
+                {% if loggedin %}
                 <div class="c-navigation-4 c-navigation-4-xs">
+                    <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
+                        account</a>
+                    <a href="{{_AppHelper.getLogoffUrl()}}"
+                        class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                </div>
+                {% else %}
+                    <div class="c-navigation-4 c-navigation-4-xs">
                     <a href="javascript:;" class="c-navigation__item">Log in</a>
                     <a href="javascript:;"
                         class="c-navigation__item subscribe c-navigation__item--borderred">Subscribe</a>
-                </div>
+                    </div>
+                {% endif %}
+                {% endif %}
             </div>
         </div>
     </div>

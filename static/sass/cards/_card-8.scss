@@ -1,5 +1,5 @@
-@mixin card-1-base() {
-    @include card-name("C1 mobile");
+@mixin card-8-base() {
+    @include card-name("C8 mobile");
 
     .c-cards-view {
         @include flex-direction(row, horizontal);
@@ -8,8 +8,8 @@
         margin-bottom: 15px;
 
         &__media {
-            width: 79px;
-            height: 96px;
+            width: 95px;
+            height: 130px;
             position: absolute;
             left: 0;
             &--video {
@@ -17,6 +17,15 @@
                     @include size(88px);
                 }
             }
+        }
+
+        &__publisher-name {
+            @include font-size(16);
+            line-height: 1.5;
+            color: $grey4;
+            font-family: $secondaryFont;
+            font-weight: $weightBold;
+            margin-top: 8px;
         }
 
         &__heading {
@@ -35,11 +44,12 @@
         }
 
         &__container {
-            @include calc(width, "100% - 96px");
-            margin-left: 96px;
+            @include calc(width, "100% - 110px");
+            margin-left: 110px;
+            min-height: 145px;
+            height: initial;
 
             &-topSection {
-                height: initial;
                 margin-bottom: 6px;
             }
         }
@@ -76,21 +86,22 @@
                 &__container {
                     width: 100%;
                     margin-left: 0px;
+                    min-height: initial;
                 }
             }
         }
     }
 }
 
-.card-1-mobile {
+.card-8-mobile {
     @media #{$mobile} {
-        @include card-1-base();
+        @include card-8-base();
     }
 }
 
-@mixin card-1-tablet-base() {
-    @include card-1-base();
-    @include card-name("C1 tablet");
+@mixin card-8-tablet-base() {
+    @include card-8-base();
+    @include card-name("C8 tablet");
 
     // ****************************
     //          SOCIAL
@@ -115,21 +126,23 @@
     }
 }
 
-.card-1-tablet {
+.card-8-tablet {
     @media #{$tablet} {
-        @include card-1-tablet-base();
-        @include card-name("C1 desktop");
+        @include card-8-tablet-base();
+        @include card-name("C8 desktop");
     }
 }
-.card-1-desktop {
+.card-8-desktop {
     @media #{$desktop-up} {
-        @include card-1-tablet-base();
-        @include card-name("C1 desktop");
+        @include card-8-tablet-base();
+        @include card-name("C8 desktop");
 
         .c-cards-view {
-            border-bottom: none;
-            padding-bottom: 0px;
-            margin-bottom: 0px;
+            &__heading {
+                @include font-size(20);
+                line-height: 1.2;
+                margin-top: 3px;
+            }
         }
     }
 }

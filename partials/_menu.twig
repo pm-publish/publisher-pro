@@ -4,11 +4,11 @@
     {% set children = parentItem.children is defined and parentItem.children | length > 0  %}
 
 
-        <li class="{% if children %}dropdown{% endif %}">
+        <li class="{% if children %}dropdown js-sideBarList {% endif %}">
             {% if children %}
                 <div class="menu-icon"></div>
             {% endif %}
-            <a  class="{{activeClass}} {{externalClass}} "
+            <a  class="{{activeClass}} {{externalClass}} {% if children %}js-sideBarItem{% endif %}"
                 href="{{parentItem.link | raw}}"
                 {% if parentItem.target != "" %} 
                     target="{{parentItem.target}}"
@@ -31,8 +31,8 @@
                         {% set activeClass = (childItem.link == _AppHelper.getServerUrl()) ? 'active' : ''%}
                         {% set subChildren = childItem.children is defined and childItem.children | length > 0 %}
 
-                        <li class="{% if subChildren %} sub-dropdown {% endif %}">
-                            <a class="{{activeClass}} {{externalClass}} two" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
+                        <li class="{% if subChildren %} sub-dropdown js-sideBarList {% endif %}">
+                            <a class="{{activeClass}} {{externalClass}} two {% if subChildren %}js-sideBarItem{% endif %}" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
                                 {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty) ? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
                             </a>
                         

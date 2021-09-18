@@ -115,7 +115,7 @@ articleId: -1
     imageLarge, imageMedium : imageMedium, imageSmall : imageSmall, publishDate : publishDate, videoClass :
     article.featuredMedia['type']=='video' ? 'c-cards-view__media--video' : '' , profileImg : profileImg, hasMedia :
     (displayMedia) ? 'True' : 'False' , blogguid : article.blog.guid, blogTitle : article.blog.title, category :
-    article.label, cardType : cardType, lazyload : lazyload, content : article.excerpt, author :
+    article.label, additionalCategory: article.additionalInfo.additional_label, publisherName: article.additionalInfo.publisher_name, cardType : cardType, lazyload : lazyload, content : article.excerpt, author :
     article.createdBy['displayName'], status : article.status, social : isArticle, title : articleTitle, image :
     _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, imageparams ), guid : article.guid, url : redirUrl, id
     : article.articleId, target : (newWindow) ? "_blank" : "_self" , additionalInfo : article.additionalInfo } %} {% set
@@ -148,7 +148,7 @@ articleId: -1
 
         {# Article content including image #}
         <article class="{{cardType}}c-cards-view {{params.social == 0 ? "" : " social"}} {{params.category}}
-            {{params.hasMediaClass}} {{lightbox}} {{contentType}} {{params.status}}">
+            {{params.hasMediaClass}} {{lightbox}} {{contentType}} {{params.status}} {{params.publisherName}} {{params.additionalCategory}}">
             {{ this.render('_article-' ~ template ~ '.twig', {
             params:params,
             networkData: networkData

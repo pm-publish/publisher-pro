@@ -378,7 +378,9 @@
         <form class="c-search-bar__form" method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
             <div class="c-search-bar__submit"></div>
             <input class="c-search-bar__input" type="text" name="s" placeholder="Search" />
-            <button class="c-button c-button--rounded c-button--blue" type="submit" id="searchsubmit">Go</button>
+            <button class="c-search-bar__icon" type="submit" id="searchsubmit">
+                <img src={{networkData.templatePath}}/static/icons/icons-navigation-arrow-primary.svg />
+            </button>
         </form>
     </div>
     <div class="c-sidebarMenu__mainNav">
