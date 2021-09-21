@@ -68,18 +68,31 @@
                 object-fit: cover;
             }
 
-            &--video {
+            &.c-cards-view__media--video {
+                position: relative;
                 &:before {
-                    content: "";
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    @include translate(-50%, -50%);
+                    content: "\f04b";
                     display: block;
-                    @include size(70px);
-                    background-image: url("../icons/video-icon.svg");
-                    background-repeat: no-repeat;
-                    background-size: cover;
+                    position: absolute;
+                    font-family: $iconfont;
+                    @include font-size(22);
+                    line-height: 1;
+                    color: $white;
+                    right: 0;
+                    top: 0;
+                    z-index: 16;
+                    @include size(40px);
+                    @include flexbox();
+                    @include align-items(center);
+                    @include justify-content(center);
+                }
+
+                .video-icon {
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    background-color: $blue_sh5;
+                    @include size(40px);
                     z-index: 15;
                 }
             }
@@ -124,6 +137,32 @@
             color: $grey5;
             @include font-size(12);
             line-height: 1.33;
+        }
+
+        &__author {
+            &.c-cards-view__media--video {
+                position: relative;
+                padding-left: 15px;
+                &:before {
+                    content: "\f04b";
+                    display: block;
+                    position: absolute;
+                    font-family: $iconfont;
+                    color: $blue_sh5;
+                    @include size(auto);
+                    @include font-size(9);
+                    line-height: 1;
+                    top: 2px;
+                    left: 0;
+                }
+
+                .c-cards-view__author-name {
+                    padding-left: 0;
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
         }
 
         &.without-image {

@@ -12,9 +12,12 @@
             height: 96px;
             position: absolute;
             left: 0;
-            &--video {
+            &.c-cards-view__media--video {
                 &:before {
-                    @include size(88px);
+                    display: none;
+                }
+                .video-icon {
+                    display: none;
                 }
             }
         }

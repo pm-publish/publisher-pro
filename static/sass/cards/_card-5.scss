@@ -57,6 +57,30 @@
 
         &__author {
             @include justify-content(center);
+
+            &.c-cards-view__media--video {
+                padding-left: 0px;
+                &:before {
+                    display: none;
+                }
+
+                .c-cards-view__author-name {
+                    padding-left: 15px;
+                    &:before {
+                        content: "\f04b";
+                        display: block;
+                        font-family: $iconfont;
+                        color: $blue_sh5;
+                        @include size(auto);
+                        @include font-size(9);
+                        line-height: 1;
+                        top: 2px;
+                        left: 0;
+                        @include translate(0, 0);
+                        background-color: transparent;
+                    }
+                }
+            }
         }
     }
 }

@@ -10,6 +10,9 @@
 
         .c-cards-view {
             height: 320px;
+            border-bottom: none;
+            padding-bottom: 0px;
+            margin-bottom: 0px;
             &__media {
                 max-height: 185px;
                 min-height: 185px;
