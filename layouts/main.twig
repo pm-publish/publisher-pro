@@ -18,13 +18,11 @@
 
 {% if not _User.isAdminUser() and paywallOn == 1 %}
 
-{% set showPaywall = true %}
-{% set redir = _Page.setHttpRedirects(
-{
-'|^/.*|': networkData.defaultBlogUrl ~ '/subscriptions',
-
-}, false)
-%}
+    {% set showPaywall = true %}
+    {% set redir = _Page.setHttpRedirects({
+            '|^/.*|': networkData.defaultBlogUrl ~ '/subscriptions',
+        }, false)
+    %}
 {% endif %}
 
 
@@ -51,21 +49,10 @@
     {% set favicon = '' %}
     {% if networkData.favMedia | length > 0 %}
     {% set favicon = _Media.getMediaUrl(networkData.favMedia, 80, 80)%}
-    <link rel="shortcut icon" href="{{favicon}}" />
-    <link rel="icon" href="{{favicon}}" sizes="any" type="image/svg+xml" />
+        <link rel="shortcut icon" href="{{favicon}}" />
+        <link rel="icon" href="{{favicon}}" sizes="any" type="image/svg+xml" />
     {% endif %}
 
-
-    {#
-    <link rel="apple-touch-icon"
-        href="{{networkData.templatePath}}/static/icons/apple/{{site}}-mobile-homescreen-57px.png" sizes="57x57"
-        id="apple-icon-sm" />
-    <link rel="apple-touch-icon"
-        href="{{networkData.templatePath}}/static/icons/apple/{{site}}-mobile-homescreen-72px.png" sizes="72x72"
-        id="apple-icon-md" />
-    <link rel="apple-touch-icon"
-        href="{{networkData.templatePath}}/static/icons/apple/{{site}}-mobile-homescreen-144px.png" sizes="144x144"
-        id="apple-icon-lg" /> #}
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
@@ -75,27 +62,24 @@
     {% set secFont = networkData['styling']['fonts']['secondaryFont'] %}
 
     {% if primaryFont != "" %}
-    <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family={{primaryFont}}' rel='stylesheet' type='text/css'>
     {% endif %}
     {% if secFont != "" %}
-    <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family={{secFont}}' rel='stylesheet' type='text/css'>
     {% endif %}
 
-    <link rel="alternate" type="application/rss+xml" title="{{_Network.getNetworkTitle()}} -  RSS Feeds"
-        href="http://{{networkData.defaultDomain['domain']}}/feed/rss" />
+    <link rel="alternate" type="application/rss+xml" title="{{_Network.getNetworkTitle()}} -  RSS Feeds" href="http://{{networkData.defaultDomain['domain']}}/feed/rss" />
 
 
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-    <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=f9bd0cf6" type="text/css"
-        media="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=f9bd0cf6" type="text/css" media="all">
 
     {% else %}
 
-    <link rel='stylesheet' href='{{networkData.templatePath}}/static/deploy/concat.css' type='text/css' media='all' />
-    <link rel='stylesheet' href='https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css' type='text/css'
-        media='all' />
+        <link rel='stylesheet' href='{{networkData.templatePath}}/static/deploy/concat.css' type='text/css' media='all' />
+    {# <link rel='stylesheet' href='https://getbootstrap.com/docs/5.1/dist/css/bootstrap.min.css' type='text/css' media='all' /> #}
 
 
     {#
@@ -131,9 +115,8 @@
     {{ this.render('partials/_user-styles.twig', {networkData: networkData} ) | raw }}
 
     {% set googleAnalyitcsId = ''%}
-    {% if networkData.thirdPartyIntegrations['googleAnalytics']['id'] is defined and
-    networkData.thirdPartyIntegrations['googleAnalytics']['id'] is not empty %}
-    {% set googleAnalyitcsId = networkData.thirdPartyIntegrations['googleAnalytics']['id'] %}
+    {% if networkData.thirdPartyIntegrations['googleAnalytics']['id'] is defined and networkData.thirdPartyIntegrations['googleAnalytics']['id'] is not empty %}
+        {% set googleAnalyitcsId = networkData.thirdPartyIntegrations['googleAnalytics']['id'] %}
     {% endif %}
 
 
@@ -171,8 +154,7 @@
 </head>
 
 
-<body class="body {{ layout }} {{ pageClass }}" data-class="{{ pageClass | split(' ')[0] }}"
-    data-networkid="{{networkData['id']}}" data-v="27">
+<body class="body {{ layout }} {{ pageClass }}" data-class="{{ pageClass | split(' ')[0] }}" data-networkid="{{networkData['id']}}" data-v="27">
 
     {{ this.beginBody() }}
 
@@ -185,30 +167,28 @@
 
     {% set headerStyle = '' %}
     {% if config['header-style'] is defined %}
-    {% set headerStyle = config['header-style'] %}
+        {% set headerStyle = config['header-style'] %}
     {% endif %}
 
     {{ this.render('partials/header/_header' ~ headerStyle ~ '.twig', {
-    networkData: networkData,
-    paymeter: paymeter,
-    config: config
+        networkData: networkData,
+        paymeter: paymeter,
+        config: config
     }) | raw }}
 
 
 
 
 
-    {% if config['inventory']['adSpace']['banner'][0] is defined and (config['inventory']['Under header'] is defined and
-    config['inventory']['Under header'] == 1 ) %}
-    <div class="j-adslot advertisment__head" id="{{config['inventory']['adSpace']['banner'][0]}}" data-adshape="banner">
-    </div>
+    {% if config['inventory']['adSpace']['banner'][0] is defined and (config['inventory']['Under header'] is defined and config['inventory']['Under header'] == 1 ) %}
+        <div class="j-adslot advertisment__head" id="{{config['inventory']['adSpace']['banner'][0]}}" data-adshape="banner"></div>
     {% endif %}
 
 
 
 
     {% if showPaywall == false %}
-    {{ content | raw }}
+        {{ content | raw }}
     {% endif %}
 
 
@@ -217,14 +197,14 @@
 
     {% set footerTemplate = '' %}
     {% if config['footer-style'] is defined %}
-    {% set footerTemplate = "_" ~ config['footer-style'] %}
+        {% set footerTemplate = "_" ~ config['footer-style'] %}
     {% endif %}
 
 
     {{ this.render('partials/footer/footer' ~ footerTemplate ~ '.twig', {
-    networkData : networkData,
-    addresses: addresses,
-    config: config
+        networkData : networkData,
+        addresses: addresses,
+        config: config
     }) | raw }}
 
 
@@ -246,16 +226,15 @@
 
 
 
-    {% for i in 0..(config['inventory']['adSpace']['tag']|length) if config['inventory']['adSpace']['tag'][i] is defined
-    %}
-    <div class="j-adslot" id="{{config['inventory']['adSpace']['tag'][i]}}" data-adshape="tag"></div>
+    {% for i in 0..(config['inventory']['adSpace']['tag']|length) if config['inventory']['adSpace']['tag'][i] is defined %}
+        <div class="j-adslot" id="{{config['inventory']['adSpace']['tag'][i]}}" data-adshape="tag"></div>
     {% endfor %}
 
 
 
 
     {{ this.render('partials/_javascript.twig', {
-    networkData: networkData
+        networkData: networkData
     }) | raw }}
 
 
