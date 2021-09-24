@@ -2,6 +2,14 @@
 // RESET
 //=================================
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+
 html,
 body,
 div,
@@ -103,6 +111,8 @@ html {
   text-rendering: optimizeLegibility !important;
   -webkit-font-smoothing: antialiased !important;
 }
+
+
 
 body {
   line-height: 1;
