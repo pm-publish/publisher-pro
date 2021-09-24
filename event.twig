@@ -54,7 +54,7 @@
                 <div class="row c-eventdetail__content-container">
                     <div class="row">
                         <div class="col-12 col-lg-1">
-                            <div class="u-generic-socialIcons u-generic-socialIcons-xs">
+                            <div class="u-generic-socialIcons u-generic-socialIcons--alignRight u-generic-socialIcons-xs">
                                 <a class="u-generic-socialIcons__item"
                                     href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
                                         src="{{networkData.templatePath}}/static/icons/icons-socials-email-reverse-circle.svg" />
@@ -85,9 +85,71 @@
                                     </figure>
                                 </div>
                             {% endif %}
+
+                            <div class="c-eventdetail__container">
+                                <div class="c-eventdetail__info">
+                                    <div class="c-eventdetail__info-item bold">
+                                        {{ this.render('partials/icons.twig', {icon: 'dateCal'} ) | raw }}
+                                        <span class="c-eventdetail__info-text">{{ startDate }}{% if endDate != startDate and event.endDate != "" %} - {{endDate}}{% endif %}</span>
+                                    </div>
+                                    <div class="c-eventdetail__info-item">
+                                        {{ this.render('partials/icons.twig', {icon: 'location'} ) | raw }}
+                                        <span class="c-eventdetail__info-text">{{ event.address.address1 }},
+                                        {{ event.address.suburb }}</span>
+                                    </div>
+                                    {% if event.contactEmail is defined and event.contactEmail is not empty %}
+                                    <div class="c-eventdetail__info-item">
+                                        {{ this.render('partials/icons.twig', {icon: 'email'} ) | raw }}
+                                        <span class="c-eventdetail__info-text">{{event.contactEmail}}</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="c-eventdetail__content u-mobile-margin-top-20">
+                                    {{ event.content | raw }}
+                                </div>
+                                <hr />
+                                <div class="u-generic-socialIcons mb-5 justify-content-end">
+                                    <div class="u-generic-socialIcons-text">Share article</div>
+                                    <a class="u-generic-socialIcons__item"
+                                        href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
+                                            src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
+                                    </a>
+                                    <a class="u-generic-socialIcons__item"
+                                        href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                        target="_blank">
+                                        <img
+                                            src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
+                                    </a>
+                                    <a class="u-generic-socialIcons__item"
+                                        href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                        target="_blank">
+                                        <img
+                                            src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
+                                    </a>
+                                    <a class="u-generic-socialIcons__item" href="javascript:;">
+                                        <img
+                                            src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-12 col-lg-3 offset-lg-1">
-                            mayank
+                        <div class="col-12 col-lg-3 offset-lg-1"> 
+                            {% set events = _Event.getEvents({"limit": limit, "showOnGoingOnly": 1}) %}
+
+                            <div class="c-events-panel c-events-panel-xs">
+                                <h4 class="c-events-panel__head c-events-panel__head-xs">Upcoming</h4>
+                                <div class="c-events-panel__details">
+                                    
+                                    {% for i in 0..3 if events[i] %}
+                                        {{this.render('partials/_single-event-list.twig', {
+                                            event: events[i], 
+                                            imageSuppress: 'true',
+                                            containerClass: "event-card-2-mobile event-card-2-tablet event-card-2-desktop"
+                                        }) | raw}}
+                                    {% endfor %}
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -89,6 +89,11 @@
 		color: #636567;
 	}
 
+	&--alignRight {
+		@include align-items(flex-end);
+		margin-bottom: 15px;
+	}
+
 	@include responsive(xs) {
 		@include respond-to(md) {
 			@include flex-direction(column, vertical);
@@ -96,6 +101,13 @@
 			position: sticky;
 			left: 0;
 			top: 15px;
+
+			&.u-generic-socialIcons {
+				&--alignRight {
+					@include align-items(flex-end !important);
+					margin-bottom: 0px;
+				}
+			}
 
 			.u-generic-socialIcons__item + .u-generic-socialIcons__item {
 				margin-top: 8px;
@@ -107,6 +119,7 @@
 
 .u-generic-topBorder {
 	position: relative;
+	height: 6px;
 
 	&:before {
 		content: "";

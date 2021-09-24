@@ -6,7 +6,9 @@
         @include margin-bottom(30);
 
         .c-page-head {
-            @include margin-bottom(0);
+            border-bottom: 1.5px solid $black;
+            padding-bottom: 15px;
+            margin-top: 0;
         }
     }
 

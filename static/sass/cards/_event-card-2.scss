@@ -1,0 +1,82 @@
+@mixin base-event-card-2 {
+    > a {
+        text-decoration: none;
+    }
+    .c-eventcards-view {
+        @include flexbox;
+        margin-top: 30px;
+
+        &__date {
+            @include flexbox;
+            @include flex-direction(column, vertical);
+            @include align-items(center);
+            min-width: 30px;
+
+            &-value {
+                color: $blue_sh5;
+                @include font-size(20);
+                line-height: 1.2;
+                font-weight: $weightBold;
+            }
+
+            &-label {
+                color: $white;
+                @include font-size(12);
+                font-weight: $weightBold;
+                line-height: 1.33;
+            }
+        }
+
+        &__category {
+            color: $white;
+            @include font-size(12);
+            font-weight: $weightBold;
+            line-height: 1.33;
+        }
+
+        &__heading {
+            color: $white;
+            font-family: $secondaryFont;
+            @include font-size(14);
+            font-weight: $weightBold;
+            line-height: 1.14;
+            margin: 4px 0 12px;
+        }
+
+        &__time {
+            @include font-size(12);
+            font-weight: $weightBold;
+            line-height: 1.33;
+            color: $grey4;
+            margin-bottom: 8px;
+        }
+
+        &__container {
+            margin-left: 20px;
+            padding-left: 20px;
+            border-left: 1px solid $white;
+            flex: 1;
+        }
+    }
+}
+
+.event-card-2-mobile {
+    @media #{$mobile} {
+        @include base-event-card-2();
+    }
+}
+
+@mixin base-event-card-2-tablet() {
+    @include base-event-card-2();
+}
+
+.event-card-2-tablet {
+    @media #{$tablet} {
+        @include base-event-card-2();
+    }
+}
+.event-card-2-desktop {
+    @media #{$desktop-up} {
+        @include base-event-card-2();
+    }
+}

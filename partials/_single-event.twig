@@ -49,6 +49,7 @@
 {% set fullStartDate    = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'j F') %}
 {% set fullStartDate    = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'l, dS F Y') %}
 {% set fullEndDate      = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'l, dS F Y') %}
+{% set startDayName      = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'l, ') %}
 {% set endDate          = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'j M') %}
 
 {% set startDay         = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'd') %}
@@ -94,42 +95,31 @@
                         <img class="img-fluid" src="{{eventImg}}" data-original="{{eventImg}}"  {% if eventImg is not empty %} style="background-image:url('{{placeholder}}');" {% endif %}>
                     </picture>
                 </figure>
+                {% else %}
+                <div class="c-eventcards-view__icon">
+                    <div class="c-eventcards-view__icon--pin">{{ this.render('icons.twig', {icon: 'cal'} ) | raw }}</div>
+                </div>
             {% endif %}
-
-            <div class="c-eventcards-view__date">{{ startDay }} <span class="c-eventcards-view__month">{{startMonth}}</span></div>
 
             <div class="c-eventcards-view__container">
                 <div class="c-eventcards-view__info">
-                    <div class="c-eventcards-view__category">Events</div>
+                    <div class="c-eventcards-view__category-wrap">
+                        {% if event.additionalInfo.additional_label is defined and event.additionalInfo.additional_label is not empty %}
+                            <div class="c-eventcards-view__additional-category">{{quotes.smarten(event.additionalInfo.additional_label) }}</div>
+                        {% endif %}
+                        <div class="c-eventcards-view__category">Events</div>
+                    </div>
                     <h2  class="c-eventcards-view__heading js-card-heading j-truncate {{figureClass}}">{{ quotes.smarten(event.title) }}</h2>
                     <p   class="c-eventcards-view__description j-truncate">{{ quotes.smarten(event.excerpt | raw) }}</p>
-                    {% if endDate != "" and endDate != startDate %}
-                        <div class="c-eventcards-view__day">{{ fullStartDate }}{% if startTime != '12:00am'  %} <strong class="c-eventcards-view__time">{{startTime}} -</strong>{% endif %}</div>
-                        <div class="c-eventcards-view__day">{{ fullEndDate }}{% if endTime != '12:00am'  %} <strong class="c-eventcards-view__time">{{endTime}}</strong>{% endif %}</div>
-                    {% else %}
-                        <div class="c-eventcards-view__day">{{ fullStartDate }}</div>
-                        <div class="c-eventcards-view__time">{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
-                        <div class="c-eventcards-view__time-venue">{{startTime}}{% if venue != "" %} - {{venue}}{% endif %}</div>
-                    {% endif %}
-
-                    {# <div class="event-time">
-                        {% if startDay == endDay %}
-                            <p class="date">{{ startDay }}</p>
-                            <p class="month">{{ eventStartMonth }}</p>
-                        {% else %}
-                            <p class="date">{{ startDay }}-{{ endDay }}</p>
-                            {% if eventStartMonth == eventEndMonth %}
-                                <p class="month">{{ eventStartMonth }}</p>
-                            {% else %}
-                                <p class="month">{{ eventStartMonth }} {{ eventEndMonth }}</p>
-                            {% endif %}
-                        {% endif %}
-                    </div> #}
-           
-                    <div class="c-eventcards-view__author">
-                        <div class="c-eventcards-view__icon--pin">{{ this.render('icons.twig', {icon: 'location'} ) | raw }}</div>
-                        <div class="c-eventcards-view__author__name">{{venue}}</div>
+                    <div class="c-eventcards-view__otherInfo">
+                        <div class="c-eventcards-view__day">{{startDay~'th'}}    {{eventMonth}}</div>
+                        <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+            
+                        <div class="c-eventcards-view__author">
+                            <div class="c-eventcards-view__icon--pin">{{ this.render('icons.twig', {icon: 'dateCal'} ) | raw }}</div>
+                        </div>
                     </div>
+                    
 
                 </div>
             </div>

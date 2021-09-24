@@ -257,21 +257,6 @@
       }
     }
 
-    &__highlight-sec {
-      background-color: $black;
-      max-width: 300px;
-      float: left;
-      padding: 30px;
-      margin-right: 25px;
-
-      .u-heading__large {
-        color: $white;
-      }
-      ul li {
-        color: $white;
-      }
-    }
-
     [style*="center"] {
       img {
         left: auto;
@@ -319,6 +304,21 @@
         font-weight: 500;
         line-height: 1.33;
         padding: 10px;
+      }
+    }
+
+    &__highlight-sec {
+      background-color: $black;
+      max-width: 300px;
+      float: left;
+      padding: 30px;
+      margin-right: 25px;
+
+      .u-heading__large {
+        color: $white;
+      }
+      ul li {
+        color: $white;
       }
     }
   }
