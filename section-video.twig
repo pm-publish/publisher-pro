@@ -1,0 +1,135 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set networkData = _Network.getNetworkData() %}
+{% set site        = networkData.title | lower | split(" ")[0]%}
+{% set blogData     = _Blog.getBlog() %}
+
+{% set config       = _Network.getThemeConfig() %}
+
+
+
+{% set limit = 17 %}
+
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+{% set firstCount = articles | length %}
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set popCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+
+
+{% set blogLower = blogData.title | lower | split(" ")[0] %}
+{% set cta = _CallToAction.getKeywordBasedCTA('cta_'~blogLower)%}
+{% set ctaURL = ""%}
+{% if cta.button['url'] %}
+    {% set ctaURL = cta.button['url'] %}
+{% endif %}
+
+
+<main id="main" class="site-main u-margin-top-20" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
+<div class="c-section-panel__background c-section-secondWrap  mt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="c-page-head c-page-head--withBorder c-page-head-xs inverse">
+                    <div class="u-heading__large u-heading__large-xs u-pr--6">{{blogData.title}}</div>
+                </div>
+            </div>
+            <div class="col-11">
+                {{this.render('partials/_single-article.twig', {
+                    article: articles[articleCount], 
+                    position: (articleCount+1),
+                    imageSize: {width: 600, height: 300},
+                    containerClass: "card-2-mobile card-2-tablet card-7-desktop c-cards--inverse u-margin-bottom-30"
+                }) | raw}}
+                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+            </div>
+            <div class="c-cards-container c-cards-container-xs">
+                <div class="row">
+                    {% for i in 1..4 if articles[articleCount] %}
+                        <div class="col-12 col-lg-3">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 600, height: 300},
+                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription c-cards--inverse"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            {% if config['inventory']['adSpace']['mrec'][0] is defined %}
+                <div class="my-5">
+                    <div class="j-adslot" id="{{config['inventory']['adSpace']['mrec'][0]}}" data-adshape="mrec"></div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="c-cards-container c-cards-container-xs bottom-border">
+            <div class="row">
+                {% for i in 5..8 if articles[articleCount] %}
+                    <div class="col-12 col-lg-3 left-border">
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            imageSize: {width: 600, height: 300},
+                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="c-cards-container c-cards-container-xs bottom-border">
+            <div class="row">
+                {% for i in 9..12 if articles[articleCount] %}
+                    <div class="col-12 col-lg-3 left-border">
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            imageSize: {width: 600, height: 300},
+                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="c-cards-container c-cards-container-xs bottom-border">
+            <div class="row">
+                {% for i in 13..16 if articles[articleCount] %}
+                    <div class="col-12 col-lg-3 left-border">
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            imageSize: {width: 600, height: 300},
+                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-12">
+            {% if config['inventory']['adSpace']['mrec'][0] is defined %}
+                <div class="my-5">
+                    <div class="j-adslot" id="{{config['inventory']['adSpace']['mrec'][0]}}" data-adshape="mrec"></div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+</main>
