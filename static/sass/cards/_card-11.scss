@@ -1,0 +1,117 @@
+@mixin card-11-base() {
+    @include card-name("C11 mobile");
+
+    .c-cards-view {
+        @include flexbox;
+        @include flex-direction(column, vertical);
+        margin-bottom: 30px;
+        &__media {
+            background-color: $grey3;
+            @include flexbox;
+            @include align-items(center);
+            @include justify-content(center);
+            margin-bottom: 10px;
+
+            img {
+                width: 194px;
+                height: 263px;
+            }
+        }
+
+        &__category {
+            font-weight: $weightMedium;
+        }
+
+        &__heading {
+            @include font-size(16);
+            font-family: $secondaryFont;
+            font-weight: $weightBold;
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+
+        &__publisher-name {
+            font-family: $secondaryFont;
+            font-weight: $weightBold;
+            @include font-size(13);
+            line-height: 1.23;
+            margin-top: 8px;
+        }
+
+        &__description,
+        &__author {
+            display: none;
+        }
+    }
+}
+
+.card-11-mobile {
+    @media #{$mobile} {
+        @include card-11-base();
+    }
+}
+
+@mixin card-11-tablet-base() {
+    @include card-11-base();
+    @include card-name("C11 tablet");
+}
+
+.card-11-tablet {
+    @media #{$tablet} {
+        @include card-11-tablet-base();
+        @include card-name("C11 desktop");
+    }
+    &.card-11-highlighter {
+        @media #{$tablet} {
+            .c-cards-view {
+                @include flex-direction(row, horizontal);
+
+                &__container {
+                    flex: 1 0 calc(100% - 270px);
+                    margin-left: 35px;
+                }
+            }
+        }
+    }
+}
+.card-11-desktop {
+    @media #{$desktop-up} {
+        @include card-11-tablet-base();
+        @include card-name("C11 desktop");
+    }
+    &.card-11-highlighter {
+        @media #{$desktop-up} {
+            .c-cards-view {
+                @include flex-direction(row, horizontal);
+
+                &__container {
+                    flex: 1 0 calc(100% - 270px);
+                    margin-left: 35px;
+                }
+            }
+        }
+    }
+}
+
+.card-11-highlighter {
+    .c-cards-view {
+        background-color: $black;
+        padding: 32px;
+        &__media {
+            background-color: transparent;
+            img {
+                width: 235px;
+                height: 319px;
+            }
+        }
+
+        &__category {
+            color: $white;
+        }
+        &__heading {
+            @include font-size(26);
+            line-height: 1.23;
+            color: $white;
+        }
+    }
+}

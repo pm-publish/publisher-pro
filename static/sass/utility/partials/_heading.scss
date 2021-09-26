@@ -85,6 +85,11 @@
     }
 
     &.inverse {
+        &.c-page-head {
+            &--withBorder {
+                border-bottom: 1.5px solid $white;
+            }
+        }
         .u-heading__large {
             color: $white;
         }
