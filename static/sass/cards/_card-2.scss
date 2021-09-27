@@ -88,6 +88,7 @@
     .c-cards-view {
         &__heading {
             @include font-size(18);
+            line-height: 1.33;
         }
         &__media {
             height: 40vw;

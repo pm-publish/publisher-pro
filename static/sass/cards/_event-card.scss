@@ -1,154 +1,185 @@
 @mixin base-event-card {
     .c-eventcards-view {
-        position: relative;
-        @include flexbox();
-        @include margin-bottom(40);
-        @include calc(height, '100% - 40px');
-    
-
-        &__date {
-            display:none;
-        }
-
         &__media {
-            width: 254px;
-            height: 175px;
-            @include margin-bottom(0);
+            margin-bottom: 15px;
+            height: 40vw;
+            min-height: 145px;
             overflow: hidden;
+            width: 100%;
+            picture,
+            img {
+                width: 100%;
+                display: block;
+            }
         }
-    
-        &__container {
-            @include margin-left(20);
-            @include padding-right(0);
-            @include calc(width, '100% - 254px');
-        }
-    
-        &__info {
-            @include padding-right(80);
-            @include calc(height, '100% - 45px');
-        }
-    
         &__category {
-            color: $mainColor;
-            font-weight: $weightMedium;
             @include font-size(12);
-            letter-spacing: 0.87px;
-            line-height: 1.25;
-            text-transform: uppercase;
-            @include margin-bottom(8);
-        }
-    
-        &__heading {
-            color: $black;
-            @include font-size(20);
-            font-weight: $weightRegular;
-            line-height: 1.35;
-            overflow: hidden;
-            @include margin-bottom(5);
-        }
-        &__description {
-            display:none;
-        }
-    
-        &__day {
-            color: $mainColor;
-            font-weight: $weightBold;
-            @include font-size(14);
-            line-height: 1.4;
-            @include margin-bottom(2);
-            font-style: italic;
-        }
-    
-        &__time {
-            color: $greyish;
-            font-weight: $weightRegular;
-            @include font-size(13);
-            line-height: 1.5;
-            @include margin-bottom(2);
-            font-style: italic;
+            color: $blue_sh5;
+            font-weight: $weightMedium;
         }
 
-        &__time-venue {
-            display:none;
-        }
-    
-        &__author {
-            @include margin-top(12);
-            border-top: 1px solid rgba($greyish, 0.3);
-            @include flexbox();
-            @include justify-content(space-between);
+        &__category-wrap {
+            @include flexbox;
             @include align-items(center);
-            @include padding(7 0 8);
-    
-            &__name {
-                color: $greyish;
-                font-style: italic;
-                font-family: $primaryFont;
-                font-weight: $weightRegular;
-                @include font-size(13);
-                line-height: 1.5;
+        }
+
+        &__additional-category {
+            margin-right: 10px;
+            color: $white;
+            @include font-size(12);
+            line-height: 1.33;
+            font-weight: $weightMedium;
+            padding: 2px 5px;
+            background-color: $blue_sh5;
+        }
+
+        &__heading {
+            @include font-size(18);
+            line-height: 1.33;
+            color: $black;
+            font-family: $secondaryFont;
+            font-weight: $weightBold;
+            min-height: 35px;
+            margin: 8px 0 10px;
+        }
+
+        &__description {
+            display: none;
+            @include font-size(13);
+            font-weight: $weightRegular;
+            color: $grey5;
+            line-height: 1.38;
+            margin-top: 5px;
+        }
+
+        &__day {
+            @include font-size(13);
+            font-weight: $weightMedium;
+            color: $black;
+            line-height: 1.23;
+        }
+
+        &__time {
+            @include font-size(13);
+            font-weight: $weightRegular;
+            color: $grey5;
+            line-height: 1.38;
+            margin-top: 5px;
+        }
+
+        &__icon {
+            width: 100%;
+            background-color: var(--main-color);
+            height: 128px;
+            @include flexbox;
+            @include align-items(center);
+            @include justify-content(center);
+            margin-bottom: 12px;
+
+            .o-icons__main {
+                fill: $white;
+                @include size(50px);
+            }
+        }
+    }
+}
+
+.event-card-1__mobile {
+    > a {
+        text-decoration: none;
+    }
+    &.fullWidth {
+        .c-eventcards-view {
+            &__description {
+                display: block;
+            }
+        }
+    }
+    @media #{$mobile} {
+        @include base-event-card();
+    }
+}
+@mixin base-event-card-tablet() {
+    @include base-event-card();
+    .c-eventcards-view {
+        @include flexbox;
+    }
+}
+
+.event-card-1__tablet {
+    @media #{$tablet} {
+        @include base-event-card-tablet();
+        @include card-name("event1 tablet");
+
+        .c-eventcards-view {
+            @include flex-direction(column, vertical);
+        }
+    }
+}
+.event-card-1__desktop {
+    @media #{$desktop-up} {
+        @include base-event-card-tablet();
+        @include card-name("event1 desktop");
+
+        .c-eventcards-view {
+            &__icon,
+            &__media {
+                margin-bottom: 0;
+                width: 164px;
+            }
+
+            &__media {
+                height: 129px;
+                min-height: 129px;
+                picture {
+                    @include size(100%);
+                }
+                img {
+                    object-fit: cover;
+                    @include size(100%);
+                }
+            }
+
+            &__container {
+                margin-left: 34px;
+                min-height: 129px;
+                position: relative;
+                padding-bottom: 24px;
+            }
+
+            &__author {
                 position: absolute;
-                margin-left: 30px;
+                bottom: 0;
+                left: 0;
             }
         }
 
-        &__icon{
-            &--pin{
-                float: left;
-                >svg{
-                    height: 27px;
-                }
-            }
-        }
-    
-        &.u-without-image {
-            background-color: rgba($white, 1);
-    
+        &.fullWidth {
             .c-eventcards-view {
                 &__media {
-                    display: none;
+                    width: 63%;
+                    height: auto;
                 }
-    
-                &__container {
-                    @include margin-left(0);
-                    @include padding-right(10);
-                    @include calc(width, '100% - 0px');
-                }
-    
+
                 &__heading {
-                    min-height: inherit;
-                    max-height: 100px;
+                    @include font-size(32);
+                    line-height: 1.25;
+                    color: $black;
+                    font-family: $secondaryFont;
+                    font-weight: $weightBold;
+                    min-height: 90px;
+                    margin: 8px 0 10px;
                 }
-            }
-        }
-    
-    
-        @media (max-width:600px) {
-            .c-eventcards-view {
-                &__media {
-                    width: 120px;
-                    height: 180px;
-                }
-    
+
                 &__container {
-                    @include margin-left(20);
-                    @include padding-right(0);
-                    @include calc(width, '100% - 120px');
+                    padding-bottom: 0;
                 }
-            }
-        }
-    
-        @media screen and (min-width:601px) and (max-width:767px) {
-            .c-eventcards-view {
-                &__media {
-                    width: 150px;
-                    height: 180px;
+                &__otherInfo {
+                    margin-top: 90px;
                 }
-    
-                &__container {
-                    @include margin-left(20);
-                    @include padding-right(0);
-                    @include calc(width, '100% - 150px');
+                &__author {
+                    position: relative;
+                    margin-top: 10px;
                 }
             }
         }

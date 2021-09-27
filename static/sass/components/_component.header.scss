@@ -87,6 +87,8 @@
         padding: 20px;
 
         button {
+            @include flexbox;
+            @include align-items(center);
             span {
                 @include font-size(10);
                 line-height: 1.6;
@@ -94,6 +96,7 @@
                 font-weight: $weightMedium;
                 + span {
                     margin-left: 10px;
+                    margin-bottom: 3px;
                 }
             }
         }
@@ -135,6 +138,7 @@
     &__mainNav,
     &__subNav {
         margin: 30px 40px 0 70px;
+        padding-bottom: 20px;
         border-bottom: 1px solid $darkergrey;
     }
     &__copyInfo {

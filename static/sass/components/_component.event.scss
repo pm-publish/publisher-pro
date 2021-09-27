@@ -27,4 +27,241 @@
     &__content-container {
         margin-top: 35px !important;
     }
+
+    &__info {
+        border-bottom: 1px solid $grey4;
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+
+        &-item {
+            @include flexbox;
+            @include align-items(center);
+            margin-bottom: 12px;
+
+            .o-icons__main {
+                width: 22px;
+                @include flexbox;
+                @include align-items(center);
+                @include justify-content(center);
+            }
+
+            &.bold {
+                .c-eventdetail__info-text {
+                    font-weight: $weightMedium;
+                }
+            }
+        }
+        &-text {
+            color: $black;
+            @include font-size(13);
+            line-height: 1.23;
+            margin-left: 24px;
+        }
+    }
+
+    &__content {
+        p,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            color: $black;
+            font-family: $secondaryFont !important;
+            font-size: 16px !important;
+            line-height: 1.75 !important;
+            font-weight: $weightRegular !important;
+            letter-spacing: normal !important;
+            margin-bottom: 20px !important;
+            word-wrap: break-word;
+
+            * {
+                line-height: 1.75 !important;
+                letter-spacing: normal !important;
+                font-family: $secondaryFont !important;
+                word-wrap: break-word;
+            }
+            span,
+            b,
+            u,
+            a {
+                color: $black;
+                font-family: $secondaryFont !important;
+                font-size: 16px !important;
+                line-height: 1.5 !important;
+                font-weight: $weightRegular !important;
+                letter-spacing: normal !important;
+                margin-bottom: 20px !important;
+                word-wrap: break-word;
+
+                * {
+                    line-height: 1.5 !important;
+                    letter-spacing: normal !important;
+                    font-family: $secondaryFont !important;
+                    word-wrap: break-word;
+                }
+            }
+        }
+
+        h1 {
+            font-size: 50px !important;
+            span,
+            b,
+            u,
+            a {
+                font-size: 50px !important;
+            }
+        }
+
+        h2 {
+            font-size: 20px !important;
+            span,
+            b,
+            u,
+            a {
+                font-size: 20px !important;
+            }
+        }
+
+        h3 {
+            font-size: 20px !important;
+            font-family: $primaryFont !important;
+            font-weight: $weightBold !important;
+            span,
+            b,
+            u,
+            a {
+                font-size: 20px !important;
+                font-family: $primaryFont !important;
+                font-weight: $weightBold !important;
+            }
+        }
+
+        h4 {
+            font-size: 18px !important;
+            font-weight: $weightBold !important;
+            span,
+            b,
+            u,
+            a {
+                font-size: 18px !important;
+                font-weight: $weightBold !important;
+            }
+        }
+
+        h5 {
+            font-size: 18px !important;
+            font-family: $primaryFont !important;
+            font-weight: $weightBold !important;
+            span,
+            b,
+            u,
+            a {
+                font-size: 18px !important;
+                font-family: $primaryFont !important;
+                font-weight: $weightBold !important;
+            }
+        }
+
+        ul li {
+            list-style-type: none !important;
+            position: relative;
+            margin-bottom: 15px;
+            &:before {
+                content: "";
+                @include size(8px);
+                background-color: $blue_sh5;
+                position: absolute;
+                display: block;
+                left: -28px;
+                top: 8px;
+            }
+
+            span {
+                list-style-type: decimal !important;
+            }
+        }
+
+        > span {
+            color: $black !important;
+            font-family: $secondaryFont !important;
+            font-size: 16px !important;
+            margin-bottom: 0px !important;
+        }
+
+        a {
+            text-decoration: none;
+            @include transition(all 0.3s ease);
+            font-family: $secondaryFont !important;
+            color: $blue_sh5 !important;
+        }
+
+        blockquote {
+            @include flexbox;
+            @include flex-direction(column, vertical);
+            @include align-items(flex-start);
+            margin-bottom: 40px;
+            margin-top: 40px;
+            position: relative;
+            padding-left: 30px;
+            border-left: 8px solid $blue_sh5;
+            p {
+                color: $black;
+                font-family: $primaryFont !important;
+                font-size: 22px !important;
+                font-weight: $weightBold !important;
+                margin-bottom: 0px !important;
+            }
+        }
+
+        [style*="center"] {
+            img {
+                left: auto;
+                @include translate(0, 0);
+            }
+        }
+
+        img[style*="left"] {
+            margin: 0 20px 40px 0 !important;
+            max-width: 100%;
+        }
+
+        img[style*="right"] {
+            margin: 0 0 40px 20px !important;
+            max-width: 100%;
+        }
+
+        figure[style*="right"] {
+            margin-right: 0px;
+            margin-left: 20px;
+        }
+
+        figure[style*="right"],
+        figure[style*="left"] {
+            left: auto !important;
+            @include translate(0%, 0);
+            margin-right: 20px;
+        }
+
+        div[style*="text-align:center"],
+        div[style*="text-align: center"] {
+            overflow: hidden;
+        }
+
+        figure {
+            position: relative;
+            figcaption {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                background-color: $black;
+                color: $white;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1.33;
+                padding: 10px;
+            }
+        }
+    }
 }

@@ -1,0 +1,95 @@
+@mixin card-property-base() {
+    @include card-name("C property mobile");
+
+    .c-cards-view {
+        @include flexbox;
+        @include flex-direction(column, vertical);
+        margin-bottom: 30px;
+
+        &__media {
+            margin-bottom: 15px;
+            height: 154px;
+        }
+
+        &__category {
+            font-weight: $weightMedium;
+        }
+
+        &__heading {
+            @include font-size(18);
+            line-height: 1.33;
+            font-weight: $weightBold;
+            font-family: $secondaryFont;
+            margin-top: 8px;
+        }
+
+        &__description {
+            @include font-size(13);
+            line-height: 1.38;
+            color: $grey5;
+        }
+
+        &__additional-info {
+            &__features {
+                @include flexbox;
+                @include align-items(center);
+
+                &-list {
+                    svg {
+                        fill: $blue_sh5;
+                    }
+                    .text {
+                        margin-left: 5px;
+                        @include font-size(16);
+                        color: $black;
+                        line-height: 1.5;
+                    }
+                    + .c-cards-view__additional-info__features-list {
+                        margin-left: 15px;
+                    }
+                }
+            }
+
+            &__price {
+                @include font-size(16);
+                color: $black;
+                line-height: 1.5;
+                font-weight: $weightMedium;
+                margin-top: 8px;
+            }
+        }
+    }
+}
+
+.card-property-mobile {
+    @media #{$mobile} {
+        @include card-property-base();
+    }
+}
+
+@mixin card-property-tablet-base() {
+    @include card-property-base();
+    @include card-name("C property tablet");
+}
+
+.card-property-tablet {
+    @media #{$tablet} {
+        @include card-property-tablet-base();
+        @include card-name("C property desktop");
+    }
+}
+
+.card-property-desktop {
+    @media #{$desktop-up} {
+        @include card-property-tablet-base();
+        @include card-name("C property desktop");
+    }
+}
+
+.card-property-highlighter {
+    .c-cards-view {
+        &__media {
+            height: 460px;
+        }
+    }
+}

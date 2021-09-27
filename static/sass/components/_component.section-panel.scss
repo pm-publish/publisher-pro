@@ -7,5 +7,23 @@
         @include margin(30 0 0 0);
     }
 }
+.c-section-secondWrap {
+    .card-7-desktop {
+        @media #{$desktop-up} {
+            .c-cards-view {
+                &__media {
+                    width: 65%;
+                }
 
+                &__container {
+                    width: 35%;
+
+                    &-topSection {
+                        height: initial;
+                    }
+                }
+            }
+        }
+    }
+}
 /* End section page  style */

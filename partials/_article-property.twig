@@ -1,0 +1,70 @@
+{% import "quotes.twig" as quotes %}
+
+{% if params.hasMedia %}
+    <figure class="{{params.cardType}}c-cards-view__media {{params.videoClass}}" title="{{imageSize}}">
+        <picture>
+            <source media="(max-width: 767px) and (min-width: 501px)" srcset="{{params.imageMedium}}">
+            <source media="(max-width: 500px)" srcset="{{params.imageSmall}}">
+
+            {% if params.lazyload == false %}
+                <img width="{{params.imgWidth}}" height="{{params.imgHeight}}" class="img-fluid" src="{{params.image}}">
+            {% else %}  
+            {# ADD LAZYLOAD  class="lazyload" src="{{params.placeholder}}" #}
+                <img width="{{params.imgWidth}}" height="{{params.imgHeight}}" class="img-fluid" src="{{params.image}}" data-original="{{params.articleImg}}">
+            {% endif %}
+            <div class="video-icon"></div>
+
+        </picture>
+    </figure>
+    
+
+{% endif %}
+
+{% set listingType = 'For Sale' %}
+{% if params.additionalInfo.listing_type != 'buy' %}
+    {% set listingType = 'For Rent' %}
+{% endif %}
+
+
+
+<div class="c-cards-view__container">
+    <div class="c-cards-view__category">{{listingType}}</div>
+    
+    <h2 class="c-cards-view__heading js-c-cards-view-heading j-truncate">{{ params.title }}</h2>
+    
+    <p class="c-cards-view__description js-c-cards-view-description j-truncate">{{ params.additionalInfo.address }}</p>
+
+    
+    <div class="c-cards-view__additional-info">
+        <div class="c-cards-view__additional-info__features">
+            {% if params.additionalInfo.bedroom_count %}
+                <div class="c-cards-view__additional-info__features-list">
+                    <span class="c-cards-view__additional-info__icon c-cards-view__additional-info__icon--fill">{{ this.render('icons.twig', {icon: 'bed'} ) | raw }}</span>
+                    <span class="text">{{ params.additionalInfo.bedroom_count }}</span>
+                </div>
+            {% endif %}
+
+            {% if params.additionalInfo.bathroom_count %}
+                <div class="c-cards-view__additional-info__features-list">
+                    <span class="c-cards-view__additional-info__icon c-cards-view__additional-info__icon--fill">{{ this.render('icons.twig', {icon: 'bathtub'} ) | raw }}</span>
+                    <span class="text">{{ params.additionalInfo.bathroom_count }}</span>
+                </div>
+            {% endif %}
+
+            {% if params.additionalInfo.car_count %}
+                <div class="c-cards-view__additional-info__features-list">
+                    <span class="c-cards-view__additional-info__icon c-cards-view__additional-info__icon--fill">{{ this.render('icons.twig', {icon: 'car'} ) | raw }}</span>
+                    <span class="text">{{ params.additionalInfo.car_count }}</span>
+                </div>
+            {% endif %}
+
+            {# {% if params.additionalInfo.sq_meters %}
+                <div class="c-cards-view__additional-info__features-list">
+                    <span class="c-cards-view__additional-info__icon c-cards-view__additional-info__icon--stroke">{{ this.render('icons.twig', {icon: 'square'} ) | raw }}</span>
+                    <span class="text">{{ params.additionalInfo.sq_meters }}</span>
+                </div>
+            {% endif %} #}
+        </div>
+        <div class="c-cards-view__additional-info__price">{{ params.additionalInfo.pricerange }}</div>
+    </div>
+</div>

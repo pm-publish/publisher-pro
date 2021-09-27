@@ -5,7 +5,14 @@
             "enabled": true
         },
         "event": {
-            "enabled": true
+            "enabled": true,
+            "extendedAttributes": [
+                {
+                    "name": "additional_label",
+                    "label": "Additional Label",
+                    "type": "inputbox"
+                }
+            ]
         },
         "blog": {
             "routes": {
