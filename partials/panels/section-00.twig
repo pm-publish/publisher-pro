@@ -3,7 +3,7 @@
 
 <div class="row" data-section="00">
     <div class="col">
-        <div class="c-cards-container c-cards-container-xs bottom-border">
+        <div class="c-cards-container c-cards-container-xs bottom-border hm-firstRow">
             <div class="row">
                 {% for i in 0..3 if articles[articleCount] %}
 
@@ -39,7 +39,7 @@
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
                     position: (articleCount+1),
-                    imageSize: {width: 296, height: 260},
+                    imageSize: {width: 700, height: 450},
                     containerClass: "card-2-mobile card-2-tablet card-5-desktop card-5-text-center",
                     timeSuppress: timeSuppress
                     }) | raw}}

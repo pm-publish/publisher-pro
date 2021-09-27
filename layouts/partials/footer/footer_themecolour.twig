@@ -1,5 +1,5 @@
 {% set link = _Blog.getHomeBlogSettings() %}
-{% set logo = networkData.templatePath~'/static/images/footer-logo.png'%}
+{% set logo = networkData.templatePath~'/static/icons/footer-logo.svg'%}
 {% if networkData.logoMedia | length > 0 %}
 {% set logo = _Media.getMediaUrl(networkData.secondaryLogoMedia, 650, 144, {'crop': 'fit'} )%}
 {% endif %}

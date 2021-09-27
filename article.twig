@@ -313,9 +313,6 @@ article.additionalInfo.image_crop == 'full' %}
                         <div class="row">
                             <div class="col-12">
                                 <div class="c-article__main-content">
-                                    <div class="c-article__excerpt">
-                                        {{article.excerpt}}
-                                    </div>
                                     <div class="c-article__container">
                                         {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
                                     </div>
