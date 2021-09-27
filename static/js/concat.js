@@ -111,24 +111,4 @@ document.addEventListener("DOMContentLoaded", function (event) {
         }
     });
 
-    setTimeout(function () {
-        $(".c-article__container figure img").each(function () {
-            var width = $(this).width() + 'px';
-            var captionObj = $(this).closest('figure').find('figcaption');
-            if (captionObj) {
-                captionObj.css({ 'width': width, "display": "block" });
-            }
-        });
-    }, 400);
-
-    $(window).resize(function () {
-        $(".c-article__container figure img").each(function () {
-            var width = $(this).width() + 'px';
-            var captionObj = $(this).closest('figure').find('figcaption');
-            if (captionObj) {
-                captionObj.css({ 'width': width, "display": "block" });
-            }
-        });
-    })
-
 });
