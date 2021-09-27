@@ -267,7 +267,7 @@ article.additionalInfo.image_crop == 'full' %}
                 <div class="col-12 col-lg-1">
                     <div class="u-generic-socialIcons u-generic-socialIcons-xs">
                         <a class="u-generic-socialIcons__item"
-                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
+                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
                                 src="{{networkData.templatePath}}/static/icons/icons-socials-email-reverse-circle.svg" />
                         </a>
                         <a class="u-generic-socialIcons__item"
@@ -282,7 +282,8 @@ article.additionalInfo.image_crop == 'full' %}
                             <img
                                 src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-reverse-circle.svg" />
                         </a>
-                        <a class="u-generic-socialIcons__item" href="javascript:;">
+                        <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                            target="_blank">
                             <img
                                 src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-reverse-circle.svg" />
                         </a>
@@ -321,7 +322,7 @@ article.additionalInfo.image_crop == 'full' %}
                                 <div class="u-generic-socialIcons mb-5 justify-content-end">
                                     <div class="u-generic-socialIcons-text">Share article</div>
                                     <a class="u-generic-socialIcons__item"
-                                        href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
+                                        href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
                                             src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
                                     </a>
                                     <a class="u-generic-socialIcons__item"
@@ -336,7 +337,8 @@ article.additionalInfo.image_crop == 'full' %}
                                         <img
                                             src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
                                     </a>
-                                    <a class="u-generic-socialIcons__item" href="javascript:;">
+                                    <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                            target="_blank">
                                         <img
                                             src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
                                     </a>
