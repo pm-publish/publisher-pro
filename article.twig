@@ -9,7 +9,7 @@
 
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['headingColor'] is defined %}
-{% set themeColor = networkData['styling']['colours']['headingColor'] %}
+    {% set themeColor = networkData['styling']['colours']['headingColor'] %}
 {% endif %}
 
 {% set relatedArticles = [] %}
@@ -19,9 +19,8 @@
 
 
 {% set cropped = true %}
-{% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and
-article.additionalInfo.image_crop == 'full' %}
-{% set cropped = false %}
+{% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and article.additionalInfo.image_crop == 'full' %}
+    {% set cropped = false %}
 {% endif %}
 
 
@@ -30,7 +29,7 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% set pwstats = {} %}
 {% if not _User.isGuest() %}
-{% set pwstats = _User.getPaywallStats(false) %}
+    {% set pwstats = _User.getPaywallStats(false) %}
 {% endif %}
 
 
@@ -40,35 +39,35 @@ article.additionalInfo.image_crop == 'full' %}
 {% set paywallType = "" %}
 {% if not _User.isAdminUser() and article.showPaywall == true %}
 
-{% set showPaywall = true %}
+    {% set showPaywall = true %}
 
-{# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
-{% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
-{# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
+    {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
+    {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
+    {# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
 
-{% if not _User.isGuest() %}
-{% set showPaywall = false %}
-{% else %}
-{% set paywallType = "signup" %}
-{% endif %}
+        {% if not _User.isGuest() %}
+            {% set showPaywall = false %}
+        {% else %}
+            {% set paywallType = "signup" %}
+        {% endif %}
 
 
-{% else %}
-{# DETERMINE WHICH PAYWALL TO SHOW #}
-{% if not _User.isGuest() %}
+    {% else %}
+        {# DETERMINE WHICH PAYWALL TO SHOW #}
+        {% if not _User.isGuest() %}
 
-{% if pwstats['type'] == 'article' %}
-{% set paywallType = "topup" %}
-{% elseif pwstats['type'] == 'time' %}
-{% set paywallType = "renew" %}
-{% else %}
-{% set paywallType = "upgrade" %}
-{% endif %}
+            {% if pwstats['type'] == 'article' %}
+                {% set paywallType = "topup" %}
+            {% elseif pwstats['type'] == 'time' %}
+                {% set paywallType = "renew" %}
+            {% else %}
+                {% set paywallType = "upgrade" %}
+            {% endif %}
 
-{% else %}
-{% set paywallType = "subscribe" %}
-{% endif %}
-{% endif %}
+        {% else %}
+            {% set paywallType = "subscribe" %}
+        {% endif %}
+    {% endif %}
 {% endif %}
 
 
@@ -78,46 +77,45 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% if showPaywall == true %}
 
-{% set storySplit = ArticleContent | split('</p>') %}
-{% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
-{% set ArticleContent = [storySplit[0], para2] | join('</p>') %}
+    {% set storySplit = ArticleContent | split('</p>') %}
+    {% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
+    {% set ArticleContent = [storySplit[0], para2] | join('</p>') %}
 
-{% set plans = networkData['paywallPlans'] %}
-{% for plan in plans %}
-{% if plan.trial_status == "1" %}
-{% set trialToggle = true %}
-{% endif %}
-{% endfor %}
+    {% set plans = networkData['paywallPlans'] %}
+    {% for plan in plans %}
+        {% if plan.trial_status == "1" %}
+            {% set trialToggle = true %}
+        {% endif %}
+    {% endfor %}
 
 {% else %}
 {# Only grab these if article is not paywalled #}
 {# {% set relatedArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, excludeArticleIds :
 [article.id], interval: 168 }) %} #}
-{% if config['inventory']['articleAd'] is defined %}
-{% set adPos = config['inventory']['articleAd'] %}
+    {% if config['inventory']['articleAd'] is defined %}
+        {% set adPos = config['inventory']['articleAd'] %}
 
-{% set storySplit = ArticleContent | split('<p>') %}
+        {% set storySplit = ArticleContent | split('<p>') %}
 
-    {% if storySplit[(adPos['position'] * 2) - 1] %}
-    {% if adPos['slot'] is defined %}
-    {% set inarticleslot = adPos['slot'] %}
-    {% set ArticleContent = '
-<p>' %}
-    {% for para in storySplit %}
-    {% set ArticleContent = ArticleContent ~ '
-<p>' ~ para %}
-    {% if loop.index == adPos['position'] %}
-    {% set ArticleContent = ArticleContent ~ '
-<div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
-    <div class="j-adslot" id="' ~ inarticleslot ~ '" data-adshape="banner"></div>
-</div>' %}
-{% endif %}
-{% endfor %}
-{% endif %}
+        {% if storySplit[(adPos['position'] * 2) - 1] %}
+            {% if adPos['slot'] is defined %}
+                {% set inarticleslot = adPos['slot'] %}
+                {% set ArticleContent = '<p>' %}
+                {% for para in storySplit %}
+                    {% set ArticleContent = ArticleContent ~ '<p>' ~ para %}
+                    {% if loop.index == adPos['position'] %}
+                        {% set ArticleContent = ArticleContent ~ 
+                            '<div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
+                                <div class="j-adslot" id="' ~ inarticleslot ~ '" data-adshape="banner"></div>
+                            </div>' %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
 
-{% endif %}
-{% endif %}
-{% set recentArticles = _Article.getRecentArticles({ limit: 5, excludeArticleIds : [article.id] }) %}
+    {% endif %}
+
+    {% set recentArticles = _Article.getRecentArticles({ limit: 5, excludeArticleIds : [article.id] }) %}
 {% endif %}
 
 
@@ -126,7 +124,7 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% set watermark = false %}
 {% if config['watermark']['settings'] is defined and config['watermark']['sections'][articleBlog|lower] is defined %}
-{% set watermark = config['watermark']['settings'] %}
+    {% set watermark = config['watermark']['settings'] %}
 {% endif %}
 
 
@@ -135,29 +133,33 @@ article.additionalInfo.image_crop == 'full' %}
 {% set articleImg = false %}
 {% set featured = false %}
 {% if article.media|length > 0 %}
-{% set articleImg = true %}
-{% set featured = article.media[0].type %}
+    {% set articleImg = true %}
+    {% set featured = article.media[0].type %}
 {% endif %}
 
 
 
-{% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop':
-'thumb', type: 'user'}) %}
+{% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
 {% set updateDate = _AppHelper.getDefaultTimezoneDateTime(article.updatedDateTime,'F j, Y') %}
 
 {% set galleryCls = "col-lg-8" %}
 {% if article.media|length > 1 %}
-{% set galleryCls = "col-lg-4" %}
+    {% set galleryCls = "col-lg-4" %}
 {% endif %}
 
 
 {% set galleryView = '' %}
 {% set updated = false %}
 {% if article.publishedDateTime != article.updatedDateTime %}
-{% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
-{% if updatedAgo < 86400 %} {% set updateDate=_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} {% endif
-    %} {% set updated=true %} {% endif %} <main id="main" class="o-body-container o-body-container-md u-margin-top-60"
+    {% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
+    {% if updatedAgo < 86400 %} 
+        {% set updateDate =_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} 
+    {% endif %} 
+    {% set updated  =  true %} 
+{% endif %} 
+
+<main id="main" class="o-body-container o-body-container-md u-margin-top-60"
     role="main" data-paywall-type="{{paywallType}}">
     <div class="c-article c-article-xs {% if article.media|length > 1 %} c-article__galleryView {% endif %}">
         <div class="container">
@@ -168,70 +170,66 @@ article.additionalInfo.image_crop == 'full' %}
                             <div class="row relative">
                                 <div class='col-12 {{galleryCls}}'>
                                     <div class="c-article__top-container">
-                                        <div class="c-article__category">
-                                            {{article.label}}
-                                        </div>
-                                        <div class="c-article__title">
-                                            {{ quotes.smarten(article.title) }}
-                                        </div>
-                                        {% if articleImg and article.media|length > 1 or not cropped %}
-                                        <time class="c-article__published">{{article.publishedDate}}</time>
-                                        {% else %}
-                                        <div class="c-article__additionalInfo">
-                                            <div class="c-article__posted-on">
-                                                <time class="c-article__published">{{article.publishedDate}}</time>
-                                                {% if updated %}
-                                                <time class="c-article__updated">Updated
-                                                    {{ updateDate | capitalize }}</time>
-                                                {% endif %}
+                                        
+                                        <div class="c-article__category">{{article.label}}</div>
+                                        <div class="c-article__title">{{ quotes.smarten(article.title) }}</div>
 
-                                                <div class="c-article__author">
-                                                    {% if config['hide-author'] is defined and config['hide-author'] %}
-                                                    <p class="c-article__author-name">{{
-                                                        article.createdBy['displayName'] }}</p>
-                                                    {% else %}
-                                                    <a class="c-article__author-name"
-                                                        href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts">{{
-                                                        article.createdBy['displayName'] }}</a>
+                                        {% if articleImg and article.media|length > 1 or not cropped %}
+                                            <time class="c-article__published">{{article.publishedDate}}</time>
+                                        {% else %}
+                                            <div class="c-article__additionalInfo">
+                                                <div class="c-article__posted-on">
+                                                    <time class="c-article__published">{{article.publishedDate}}</time>
+                                                    {% if updated %}
+                                                        <time class="c-article__updated">Updated {{ updateDate | capitalize }}</time>
                                                     {% endif %}
+
+                                                    <div class="c-article__author">
+                                                        {% if config['hide-author'] is defined and config['hide-author'] %}
+                                                            <p class="c-article__author-name">{{ article.createdBy['displayName'] }}</p>
+                                                        {% else %}
+                                                            <a class="c-article__author-name"
+                                                                href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts">{{
+                                                                article.createdBy['displayName'] }}</a>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="c-article__time-info">
-                                                <div class="c-article__time-info--img">
-                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
-                                                        height="24" viewbox="0 0 24 24">
-                                                        <defs>
-                                                            <path id="m4x15l1r5a"
-                                                                d="M11.377 2.535C17.271 2.735 22 7.416 22 13.234 22 19.185 17.065 24 11.034 24 4.934 24 0 19.185 0 13.234c0-1.739.48-3.478 1.302-5.082.411-.736 1.645-.134 1.234.668-.754 1.338-1.165 2.876-1.165 4.414 0 5.216 4.318 9.429 9.663 9.429 5.278 0 9.595-4.213 9.595-9.43 0-5.014-4.112-9.16-9.252-9.361l1.44 1.337c.616.669-.343 1.605-.96.937L9.252 3.67c-.274-.267-.274-.668 0-.936L11.857.194c.617-.602 1.576.334.96.936l-1.44 1.405zm-.067 7.29c0-.846 1.465-.846 1.465 0v5.403c0 .39-.293.651-.732.651H8.38c-.953 0-.953-1.302 0-1.302h2.93V9.825z" />
-                                                        </defs>
-                                                        <g fill="none" fill-rule="evenodd">
-                                                            <g>
+                                                <div class="c-article__time-info">
+                                                    <div class="c-article__time-info--img">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
+                                                            height="24" viewbox="0 0 24 24">
+                                                            <defs>
+                                                                <path id="m4x15l1r5a"
+                                                                    d="M11.377 2.535C17.271 2.735 22 7.416 22 13.234 22 19.185 17.065 24 11.034 24 4.934 24 0 19.185 0 13.234c0-1.739.48-3.478 1.302-5.082.411-.736 1.645-.134 1.234.668-.754 1.338-1.165 2.876-1.165 4.414 0 5.216 4.318 9.429 9.663 9.429 5.278 0 9.595-4.213 9.595-9.43 0-5.014-4.112-9.16-9.252-9.361l1.44 1.337c.616.669-.343 1.605-.96.937L9.252 3.67c-.274-.267-.274-.668 0-.936L11.857.194c.617-.602 1.576.334.96.936l-1.44 1.405zm-.067 7.29c0-.846 1.465-.846 1.465 0v5.403c0 .39-.293.651-.732.651H8.38c-.953 0-.953-1.302 0-1.302h2.93V9.825z" />
+                                                            </defs>
+                                                            <g fill="none" fill-rule="evenodd">
                                                                 <g>
                                                                     <g>
-                                                                        <g
-                                                                            transform="translate(-797.000000, -164.000000) translate(797.000000, 161.000000) translate(0.000000, 3.000000) translate(1.000000, 0.000000)">
-                                                                            <mask id="fuku2ns3vb" fill="#fff">
-                                                                                <use xlink:href="#m4x15l1r5a" />
-                                                                            </mask>
-                                                                            <use fill="#7F7F7F"
-                                                                                xlink:href="#m4x15l1r5a" />
-                                                                            <g fill="#636567" mask="url(#fuku2ns3vb)">
-                                                                                <rect width="84" height="83" rx="6"
-                                                                                    transform="translate(-24.000000, -26.000000)" />
+                                                                        <g>
+                                                                            <g
+                                                                                transform="translate(-797.000000, -164.000000) translate(797.000000, 161.000000) translate(0.000000, 3.000000) translate(1.000000, 0.000000)">
+                                                                                <mask id="fuku2ns3vb" fill="#fff">
+                                                                                    <use xlink:href="#m4x15l1r5a" />
+                                                                                </mask>
+                                                                                <use fill="#7F7F7F"
+                                                                                    xlink:href="#m4x15l1r5a" />
+                                                                                <g fill="#636567" mask="url(#fuku2ns3vb)">
+                                                                                    <rect width="84" height="83" rx="6"
+                                                                                        transform="translate(-24.000000, -26.000000)" />
+                                                                                </g>
                                                                             </g>
                                                                         </g>
                                                                     </g>
                                                                 </g>
                                                             </g>
-                                                        </g>
-                                                    </svg>
-                                                </div>
-                                                <div class="c-article__time-info--label">
-                                                    {{article.readingTime}} min read
+                                                        </svg>
+                                                    </div>
+                                                    <div class="c-article__time-info--label">
+                                                        {{article.readingTime}} min read
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         {% endif %}
 
                                     </div>
@@ -241,16 +239,18 @@ article.additionalInfo.image_crop == 'full' %}
                                 <div class="col-12 col-lg-8">
                                     <div class="gallery-container gallery-container-xs">
                                         {% if article.media|length > 1 or not cropped %}
-                                        {% set galleryStyle = ' gallery' %} {% endif %} {% if article.media|length> 0
-                                        %}
-                                        {% set imageFeature = featured == 'image' ? true : false %}
-                                        {{this.render('partials/gallery.twig', {
-                                        media: article.media,
-                                        default: imageFeature,
-                                        watermark: watermark,
-                                        galleryStyle: galleryStyle,
-                                        showPaywall: showPaywall
-                                        }) | raw}}
+                                            {% set galleryStyle = ' gallery' %} 
+                                        {% endif %} 
+                                        
+                                        {% if article.media|length> 0 %}
+                                            {% set imageFeature = featured == 'image' ? true : false %}
+                                            {{this.render('partials/gallery.twig', {
+                                                media: article.media,
+                                                default: imageFeature,
+                                                watermark: watermark,
+                                                galleryStyle: galleryStyle,
+                                                showPaywall: showPaywall
+                                            }) | raw}}
                                         {% endif %}
 
                                     </div>
@@ -291,116 +291,112 @@ article.additionalInfo.image_crop == 'full' %}
                 <div class="col-12 col-lg-10">
                     <div class="row">
                         <div class="col-12 col-lg-8">
-                            {% if article.media|length == 1 %} <div
-                                class="gallery-container relative">
-                                {% set galleryStyle = 'article' %}
+                            
+                            {% if article.media|length == 1 %} 
+                                <div class="gallery-container relative">
+                                    {% set galleryStyle = 'article' %}
 
-
-                                {% set imageFeature = featured == 'image' ? true : false %}
-                                {{this.render('partials/gallery.twig', {
-                                media: article.media,
-                                default: imageFeature,
-                                watermark: watermark,
-                                galleryStyle: galleryStyle,
-                                showPaywall: showPaywall
-                                }) | raw}}
-
-                        </div>
-
-
-                        {% endif %}
-
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="c-article__main-content">
-                                    <div class="c-article__excerpt">
-                                        {{article.excerpt}}
-                                    </div>
-                                    <div class="c-article__container">
-                                        {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="u-generic-socialIcons mb-5 justify-content-end">
-                                    <div class="u-generic-socialIcons-text">Share article</div>
-                                    <a class="u-generic-socialIcons__item"
-                                        href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
-                                            src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
-                                    </a>
-                                    <a class="u-generic-socialIcons__item"
-                                        href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
-                                        target="_blank">
-                                        <img
-                                            src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
-                                    </a>
-                                    <a class="u-generic-socialIcons__item"
-                                        href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
-                                        target="_blank">
-                                        <img
-                                            src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
-                                    </a>
-                                    <a class="u-generic-socialIcons__item" href="javascript:;">
-                                        <img
-                                            src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-4">
-                        <div>
-                            <div class="u-heading__large u-heading__large-xs">Top Stories</div>
-                            <div class="col-12 u-margin-top-30 c-cards__top-stories">
-                                <div class="row">
-                                    {% for i in 0..3 if recentArticles[i] %}
-                                    <div class="col-12">
-                                        {{this.render('partials/_single-article.twig', {
-                                        article: recentArticles[i],
-                                        imageSize: {width: 300, height: 180},
-                                        containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
-                                        site: site
+                                    {% set imageFeature = featured == 'image' ? true : false %}
+                                    {{this.render('partials/gallery.twig', {
+                                        media: article.media,
+                                        default: imageFeature,
+                                        watermark: watermark,
+                                        galleryStyle: galleryStyle,
+                                        showPaywall: showPaywall
                                         }) | raw}}
+                                </div>
+                            {% endif %}
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="c-article__main-content">
+                                        <div class="c-article__excerpt">
+                                            {{article.excerpt}}
+                                        </div>
+                                        <div class="c-article__container">
+                                            {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                        </div>
                                     </div>
-                                    {% endfor %}
+                                    <hr />
+                                    <div class="u-generic-socialIcons mb-5 justify-content-end">
+                                        <div class="u-generic-socialIcons-text">Share article</div>
+                                        <a class="u-generic-socialIcons__item"
+                                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
+                                                src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
+                                        </a>
+                                        <a class="u-generic-socialIcons__item"
+                                            href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                            target="_blank">
+                                            <img
+                                                src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
+                                        </a>
+                                        <a class="u-generic-socialIcons__item"
+                                            href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                            target="_blank">
+                                            <img src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
+                                        </a>
+                                        <a class="u-generic-socialIcons__item" href="javascript:;">
+                                            <img
+                                                src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                            <div>
+                                <div class="u-heading__large u-heading__large-xs">Top Stories</div>
+                                <div class="col-12 u-margin-top-30 c-cards__top-stories">
+                                    <div class="row">
+                                        {% for i in 0..3 if recentArticles[i] %}
+                                            <div class="col-12">
+                                                {{this.render('partials/_single-article.twig', {
+                                                article: recentArticles[i],
+                                                imageSize: {width: 300, height: 180},
+                                                containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
+                                                site: site
+                                                }) | raw}}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="u-generic-topBorder mb-4"></div>
-        <div class="c-cards-container c-cards-container-xs bottom-border">
-            <div class="u-heading__large u-heading__large-xs mb-4">You might also like</div>
-            <div class="row">
-                {% for i in 0..3 if recentArticles[i] %}
-                <div class="col-12 col-lg-3 left-border">
-                    {{this.render('partials/_single-article.twig', {
-                    article: recentArticles[i],
-                    imageSize: {width: 296, height: 260},
-                    containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                    site: site
-                    }) | raw}}
+            <div class="u-generic-topBorder mb-4"></div>
+            <div class="c-cards-container c-cards-container-xs bottom-border">
+                <div class="u-heading__large u-heading__large-xs mb-4">You might also like</div>
+                <div class="row">
+                    {% for i in 0..3 if recentArticles[i] %}
+                    <div class="col-12 col-lg-3 left-border">
+                        {{this.render('partials/_single-article.twig', {
+                        article: recentArticles[i],
+                        imageSize: {width: 296, height: 260},
+                        containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                        site: site
+                        }) | raw}}
+                    </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
     </div>
     {% set theKeywords = '' %}
     {% if article.keywords is defined and article.keywords != '' %}
-    {% set theKeywords = article.keywords %}
+        {% set theKeywords = article.keywords %}
     {% elseif blogInfo.keywords is defined and blogInfo.keywords != '' %}
-    {% set theKeywords = blogInfo.keywords %}
+        {% set theKeywords = blogInfo.keywords %}
     {% endif %}
     <div class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
-    </main>
+</main>
 
-    <script>
-        // main script is defered so event listener makes sure
-        // defered script is loaded before this runs
-        document.addEventListener("DOMContentLoaded", function (event) {
-            Acme.articleController = Acme.ArticleController();
-        });
-    </script>
+<script>
+    // main script is defered so event listener makes sure
+    // defered script is loaded before this runs
+    document.addEventListener("DOMContentLoaded", function (event) {
+        Acme.articleController = Acme.ArticleController();
+    });
+</script>
