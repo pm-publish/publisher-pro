@@ -24,4 +24,19 @@
     }
 }
 
+.hm-firstRow {
+    .card-1-mobile {
+        .c-cards-view {
+            &__media {
+                display: none;
+            }
+
+            &__container {
+                width: 100%;
+                margin-left: 0px;
+            }
+        }
+    }
+}
+
 /* End section page  style */

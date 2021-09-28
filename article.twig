@@ -267,7 +267,7 @@
                 <div class="col-12 col-lg-1">
                     <div class="u-generic-socialIcons u-generic-socialIcons-xs">
                         <a class="u-generic-socialIcons__item"
-                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
+                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
                                 src="{{networkData.templatePath}}/static/icons/icons-socials-email-reverse-circle.svg" />
                         </a>
                         <a class="u-generic-socialIcons__item"
@@ -282,7 +282,8 @@
                             <img
                                 src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-reverse-circle.svg" />
                         </a>
-                        <a class="u-generic-socialIcons__item" href="javascript:;">
+                        <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                            target="_blank">
                             <img
                                 src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-reverse-circle.svg" />
                         </a>
@@ -307,39 +308,28 @@
                                 </div>
                             {% endif %}
 
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="c-article__main-content">
-                                        <div class="c-article__excerpt">
-                                            {{article.excerpt}}
-                                        </div>
-                                        <div class="c-article__container">
-                                            {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
-                                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="c-article__main-content">
+                                    <div class="c-article__container">
+                                        {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
                                     </div>
-                                    <hr />
-                                    <div class="u-generic-socialIcons mb-5 justify-content-end">
-                                        <div class="u-generic-socialIcons-text">Share article</div>
-                                        <a class="u-generic-socialIcons__item"
-                                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}"><img
-                                                src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
-                                        </a>
-                                        <a class="u-generic-socialIcons__item"
-                                            href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
-                                            target="_blank">
-                                            <img
-                                                src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
-                                        </a>
-                                        <a class="u-generic-socialIcons__item"
-                                            href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
-                                            target="_blank">
-                                            <img src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
-                                        </a>
-                                        <a class="u-generic-socialIcons__item" href="javascript:;">
-                                            <img
-                                                src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
-                                        </a>
-                                    </div>
+                                </div>
+                                <hr />
+                                <div class="u-generic-socialIcons mb-5 justify-content-end">
+                                    <div class="u-generic-socialIcons-text">Share article</div>
+                                    <a class="u-generic-socialIcons__item" href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
+                                        <img src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
+                                    </a>
+                                    <a class="u-generic-socialIcons__item" href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}" target="_blank">
+                                        <img src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
+                                    </a>
+                                    <a class="u-generic-socialIcons__item" href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                        <img src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
+                                    </a>
+                                    <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                        <img src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
+                                    </a>
                                 </div>
                             </div>
                         </div>

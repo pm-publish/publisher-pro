@@ -108,7 +108,8 @@
     h2,
     h3,
     h4,
-    h5 {
+    h5,
+    li {
       color: $black;
       font-family: $secondaryFont !important;
       font-size: 16px !important;
@@ -147,29 +148,60 @@
     }
 
     h1 {
-      font-size: 50px !important;
+      font-size: 32px !important;
       span,
       b,
       u,
       a {
-        font-size: 50px !important;
+        font-size: 32px !important;
       }
     }
 
     h2 {
-      font-size: 20px !important;
+      font-size: 26px !important;
+      line-height: 1.23;
       span,
       b,
       u,
       a {
-        font-size: 20px !important;
+        font-size: 26px !important;
+        line-height: 1.23;
       }
     }
 
     h3 {
+      font-size: 22px !important;
+      font-weight: $weightBold !important;
+      line-height: 1.09;
+      span,
+      b,
+      u,
+      a {
+        font-size: 22px !important;
+        font-weight: $weightBold !important;
+        line-height: 1.09;
+      }
+    }
+
+    h4 {
+      font-size: 20px !important;
+      font-weight: $weightBold !important;
+      line-height: 1.2;
+      span,
+      b,
+      u,
+      a {
+        font-size: 20px !important;
+        font-weight: $weightBold !important;
+        line-height: 1.2;
+      }
+    }
+
+    h5 {
       font-size: 20px !important;
       font-family: $primaryFont !important;
       font-weight: $weightBold !important;
+      line-height: 1.2;
       span,
       b,
       u,
@@ -177,25 +209,16 @@
         font-size: 20px !important;
         font-family: $primaryFont !important;
         font-weight: $weightBold !important;
+        line-height: 1.2;
       }
     }
 
-    h4 {
-      font-size: 18px !important;
-      font-weight: $weightBold !important;
-      span,
-      b,
-      u,
-      a {
-        font-size: 18px !important;
-        font-weight: $weightBold !important;
-      }
-    }
-
-    h5 {
+    h6 {
       font-size: 18px !important;
       font-family: $primaryFont !important;
       font-weight: $weightBold !important;
+      color: $blue_sh5;
+      line-height: 1.33;
       span,
       b,
       u,
@@ -203,13 +226,14 @@
         font-size: 18px !important;
         font-family: $primaryFont !important;
         font-weight: $weightBold !important;
+        color: $blue_sh5;
+        line-height: 1.33;
       }
     }
 
     ul li {
       list-style-type: none !important;
       position: relative;
-      margin-bottom: 15px;
       &:before {
         content: "";
         @include size(8px);
@@ -222,6 +246,12 @@
 
       span {
         list-style-type: decimal !important;
+      }
+    }
+
+    ol {
+      li {
+        list-style-type: auto !important;
       }
     }
 
@@ -243,17 +273,22 @@
       @include flexbox;
       @include flex-direction(column, vertical);
       @include align-items(flex-start);
-      margin-bottom: 40px;
-      margin-top: 40px;
+      margin: 40px 0px 40px 50px;
       position: relative;
       padding-left: 30px;
       border-left: 8px solid $blue_sh5;
+      color: $black;
+      font-family: $primaryFont !important;
+      font-size: 22px !important;
+      font-weight: $weightBold !important;
+      line-height: 1.45;
       p {
         color: $black;
         font-family: $primaryFont !important;
         font-size: 22px !important;
         font-weight: $weightBold !important;
         margin-bottom: 0px !important;
+        line-height: 1.45;
       }
     }
 
@@ -293,6 +328,8 @@
 
     figure {
       position: relative;
+      @include inline-flex;
+      margin-bottom: 20px !important;
       figcaption {
         position: absolute;
         left: 0;
