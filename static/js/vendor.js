@@ -81,7 +81,9 @@ document.addEventListener("DOMContentLoaded", function (event) {
         var figureStyle = $(this).attr('style') !== undefined;
         var figureClassLeft = $(this).hasClass('alignleft');
         var figureClassRight = $(this).hasClass('alignright');
+        console.log(figureStyle);
         if ((figureStyle) || (figureClassLeft) || (figureClassRight)) {
+            console.log(figureStyle);
             $(this).after('<div class="c-clearfix"></div>');
         }
     });
