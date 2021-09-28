@@ -55,6 +55,10 @@
     .c-cards-view {
         text-align: center;
 
+        &__category-wrap {
+            @include justify-content(center);
+        }
+
         &__author {
             @include justify-content(center);
 
