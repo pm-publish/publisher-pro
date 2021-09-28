@@ -160,16 +160,16 @@ article.additionalInfo.image_crop == 'full' %}
                         <div class="c-article__top">
                             <div class="col-12 col-lg-10 mx-auto">
                                 <div class="row relative">
-                                    <div class='col-12'>
+                                    <div class='col-12 col-lg-8'>
                                         <div class="c-article__top-container">
-                                            <div class="c-article__categoryWrap">
-                                                {% if article.additionalInfo.additional_label is defined and article.additionalInfo.additional_label is not empty %}
-                                                <div class="c-article__additionalInfo-label">
-                                                    {{article.additionalInfo.additional_label}}
-                                                </div>
+                                            <div class="c-article__category-wrap">
+                                                {% if article.label != article.blog.title %}
+                                                    <div class="c-article__additional-category">
+                                                        {{article.label}}
+                                                    </div>
                                                 {% endif %}
                                                 <div class="c-article__category">
-                                                    {{article.label}}
+                                                    {{article.blog.title}}
                                                 </div>
                                             </div>
                                             <div class="c-article__title">
