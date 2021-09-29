@@ -177,6 +177,9 @@ article.additionalInfo.image_crop == 'full' %}
                                                 {{ quotes.smarten(article.title) }}
                                             </div>
                                             <time class="c-article__published">{{article.publishedDate}}</time>
+                                            {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
+                                                <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link" data-access="{{article.userHasEditArticleAccess}}">Edit article</a>
+                                            {% endif %}
                                         </div>
                                     </div>
 
