@@ -91,8 +91,7 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% else %}
 {# Only grab these if article is not paywalled #}
-{# {% set relatedArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, excludeArticleIds :
-[article.id], interval: 168 }) %} #}
+
 {% if config['inventory']['articleAd'] is defined %}
 {% set adPos = config['inventory']['articleAd'] %}
 
@@ -117,7 +116,8 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% endif %}
 {% endif %}
-{% set recentArticles = _Article.getRecentArticles({ limit: 5, excludeArticleIds : [article.id] }) %}
+{% set recentArticles = _Article.getRecentArticles({ blogId: article.blog.id, limit: 4, excludeArticleIds : [article.id], interval: 168 }) %}
+{% set popularArticles = _Article.getPopularArticles({  limit: 4,  sortBy: 'VIEWS', scope: 'blog', excludeArticleId : articleId   }) %}
 {% endif %}
 
 
@@ -327,13 +327,15 @@ article.additionalInfo.image_crop == 'full' %}
                             <div class="col-12 col-lg-4">
                                 <div>
                                     <div class="u-heading__large u-heading__large-xs">Top Stories</div>
+
                                     <div class="col-12 u-margin-top-30 c-cards__top-stories">
                                         <div class="row">
-                                            {% for i in 0..3 if recentArticles[i] %}
+                                            {% for i in 0..3 if popularArticles[i] %}
                                             <div class="col-12">
                                                 {{this.render('partials/_single-article.twig', {
-                                                article: recentArticles[i],
+                                                article: popularArticles[i],
                                                 imageSize: {width: 300, height: 180},
+                                                swap            : false,
                                                 containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
                                                 site: site
                                                 }) | raw}}
