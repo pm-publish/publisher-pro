@@ -2,7 +2,7 @@
     @media #{$desktop-up} {
         .c-cards-view {
             @include flex-direction(column, vertical);
-            height: 680px;
+            min-height: 680px;
             &__media {
                 min-height: 450px;
                 height: 450px;
