@@ -125,24 +125,36 @@
 
                 <div class="c-footer__social">
                     <div class="u-generic-socialIcons">
-                        <a href="javascript:;" class="u-generic-socialIcons__item">
-                            <span class="fa fa-facebook"></span>
-                        </a>
-                        <a href="javascript:;" class="u-generic-socialIcons__item">
-                            <span class="fa fa-twitter"></span>
-                        </a>
-                        <a href="javascript:;" class="u-generic-socialIcons__item">
-                            <span class="fa fa-instagram"></span>
-                        </a>
-                        <a href="javascript:;" class="u-generic-socialIcons__item">
-                            <span class="fa fa-linkedin"></span>
-                        </a>
-                        <a href="javascript:;" class="u-generic-socialIcons__item">
-                            <span class="fa fa-vimeo"></span>
-                        </a>
-                        <a href="javascript:;" class="u-generic-socialIcons__item">
-                            <span class="fa fa-rss"></span>
-                        </a>
+                        {% if config.social.facebook is defined and config.social.facebook is not empty %}
+                            <a href="{{config.social.facebook}}" class="u-generic-socialIcons__item">
+                                <span class="fa fa-facebook"></span>
+                            </a>
+                        {% endif %}
+                        {% if config.social.twitter is defined and config.social.twitter is not empty %}
+                            <a href="{{config.social.twitter}}" class="u-generic-socialIcons__item">
+                                <span class="fa fa-twitter"></span>
+                            </a>
+                        {% endif %}
+                        {% if config.social.instagram is defined and config.social.instagram is not empty %}
+                            <a href="{{config.social.instagram}}" class="u-generic-socialIcons__item">
+                                <span class="fa fa-instagram"></span>
+                            </a>
+                        {% endif %}
+                        {% if config.social.linkedin is defined and config.social.linkedin is not empty %}
+                            <a href="{{config.social.linkedin}}" class="u-generic-socialIcons__item">
+                                <span class="fa fa-linkedin"></span>
+                            </a>
+                        {% endif %}
+                        {% if config.social.vimeo is defined and config.social.vimeo is not empty %}
+                            <a href="{{config.social.vimeo}}" class="u-generic-socialIcons__item">
+                                <span class="fa fa-vimeo"></span>
+                            </a>
+                        {% endif %}
+                        {% if config.social.rss is defined and config.social.rss is not empty %}
+                            <a href="{{config.social.rss}}" class="u-generic-socialIcons__item">
+                                <span class="fa fa-rss"></span>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
