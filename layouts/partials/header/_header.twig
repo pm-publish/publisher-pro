@@ -155,7 +155,7 @@
             <span>
             <img src={{networkData.templatePath}}/static/icons/cross-reverse.svg />
             </span>
-            <span>Close</span>
+            <span>CLOSE</span>
         </button>
         <div class="u-generic-socialIcons">
             {% if config.social.facebook is defined and config.social.facebook is not empty %}
@@ -216,16 +216,7 @@
         </div>
     </div>
     <div class="c-sidebarMenu__copyInfo">
-        <div class="c-navigation-6">
-            <ul class="c-navigation__grid">
-                {{this.render('../_submenu_navigation.twig', {
-                items: headerTopMenu
-                }) | raw }}
-            </ul>
-        </div>
-        <div class="copy-text">&copy; {{
-                        "now"|date("Y")}}
-                        {{networkData.title}}</div>
+        <div class="copy-text">&copy; {{ "now"|date("Y")}} {{networkData.title}}</div>
     </div>
 </div>
 
