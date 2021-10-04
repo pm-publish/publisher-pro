@@ -5,24 +5,26 @@
 
 
         <li class="{% if children %}dropdown js-sideBarList {% endif %}">
-            {% if children %}
-                <div class="menu-icon"></div>
-            {% endif %}
-            <a  class="{{activeClass}} {{externalClass}} {% if children %}js-sideBarItem{% endif %}"
-                href="{{parentItem.link | raw}}"
-                {% if parentItem.target != "" %} 
-                    target="{{parentItem.target}}"
-                {% endif %} 
-            >
-                {% if parentItem.label != "" %}
-                    {{parentItem.label}}
-                {% elseif parentItem.blogTitle != "" %}
-                    {{parentItem.blogTitle}}
-                {% elseif parentItem.pageTitle != "" %}
-                    {{parentItem.pageTitle}}
+            <div class="dropdown-listMenu {% if children %}js-sideBarItem{% endif %}">
+                {% if children %}
+                    <div class="menu-icon"></div>
                 {% endif %}
+                <a  class="{{activeClass}} {{externalClass}}"
+                    href="{{parentItem.link | raw}}"
+                    {% if parentItem.target != "" %} 
+                        target="{{parentItem.target}}"
+                    {% endif %} 
+                >
+                    {% if parentItem.label != "" %}
+                        {{parentItem.label}}
+                    {% elseif parentItem.blogTitle != "" %}
+                        {{parentItem.blogTitle}}
+                    {% elseif parentItem.pageTitle != "" %}
+                        {{parentItem.pageTitle}}
+                    {% endif %}
 
-            </a>
+                </a>
+            </div>
 
             {% if children %}
                 <ul class="custom-menu">
@@ -32,12 +34,13 @@
                         {% set subChildren = childItem.children is defined and childItem.children | length > 0 %}
 
                         <li class="{% if subChildren %} sub-dropdown js-sideBarList {% endif %}">
-                            <a class="{{activeClass}} {{externalClass}} two {% if subChildren %}js-sideBarItem{% endif %}" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
-                                {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty) ? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
-                            </a>
-                        
-                            {% if subChildren %}  
+                            <div class="sub-dropdown-item {% if subChildren %}js-sideBarItem{% endif %}">
                                 <div class="menu-icon"></div>
+                                <a class="{{activeClass}} {{externalClass}} two" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
+                                    {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty) ? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
+                                </a>
+                            </div>
+                            {% if subChildren %}
                                 <ul class="sub-custom-menu">
                                     {% for subChildItems in childItem.children %}
                                         {% set subExternalClass = (subChildItems.isExternal) ? 'external-link' : '' %}
