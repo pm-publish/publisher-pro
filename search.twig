@@ -69,7 +69,7 @@
     // defered script is loaded before this runs
     document.addEventListener("DOMContentLoaded", function(event) {
         
-        Acme.loadMore = new Acme.View.articleFeed({
+        Acme.loadMore = new Acme.ArticleFeed({
             model           : new Card(),
             container       : 'results',
             infinite        : true,

@@ -109,14 +109,14 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     sidebarMenuClose();
 
-    $('.js-sideBarItem').on('click', function (e) {
+    $('.js-sideBarList').on('click', function (e) {
         e.preventDefault();
-        var getParentLi = $(this).closest('.js-sideBarList');
-        if (getParentLi.hasClass('active')) {
-            getParentLi.toggleClass('active');
+        var elem = $(this);
+        if (elem.hasClass('active')) {
+            elem.toggleClass('active');
         } else {
-            getParentLi.siblings(".js-sideBarList").removeClass('active');
-            getParentLi.addClass('active');
+            elem.siblings(".js-sideBarList").removeClass('active');
+            elem.addClass('active');
         }
     });
 
