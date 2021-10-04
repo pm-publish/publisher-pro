@@ -51,6 +51,7 @@
             padding: 0;
             li {
                 position: relative;
+                cursor: pointer;
             }
             > li {
                 > a {
@@ -241,7 +242,7 @@
         #{$selfNav} {
             &__item {
                 color: $white;
-                @include font-size(12);
+                @include font-size(14.5);
                 line-height: 1.33;
                 font-weight: $weightMedium;
                 text-decoration: none;
