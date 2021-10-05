@@ -21,6 +21,12 @@
     }
   }
 
+  .u-generic-socialIcons {
+    &--sticky {
+      margin-bottom: 25px;
+    }
+  }
+
   &__category {
     color: $blue_sh5;
     @include font-size(12);
@@ -80,6 +86,7 @@
     width: 100%;
     @include flexbox();
     @include align-items(center);
+    @include flex-wrap(wrap);
   }
 
   &__published,
@@ -87,16 +94,19 @@
     color: $grey5;
     @include font-size(12);
     line-height: 1.33;
+    margin-bottom: 4px;
   }
   &__updated {
     border-left: 1px solid $grey5;
     padding-left: 6px;
     margin-left: 6px;
+    margin-right: 12px;
   }
   &__author {
     @include flexbox;
     @include align-items(center);
-    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 4px;
 
     &-name {
       @include font-size(12);

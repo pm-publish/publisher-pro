@@ -45,7 +45,7 @@
 <footer class="c-footer c-footer-sm c-footer--themecolour">
     <div class="container">
         <div class="row c-footer__container">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-4 col-lg-3">
                 <div class="c-footer__logo">
                     <a href="{{networkData.defaultBlogUrl}}" class="c-footer__logo--link">
                         <img src="{{logo}}" class="image-fluid" />
@@ -103,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-9 col-xl-5 order-3 order-lg-2">
+            <div class="col-12 col-md-8 col-lg-9 col-xl-5 order-3 order-lg-2">
                 <div class="row flex-column flex-md-row">
 
                     {% set footercols = 0 %}
@@ -175,10 +175,12 @@
         <div class="c-footer__bottom u-margin-top-80 u-tablet-margin-top-40">
             <div class="row justify-content-between">
                 <div class="col col-lg-3">
-                    <div class="c-footer__bottom__powered-by">Designed & Powered by Pagemasters Publish</div>
+                    <div class="c-footer__bottom__powered-by">Designed & Powered by 
+                    <a href="https://publish.pagemasters.com/" target="_blank">Pagemasters Publish</a>
+                    </div>
                 </div>
                 <div class="col col-lg-5 d-none d-lg-flex">
-                    <div class="c-navigation-0 c-navigation-0-xs">
+                    <div class="c-navigation-0 c-navigation-0-xs c-navigation-0--footer">
                         <ul class="c-navigation__grid">
                             {{this.render('../_submenu_navigation.twig', {
                             items: footerBottomMenu

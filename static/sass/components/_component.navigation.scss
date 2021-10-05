@@ -44,6 +44,16 @@
                 }
             }
         }
+        &--footer {
+            #{$selfNav} {   
+                &__item {
+                    color: $grey3;
+                    @include font-size(12);
+                    line-height: 1.33;
+                    font-weight: $weightRegular;
+                }
+            }
+        }
     }
 
     &-1 {

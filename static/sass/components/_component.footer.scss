@@ -47,10 +47,24 @@
         &__powered-by,
         &__copyright {
             color: $grey3;
-            @include font-size(10);
-            line-height: 1.6;
-            font-weight: $weightMedium;
+            @include font-size(12);
+            line-height: 1.33;
+            font-weight: $weightRegular;
             @include flexbox;
+
+            a {
+                color: $grey3;
+                @include font-size(12);
+                line-height: 1.33;
+                font-weight: $weightUltabold;
+                text-decoration: none;
+                margin-left: 5px;
+                @include flexbox;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
         }
         .c-navigation-0 {
             .c-navigation {

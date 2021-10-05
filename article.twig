@@ -193,6 +193,18 @@ article.additionalInfo.image_crop == 'full' %}
                                                             article.createdBy['displayName'] }}</a>
                                                         {% endif %}
                                                     </div>
+                                                    {% if article['createdBy']['coauthors'] %}
+                                                        {% for author in article['createdBy']['coauthors'] %}
+                                                            <div class="c-article__author">
+                                                                <div class="c-article__avatar" style="background-image: url({{ _Media.getMediaUrl(author['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }});"></div>
+                                                                {% if config['hide-author'] is defined and config['hide-author'] %}
+                                                                    <p class="c-article__author-name" >{{ author['displayName'] }}</p>
+                                                                {% else %}
+                                                                    <a class="c-article__author-name" href="{{_AppHelper.getUserProfileUrl(author['username'])}}/posts">{{ author['displayName'] }}</a>
+                                                                {% endif %}
+                                                            </div>
+                                                        {% endfor %}
+                                                    {% endif %}
                                                 </div>
                                                 <div class="c-article__time-info">
                                                     <div class="c-article__time-info--img">
@@ -243,7 +255,7 @@ article.additionalInfo.image_crop == 'full' %}
 
                 <div class="row c-article__main-container">
                     <div class="col-12 col-lg-1">
-                        <div class="u-generic-socialIcons u-generic-socialIcons-xs">
+                        <div class="u-generic-socialIcons u-generic-socialIcons--sticky u-generic-socialIcons-xs">
                             <a class="u-generic-socialIcons__item"
                                 href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
                                     src="{{networkData.templatePath}}/static/icons/icons-socials-email-reverse-circle.svg" />
@@ -297,7 +309,7 @@ article.additionalInfo.image_crop == 'full' %}
                                             </div>
                                         </div>
                                         <hr />
-                                        <div class="u-generic-socialIcons mb-5 justify-content-end">
+                                        <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
                                             <div class="u-generic-socialIcons-text">Share article</div>
                                             <a class="u-generic-socialIcons__item"
                                                 href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
@@ -324,7 +336,7 @@ article.additionalInfo.image_crop == 'full' %}
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-lg-4">
+                            <div class="col-12 col-lg-4 d-none d-lg-block">
                                 <div>
                                     <div class="u-heading__large u-heading__large-xs">Top Stories</div>
 

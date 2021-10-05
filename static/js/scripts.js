@@ -76,6 +76,8 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     sidebarMenuClose();
 
+    console.log('testing');
+
     $('.js-sideBarItem').on('click', function (e) {
         e.preventDefault();
         console.log('TEST');
