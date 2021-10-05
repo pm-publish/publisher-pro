@@ -1,5 +1,6 @@
 {% set link = _Blog.getHomeBlogSettings() %}
 {% set logo = networkData.templatePath~'/static/icons/footer-logo.svg'%}
+{% set footerBottomFavicon = networkData.templatePath~'/static/icons/path.svg'%}
 {% if networkData.logoMedia | length > 0 %}
 {% set logo = _Media.getMediaUrl(networkData.secondaryLogoMedia, 650, 144, {'crop': 'fit'} )%}
 {% endif %}
@@ -175,7 +176,9 @@
         <div class="c-footer__bottom u-margin-top-80 u-tablet-margin-top-40">
             <div class="row justify-content-between">
                 <div class="col col-lg-3">
-                    <div class="c-footer__bottom__powered-by">Designed & Powered by 
+                    <div class="c-footer__bottom__powered-by">
+                    <img src="{{footerBottomFavicon}}" class="powered-img" alt="image" />
+                    Designed & Powered by 
                     <a href="https://publish.pagemasters.com/" target="_blank">Pagemasters Publish</a>
                     </div>
                 </div>
