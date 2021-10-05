@@ -1,6 +1,6 @@
 {% set dateFormat = "l, j F Y" %}
 {% if config['dateFormat'] is defined and config['dateFormat'] != "" %}
-{% set dateFormat = config['dateFormat'] %}
+    {% set dateFormat = config['dateFormat'] %}
 {% endif %}
 {% set theDate = _AppHelper.getCurrentTimestampBasedOnTimezone() %}
 {% set date = _AppHelper.getDefaultTimezoneDateTime(theDate, dateFormat) %}
@@ -15,22 +15,22 @@
 {% set logoHeight = 144 %}
 
 {% if config['logo'] is defined %}
-{% if config['logo']['width'] is defined %}
-{% set logoWidth = config['logo']['width'] %}
+    {% if config['logo']['width'] is defined %}
+        {% set logoWidth = config['logo']['width'] %}
 
-{% if config['logo']['height'] is not defined %}
-{% set logoHeight = 0 %}
-{% endif %}
-{% endif %}
+        {% if config['logo']['height'] is not defined %}
+            {% set logoHeight = 0 %}
+        {% endif %}
+    {% endif %}
 
-{% if config['logo']['height'] is defined %}
-{% set logoHeight = config['logo']['height'] %}
+    {% if config['logo']['height'] is defined %}
+        {% set logoHeight = config['logo']['height'] %}
 
-{% if config['logo']['width'] is not defined %}
-{% set logoWidth = 0 %}
-{% endif %}
+        {% if config['logo']['width'] is not defined %}
+            {% set logoWidth = 0 %}
+        {% endif %}
 
-{% endif %}
+    {% endif %}
 {% endif %}
 
 {% set paywall = true %}
@@ -94,7 +94,7 @@
                         </div>
                         <div class="c-header-main__logo">
                             <a href="{{networkData.defaultBlogUrl}}" class="c-header-main__logo-item">
-                                <img src="{{logo}}" class="image-fluid" style="max-height:50px;" />
+                                <img src="{{logo}}" class="image-fluid" />
                             </a>
                         </div>
 

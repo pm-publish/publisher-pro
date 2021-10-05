@@ -32,11 +32,13 @@
     @include font-size(12);
     line-height: 1.33;
     font-weight: $weightMedium;
+    margin: 2px 0;
   }
 
   &__category-wrap {
     @include flexbox;
     @include align-items(center);
+    @include flex-wrap(wrap);
     margin-bottom: 10px;
   }
 
@@ -57,13 +59,13 @@
   }
 
   &__additional-category {
-    margin-right: 10px;
     color: $white;
     @include font-size(12);
     line-height: 1.33;
     font-weight: $weightMedium;
     padding: 2px 5px;
     background-color: $blue_sh5;
+    margin: 2px 10px 2px 0;
   }
 
   &__title {
