@@ -367,3 +367,21 @@ div[class^="card"] {
         }
     }
 }
+
+.card-infoo {
+    .article_number {
+        display: block;
+        border-radius: 50%;
+        @include size(30px);
+        background: #efefef;
+        color: #353535;
+        @include font-size(15);
+        position: absolute;
+        top: 0;
+        right: 0;
+        text-align: center;
+        line-height: 30px;
+        z-index: 100;
+        box-shadow: 2px 3px 5px #d0d0d0;
+    }
+}

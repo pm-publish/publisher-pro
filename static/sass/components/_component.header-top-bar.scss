@@ -49,7 +49,7 @@
 .c-header {
     $selfHeader: &;
     &-top-bar {
-        background-color: $blue_sh1;
+        background-color: var(--main-color);
 
         &__container {
             @include flexbox;

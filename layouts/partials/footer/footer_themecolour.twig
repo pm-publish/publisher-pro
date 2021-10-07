@@ -21,8 +21,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-
-
                 {% if paywall %}
                 {% if loggedin %}
                 <div class="c-navigation-4 c-navigation-4-xs">
@@ -52,8 +50,6 @@
                         <img src="{{logo}}" class="image-fluid" />
                     </a>
                 </div>
-
-
                 <div class="d-black d-xl-none u-margin-top-30 u-margin-bottom-30 text-center text-md-start">
                     <div class="c-footer__addresses">
                         {% if addresses.name != "" %}
@@ -173,30 +169,30 @@
             </div>
         </div>
 
-        <div class="c-footer__bottom u-margin-top-80 u-tablet-margin-top-40">
-            <div class="row justify-content-between">
-                <div class="col col-lg-3">
-                    <div class="c-footer__bottom__powered-by">
+        <div class="c-footer__bottom c-footer__bottom-xs u-margin-top-80 u-tablet-margin-top-40">
+            <div class="c-footer__bottom-ls">
+                <div class="c-footer__bottom__powered-by">
                     <img src="{{footerBottomFavicon}}" class="powered-img" alt="image" />
                     Designed & Powered by 
                     <a href="https://publish.pagemasters.com/" target="_blank">Pagemasters Publish</a>
-                    </div>
-                </div>
-                <div class="col col-lg-5 d-none d-lg-flex">
-                    <div class="c-navigation-0 c-navigation-0-xs c-navigation-0--footer">
-                        <ul class="c-navigation__grid">
-                            {{this.render('../_submenu_navigation.twig', {
-                            items: footerBottomMenu
-                            }) | raw }}
-                        </ul>
-                    </div>
-                </div>
-                <div class="col col-lg-3 offset-lg-1">
-                    <div class="c-footer__bottom__copyright justify-content-end justify-content-lg-start">&copy; {{
-                        "now"|date("Y")}}
-                        {{networkData.title}}</div>
                 </div>
             </div>
+
+            <div class="c-footer__bottom-rs">
+                <div class="c-navigation-0 c-navigation-0-xs c-navigation-0--footer">
+                    <ul class="c-navigation__grid">
+                        {{this.render('../_submenu_navigation.twig', {
+                        items: footerBottomMenu
+                        }) | raw }}
+                    </ul>
+                </div>
+
+                <div class="c-footer__bottom__copyright">
+                    &copy; {{ "now"|date("Y")}} {{networkData.title}}
+                </div>
+            </div>
+
+            
         </div>
     </div>
 

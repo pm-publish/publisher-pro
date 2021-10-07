@@ -275,12 +275,12 @@
                 &--borderred {
                     border-bottom: 2px solid $white;
                     &:hover {
-                        border-bottom-color: $blue_sh1;
+                        border-bottom-color: var(--main-color);
                     }
                 }
 
                 &:hover {
-                    color: $blue_sh1;
+                    color: var(--main-color);
                 }
 
                 + #{$selfNav}__item {
@@ -318,7 +318,7 @@
                     &--borderred {
                         border-bottom: 2px solid $blue_sh5;
                         &:hover {
-                            border-bottom-color: $blue_sh1;
+                            border-bottom-color: var(--main-color);
                         }
                     }
                 }

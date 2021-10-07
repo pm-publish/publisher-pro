@@ -44,22 +44,28 @@
     }
 
     &__bottom {
-        &__powered-by,
-        &__copyright {
+        @include flexbox;
+        @include flex-direction(column,vertical);
+        
+        &-ls,
+        &-rs {
+            @include justify-content(center);
+            @include flexbox;
+        }
+
+        &__powered-by {
             color: $grey3;
             @include font-size(12);
             line-height: 1.33;
             font-weight: $weightRegular;
-            @include flexbox;
-
+            text-align: center;
+            
             a {
                 color: $grey3;
                 @include font-size(12);
                 line-height: 1.33;
                 font-weight: $weightUltabold;
                 text-decoration: none;
-                margin-left: 5px;
-                @include flexbox;
 
                 &:hover {
                     text-decoration: underline;
@@ -68,13 +74,20 @@
 
             .powered-img{
                 margin-top: -5px;
-                @include flexbox;
                 width: 17px;
                 height: 18px;
                 margin-right: 10px;
             }
         }
+        &__copyright {
+            margin-top: 8px;
+            color: $grey3;
+            @include font-size(12);
+            line-height: 1.33;
+            font-weight: $weightRegular;
+        }
         .c-navigation-0 {
+            display: none;
             .c-navigation {
                 &__grid {
                     li {
@@ -89,6 +102,52 @@
                 }
             }
         }
+
+        @include responsive(xs) {
+            @include respond-to(sm) {
+                @include flex-direction(row,horizontal);
+                @include justify-content(space-between);
+                .c-footer__bottom {
+                    &__powered-by {
+                        text-align: left;
+                    }
+                    &__copyright {
+                        margin-top: 0
+                    }         
+                }
+            }
+
+            @include respond-to(md) {
+                .c-footer__bottom {
+                    &-rs {
+                        margin-left: 25px;
+                        flex: 1;
+                        @include justify-content(space-between);
+                    }
+
+                    &__copyright {
+                        width: 216px;
+                    }
+                }
+                .c-navigation-0 {
+                    @include flexbox;
+                }
+            }
+            @include respond-to(lg) {
+                .c-footer__bottom {
+                    &__copyright {
+                        width: 262px;
+                    }
+                }
+            }
+            @include respond-to(xl) {
+                .c-footer__bottom {
+                    &__copyright {
+                        width: 306px;
+                    }
+                }
+            }
+        }
        
     }
 
@@ -98,7 +157,6 @@
 
     @include responsive(sm) {
         padding: 60px 0 40px;
-
         @include respond-to(md) {
             .c-footer {
                 &__logo {
