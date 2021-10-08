@@ -2,7 +2,7 @@
 {% set cardIndex = 0 %}
 
 
-<div class="row" data-section="04">
+<div class="row" data-section="07">
     <div class="col-12">
         <div class="u-generic-topBorder "></div>
         <div class="c-page-head c-page-head-xs">
@@ -23,7 +23,7 @@
                                 {{this.render('../_single-article.twig', {
                                 article: articles[articleCount],
                                 position: (articleCount+1),
-                                imageSize: {width: 296, height: 260},
+                                imageSize: {width: 520, height: 384},
                                 containerClass: "card-2-mobile card-2-tablet card-7-desktop",
                                 timeSuppress: timeSuppress
                                 }) | raw}}
@@ -35,7 +35,7 @@
                                 {{this.render('../_single-article.twig', {
                                 article: articles[articleCount],
                                 position: (articleCount+1),
-                                imageSize: {width: 296, height: 260},
+                                imageSize: {width: 306, height: 185},
                                 containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
                                 card--verticalMulti card--verticalMulti-xs",
                                 timeSuppress: timeSuppress
@@ -50,7 +50,7 @@
                         {{this.render('../_single-article.twig', {
                         article: articles[articleCount],
                         position: (articleCount+1),
-                        imageSize: {width: 296, height: 260},
+                        imageSize: {width: 79, height: 96},
                         containerClass: "card-1-mobile card-1-tablet card-1-desktop",
                         timeSuppress: timeSuppress
                         }) | raw}}

@@ -50,6 +50,44 @@
         }
     }
 }
+.card-5-desktop {
+    .c-cards-view {
+        &.without-image {
+            background-color: $black;
+            height: 680px;
+            .c-cards-view {
+                &__container {
+                    padding: 100px 50px 50px;
+                }
+
+                &__category,
+                &__heading,
+                &__description,
+                &__author-name,
+                &__time {
+                    color: $white;
+                }
+            }
+        }
+    }
+    &.card-2-mobile, &.card-2-tablet  {
+        @media #{$mobile}, #{$tablet} {
+            .c-cards-view {
+                &.without-image {
+                    background-color: $black;
+                    height: inherit;
+
+                    .c-cards-view {
+                        &__container {
+                            padding: 50px 30px 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 .card-5-text-center {
     .c-cards-view {
