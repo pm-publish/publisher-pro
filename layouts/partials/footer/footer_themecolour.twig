@@ -1,4 +1,4 @@
-{% set link = _Blog.getHomeBlogSettings() %}
+{% set defaultBlog = _Blog.getHomeBlogSettings() %}
 {% set logo = networkData.templatePath~'/static/icons/footer-logo.svg'%}
 {% set footerBottomFavicon = networkData.templatePath~'/static/icons/path.svg'%}
 {% if networkData.logoMedia | length > 0 %}
@@ -6,7 +6,7 @@
 {% endif %}
 {% set footerMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer'}) %}
 {% set footerBottomMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer-bottom'}) %}
-
+{% set addresses = defaultBlog.contact %}
 {% set paywall = true %}
 
 {% if config['paywall'] is defined and config['paywall'] == false %}

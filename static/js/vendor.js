@@ -109,20 +109,22 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     sidebarMenuClose();
 
-    console.log('testing');
-
     $('.js-sideBarItem').on('click', function (e) {
         e.preventDefault();
-        console.log('TEST');
         var getParentLi = $(this).closest('.js-sideBarList');
         if (getParentLi.hasClass('active')) {
-            console.log('TEST2');
             getParentLi.toggleClass('active');
         } else {
-            console.log('TEST3');
             getParentLi.siblings(".js-sideBarList").removeClass('active');
             getParentLi.addClass('active');
         }
     });
+
+    $('body').not('.js-menu').on('click', function (e) {
+        if (!$(e.target).is('.c-sidebarMenu, .c-sidebarMenu *') && !$(e.target).is('.js-menu, .js-menu *')) {
+            $('.c-sidebarMenu').removeClass("sidebar-active");
+            $('.body').removeClass("u-noscroll");
+        }
+    })
 
 });
