@@ -164,6 +164,9 @@
         {% set newWindow = true %}
     {% endif %}
 
+    {% if url.path == 'real-estate' %}
+        {% set newWindow = false %}
+    {% endif %}
 
     {% if amp == true %}
         {% set redirUrl = redirUrl ~ '?amp=1' %}
