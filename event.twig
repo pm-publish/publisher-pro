@@ -82,8 +82,9 @@
                                 </div>
                             {% endif %}
 
-                            <a href="{{event.editUrl}}" target="_blank" class="c-article__edit-link">Edit event</a>
-
+                            {% if _User.isAdminUser() %}
+                                <a href="{{event.editUrl}}" target="_blank" class="c-article__edit-link">Edit event</a>
+                            {% endif %}
                             <div class="c-eventdetail__container">
                                 <div class="c-eventdetail__info">
                                     <div class="c-eventdetail__info-item bold">
