@@ -27,6 +27,7 @@
             @include font-size(13);
             line-height: 1.38;
             color: $grey5;
+            margin: 4px 0 15px;
         }
 
         &__additional-info {
@@ -35,6 +36,9 @@
                 @include align-items(center);
 
                 &-list {
+                    @include flexbox;
+                    @include align-items(center);
+
                     svg {
                         fill: $blue_sh5;
                     }
@@ -76,6 +80,17 @@
     @media #{$tablet} {
         @include card-property-tablet-base();
         @include card-name("C property desktop");
+
+        &.card-property-highlighter {
+            .c-cards-view {
+                &__heading {
+                    @include font-size(26);
+                }
+                &__additional-info__price {
+                    margin-top: 20px;
+                }
+            }
+        }
     }
 }
 
@@ -83,6 +98,17 @@
     @media #{$desktop-up} {
         @include card-property-tablet-base();
         @include card-name("C property desktop");
+
+        &.card-property-highlighter {
+            .c-cards-view {
+                &__heading {
+                    @include font-size(26);
+                }
+                &__additional-info__price {
+                    margin-top: 20px;
+                }
+            }
+        }
     }
 }
 
