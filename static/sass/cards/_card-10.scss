@@ -86,6 +86,9 @@
                 &__heading {
                     @include font-size(26);
                 }
+                &__description {
+                    margin-top: 15px;
+                }
                 &__additional-info__price {
                     margin-top: 20px;
                 }
@@ -103,6 +106,9 @@
             .c-cards-view {
                 &__heading {
                     @include font-size(26);
+                }
+                &__description {
+                    margin-top: 15px;
                 }
                 &__additional-info__price {
                     margin-top: 20px;
