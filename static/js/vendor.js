@@ -122,7 +122,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
 
     $('body').not('.js-menu').on('click', function (e) {
         if (!$(e.target).is('.c-sidebarMenu, .c-sidebarMenu *') && !$(e.target).is('.js-menu, .js-menu *')) {
-            console.log(e.target);
             $('.c-sidebarMenu').removeClass("sidebar-active");
             $('.body').removeClass("u-noscroll");
         }
