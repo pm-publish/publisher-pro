@@ -8,7 +8,8 @@
 
         &__media {
             margin-bottom: 15px;
-            height: 154px;
+            height: 40vw;
+            min-height: 154px;
         }
 
         &__category {
@@ -74,6 +75,12 @@
 @mixin card-property-tablet-base() {
     @include card-property-base();
     @include card-name("C property tablet");
+
+    .c-cards-view {
+        &__media {
+            height: 154px;
+        }
+    }
 }
 
 .card-property-tablet {
@@ -83,6 +90,9 @@
 
         &.card-property-highlighter {
             .c-cards-view {
+                &__media {
+                    height: 460px;
+                }
                 &__heading {
                     @include font-size(26);
                 }
@@ -104,6 +114,9 @@
 
         &.card-property-highlighter {
             .c-cards-view {
+                &__media {
+                    height: 460px;
+                }
                 &__heading {
                     @include font-size(26);
                 }
@@ -114,14 +127,6 @@
                     margin-top: 20px;
                 }
             }
-        }
-    }
-}
-
-.card-property-highlighter {
-    .c-cards-view {
-        &__media {
-            height: 460px;
         }
     }
 }

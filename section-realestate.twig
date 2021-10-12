@@ -53,29 +53,33 @@
                         </div>
                         <div class="col-12 col-lg-6 left-border">
                             <div class="row">
-                                <div class="col-12 col-md-6 left-border">
-                                    {% for i in 1..2 if articles[articleCount] %}
-                                        {{this.render('partials/_single-article.twig', {
-                                            article: articles[articleCount], 
-                                            position: (articleCount+1),
-                                            template: 'property',
-                                            imageSize: {width: 360, height: 270},
-                                            containerClass: 'card-property-mobile card-property-tablet card-property-desktop'
-                                        }) | raw}}
-                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                    {% endfor %}
+                                <div class="col-12 col-lg-6 left-border">
+                                    <div class="row">
+                                        {% for i in 1..2 if articles[articleCount] %}
+                                            {{this.render('partials/_single-article.twig', {
+                                                article: articles[articleCount], 
+                                                position: (articleCount+1),
+                                                template: 'property',
+                                                imageSize: {width: 360, height: 270},
+                                                containerClass: 'card-property-mobile card-property-tablet card-property-desktop col-12 col-md-6 col-lg-12'
+                                            }) | raw}}
+                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
-                                <div class="col-12 col-md-6 left-border">
-                                    {% for i in 3..4 if articles[articleCount] %}
-                                        {{this.render('partials/_single-article.twig', {
-                                            article: articles[articleCount], 
-                                            position: (articleCount+1),
-                                            template: 'property',
-                                            imageSize: {width: 360, height: 270},
-                                            containerClass: 'card-property-mobile card-property-tablet card-property-desktop'
-                                        }) | raw}}
-                                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                    {% endfor %}
+                                <div class="col-12 col-lg-6 left-border">
+                                    <div class="row">
+                                        {% for i in 3..4 if articles[articleCount] %}
+                                            {{this.render('partials/_single-article.twig', {
+                                                article: articles[articleCount], 
+                                                position: (articleCount+1),
+                                                template: 'property',
+                                                imageSize: {width: 360, height: 270},
+                                                containerClass: 'card-property-mobile card-property-tablet card-property-desktop col-12 col-md-6 col-lg-12'
+                                            }) | raw}}
+                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -94,7 +98,7 @@
                 <div class="c-cards-container c-cards-container-xs bottom-border">
                     <div class="row">
                         {% for i in 5..8 if articles[articleCount] %}
-                            <div class="col-12 col-lg-3 left-border">
+                            <div class="col-12 col-md-6 col-lg-3 left-border">
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),
@@ -110,7 +114,7 @@
                 <div class="c-cards-container c-cards-container-xs bottom-border">
                     <div class="row">
                         {% for i in 9..12 if articles[articleCount] %}
-                            <div class="col-12 col-lg-3 left-border">
+                            <div class="col-12 col-md-6 col-lg-3 left-border">
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),

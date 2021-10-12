@@ -36,7 +36,7 @@
                     <div class="u-heading__large u-heading__large-xs u-pr--6">{{blogData.title}}</div>
                 </div>
             </div>
-            <div class="col-11">
+            <div class="col-12 col-lg-11 ">
                 {{this.render('partials/_single-article.twig', {
                     article: articles[articleCount], 
                     position: (articleCount+1),
@@ -45,10 +45,10 @@
                 }) | raw}}
                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
             </div>
-            <div class="c-cards-container c-cards-container-xs">
+            <div class="c-cards-container c-cards-container-xs section-page-genricTabView">
                 <div class="row">
                     {% for i in 1..4 if articles[articleCount] %}
-                        <div class="col-12 col-lg-3">
+                        <div class="col-12 col-md-6 col-lg-3">
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
@@ -74,10 +74,10 @@
             {% endif %}
         </div>
 
-        <div class="c-cards-container c-cards-container-xs bottom-border">
+        <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
             <div class="row">
                 {% for i in 5..8 if articles[articleCount] %}
-                    <div class="col-12 col-lg-3 left-border">
+                    <div class="col-12  col-md-6 col-lg-3 left-border">
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
                             position: (articleCount+1),
@@ -90,10 +90,10 @@
             </div>
         </div>
 
-        <div class="c-cards-container c-cards-container-xs bottom-border">
+        <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
             <div class="row">
                 {% for i in 9..12 if articles[articleCount] %}
-                    <div class="col-12 col-lg-3 left-border">
+                    <div class="col-12  col-md-6 col-lg-3 left-border">
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
                             position: (articleCount+1),
@@ -106,10 +106,10 @@
             </div>
         </div>
 
-        <div class="c-cards-container c-cards-container-xs bottom-border">
+        <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
             <div class="row">
                 {% for i in 13..16 if articles[articleCount] %}
-                    <div class="col-12 col-lg-3 left-border">
+                    <div class="col-12 col-md-6 col-lg-3 left-border">
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
                             position: (articleCount+1),
