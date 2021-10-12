@@ -52,7 +52,7 @@
                         </div>
                         <div class="col-12 col-lg-6 left-border">
                             <div class="row">
-                                <div class="col-12 col-md-6 left-border">
+                                <div class="col-12 col-md-6 left-border section-page-genricTabView">
                                     {% for i in 1..2 if articles[articleCount] %}
                                         {{this.render('partials/_single-article.twig', {
                                             article: articles[articleCount], 
@@ -71,7 +71,7 @@
                                     }) | raw}}
                                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                                 </div>
-                                <div class="col-12 col-md-6 left-border">
+                                <div class="col-12 col-md-6 left-border section-page-genricTabView">
                                     {% for i in 4..5 if articles[articleCount] %}
                                         {{this.render('partials/_single-article.twig', {
                                             article: articles[articleCount], 
@@ -104,10 +104,10 @@
                     </div>
                 {% endif %}
 
-                <div class="c-cards-container c-cards-container-xs bottom-border">
+                <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
                     <div class="row">
                         {% for i in 7..10 if articles[articleCount] %}
-                            <div class="col-12 col-lg-3 left-border">
+                            <div class="col-12 col-md-6 col-lg-3 left-border">
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),
@@ -119,10 +119,10 @@
                         {% endfor %}
                     </div>
                 </div>
-                <div class="c-cards-container c-cards-container-xs">
+                <div class="c-cards-container c-cards-container-xs section-page-genricTabView">
                     <div class="row">
                         {% for i in 11..14 if articles[articleCount] %}
-                            <div class="col-12 col-lg-3 left-border">
+                            <div class="col-12 col-md-6 col-lg-3 left-border">
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),

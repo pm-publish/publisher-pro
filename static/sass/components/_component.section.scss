@@ -10,16 +10,33 @@
     }
 }
 
-.section-page-firstRow {
-    .card-5-desktop {
-        .c-cards-view {
-            height: 720px;
+.section-page {
+    &-firstRow {
+        .card-5-desktop {
+            .c-cards-view {
+                height: 720px;
+
+                @media #{$mobile}, #{$tablet} {
+                    height: inherit;
+                }
+            }
+        }
+    
+        .card-2-desktop {
+            .c-cards-view {
+                height: inherit;
+            }
         }
     }
-
-    .card-2-desktop {
-        .c-cards-view {
-            height: inherit;
+    &-genricTabView {
+        .card-2-tablet {
+            @media #{$tablet} {
+                .c-cards-view {
+                    &__media {
+                        height: 175px; 
+                    }
+                }
+            }
         }
     }
 }

@@ -50,7 +50,7 @@
                         <img src="{{logo}}" class="image-fluid" />
                     </a>
                 </div>
-                <div class="d-black d-xl-none u-margin-top-30 u-margin-bottom-30 text-center text-md-start">
+                <div class="d-black d-xl-none u-margin-top-30 u-margin-bottom-20 text-center text-md-start">
                     <div class="c-footer__addresses">
                         {% if addresses.name != "" %}
                         <p class="c-footer__addresses__content c-footer__addresses__content--name">{{addresses.name}}
@@ -105,7 +105,7 @@
 
                     {% set footercols = 0 %}
                     {% for i in 0..5 if footerMenu | length > footercols %}
-                    <div class="col">
+                    <div class="col mt-3 mt-md-0">
                         <div class="c-navigation-3 c-navigation-3-xs">
                             <ul class="c-navigation__grid text-center text-md-start">
                                 {{this.render('../_submenu_navigation.twig', {
