@@ -172,6 +172,8 @@
         {% set redirUrl = redirUrl ~ '?amp=1' %}
     {% endif %}
 
+    {% set videoClass = article.featuredMedia['type'] == 'video' ? 'c-cards-view__media--video' : '' %}
+    {% set videoClass = forceVideo ? 'c-cards-view__media--video' : videoClass %}
 
     {% set params = {
         imageSuppress   : imageSuppress,
@@ -183,7 +185,7 @@
         imageMedium     : imageMedium,
         imageSmall      : imageSmall,
         publishDate     : publishDate,
-        videoClass      : article.featuredMedia['type'] == 'video' ? 'c-cards-view__media--video' : '',
+        videoClass      : videoClass,
         profileImg      : profileImg,
         hasMedia        : (displayMedia) ? 'True' : 'False',
         blogguid        : article.blog.guid,
