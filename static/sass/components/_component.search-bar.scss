@@ -32,7 +32,6 @@
 
         }
         @media #{$mobile}{
-            display:none;
             height: 50px;
             margin-top:0;
 
@@ -40,10 +39,6 @@
 
         &__form {
             display:flex;
-            margin-top:5px;
-            @media #{$mobile}{
-                padding-top: 5px;
-            }
         }
         &__submit {
             border:none;
