@@ -117,7 +117,7 @@ article.additionalInfo.image_crop == 'full' %}
 {% endif %}
 {% endif %}
 {% set recentArticles = _Article.getRecentArticles({ blogId: article.blog.id, limit: 4, excludeArticleIds : [article.id], interval: 168 }) %}
-{% set popularArticles = _Article.getPopularArticles({  limit: 4,  sortBy: 'VIEWS', scope: 'blog', excludeArticleId : articleId   }) %}
+{% set popularArticles = _Article.getPopularArticles({  limit: 4,  sortBy: 'VIEWS', scope: 'network'  }) %}
 {% endif %}
 
 
