@@ -173,13 +173,5 @@
     {% elseif blogInfo.keywords is defined and blogInfo.keywords != '' %}
         {% set theKeywords = blogInfo.keywords %}
     {% endif %}
-    <div class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
+    <div class="ad-keywords" data-keywords="{{theKeywords}}"></div>
 </main>
-
-<script>
-    // main script is defered so event listener makes sure
-    // defered script is loaded before this runs
-    document.addEventListener("DOMContentLoaded", function(event) {
-        Acme.articleController = Acme.ArticleController();
-    });
-</script>
