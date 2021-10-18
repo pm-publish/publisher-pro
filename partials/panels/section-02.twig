@@ -14,10 +14,10 @@
 
 
 <div class="row">
-    <div class="col">
+    <div class="col hm-sec1">
         <div class="c-cards-container c-cards-container-xs bottom-border">
             <div class="row">
-                <div class="col-12 col-lg-3 left-border">
+                <div class="col-12 col-lg-3 left-border hm-sec1_row_2_c1">
                     {% for i in 4..5 if articles[articleCount] %}
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
@@ -30,7 +30,7 @@
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endfor %}
                 </div>
-                <div class="col-12 col-lg-6 left-border">
+                <div class="col-12 col-lg-6 left-border hm-sec1_row_2_c2">
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
                     position: (articleCount+1),
@@ -40,7 +40,7 @@
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 </div>
-                <div class="col-12 col-lg-3 left-border">
+                <div class="col-12 col-lg-3 left-border hm-sec1_row_2_c3">
                     {% for i in 6..7 if articles[articleCount] %}
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
