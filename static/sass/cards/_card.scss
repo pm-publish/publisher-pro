@@ -229,16 +229,17 @@
         &.card-2-desktop {
             @media #{$desktop-up} {
                 height: inherit;
+                flex: 1;
 
-                .card-infoo {
-                    height: inherit;
-                }
-
-                .c-cards-view {
-                    height: 322px;
-                }
             }
         }
+    }
+}
+
+.hm-sec1_row_2_c1 {
+    @media #{$desktop-up} {
+        @include flexbox;
+        @include flex-direction(column,vertical);
     }
 }
 
