@@ -61,6 +61,12 @@
                             }
                         }
                     }
+                    .card-2-desktop {
+                        height: 100%;
+                        .card-infoo {
+                            height: 100%;
+                        }
+                    }
                 }
 
                 @media #{$tablet} {

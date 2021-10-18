@@ -7,9 +7,11 @@
     @media #{$desktop-up} {
         @include card-4-tablet-base();
         @include card-name("C4 desktop");
-
+        height: 100%;
+        .card-infoo {
+            height: 100%;
+        }
         .c-cards-view {
-            height: 320px;
             border-bottom: none;
             padding-bottom: 0px;
             margin-bottom: 0px;

@@ -34,6 +34,7 @@
             &-topSection {
                 @include calc(height, "100% - 31px");
                 margin-bottom: 15px;
+                flex: 1;
             }
         }
         &__media {
@@ -221,6 +222,20 @@
                     border-top: 1px solid $grey4;
                     padding-top: 15px;
                     margin-top: 15px;
+                }
+            }
+        }
+        
+        &.card-2-desktop {
+            @media #{$desktop-up} {
+                height: inherit;
+
+                .card-infoo {
+                    height: inherit;
+                }
+
+                .c-cards-view {
+                    height: 322px;
                 }
             }
         }
