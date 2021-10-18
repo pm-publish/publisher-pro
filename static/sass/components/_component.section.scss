@@ -111,4 +111,31 @@
     }
 }
 
+    @media #{$mobile} {
+    .hm-sec1 {
+        @include flexbox;
+        @include flex-direction(column,vertical);
+        
+        &_row_1 {
+            order: 2;
+        }
+        &_row_2 {
+            order: 1;
+
+            &_c1 {
+                order: 2;
+            }
+            &_c2 {
+                order: 1;
+            }
+            &_c3 {
+                order: 3;
+            }
+        }
+        &_row_3 {
+            order: 3;
+        }
+    }
+}
+
 /* End section page  style */
