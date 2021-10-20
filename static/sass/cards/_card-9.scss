@@ -12,11 +12,6 @@
             height: 128px;
             position: absolute;
             left: 0;
-            &--video {
-                &:before {
-                    @include size(88px);
-                }
-            }
         }
 
         &__heading {
