@@ -13,7 +13,7 @@
 </div>
 
 <div class="row">
-    <div class="col-12 {% if adslots[0] is defined %}col-lg-9{% endif %}">
+    <div class="col-12 {% if adslots[0] is defined %}col-xl-9{% endif %}">
         <div class="row">
             <div class="col-12">
                 <div class="c-cards-container c-cards-container-xs bottom-border">
@@ -69,7 +69,7 @@
         </div>
     </div>
     {% if adslots[0] is defined %}
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-xl-3 d-none d-xl-block">
         <div class="j-adslot" id="{{adslots[0]}}" data-adshape="mrec"></div>
     </div>
     {% endif %}
