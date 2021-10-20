@@ -53,11 +53,6 @@
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     {% endfor %}
                 </div>
-                {% if adslots[0] is defined %}
-                    <div class="col-12 col-xl-3 d-none d-xl-block">
-                        <div class="j-adslot" id="{{adslots[0]}}" data-adshape="mrec"></div>
-                    </div>
-                {% endif %}
             </div>
         </div>
     </div>
