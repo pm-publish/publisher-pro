@@ -1,20 +1,20 @@
 {% if paywallType == "subscribe" or paywallType == "renew" %}
 
-    <div class="c-article__paywalled-view">
+    <div class="c-article__paywalled-view d-none">
         <div class="o-paywalled">
             <div class="o-paywalled__head">
-                Subscribe to {{networkData.title}} to read the full story.
+                To read the full story subscribe to {{networkData.title}}   .
+            </div>
+            <div class="o-paywalled__period">
+                <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions" class="o-paywalled__text">Click here</a>
+                to view our subscription options.
             </div>
             <div class="o-paywalled__action">
-                <a href="{{networkData.defaultBlogUrl}}/subscriptions" class="c-button c-button--rounded c-button--blue c-article__subscribe-button">SUBSCRIBE NOW</a>
+                <a href="{{networkData.defaultBlogUrl}}/subscriptions" class="c-button c-button--radius c-button--lightBlue c-article__subscribe-button">SUBSCRIBE NOW</a>
                 {% if trialToggle %}
-                    <a href="{{networkData.defaultBlogUrl}}/subscriptions" class="c-button c-button--rounded c-button--blue-bordered">Start Free Trial</a>
+                    <a href="{{networkData.defaultBlogUrl}}/subscriptions" class="c-button c-button--radius c-button--lightBlue-bordered">Start Free Trial</a>
                 {% endif %}
-                <a id="articleSigninBtn" href="javascript:;" class="c-button c-button--rounded c-button--blue-bordered">SIGN IN</a>
-            </div>
-
-            <div class="o-paywalled__period">
-                <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions" class="o-paywalled__text">Click here to view our subscription options. </a>
+                <a id="articleSigninBtn" href="javascript:;" class="c-button c-button--radius c-button--lightBlue-bordered">SIGN IN</a>
             </div>
         </div>
     </div>
