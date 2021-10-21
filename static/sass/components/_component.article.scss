@@ -141,6 +141,7 @@
         position: absolute;
         left: 0;
         top: 0;
+        z-index: 10;
       }
     }
 
@@ -420,6 +421,8 @@
     box-shadow: 5px 2px 17px 8px rgba(0, 0, 0, 0.1);
     background-color: $grey3;
     padding: 50px 0;
+    position: relative;
+    z-index: 20;
 
     .o-paywalled {
       &__head {
@@ -428,6 +431,22 @@
         font-family: $secondaryFont;
         font-weight: $weightBold;
         color: $black;
+      }
+      &__text {
+        font-weight: $weightMedium;
+        @include font-size(20);
+        line-height: 1.2;
+        color: $grey5;
+      }
+      &__period {
+        margin-top: 16px;
+        @include font-size(20);
+        line-height: 1.2;
+        color: $grey5;
+      }
+
+      &__action {
+        margin-top: 40px;
       }
     }
   }

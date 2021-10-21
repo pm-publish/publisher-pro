@@ -151,8 +151,8 @@ article.additionalInfo.image_crop == 'full' %}
 {% if article.publishedDateTime != article.updatedDateTime %}
 {% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
 {% if updatedAgo < 86400 %} {% set updateDate=_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} {% endif
-    %} {% set updated=true %} {% endif %} <main id="main" class="o-body-container o-body-container-md u-margin-top-60"
-    role="main" data-paywall-type="{{paywallType}}">
+    %} {% set updated=true %} {% endif %} 
+    <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}">
         <div class="c-article c-article-xs c-article__carousel">
             <div class="container">
                 <div class="row">
