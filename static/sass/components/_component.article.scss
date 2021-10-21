@@ -400,9 +400,9 @@
       }
     }
   }
-}
 
-
-.testLinkSec {
-  display: none;
+  &__paywall-section {
+    box-shadow: 5px 2px 17px 8px rgba(0, 0, 0, 0.1);
+    background-color: $grey3;
+  }
 }

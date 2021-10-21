@@ -309,30 +309,31 @@ article.additionalInfo.image_crop == 'full' %}
                                             </div>
                                         </div>
                                         <hr />
-                                        <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
-                                            <div class="u-generic-socialIcons-text">Share article</div>
-                                            <a class="u-generic-socialIcons__item"
-                                                href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
-                                                    src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
-                                            </a>
-                                            <a class="u-generic-socialIcons__item"
-                                                href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
-                                                target="_blank">
-                                                <img
-                                                    src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
-                                            </a>
-                                            <a class="u-generic-socialIcons__item"
-                                                href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
-                                                target="_blank">
-                                                <img
-                                                    src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
-                                            </a>
-                                            <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
-                                    target="_blank">
-                                                <img
-                                                    src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
-                                            </a>
-                                        </div>
+                                        {% if showPaywall == false %}
+                                            <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
+                                                <div class="u-generic-socialIcons-text">Share article</div>
+                                                <a class="u-generic-socialIcons__item"
+                                                    href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
+                                                </a>
+                                                <a class="u-generic-socialIcons__item"
+                                                    href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                                    target="_blank">
+                                                    <img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
+                                                </a>
+                                                <a class="u-generic-socialIcons__item"
+                                                    href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                                    target="_blank">
+                                                    <img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
+                                                </a>
+                                                <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                                    <img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
@@ -361,23 +362,29 @@ article.additionalInfo.image_crop == 'full' %}
                     </div>  
                 </div>
 
-                <div class="u-generic-topBorder mb-4"></div>
-                <div class="c-cards-container c-cards-container-xs bottom-border">
-                    <div class="u-heading__large u-heading__large-xs mb-4">You might also like</div>
-                    <div class="row">
-                        {% for i in 0..3 if recentArticles[i] %}
-                        <div class="col-12 col-lg-3 left-border">
-                            {{this.render('partials/_single-article.twig', {
-                            article: recentArticles[i],
-                            imageSize: {width: 296, height: 260},
-                            containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                            site: site
-                            }) | raw}}
+                {% if showPaywall == false %}
+                    <div class="u-generic-topBorder mb-4"></div>
+                    <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="u-heading__large u-heading__large-xs mb-4">You might also like</div>
+                        <div class="row">
+                            {% for i in 0..3 if recentArticles[i] %}
+                            <div class="col-12 col-lg-3 left-border">
+                                {{this.render('partials/_single-article.twig', {
+                                article: recentArticles[i],
+                                imageSize: {width: 296, height: 260},
+                                containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                                site: site
+                                }) | raw}}
+                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
-                    </div>
-                </div>  
+                    </div> 
+                {% endif %}
             </div>
+
+            {% if showPaywall == true %}
+                {{this.render('partials/article/paywall_article_notice.twig', {networkData:networkData, paywallType:paywallType}) | raw}}
+            {% endif %}
         </div>
     </main>
 
