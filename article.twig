@@ -300,40 +300,42 @@ article.additionalInfo.image_crop == 'full' %}
                                         }) | raw}}
                                     {% endif %}
 
-                                </div> 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="c-article__main-content">
-                                            <div class="c-article__container">
-                                                {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                </div>
+                                <div class="{% if showPaywall == true %} c-article__main__paywall-container {% endif %}"> 
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="c-article__main-content">
+                                                <div class="c-article__container">
+                                                    {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                                </div>
                                             </div>
+                                            <hr />
+                                            {% if showPaywall == false %}
+                                                <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
+                                                    <div class="u-generic-socialIcons-text">Share article</div>
+                                                    <a class="u-generic-socialIcons__item"
+                                                        href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
+                                                            src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
+                                                    </a>
+                                                    <a class="u-generic-socialIcons__item"
+                                                        href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                                        target="_blank">
+                                                        <img
+                                                            src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
+                                                    </a>
+                                                    <a class="u-generic-socialIcons__item"
+                                                        href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                                        target="_blank">
+                                                        <img
+                                                            src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
+                                                    </a>
+                                                    <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                                        <img
+                                                            src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
+                                                    </a>
+                                                </div>
+                                            {% endif %}
                                         </div>
-                                        <hr />
-                                        {% if showPaywall == false %}
-                                            <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
-                                                <div class="u-generic-socialIcons-text">Share article</div>
-                                                <a class="u-generic-socialIcons__item"
-                                                    href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
-                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
-                                                </a>
-                                                <a class="u-generic-socialIcons__item"
-                                                    href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
-                                                    target="_blank">
-                                                    <img
-                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
-                                                </a>
-                                                <a class="u-generic-socialIcons__item"
-                                                    href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
-                                                    target="_blank">
-                                                    <img
-                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
-                                                </a>
-                                                <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
-                                                    <img
-                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
-                                                </a>
-                                            </div>
-                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
