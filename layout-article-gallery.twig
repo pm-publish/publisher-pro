@@ -206,6 +206,11 @@ article.additionalInfo.image_crop == 'full' %}
                             </div>
                         </div>
                         <div class="col-12 col-lg-10 mx-auto">
+                            {% if config['inventory']['adSpace']['articleAd'][0] is defined %}
+                                <div class="mt-5">
+                                    <div class="j-adslot" id="{{config['inventory']['adSpace']['articleAd'][0]}}" data-adshape="articleAd"></div>
+                                </div>
+                            {% endif %}
                             <div class="c-article__main-content mt-5">
                                 <div class="c-article__container">
                                     {{ ArticleContent | _resizeImages({'width': 600}) | raw }}

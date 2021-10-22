@@ -50,7 +50,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="c-cards-container c-cards-container-xs">
                             <div class="row">
                                 {% for i in 4..6 if userArticles[i] %}
                                     <div class="col-12 col-lg-4 left-border">
@@ -63,6 +63,11 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <div class="my-5 overflow-hidden">
+                            {% if config['inventory']['adSpace']['banner'][1] is defined %}
+                                <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
+                            {% endif %}
+                        </div>                        
                         <div class="c-cards-container c-cards-container-xs bottom-border">
                             <div class="row">
                                 {% for i in 7..9 if userArticles[i] %}
@@ -76,7 +81,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="c-cards-container c-cards-container-xs">
                             <div class="row" id="loadmore_section">
                                 {% for i in 10..12 if userArticles[i] %}
                                     <div class="col-12 col-lg-4 left-border">
@@ -88,6 +93,12 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                        </div>
+
+                        <div class="my-5 overflow-hidden">
+                            {% if config['inventory']['adSpace']['banner'][2] is defined %}
+                                <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
+                            {% endif %}
                         </div>
                     </div>
 
