@@ -5,7 +5,7 @@
 
 {% set firstCount = userArticles | length %}
 
-
+{% set config       = _Network.getThemeConfig() %}
 
 {% set profileImage =_Media.getMediaUrl( user.media, 500, 500, {crop: 'thumb', gravity: 'face', type:'user'} ) %}
 
