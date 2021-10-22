@@ -44,15 +44,6 @@ document.addEventListener("DOMContentLoaded", function (event) {
         $('#counter').html(item + " of " + items)
     }
 
-    // $('.c-article__container figure').each(function () {
-    //     var figureStyle = $(this).attr('style') !== undefined;
-    //     var figureClassLeft = $(this).hasClass('alignleft');
-    //     var figureClassRight = $(this).hasClass('alignright');
-    //     if ((figureStyle) || (figureClassLeft) || (figureClassRight)) {
-    //         $(this).after('<div class="c-clearfix"></div>');
-    //     }
-    // });
-
     //sidebar function
 
     function sidebarMenuOpen() {
