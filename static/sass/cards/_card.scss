@@ -135,6 +135,7 @@
         &__description {
             margin-top: 12px;
             @include font-size(14);
+            max-height: 55px;
         }
 
         &__time {

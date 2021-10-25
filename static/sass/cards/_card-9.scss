@@ -25,6 +25,7 @@
             color: $grey5;
             @include font-size(13);
             line-height: 1.38;
+            margin: 8px 0 10px;
         }
 
         &__author {
