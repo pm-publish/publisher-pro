@@ -67,6 +67,11 @@
             margin-top: 5px;
         }
 
+        &__conditionalDate,
+        &__conditionalImage {
+            display: none;
+        }
+
         &__icon {
             width: 100%;
             background-color: var(--main-color);

@@ -1,0 +1,31 @@
+{% set eventsCount = 0 %}
+{% set cardIndex = 0 %}
+{% set events = _Event.getEvents({'limit' : 3, 'offset' : 0, 'upcomingDate': currentDate}) %}
+
+<div class="row" data-section="10">
+    <div class="col-12">
+        <div class="u-generic-topBorder "></div>
+        <div class="c-page-head c-page-head-xs">
+            <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
+            <a href="{{link}}" class="c-page-head__link">See more events</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="c-cards-container c-cards-container-xs">
+            <div class="row">
+                {% for i in 0..3 if events[eventsCount] %}
+                    <div class="col-12 col-lg-3 left-border">
+                        {{this.render('../_single-event-list.twig', {
+                            event: events[i], 
+                            imageSuppress: 'true',
+                            containerClass: "event-card-3-mobile event-card-3-tablet event-card-3-desktop"
+                        }) | raw}}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

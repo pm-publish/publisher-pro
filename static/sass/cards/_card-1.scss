@@ -136,3 +136,13 @@
         }
     }
 }
+
+.card-borderBottom__deskVersion {
+    .card-1-desktop {
+        @media #{$desktop-up} {
+            border-bottom: 1px solid $grey4;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+    }
+}

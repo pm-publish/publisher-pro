@@ -346,7 +346,7 @@ article.additionalInfo.image_crop == 'full' %}
                                     <div class="col-12 u-margin-top-30 c-cards__top-stories">
                                         <div class="row">
                                             {% for i in 0..3 if popularArticles[i] %}
-                                            <div class="col-12">
+                                            <div class="col-12 card-borderBottom__deskVersion">
                                                 {{this.render('partials/_single-article.twig', {
                                                 article: popularArticles[i],
                                                 imageSize: {width: 300, height: 180},
