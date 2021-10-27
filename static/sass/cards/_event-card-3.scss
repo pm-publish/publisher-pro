@@ -53,6 +53,15 @@
 
         &__container {
             flex: 1;
+            @include flexbox;
+            @include flex-direction(column,vertical);
+        }
+
+        &__info {
+            flex: 1;
+            @include flexbox;
+            @include flex-direction(column,vertical);
+            @include justify-content(space-between);
         }
 
         &__sec2 {
@@ -80,18 +89,6 @@
 
                 &__time { 
                     color: $grey4
-                }
-
-                &__container {
-                    @include flexbox;
-                    @include flex-direction(column,vertical);
-                }
-
-                &__info {
-                    flex: 1;
-                    @include flexbox;
-                    @include flex-direction(column,vertical);
-                    @include justify-content(space-between);
                 }
             }
         }
