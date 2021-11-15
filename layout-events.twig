@@ -42,20 +42,7 @@
                     </div>
                 </div>
             </section>
-
-
-
-
-
-
-
-
             
-
-
-
-
-
             {% set monthDivider = '' %}
 
             <section class="middle">
@@ -81,17 +68,11 @@
                     </div>
 
 
-                    <div class="col-12 offset-lg-1 col-lg-4 d-md-none d-lg-block c-events">
-                        
-                        <div class="">
-                            {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
-                                <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
-                            {% endif %}
-                        </div>
+                    <div class="col-12 offset-lg-1 col-lg-4 d-md-none d-lg-block">
+                        {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                            <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                        {% endif %}
                     </div>
-
-
-
                 </div>
             </section>
         </div>

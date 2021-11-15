@@ -4,14 +4,10 @@
 {{this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'})}}
 
 
-
-
-{# {{this.registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyCRILYoQMiSjf_1Q_DhL199ha5w410AOLU")}} #}
-
-
 {% set networkData = _Network.getNetworkData() %}
 {% set site        = networkData.title | lower | split(" ")[0]%}
 
+{% set businessDetails = _Blog.getHomeBlogSettings() %}
 
 {% set eventImage = false %}
 {% if event.media | length > 0 %}
@@ -86,6 +82,9 @@
                                 </div>
                             {% endif %}
 
+                            {% if _User.isAdminUser() %}
+                                <a href="{{event.editUrl}}" target="_blank" class="c-article__edit-link">Edit event</a>
+                            {% endif %}
                             <div class="c-eventdetail__container">
                                 <div class="c-eventdetail__info">
                                     <div class="c-eventdetail__info-item bold">
@@ -156,27 +155,30 @@
             </div>
         </div>
     </div>
-    {% if event.latitude and event.longitude %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12 px-0">
-                <div class="event-map u-margin-top-60">
-                    <div id="addressMap" data-latitude="{{event.latitude}}" data-longitude="{{event.longitude}}" style="width:100%;min-height:500px;background:rgba(0,0,0,.3)"></div>
-                </div>
-            </div>
-        </div>
-    </div>
+
+    {% set googleMapAddress = ''%}
+    {% if businessDetails.contact['address'] is not empty%}
+        {% set googleMapAddress = businessDetails.contact['address'] %}
+        {% if businessDetails.contact['city'] is not empty %}
+            {% set googleMapAddress = googleMapAddress~','~businessDetails.contact['city'] %}
+        {% endif %}
+        {% if businessDetails.contact['state'] is not empty %}
+            {% set googleMapAddress = googleMapAddress~','~businessDetails.contact['state'] %}
+        {% endif %}
+        {% if businessDetails.contact['country'] is not empty %}
+            {% set googleMapAddress = googleMapAddress~','~businessDetails.contact['country'] %}
+        {% endif %}
+    {% endif %}
+
+    {% if googleMapAddress is not empty %}
+        <iframe
+            src="https://maps.google.com/maps?q={{googleMapAddress | url_encode}}&amp;ie=UTF8&amp;&amp;output=embed"
+            width="100%"
+            height="500"
+            frameborder="0"
+            style="border:0"
+            class="contact__map"
+            allowfullscreen>
+        </iframe>
     {% endif %}
 </div>
-
-
-{% if event.latitude and event.longitude %}
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCRILYoQMiSjf_1Q_DhL199ha5w410AOLU" type="text/javascript"></script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            Acme.eventMap = new Acme.GoogleMap();
-        });
-    </script>
-{% endif %}

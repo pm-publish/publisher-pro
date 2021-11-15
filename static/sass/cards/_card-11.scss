@@ -81,6 +81,12 @@
     }
     &.card-11-highlighter {
         @media #{$desktop-up} {
+            @include calc(height,'100% - 30px');
+            
+            .swap {
+                height: 100%;
+            }
+
             .c-cards-view {
                 @include flex-direction(row, horizontal);
 

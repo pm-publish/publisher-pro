@@ -41,6 +41,7 @@
 @import "component.related-articles";
 @import "component.article-gallery";
 @import "component.author";
+@import "component.notify";
 
 // Events
 @import "component.eventform";
@@ -70,7 +71,8 @@
 @import "component.form-pulldown";
 
 //my account page
-
+@import "cus_acnt_grid";
+@import "cus_acnt_page";
 // old
 @import "component.modal-login-form";
 @import "component.modal-password-reset-form";
@@ -94,6 +96,7 @@
 @import "card-11";
 @import "event-card";
 @import "event-card-2";
+@import "event-card-3";
 
 //trumps
 @import "trumps.utilities";

@@ -5,7 +5,7 @@
 
 {% set firstCount = userArticles | length %}
 
-
+{% set config       = _Network.getThemeConfig() %}
 
 {% set profileImage =_Media.getMediaUrl( user.media, 500, 500, {crop: 'thumb', gravity: 'face', type:'user'} ) %}
 
@@ -24,14 +24,14 @@
             <div class="col-12 col-lg-9">
                 <div class="row">
                     <div class="col-12">
-                        <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="c-cards-container c-cards-container-xs bottom-border user-profile">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="col-12 col-lg-4 left-border">
+                                    <div class="col-12 left-border">
                                         {{this.render('partials/_single-article.twig', {
                                             article: userArticles[0], 
                                             imageSize: {width:508, height:324},
-                                            containerClass: 'card-2-mobile card-2-tablet card-2-desktop card-2--noDescription'
+                                            containerClass: 'card-2-mobile card-2-tablet card-7-desktop'
                                         }) | raw}}
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="c-cards-container c-cards-container-xs">
                             <div class="row">
                                 {% for i in 4..6 if userArticles[i] %}
                                     <div class="col-12 col-lg-4 left-border">
@@ -63,6 +63,11 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <div class="my-5 overflow-hidden">
+                            {% if config['inventory']['adSpace']['banner'][1] is defined %}
+                                <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
+                            {% endif %}
+                        </div>                        
                         <div class="c-cards-container c-cards-container-xs bottom-border">
                             <div class="row">
                                 {% for i in 7..9 if userArticles[i] %}
@@ -76,7 +81,7 @@
                                 {% endfor %}
                             </div>
                         </div>
-                        <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="c-cards-container c-cards-container-xs">
                             <div class="row" id="loadmore_section">
                                 {% for i in 10..12 if userArticles[i] %}
                                     <div class="col-12 col-lg-4 left-border">
@@ -88,6 +93,12 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                        </div>
+
+                        <div class="my-5 overflow-hidden">
+                            {% if config['inventory']['adSpace']['banner'][2] is defined %}
+                                <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
+                            {% endif %}
                         </div>
                     </div>
 

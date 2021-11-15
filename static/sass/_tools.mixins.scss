@@ -538,7 +538,8 @@ $breakpoints: (
 	'sm':  (min-width: 768px),
 	'md':  (min-width: 992px),
 	'cmd': (min-width: 1171px),
-	'lg':  (min-width: 1200px)
+	'lg':  (min-width: 1200px),
+	'xl':  (min-width: 1400px)
 );
 
 @mixin respond-to($names: ()) {

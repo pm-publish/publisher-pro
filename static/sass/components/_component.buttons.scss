@@ -153,4 +153,34 @@
     }
 }
 
+.g-btn {
+    height: 48px;
+    width: 182px;
+    @include border-radius(6px);
+    border: 1px solid $blue_sh5;
+    color: $blue_sh5;
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    font-size: 1rem;
+    line-height: 1;
+    font-weight: $weightBold;
+
+    &.solid {
+        color: $white;
+        background-color: $blue_sh5;
+    }
+}
+.generic-buttonSet {
+    @include flexbox;
+    @include align-items(center);
+    width: 100%;
+    margin-top: 10px;
+
+    .g-btn {
+        + .g-btn {
+            margin-left: 10px;
+        }
+    }
+}
 /* End header style */

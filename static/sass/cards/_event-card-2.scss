@@ -34,6 +34,11 @@
             line-height: 1.33;
         }
 
+        &__conditionalDate,
+        &__conditionalImage {
+            display: none;
+        }
+
         &__heading {
             color: $white;
             font-family: $secondaryFont;

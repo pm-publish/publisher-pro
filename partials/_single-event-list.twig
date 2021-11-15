@@ -94,12 +94,27 @@
                 <span class="c-eventcards-view__date-value">{{ startDay }}</span>
                 <span class="c-eventcards-view__date-label">{{startMonth}}</span>
             </div>
-
+            {% if event.media[0].path is defined and event.media[0].path is not empty  %}
+                <div class="c-eventcards-view__conditionalImage">
+                    <img src={{event.media[0].path}} alt={{ quotes.smarten(event.title) }} />
+                </div>
+            {% endif %}
             <div class="c-eventcards-view__container">
                 <div class="c-eventcards-view__info">
-                    <div class="c-eventcards-view__category">Events</div>
-                    <h2  class="c-eventcards-view__heading js-card-heading j-truncate {{figureClass}}">{{ quotes.smarten(event.title) }}</h2>
-                    <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+                    <div class="c-eventcards-view__sec1">
+                        <div class="c-eventcards-view__category">Events</div>
+                        <h2  class="c-eventcards-view__heading js-card-heading j-truncate {{figureClass}}">{{ quotes.smarten(event.title) }}</h2>
+                    </div>
+
+                    <div class="c-eventcards-view__sec2">
+                        {% if event.startDate != '' %}
+                            <div class="c-eventcards-view__conditionalDate">
+                                <span class="c-eventcards-view__conditionalDate-value">{{ startDay }}th {% if event.endDate != '' %} - {{endDay}}th  {% endif %}</span>
+                                <span class="c-eventcards-view__conditionalDate-label">{{startMonthFull}}</span>
+                            </div>
+                        {% endif %}
+                        <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+                    </div>  
                 </div>
                 <div class="c-eventcards-view__author">
                     <div class="c-eventcards-view__icon--pin">{{ this.render('icons.twig', {icon: 'dateCal'} ) | raw }}</div>

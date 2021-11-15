@@ -12,11 +12,6 @@
             height: 128px;
             position: absolute;
             left: 0;
-            &--video {
-                &:before {
-                    @include size(88px);
-                }
-            }
         }
 
         &__heading {
@@ -30,6 +25,7 @@
             color: $grey5;
             @include font-size(13);
             line-height: 1.38;
+            margin: 8px 0 10px;
         }
 
         &__author {

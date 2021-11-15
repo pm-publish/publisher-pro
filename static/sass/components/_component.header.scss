@@ -9,7 +9,14 @@
 
     &__logo {
         &-item {
+            margin: 0 20px;
             display: block;
+            @media #{$tablet} {
+                max-width: 280px;
+            }
+            @media #{$mobile}{
+                max-width: 240px;
+            }
         }
     }
 }
@@ -38,9 +45,9 @@
     top: 0;
     width: 100%;
     max-width: 470px;
-    background-color: $blue_sh1;
+    background-color: var(--main-color);
     height: 100%;
-    z-index: 99999;
+    z-index: 999999;
     @include box-shadow(3px 2px 13px 0 rgba(0, 0, 0, 0.3));
     -webkit-transform: translate3d(-100%, 0, 0);
     -moz-transition: translate3d(-100%, 0, 0);
@@ -67,6 +74,7 @@
         @include flexbox;
         @include align-items(center);
         @include justify-content(center);
+        text-decoration: none;
 
         span {
             @include font-size(16);
@@ -116,6 +124,10 @@
         &__form {
             width: 100%;
             margin: 0 20px 0 70px;
+
+            @media #{$mobile}{
+                margin: 0 20px 0 20px; 
+            }
         }
 
         &__input {
@@ -150,7 +162,6 @@
             font-weight: $weightMedium;
             text-decoration: none;
             display: block;
-            padding-left: 2rem;
         }
     }
 }

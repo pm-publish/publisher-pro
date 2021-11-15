@@ -21,12 +21,49 @@
     }
   }
 
+  .u-generic-socialIcons {
+    &--sticky {
+      margin-bottom: 25px;
+    }
+  }
+
   &__category {
     color: $blue_sh5;
     @include font-size(12);
     line-height: 1.33;
     font-weight: $weightMedium;
+  }
+
+  &__category-wrap {
+    @include flexbox;
+    @include align-items(center);
     margin-bottom: 10px;
+  }
+
+  &__edit-link {
+    display: block;
+    margin: 20px 0 10px;
+    background-color: var(--main-color);
+    color: $white;
+    font-weight: $weightBold;
+    @include font-size(16);
+    line-height: 1.5;
+    @include border-radius(6px);
+    height: 40px;
+    @include flexbox;
+    @include align-items(center);
+    @include justify-content(center);
+    text-decoration: none;
+  }
+
+  &__additional-category {
+    margin-right: 10px;
+    color: $white;
+    @include font-size(12);
+    line-height: 1.33;
+    font-weight: $weightMedium;
+    padding: 2px 5px;
+    background-color: $blue_sh5;
   }
 
   &__title {
@@ -49,6 +86,7 @@
     width: 100%;
     @include flexbox();
     @include align-items(center);
+    @include flex-wrap(wrap);
   }
 
   &__published,
@@ -56,16 +94,19 @@
     color: $grey5;
     @include font-size(12);
     line-height: 1.33;
+    margin-bottom: 4px;
   }
   &__updated {
     border-left: 1px solid $grey5;
     padding-left: 6px;
     margin-left: 6px;
+    margin-right: 12px;
   }
   &__author {
     @include flexbox;
     @include align-items(center);
-    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 4px;
 
     &-name {
       @include font-size(12);
@@ -89,8 +130,24 @@
     }
   }
 
-  &__main-container {
-    margin-top: 35px !important;
+  &__main {
+    &__paywall-container {
+      position: relative;
+      &:before {
+        content: '';
+        background-image: linear-gradient(to top, #ffffff 19%, rgba(255, 255, 255, 0.8) 45%);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 10;
+      }
+    }
+
+    &-container {
+      margin-top: 35px !important;
+    }
   }
 
   &__excerpt {
@@ -108,7 +165,8 @@
     h2,
     h3,
     h4,
-    h5 {
+    h5,
+    li {
       color: $black;
       font-family: $secondaryFont !important;
       font-size: 16px !important;
@@ -147,29 +205,60 @@
     }
 
     h1 {
-      font-size: 50px !important;
+      font-size: 32px !important;
       span,
       b,
       u,
       a {
-        font-size: 50px !important;
+        font-size: 32px !important;
       }
     }
 
     h2 {
-      font-size: 20px !important;
+      font-size: 26px !important;
+      line-height: 1.23;
       span,
       b,
       u,
       a {
-        font-size: 20px !important;
+        font-size: 26px !important;
+        line-height: 1.23;
       }
     }
 
     h3 {
+      font-size: 22px !important;
+      font-weight: $weightBold !important;
+      line-height: 1.09;
+      span,
+      b,
+      u,
+      a {
+        font-size: 22px !important;
+        font-weight: $weightBold !important;
+        line-height: 1.09;
+      }
+    }
+
+    h4 {
+      font-size: 20px !important;
+      font-weight: $weightBold !important;
+      line-height: 1.2;
+      span,
+      b,
+      u,
+      a {
+        font-size: 20px !important;
+        font-weight: $weightBold !important;
+        line-height: 1.2;
+      }
+    }
+
+    h5 {
       font-size: 20px !important;
       font-family: $primaryFont !important;
       font-weight: $weightBold !important;
+      line-height: 1.2;
       span,
       b,
       u,
@@ -177,25 +266,16 @@
         font-size: 20px !important;
         font-family: $primaryFont !important;
         font-weight: $weightBold !important;
+        line-height: 1.2;
       }
     }
 
-    h4 {
-      font-size: 18px !important;
-      font-weight: $weightBold !important;
-      span,
-      b,
-      u,
-      a {
-        font-size: 18px !important;
-        font-weight: $weightBold !important;
-      }
-    }
-
-    h5 {
+    h6 {
       font-size: 18px !important;
       font-family: $primaryFont !important;
       font-weight: $weightBold !important;
+      color: $blue_sh5;
+      line-height: 1.33;
       span,
       b,
       u,
@@ -203,13 +283,14 @@
         font-size: 18px !important;
         font-family: $primaryFont !important;
         font-weight: $weightBold !important;
+        color: $blue_sh5;
+        line-height: 1.33;
       }
     }
 
     ul li {
       list-style-type: none !important;
       position: relative;
-      margin-bottom: 15px;
       &:before {
         content: "";
         @include size(8px);
@@ -222,6 +303,12 @@
 
       span {
         list-style-type: decimal !important;
+      }
+    }
+
+    ol {
+      li {
+        list-style-type: auto !important;
       }
     }
 
@@ -243,17 +330,22 @@
       @include flexbox;
       @include flex-direction(column, vertical);
       @include align-items(flex-start);
-      margin-bottom: 40px;
-      margin-top: 40px;
+      margin: 40px 0px 40px 50px;
       position: relative;
       padding-left: 30px;
       border-left: 8px solid $blue_sh5;
+      color: $black;
+      font-family: $primaryFont !important;
+      font-size: 22px !important;
+      font-weight: $weightBold !important;
+      line-height: 1.45;
       p {
         color: $black;
         font-family: $primaryFont !important;
         font-size: 22px !important;
         font-weight: $weightBold !important;
         margin-bottom: 0px !important;
+        line-height: 1.45;
       }
     }
 
@@ -293,6 +385,8 @@
 
     figure {
       position: relative;
+      @include inline-flex;
+      margin-bottom: 20px !important;
       figcaption {
         position: absolute;
         left: 0;
@@ -323,86 +417,37 @@
     }
   }
 
-  .gallery-container {
-    margin-bottom: 20px;
-    .article-gallery__caption {
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      background-color: $black;
-      width: 100%;
+  &__paywalled-view {
+    box-shadow: 5px 2px 17px 8px rgba(0, 0, 0, 0.1);
+    background-color: $grey3;
+    padding: 50px 0;
+    position: relative;
+    z-index: 20;
+    text-align: center;
 
-      p {
-        color: $white;
-        margin-bottom: 0;
-        padding: 10px;
-        font-size: 12px;
-        line-height: 1.33;
+    .o-paywalled {
+      &__head {
+        @include font-size(32);
+        line-height: 1.25;
+        font-family: $secondaryFont;
+        font-weight: $weightBold;
+        color: $black;
+      }
+      &__text {
         font-weight: $weightMedium;
-        font-style: normal;
+        @include font-size(20);
+        line-height: 1.2;
+        color: $grey5;
       }
-    }
-  }
-
-  .gallery-container {
-    .article-gallery__img-container {
-      height: 100%;
-    }
-    #counter {
-      position: absolute;
-      right: 15px;
-      bottom: 0;
-      @include font-size(14);
-      font-weight: $weightMedium;
-      line-height: 1.14;
-      color: $black;
-    }
-    .owl-thumbs {
-      margin-top: 15px;
-    }
-    .owl-thumb-item {
-      width: 143px;
-      height: 95px;
-
-      + .owl-thumb-item {
-        margin-left: 8px;
+      &__period {
+        margin-top: 16px;
+        @include font-size(20);
+        line-height: 1.2;
+        color: $grey5;
       }
 
-      &.active {
-        border: none;
-        @include opacity(0.3);
-      }
-    }
-
-    @include responsive(xs) {
-      @include respond-to(lg) {
-        .owl-carousel {
-          position: static;
-
-          .owl-nav {
-            left: 0;
-            bottom: 135px;
-            width: auto;
-            top: auto;
-            @include translate(0, 0);
-            height: 40px;
-
-            .owl-prev,
-            .owl-next {
-              @include size(40px);
-              padding: 0 !important;
-              background-color: $black !important;
-            }
-            .owl-next {
-              margin-left: 5px;
-            }
-          }
-        }
-        #counter {
-          left: 105px;
-          right: auto;
-          bottom: 147px;
-        }
+      &__action {
+        margin-top: 40px;
       }
     }
   }

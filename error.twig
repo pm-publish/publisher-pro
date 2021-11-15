@@ -14,25 +14,17 @@
 {% set networkData = _Network.getNetworkData() %}
 {% set config      = _Network.getThemeConfig() %}
 
-<div class="container u-margin-top-60">
-    
+<div class="container">
     <div class="row">
-        <div class="col-12 col-md-7">
-
-            <div class="c-error u-margin-bottom-60">
-                <h1 class="c-error__title">Sorry, the page you are looking for can't be found.</h1>
-                <p class="c-error__message"> {{messages}} </p>
-                <a class="c-error__button c-button c-button--rounded c-button--blue-bordered" href="/">Back to Home</a>
+        <div class="col-12">
+            <div class="c-error c-error-xs">
+                <div class="c-error__img">
+                    <img src="{{networkData.templatePath}}/static/icons/error_2.svg" alt="Icon" />
+                    <div class="c-error__title">Page not found</div>
+                    <div class="c-error__message">{{messages}}</div>
+                    <a href="/" class="c-error__button c-button c-button--lightBlue px-5">Back to home</a>
+                </div>
             </div>
-        
-        </div>
-
-
-
-        <div class="col-12 offset-md-1 col-md-4">
-            {% if config['inventory']['adSpace']['hpage'][0] is defined %}
-                <div class="j-adslot" id="{{config['inventory']['adSpace']['hpage'][0]}}" data-adshape="hpage"></div>
-            {% endif %}
         </div>
     </div>
 </div>

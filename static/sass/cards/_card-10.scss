@@ -8,7 +8,8 @@
 
         &__media {
             margin-bottom: 15px;
-            height: 154px;
+            height: 40vw;
+            min-height: 154px;
         }
 
         &__category {
@@ -27,6 +28,7 @@
             @include font-size(13);
             line-height: 1.38;
             color: $grey5;
+            margin: 4px 0 15px;
         }
 
         &__additional-info {
@@ -35,6 +37,9 @@
                 @include align-items(center);
 
                 &-list {
+                    @include flexbox;
+                    @include align-items(center);
+
                     svg {
                         fill: $blue_sh5;
                     }
@@ -70,12 +75,35 @@
 @mixin card-property-tablet-base() {
     @include card-property-base();
     @include card-name("C property tablet");
+
+    .c-cards-view {
+        &__media {
+            height: 154px;
+        }
+    }
 }
 
 .card-property-tablet {
     @media #{$tablet} {
         @include card-property-tablet-base();
         @include card-name("C property desktop");
+
+        &.card-property-highlighter {
+            .c-cards-view {
+                &__media {
+                    height: 460px;
+                }
+                &__heading {
+                    @include font-size(26);
+                }
+                &__description {
+                    margin-top: 15px;
+                }
+                &__additional-info__price {
+                    margin-top: 20px;
+                }
+            }
+        }
     }
 }
 
@@ -83,13 +111,22 @@
     @media #{$desktop-up} {
         @include card-property-tablet-base();
         @include card-name("C property desktop");
-    }
-}
 
-.card-property-highlighter {
-    .c-cards-view {
-        &__media {
-            height: 460px;
+        &.card-property-highlighter {
+            .c-cards-view {
+                &__media {
+                    height: 460px;
+                }
+                &__heading {
+                    @include font-size(26);
+                }
+                &__description {
+                    margin-top: 15px;
+                }
+                &__additional-info__price {
+                    margin-top: 20px;
+                }
+            }
         }
     }
 }

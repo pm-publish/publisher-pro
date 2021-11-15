@@ -42,6 +42,15 @@
     }
 }
 
+.user-profile {
+    .card-7-desktop {
+        .c-cards-view__container {
+            margin-top: 50px;
+            @include calc(height,'100% - 50px');
+        }
+    }
+}
+
 /* .c-author {
     @include flexbox;
     @include align-content(flex-start);

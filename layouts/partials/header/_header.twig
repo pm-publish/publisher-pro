@@ -1,202 +1,6 @@
-{# {% set headermenu = _Menu.get({'menuType': 'header', "menuGroupName":"header-main"}) %}
-{% set miniMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'header-mini'}) %}
-
-
-{% set loggedin = _User.isGuest() ? false : true %}
-{% set user = loggedin ? _User.getUser() : null %}
-
-
-
-{% set logo = networkData.templatePath~'/static/images/logo.png'%}
-
-{% set logoWidth = 650 %}
-{% set logoHeight = 144 %}
-
-{% if config['logo'] is defined %}
-{% if config['logo']['width'] is defined %}
-{% set logoWidth = config['logo']['width'] %}
-
-{% if config['logo']['height'] is not defined %}
-{% set logoHeight = 0 %}
-{% endif %}
-{% endif %}
-
-{% if config['logo']['height'] is defined %}
-{% set logoHeight = config['logo']['height'] %}
-
-{% if config['logo']['width'] is not defined %}
-{% set logoWidth = 0 %}
-{% endif %}
-
-{% endif %}
-{% endif %}
-
-{% set paywall = true %}
-
-{% if config['paywall'] is defined and config['paywall'] == false %}
-{% set paywall = false %}
-{% endif %}
-
-{% if networkData.logoMedia | length > 0 %}
-{% set logo = _Media.getMediaUrl(networkData.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
-{% endif %}
-
-
-
-
-<header class="c-header-0 u-mobile-margin-bottom-20" data-header="0">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 c-header-0__container">
-
-
-
-                <div class="c-header-0-top-bar">
-
-                    {{this.render('../_submenu_navigation.twig', {
-                    items: miniMenu,
-                    class: 'c-header-0-top-bar__link',
-                    }) | raw}}
-
-                </div>
-
-
-
-
-                <div class="c-header-0__row2">
-
-                    <div
-                        class="c-header-0__mobile-login {% if not loggedin %} c-header-0__mobile-login--guest {% endif %}">
-                        {% if paywall %}
-                        {% if loggedin %}
-                        <a class="c-header-0__login-text" href="{{networkData.defaultBlogUrl}}/user/edit-profile"
-                            class="">My account</a>
-                        <a href="{{_AppHelper.getLogoffUrl()}}" class="c-header-0__login-text">Log out</a>
-                        {% else %}
-                        <a id="signinBtn" href="javascript:;"
-                            class="c-button c-button--rounded c-button--blue-bordered u-margin-right-50">Log in</a>
-                        <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
-                            class="c-button c-button--rounded c-button--blue">Subscribe</a>
-
-                        {% endif %}
-                        {% endif %}
-
-                    </div>
-                    <div class="c-header-0__weather-info--date">{{date}}</div>
-                    <div id="weather"
-                        class="c-header-0__weather-info c-header-0__weather-info-xs weather-panel-reverse j-weather-panel">
-                    </div>
-
-                </div>
-
-
-
-                <div class="c-header-0__login-info">
-                    {% if paywall %}
-                    {% if loggedin %}
-                    <a class="c-header-0__login-text" href="{{networkData.defaultBlogUrl}}/user/edit-profile"
-                        class="">My account</a>
-                    <a href="{{_AppHelper.getLogoffUrl()}}" class="c-header-0__login-text">Log out</a>
-                    {% else %}
-                    <a id="signinBtn" href="javascript:;"
-                        class="c-button c-button--rounded c-button--blue-bordered u-margin-right-10">Log in</a>
-                    <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
-                        class="c-button c-button--rounded c-button--blue">Subscribe</a>
-                    {% endif %}
-                    {% endif %}
-
-                </div>
-
-
-
-                <div class="c-header-0__main-info">
-                    <a href="{{networkData.defaultBlogUrl}}" class="c-header-0__main-info__logo">
-                        <img src="{{logo}}" class="image-fluid" />
-                    </a>
-                    <div class="c-navigation-0 c-navigation-0-md">
-                        <ul class="c-navigation-0__list">
-                            {{ this.render('../../../partials/_menu.twig', {'menu': headermenu}) | raw }}
-                        </ul>
-
-                        <div class="c-navigation-0__icons">
-                            <div class="c-navigation-0__icons__menu o-hamburger js-menu"></div>
-                            <div class="c-navigation-0__icons__search">
-                                <div class="js-searchButton__search">{{ this.render('../../../partials/icons.twig',
-                                    {icon: 'search'} ) | raw }}</div>
-                                <div class="js-searchButton__close d-none">{{
-                                    this.render('../../../partials/icons.twig', {icon: 'cross'} ) | raw }}</div>
-                            </div>
-                        </div>
-
-
-
-
-                    </div>
-                </div>
-
-                <div class="c-header-0__fixed c-header-0__fixed--off" id="j-menu-fixed">
-                    <div class="c-header-0__main-info c-header-0__fixed-block">
-                        <a href="{{networkData.defaultBlogUrl}}" class="c-header-0__main-info__logo">
-                            <img src="{{logo}}" class="image-fluid" style="max-height:50px;" />
-                        </a>
-                        <div class="c-navigation-0 c-navigation-0-md c-navigation-0__fixed">
-                            <ul class="c-navigation-0__list d-none d-lg-flex">
-                                {{ this.render('../../../partials/_menu.twig', {'menu': headermenu}) | raw }}
-                            </ul>
-
-                            <div class="c-navigation-0__icons d-lg-none">
-                                <div class="c-navigation-0__icons__menu o-hamburger js-menu"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-    </div>
-</header>
-<div class="c-search-bar">
-    <div class="container">
-        <form class="c-search-bar__form" method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
-            <div class="c-search-bar__submit"></div>
-            <input class="c-search-bar__input" type="text" name="s" placeholder="Search" />
-            <button class="c-button c-button--rounded c-button--blue" type="submit" id="searchsubmit">Go</button>
-        </form>
-    </div>
-</div>
-
-<div class="responsive-standalone">
-
-    <ul class="standalone-menu">
-        <li class="c-search-bar d-block d-md-none">
-            <form class="c-search-bar__form" method="get" id="searchform"
-                action="{{networkData.defaultBlogUrl}}/search">
-                <div class="c-search-bar__icon">{{ this.render('../../../partials/icons.twig', {icon: 'search'} ) | raw
-                    }}</div>
-                <input class="c-search-bar__input" type="text" name="s" placeholder="Search" />
-                <button class="c-search-bar__button c-button c-button--rounded c-button--blue" type="submit"
-                    id="searchsubmit">Go</button>
-            </form>
-        </li>
-        {{ this.render('../../../partials/_menu.twig', {
-        'menu': headermenu
-        }) | raw }}
-    </ul>
-
-    <div class="responsive-standalone-close">
-        <div class="responsive-standalone-close-menu">Menu</div>
-        <div class="responsive-standalone-close-close o-close o-close--dark"></div>
-    </div>
-
-</div>
-
-<div class="responsive-standalone-overlay"></div> #}
-
-
 {% set dateFormat = "l, j F Y" %}
 {% if config['dateFormat'] is defined and config['dateFormat'] != "" %}
-{% set dateFormat = config['dateFormat'] %}
+    {% set dateFormat = config['dateFormat'] %}
 {% endif %}
 {% set theDate = _AppHelper.getCurrentTimestampBasedOnTimezone() %}
 {% set date = _AppHelper.getDefaultTimezoneDateTime(theDate, dateFormat) %}
@@ -205,28 +9,28 @@
 {% set headerSubMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'header-sub-menu'}) %}
 {% set loggedin = _User.isGuest() ? false : true %}
 {% set user = loggedin ? _User.getUser() : null %}
-{% set logo = networkData.templatePath~'/static/images/logo.png'%}
+{% set logo = networkData.templatePath~'/static/icons/main-logo.svg'%}
 
 {% set logoWidth = 650 %}
 {% set logoHeight = 144 %}
 
 {% if config['logo'] is defined %}
-{% if config['logo']['width'] is defined %}
-{% set logoWidth = config['logo']['width'] %}
+    {% if config['logo']['width'] is defined %}
+        {% set logoWidth = config['logo']['width'] %}
 
-{% if config['logo']['height'] is not defined %}
-{% set logoHeight = 0 %}
-{% endif %}
-{% endif %}
+        {% if config['logo']['height'] is not defined %}
+            {% set logoHeight = 0 %}
+        {% endif %}
+    {% endif %}
 
-{% if config['logo']['height'] is defined %}
-{% set logoHeight = config['logo']['height'] %}
+    {% if config['logo']['height'] is defined %}
+        {% set logoHeight = config['logo']['height'] %}
 
-{% if config['logo']['width'] is not defined %}
-{% set logoWidth = 0 %}
-{% endif %}
+        {% if config['logo']['width'] is not defined %}
+            {% set logoWidth = 0 %}
+        {% endif %}
 
-{% endif %}
+    {% endif %}
 {% endif %}
 
 {% set paywall = true %}
@@ -290,7 +94,7 @@
                         </div>
                         <div class="c-header-main__logo">
                             <a href="{{networkData.defaultBlogUrl}}" class="c-header-main__logo-item">
-                                <img src="{{logo}}" class="image-fluid" style="max-height:50px;" />
+                                <img src="{{logo}}" class="image-fluid" />
                             </a>
                         </div>
 
@@ -351,27 +155,39 @@
             <span>
             <img src={{networkData.templatePath}}/static/icons/cross-reverse.svg />
             </span>
-            <span>Close</span>
+            <span>CLOSE</span>
         </button>
         <div class="u-generic-socialIcons">
-            <a href="javascript:;" class="u-generic-socialIcons__item">
-                <span class="fa fa-facebook"></span>
-            </a>
-            <a href="javascript:;" class="u-generic-socialIcons__item">
-                <span class="fa fa-twitter"></span>
-            </a>
-            <a href="javascript:;" class="u-generic-socialIcons__item">
-                <span class="fa fa-instagram"></span>
-            </a>
-            <a href="javascript:;" class="u-generic-socialIcons__item">
-                <span class="fa fa-linkedin"></span>
-            </a>
-            <a href="javascript:;" class="u-generic-socialIcons__item">
-                <span class="fa fa-vimeo"></span>
-            </a>
-            <a href="javascript:;" class="u-generic-socialIcons__item">
-                <span class="fa fa-rss"></span>
-            </a>
+            {% if config.social.facebook is defined and config.social.facebook is not empty %}
+                <a href="{{config.social.facebook}}" class="u-generic-socialIcons__item" target="_blank">
+                    <span class="fa fa-facebook"></span>
+                </a>
+            {% endif %}
+            {% if config.social.twitter is defined and config.social.twitter is not empty %}
+                <a href="{{config.social.twitter}}" class="u-generic-socialIcons__item" target="_blank">
+                    <span class="fa fa-twitter"></span>
+                </a>
+            {% endif %}
+            {% if config.social.instagram is defined and config.social.instagram is not empty %}
+                <a href="{{config.social.instagram}}" class="u-generic-socialIcons__item" target="_blank">
+                    <span class="fa fa-instagram"></span>
+                </a>
+            {% endif %}
+            {% if config.social.linkedin is defined and config.social.linkedin is not empty %}
+                <a href="{{config.social.linkedin}}" class="u-generic-socialIcons__item" target="_blank">
+                    <span class="fa fa-linkedin"></span>
+                </a>
+            {% endif %}
+            {% if config.social.vimeo is defined and config.social.vimeo is not empty %}
+                <a href="{{config.social.vimeo}}" class="u-generic-socialIcons__item" target="_blank">
+                    <span class="fa fa-vimeo"></span>
+                </a>
+            {% endif %}
+            {% if config.social.rss is defined and config.social.rss is not empty %}
+                <a href="{{config.social.rss}}" class="u-generic-socialIcons__item" target="_blank">
+                    <span class="fa fa-rss"></span>
+                </a>
+            {% endif %}
         </div>
     </div>
     <div class="c-search-bar">
@@ -400,16 +216,7 @@
         </div>
     </div>
     <div class="c-sidebarMenu__copyInfo">
-        <div class="c-navigation-6">
-            <ul class="c-navigation__grid">
-                {{this.render('../_submenu_navigation.twig', {
-                items: headerTopMenu
-                }) | raw }}
-            </ul>
-        </div>
-        <div class="copy-text">&copy; {{
-                        "now"|date("Y")}}
-                        {{networkData.title}}</div>
+        <div class="copy-text">&copy; {{ "now"|date("Y")}} {{networkData.title}}</div>
     </div>
 </div>
 

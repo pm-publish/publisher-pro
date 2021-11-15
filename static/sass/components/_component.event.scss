@@ -28,6 +28,10 @@
         margin-top: 35px !important;
     }
 
+    &__container {
+        margin-top: 25px;
+    }
+
     &__info {
         border-bottom: 1px solid $grey4;
         padding-bottom: 15px;
@@ -65,7 +69,8 @@
         h2,
         h3,
         h4,
-        h5 {
+        h5, 
+        li {
             color: $black;
             font-family: $secondaryFont !important;
             font-size: 16px !important;
@@ -166,20 +171,25 @@
         ul li {
             list-style-type: none !important;
             position: relative;
-            margin-bottom: 15px;
             &:before {
-                content: "";
-                @include size(8px);
-                background-color: $blue_sh5;
-                position: absolute;
-                display: block;
-                left: -28px;
-                top: 8px;
+              content: "";
+              @include size(8px);
+              background-color: $blue_sh5;
+              position: absolute;
+              display: block;
+              left: -28px;
+              top: 8px;
             }
-
+      
             span {
-                list-style-type: decimal !important;
+              list-style-type: decimal !important;
             }
+          }
+      
+        ol {
+        li {
+            list-style-type: auto !important;
+        }
         }
 
         > span {

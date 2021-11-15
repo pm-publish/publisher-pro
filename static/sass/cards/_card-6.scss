@@ -9,14 +9,19 @@
 
         &__heading {
             @include font-size(14);
-            line-height: 1.33;
+            line-height: 1.43;
             margin-top: 5px;
             margin-bottom: 0;
+            min-height: inherit;
             font-weight: $weightBold;
         }
         &__description,
         &__author-name {
             display: none;
+        }
+
+        &__category-wrap {
+            min-height: 23px;
         }
     }
 }
@@ -42,6 +47,11 @@
     @media #{$desktop-up} {
         @include card-6-tablet-base();
         @include card-name("C6 desktop");
+        height: 100%;
+
+        .card-infoo  {
+            height: 100%;
+        }
 
         .c-cards-view {
             border-bottom: none;

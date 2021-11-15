@@ -2,12 +2,17 @@
     @media #{$desktop-up} {
         .c-cards-view {
             @include flex-direction(column, vertical);
-            height: 680px;
+            min-height: 680px;
+            @include justify-content(flex-start);
             &__media {
                 min-height: 450px;
                 height: 450px;
                 margin-bottom: 15px;
                 overflow: hidden;
+            }
+
+            &__container, &__container-topSection {
+                flex: 1;
             }
 
             &__heading {
@@ -50,10 +55,52 @@
         }
     }
 }
+.card-5-desktop {
+    .c-cards-view {
+        &.without-image {
+            background-color: $black;
+            height: 680px;
+            .c-cards-view {
+                &__container {
+                    padding: 100px 50px 50px;
+                }
+
+                &__category,
+                &__heading,
+                &__description,
+                &__author-name,
+                &__time {
+                    color: $white;
+                }
+            }
+        }
+    }
+    &.card-2-mobile, &.card-2-tablet  {
+        @media #{$mobile}, #{$tablet} {
+            .c-cards-view {
+                &.without-image {
+                    background-color: $black;
+                    height: inherit;
+
+                    .c-cards-view {
+                        &__container {
+                            padding: 50px 30px 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 
 .card-5-text-center {
     .c-cards-view {
         text-align: center;
+
+        &__category-wrap {
+            @include justify-content(center);
+        }
 
         &__author {
             @include justify-content(center);

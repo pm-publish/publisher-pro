@@ -1,141 +1,135 @@
-.article-gallery {
+.c-article {
+    .gallery-container {
+        margin-bottom: 20px;
+        .article-gallery {
+            &__caption {
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                background-color: $black;
+                width: 100%;
 
+                p {
+                    color: $white;
+                    margin-bottom: 0;
+                    padding: 10px;
+                    font-size: 12px;
+                    line-height: 1.33;
+                    font-weight: $weightMedium;
+                    font-style: normal;
+                }
+            }
 
-
-    &__image {
-        position:relative;
-        margin:0;
-        @media #{$mobile} {
-            height:calc((100vw - 30px) * 0.67);
-            margin-bottom: 25px;
-        }
-        
-        @media #{$tablet} {
-            height:390px;
-        }
-        @media #{$desktop-up} {
-            height:497px;
-        }
-        >.article-video{
-            max-width: 100%;
-        }
-    }
-
-    &__img-container {
-        background-color: $greyish;
-        @media #{$tablet}{
-            height: 400px;
-        }
-        @media #{$mobile}{
-            height: 275px;
-        }
-    }
-
-
-    &__img-container-article {
-        height:100%;
-    }
-
-
-    &__img {
-        max-width: 100%;
-        margin:auto;
-        display: block;
-        width:auto !important;
-        height:100%;
-        object-fit: cover;
-    }
-
-
-
-    &__thumbs {
-        max-height:497px;
-        @include flexbox();
-        @include flex-direction(column, vertical);
-        overflow-x: hidden;
-        overflow-y: scroll;
-        // white-space:nowrap;
-        .owl-thumb-item {
-            margin-bottom:12px;
-            object-fit: cover;
-            height: 108px;
-            &.active {
-                border:4px solid #B9B9B9;
+            &__img {
+                &-container {
+                    height: 100%;
+                    background-color: $grey3;
+                    @include flexbox;
+                    @include align-items(center);
+                    @include justify-content(center);
+                }
             }
         }
+    }
 
-        &-horizontal {
-            max-height:108px;
-            margin-top: 15px;
-            @include flex-direction(row, horizontal);
-            overflow-x: hidden;
-            overflow-y: hidden;
-            .owl-thumb-item {
-                margin-bottom:0;
-                margin-right: 10px;
+    &.c-article__carousel {
+        .gallery-container {
+            margin-bottom: 20px;
+            .article-gallery {
+                .owl-prev {
+                    background-image: url("../icons/elements-gallery-arrow-reverse.svg");
+                    background-color: transparent !important;
+                    padding: 0 !important;
+                    margin-left: 16px;
+                    @include size(40px);
+                }
+
+                .owl-next {
+                    background-image: url("../icons/elements-gallery-arrow-reverse.svg");
+                    background-color: transparent !important;
+                    padding: 0 !important;
+                    margin-right: 16px;
+                    @include size(40px);
+                }
             }
-            @media #{$mobile}{
+
+            .article-video {
+                max-width: 100%;
+            }
+
+            .owl-thumbs,
+            #counter {
                 display: none;
             }
         }
     }
-    
 
+    &.c-article__galleryView {
+        .gallery-container {
+            #counter {
+                position: absolute;
+                right: 15px;
+                bottom: 0;
+                @include font-size(14);
+                font-weight: $weightMedium;
+                line-height: 1.14;
+                color: $black;
+            }
+            .owl-thumbs {
+                margin-top: 15px;
+            }
+            .owl-thumb-item {
+                width: 135px;
+                height: 95px;
 
+                + .owl-thumb-item {
+                    margin-left: 8px;
+                }
 
-    &__caption {
+                img {
+                    object-fit: cover;
+                    height: 100%;
+                    width: 100%;
+                    object-position: center;
+                }
 
-        margin-top: 10px;
+                &.active {
+                    border: none;
+                    @include opacity(0.3);
+                }
+            }
 
-        @media #{$media-ipadSmall} {
-            float: left;
-            margin-bottom: 30px;
-        }
-        
-        > p {
-            @include font-size(11);
-            color: $greyish;
-            font-style: italic;
-            line-height: 1.36;
-            font-family: $base-font-family;
-            float: left;
-            @media #{$mobile}{
-                margin-bottom: 15px;
+            @include responsive(xs) {
+                @include respond-to(lg) {
+                    .owl-carousel {
+                        position: static;
+
+                        .owl-nav {
+                            left: 0;
+                            bottom: 135px;
+                            width: auto;
+                            top: auto;
+                            @include translate(0, 0);
+                            height: 40px;
+
+                            .owl-prev,
+                            .owl-next {
+                                @include size(40px);
+                                padding: 0 !important;
+                                background-color: $black !important;
+                            }
+                            .owl-next {
+                                margin-left: 5px;
+                            }
+                        }
+                    }
+                    #counter {
+                        left: 105px;
+                        right: auto;
+                        bottom: 147px;
+                    }
+                }
             }
         }
     }
-
-
-    &__category {
-        margin-top:10px;
-        @include font-size(11);
-        font-weight: $weightMedium;
-        text-transform:uppercase;
-        color: $mainColor;
-        text-decoration: none;
-    }
-    &__title {
-        margin-top:7px;
-        @include font-size(28);
-        font-weight: $weightBold;
-        float:left;
-    }
-    &__date {
-        @include font-size(11);
-        font-weight: $weightRegular;
-        font-style: italic;
-        float:right;
-        margin-top: 22px;
-    }
-
-
-
-    &__single {
-        >.article-gallery__image-article{
-            >.external-article-video {
-                max-width: 915px;
-            }
-        }
-}
-
 }

@@ -31,10 +31,10 @@
 <div class="{{params.cardType}}c-cards-view__container">
     <div class="c-cards-view__container-topSection">
         <div class="c-cards-view__category-wrap">
-            {% if params.additionalCategory is defined and params.additionalCategory is not empty %}
-            <div class="c-cards-view__additional-category">{{params.additionalCategory}}</div>
+            {% if params.category != params.blogTitle %}
+            <div class="c-cards-view__additional-category">{{params.category}}</div>
             {% endif %}
-            <div class="{{params.cardType}}c-cards-view__category">{{params.category}}</div>
+            <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
         </div>
         {% if params.publisherName is defined and params.publisherName is not empty %}
             <div class="c-cards-view__publisher-name">{{params.publisherName}}</div>

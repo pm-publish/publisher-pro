@@ -1,0 +1,125 @@
+@mixin base-event-card-3 {
+    .c-eventcards-view {
+        height: 100%;
+        @include flexbox;
+        @include flex-direction(column,vertical);
+        
+        &__date {
+            display: none;
+        }
+
+        &__conditionalImage {
+            height: 190px;
+            margin-bottom: 8px;
+            img {
+                @include size(100%);
+                object-fit: cover;
+            }
+        }
+
+        &__conditionalDate {
+            &-value,
+            &-label {
+                @include font-size(13);
+                font-weight: $weightBold;
+                line-height: 1.23;
+                color: $black;
+            }
+        }
+
+        &__time {
+            @include font-size(13);
+            font-weight: $weightMedium;
+            line-height: 1.38;
+            color: $grey5;
+            margin-top: 4px;
+        }
+        &__category {
+            color: $blue_sh5;
+            @include font-size(12);
+            font-weight: $weightBold;
+            line-height: 1.33;
+        }
+
+        &__heading {
+            color: $black;
+            font-family: $secondaryFont;
+            @include font-size(18);
+            font-weight: $weightBold;
+            line-height: 1.33;
+            min-height: 51px;
+            margin: 5px 0;
+        }
+
+        &__container {
+            flex: 1;
+            @include flexbox;
+            @include flex-direction(column,vertical);
+        }
+
+        &__info {
+            flex: 1;
+            @include flexbox;
+            @include flex-direction(column,vertical);
+            @include justify-content(space-between);
+        }
+
+        &__sec2 {
+            min-height: 34px;
+            margin-bottom: 11px;
+        }
+    }
+    > a {
+        text-decoration: none;
+        height: 100%;
+        display: block;
+
+        &.without-image {
+            background: $black;
+
+            .c-eventcards-view {
+                padding: 20px;
+
+                &__category,
+                &__heading,
+                &__conditionalDate-value,
+                &__conditionalDate-label {
+                    color: $white;
+                }
+
+                &__time { 
+                    color: $grey4
+                }
+            }
+        }
+    }
+}
+
+.event-card-3-mobile {
+    @media #{$mobile} {
+        @include base-event-card-3();
+        border-bottom: 1px solid $grey4;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+
+    }
+}
+
+@mixin base-event-card-3-tablet() {
+    @include base-event-card-3();
+}
+
+.event-card-3-tablet {
+    @media #{$tablet} {
+        @include base-event-card-3();
+        border-bottom: 1px solid $grey4;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+}
+.event-card-3-desktop {
+    @media #{$desktop-up} {
+        height: 100%;
+        @include base-event-card-3();
+    }
+}

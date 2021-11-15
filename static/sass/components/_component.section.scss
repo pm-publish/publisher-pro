@@ -10,16 +10,136 @@
     }
 }
 
-.section-page-firstRow {
-    .card-5-desktop {
-        .c-cards-view {
-            height: 720px;
+.section-page {
+    &-firstRow {
+        .card-5-desktop {
+            .c-cards-view {
+                height: 720px;
+
+                @media #{$mobile}, #{$tablet} {
+                    height: inherit;
+                }
+            }
+        }
+    
+        .card-2-desktop {
+            .c-cards-view {
+                height: inherit;
+            }
+        }
+
+        .card-withoutImage {
+            .c-cards-view  {
+                height: inherit;
+            }
+        }
+
+        .section_1_firstVertical {
+            .section-page-genricTabView {
+                @media #{$desktop-up} {
+                    > .row {
+                        div[class^="card"] {
+                            border-top: 1px solid $grey4;
+                            padding-top: 15px;
+                            margin-top: 15px;
+                        }
+                        .col-12 {
+                            &:first-child {
+                                div[class^="card"] {
+                                    border-top: none;
+                                    padding-top: 0;
+                                    margin-top: 0;
+                                }
+                            }
+                        }
+
+                        .card-withoutImage {
+                            .c-cards-view  {                                
+                                &__media {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                    .card-2-desktop {
+                        height: 100%;
+                        .card-infoo {
+                            height: 100%;
+                        }
+                    }
+                }
+
+                @media #{$tablet} {
+                    > .row {
+                        .col-12 {
+                            &:last-child {
+                                display: none;
+                            }
+                            div[class^="card"] {
+                                @include calc(height,'100% - 15px');
+
+                                .card-infoo {
+                                    height: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
         }
     }
+    &-genricTabView {
+        .card-2-tablet {
+            @media #{$tablet} {
+                .c-cards-view {
+                    &__media {
+                        height: 175px; 
+                    }
+                }
+            }
+        }
+    }
+}
 
-    .card-2-desktop {
+.hm-firstRow {
+    .card-1-mobile {
         .c-cards-view {
-            height: inherit;
+            &__media {
+                display: none;
+            }
+
+            &__container {
+                width: 100%;
+                margin-left: 0px;
+            }
+        }
+    }
+}
+
+    @media #{$mobile} {
+    .hm-sec1 {
+        @include flexbox;
+        @include flex-direction(column,vertical);
+        
+        &_row_1 {
+            order: 2;
+        }
+        &_row_2 {
+            order: 1;
+
+            &_c1 {
+                order: 2;
+            }
+            &_c2 {
+                order: 1;
+            }
+            &_c3 {
+                order: 3;
+            }
+        }
+        &_row_3 {
+            order: 3;
         }
     }
 }

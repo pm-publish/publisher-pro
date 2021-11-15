@@ -42,37 +42,38 @@
                 {{this.render('partials/_single-article.twig', {
                     article: articles[articleCount], 
                     position: (articleCount+1),
-                    imageSize: {width: 600, height: 300},
+                    imageSize: {width: 600, height: 900},
                     containerClass: "card-11-mobile card-11-tablet card-11-desktop card-11-highlighter"
                 }) | raw}}
                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
             </div>
             {% for i in 1..6 if articles[articleCount] %}
-                <div class="col-12 col-lg-3">
+                <div class="col-12 col-md-6 col-lg-3">
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
-                        imageSize: {width: 600, height: 300},
+                        imageSize: {width: 600, height: 900},
                         containerClass: "card-11-mobile card-11-tablet card-11-desktop"
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 </div>
             {% endfor %}
         </div>
+
         <div class="row">
             <div class="col-12">
-                {% if config['inventory']['adSpace']['mrec'][0] is defined %}
-                    <div class="my-5">
-                        <div class="j-adslot" id="{{config['inventory']['adSpace']['mrec'][0]}}" data-adshape="mrec"></div>
+                {% if config['inventory']['adSpace']['banner'][1] is defined %}
+                    <div class="my-5 overflow-hidden">
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
                     </div>
                 {% endif %}
                 <div class="row">
                     {% for i in 7..14 if articles[articleCount] %}
-                        <div class="col-12 col-lg-3">
+                        <div class="col-12 col-md-6 col-lg-3">
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
-                                imageSize: {width: 600, height: 300},
+                                imageSize: {width: 600, height: 900},
                                 containerClass: "card-11-mobile card-11-tablet card-11-desktop"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -80,9 +81,9 @@
                     {% endfor %}
                 </div>
                 
-                {% if config['inventory']['adSpace']['mrec'][0] is defined %}
-                    <div class="my-5">
-                        <div class="j-adslot" id="{{config['inventory']['adSpace']['mrec'][0]}}" data-adshape="mrec"></div>
+                {% if config['inventory']['adSpace']['banner'][2] is defined %}
+                    <div class="my-5 overflow-hidden">
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
                     </div>
                 {% endif %}
             </div>

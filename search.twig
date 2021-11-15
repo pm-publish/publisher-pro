@@ -30,33 +30,37 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-10 mx-auto">
-                    <div class="col-12 col-lg-8">
-                        <div id="results" style="min-height:600px;">
-                        {% for article in articles %}
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <div id="results" style="min-height:600px;">
+                            {% for article in articles %}
 
-                            {{this.render('partials/_single-article.twig', {
-                                article: article, 
-                                containerClass: "card-2-mobile card-9-tablet card-9-desktop u-margin-bottom-30"
-                            }) | raw}}
+                                {{this.render('partials/_single-article.twig', {
+                                    article: article, 
+                                    containerClass: "card-2-mobile card-9-tablet card-9-desktop u-margin-bottom-30"
+                                }) | raw}}
 
-                        {% endfor %}
-                        </div>
-                        {% if articles|length >= limit %}
-                        <section class="">
-                            <div class="row">
-                                <div class="col-12">
-                                    {{ this.render('partials/ajaxarticles_new.twig', {
-                                        name            : "search-load",
-                                        label           : "loading more",
-                                        buttonClass     : "",
-                                    }) | raw }}
-                                </div>
+                            {% endfor %}
                             </div>
-                        </section>
-                        {% endif %}
-                    </div>
-                    <div class="col-12 col-lg-4">
-                    
+                            {% if articles|length >= limit %}
+                            <section class="">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {{ this.render('partials/ajaxarticles_new.twig', {
+                                            name            : "search-load",
+                                            label           : "loading more",
+                                            buttonClass     : "",
+                                        }) | raw }}
+                                    </div>
+                                </div>
+                            </section>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 col-lg-4 d-none d-lg-block">
+                            {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                                <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,7 +73,7 @@
     // defered script is loaded before this runs
     document.addEventListener("DOMContentLoaded", function(event) {
         
-        Acme.loadMore = new Acme.View.articleFeed({
+        Acme.loadMore = new Acme.ArticleFeed({
             model           : new Card(),
             container       : 'results',
             infinite        : true,

@@ -12,7 +12,7 @@
 {# For gallery pages, we want images to be seen full height and maintain aspect ratio,
 with width taken up with borders on the side #}
 {% if galleryStyle == "gallery" %}
-{% set imgWidth = 0 %}
+{% set imgWidth = 'auto' %}
 {% set imgHeight = 515 %}
 {% set gravity = 'auto' %}
 {% set mobImgHeight = 250 %}

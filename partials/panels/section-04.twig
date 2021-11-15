@@ -13,14 +13,14 @@
 </div>
 
 <div class="row">
-    <div class="col-12 {% if adslots[0] is defined %}col-lg-9{% endif %}">
+    <div class="col-12 {% if adslots[0] is defined %}col-xl-9{% endif %}">
         <div class="row">
             <div class="col-12">
                 <div class="c-cards-container c-cards-container-xs bottom-border">
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
                     position: (articleCount+1),
-                    imageSize: {width: 296, height: 260},
+                    imageSize: {width: 633, height: 400},
                     containerClass: "card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20",
                     timeSuppress: timeSuppress
                     }) | raw}}
@@ -38,7 +38,7 @@
                             {{this.render('../_single-article.twig', {
                             article: articles[articleCount],
                             position: (articleCount+1),
-                            imageSize: {width: 296, height: 260},
+                            imageSize: {width: 79, height: 96},
                             containerClass: "card-1-mobile card-1-tablet card-1-desktop u-margin-bottom-20",
                             timeSuppress: timeSuppress
                             }) | raw}}
@@ -55,7 +55,7 @@
                             {{this.render('../_single-article.twig', {
                             article: articles[articleCount],
                             position: (articleCount+1),
-                            imageSize: {width: 296, height: 260},
+                            imageSize: {width: 79, height: 96},
                             containerClass: "card-1-mobile card-1-tablet card-1-desktop",
                             timeSuppress: timeSuppress
                             }) | raw}}
@@ -69,6 +69,8 @@
         </div>
     </div>
     {% if adslots[0] is defined %}
-    <div class="col-12 col-lg-3"></div>
+    <div class="col-12 col-xl-3 d-none d-xl-block">
+        <div class="j-adslot" id="{{adslots[0]}}" data-adshape="mrec"></div>
+    </div>
     {% endif %}
 </div>
