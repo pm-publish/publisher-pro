@@ -7,7 +7,7 @@
 
 
 
-{% set limit = 15 %}
+{% set limit = 1 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -158,6 +158,16 @@
                         {% endfor %}
                     </div>
                 </div>
+
+                <section class="loadmore__section text-center {{site}}">
+                    {% if articles|length >= limit %}
+                        {{ this.render('/partials/load_more.twig', {
+                            name            : "section-load",
+                            label           : "Load more",
+                            buttonClass     : "u-loadmore-button",
+                        }) | raw }}
+                    {% endif %}
+                </section>
                 
                 {% if config['inventory']['adSpace']['banner'][2] is defined %}
                     <div class="my-5 overflow-hidden">
@@ -175,3 +185,21 @@
     {% endif %}
     <div class="ad-keywords" data-keywords="{{theKeywords}}"></div>
 </main>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const events = new Acme.Card();
+
+        Acme.loadMore = new Acme.ArticleFeed({
+            model           : Acme.Card,
+            container       : 'loadmore_section',
+            offset          : {{limit}},
+            limit           : 12,
+            label           : "Load more",
+            name            : 'section-load',
+            blogid          : "{{ blogData['guid'] }}",
+            card_class      : 'col-md-4 card-sm card-sm-tablet card-sm-mobile',
+            non_pinned      : "{{ articlesArr.existingNonPinnedCount }}"
+        });
+    });
+</script>
