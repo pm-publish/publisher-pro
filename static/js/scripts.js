@@ -83,6 +83,21 @@ document.addEventListener("DOMContentLoaded", function (event) {
             $('.c-sidebarMenu').removeClass("sidebar-active");
             $('.body').removeClass("u-noscroll");
         }
-    })
+    });
 
+    $('.js-cus_acnt__showForm').on('click', function() {
+        $(this).addClass('cus_acnt__hide');
+        $(this).closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').addClass('cus_acnt__hide');
+        $(this).closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').removeClass('cus_acnt__hide');
+    });
+
+    $('.js-cus_acnt__HideForm').on('click', function() {
+        $('.js-cus_acnt__showForm').removeClass('cus_acnt__hide');
+        $(this).closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').removeClass('cus_acnt__hide');
+        $(this).closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').addClass('cus_acnt__hide');
+    });
+
+    $(".js-tableView tr .js-toggleTableRow").on("click", function(){
+        $(this).closest('tr.view').next('.folded').toggleClass("open");
+      });
 });
