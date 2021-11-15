@@ -52,10 +52,10 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
 });
 
 const cardTemplateTop =
-    '<div class="{{cardClass}} {{containerClass}} walla walla"> \
+    '<div class="{{cardClass}} {{containerClass}}"> \
     <a  itemprop="url" \
         href="{{url}}" \
-        class="card swap {{articleStatus}}  {{hasMediaClass}}" \
+        class="card-infoo swap" \
         draggable="{{draggable}}" \
         data-id="{{articleId}}" \
         data-position="{{position}}" \
@@ -65,7 +65,7 @@ const cardTemplateTop =
         data-article-text="{{title}}" \
         title="{{titleString}}"> \
     \
-        <article class="{{cardType}}c-cards-view">';
+        <article class="{{cardType}}c-cards-view {{hasMediaClass}} {{articleStatus}}">';
 
 const cardTemplateBottom =
     '</article>' +
@@ -470,15 +470,18 @@ export const Templates = {
             </figure>\
         {{/if}} \
         \
-        <div class="{{cardType}}c-cards-view__container content">\
-            <div class="{{cardType}}c-cards-view__category category">{{label}}</div>\
-            <h2 class="{{cardType}}c-cards-view__heading j-truncate">{{{ title }}}</h2>\
-            <p class="{{cardType}}c-cards-view__description j-truncate">{{{ excerpt }}}</p>\
-            <div class="{{cardType}}c-cards-view__author-name author">\
-                <img src="{{profileImg}}" class="img-circle">\
-                <p>{{ author }}</p>\
+        <div class="{{cardType}}c-cards-view__container">\
+            <div class="c-cards-view__container-topSection">\
+                <div class="c-cards-view__category-wrap">\
+                    <div class="c-cards-view__category">{{label}}</div>\
+                </div>\
+                <h2 class="c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{{ title }}}</h2>\
+                <p class="c-cards-view__description js-c-cards-view-description j-truncate j-excerpt">{{{ excerpt }}}</p>\
             </div>\
-        </div>' +
+            <div class="c-cards-view__author">\
+                <div class="c-cards-view__author-name">{{ author }}</div>\
+                <div class="c-cards-view__time">{{date}}</div>\
+            </div>' +
         cardTemplateBottom
 };
 
