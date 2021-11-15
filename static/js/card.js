@@ -93,8 +93,8 @@ Card.prototype.render = function(options = {})
     card['excerpt'] = this.data.excerpt;
     card['title'] = this.data.title;
     card['author'] = this.data.createdBy.displayName;
+    card['date'] = this.data.createdDate;
     card['titleString'] = "";
-
 
     if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
         var totalstring = "";

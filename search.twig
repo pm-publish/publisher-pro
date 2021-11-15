@@ -1,4 +1,4 @@
-{% set limit = 6 %}
+{% set limit = 1 %}
 {% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search, 'sortBy': 'published'}) %}
 {% set config = _Network.getThemeConfig() %}
 
@@ -74,14 +74,14 @@
     document.addEventListener("DOMContentLoaded", function(event) {
         
         Acme.loadMore = new Acme.ArticleFeed({
-            model           : new Card(),
+            model           : Acme.Card,
             container       : 'results',
             infinite        : true,
             limit           : {{limit}},
             loadtype        : 'api/search',
             searchterm      : "{{search}}",
             name            : 'search-load', //name of the search button
-            card_class      : 'card-5-mobile card-5-tablet card-5-desktop'
+            card_class      : 'card-2-mobile card-9-tablet card-9-desktop u-margin-bottom-30'
         });
     });
 </script>
