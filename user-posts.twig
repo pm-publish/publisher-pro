@@ -93,6 +93,8 @@
                                     </div>
                                 {% endfor %}
                             </div>
+
+                            <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
                         </div>
 
                         <div class="my-5 overflow-hidden">
@@ -103,19 +105,15 @@
                     </div>
 
                     <div class="col-12">
-                        {% if userArticles|length >= limit %}
-                            <section class="">
-                                <div class="row">
-                                    <div class="d-flex align-items-center justify-content-center mt-5">
-                                        {{ this.render('partials/ajaxarticles_new.twig', {
-                                            name            : "user-load",
-                                            label           : "loading more",
-                                            buttonClass     : "u-loadmore-button",
-                                        }) | raw }}
-                                    </div>
-                                </div>
-                            </section>
-                        {% endif %}
+                        <section class="loadmore__section my-5 text-center {{site}}">
+                            {% if userArticles|length >= limit %}
+                                {{ this.render('/partials/load_more.twig', {
+                                    name            : "section-load",
+                                    label           : "Load more",
+                                    buttonClass     : "u-loadmore-button",
+                                }) | raw }}
+                            {% endif %}
+                        </section>
 
                     </div>
                 </div>
@@ -125,19 +123,19 @@
 </main>
 
 <script>
-    // main script is defered so event listener makes sure
-    // defered script is loaded before this runs
     document.addEventListener("DOMContentLoaded", function(event) {
+        const events = new Acme.Card();
 
-        Acme.loadMore = new Acme.View.articleFeed({
-            model           : new Card(),
+        Acme.loadMore = new Acme.ArticleFeed({
+            model           : Acme.Card,
             container       : 'loadmore_section',
-            offset          : 6,
-            limit           : {{limit}},
-            loadtype        : 'user_articles',
-            name            : 'user-load',
-            card_class      : 'card-2-mobile card-2-tablet card-2-desktop card-2--noDescription',
+            offset          : {{limit}},
+            limit           : 12,
+            label           : "Load more",
+            name            : 'section-load',
+            blogid          : "{{ blogData['guid'] }}",
+            card_class      : 'card-2-mobile card-2-tablet card-2-desktop card-2--noDescription col-12 col-md-6 col-lg-3 left-border mb-4',
+            non_pinned      : "{{ articlesArr.existingNonPinnedCount }}"
         });
-
     });
 </script>
