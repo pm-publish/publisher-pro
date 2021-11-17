@@ -174,7 +174,7 @@ Card.prototype.initDraggable = function()
 {
 
     if ( $.ui ) {
-        console.log('initing draggable 2');
+        console.log('initing draggable');
         $('.swap').draggable({
             helper: 'clone',
             revert: true,
