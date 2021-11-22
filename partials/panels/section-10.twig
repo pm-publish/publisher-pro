@@ -18,7 +18,6 @@
                 {% for i in 0..3 %}
                     {% if events[i] is defined %}
                         <div class="col-12 col-lg-3 left-border">
-                            <div class="d-none">Mayank testig event</div>
                             {{this.render('../_single-event-list.twig', {
                                 event: events[i], 
                                 imageSuppress: 'true',
