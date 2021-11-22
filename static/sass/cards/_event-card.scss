@@ -103,6 +103,9 @@
     @media #{$mobile} {
         @include base-event-card();
     }
+    + .event-card-1__mobile {
+        margin-top: 20px;
+    }
 }
 @mixin base-event-card-tablet() {
     @include base-event-card();
@@ -150,6 +153,7 @@
                 min-height: 129px;
                 position: relative;
                 padding-bottom: 24px;
+                flex: 1;
             }
 
             &__author {
