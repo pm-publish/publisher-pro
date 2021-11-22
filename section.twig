@@ -1,206 +1,80 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
-{% set site        = networkData.title | lower | split(" ")[0]%}
-{% set blogData     = _Blog.getBlog() %}
+{% set blogInfo = _Blog.getBlog() %}
 
+
+{% set limit = 50 %}
+{% set date = date() %}
+{% set events = _Event.getEvents({"limit": limit, "showOnGoingOnly": 1}) %}
 {% set config       = _Network.getThemeConfig() %}
 
 
+{% set firstCount = events | length %}
 
-{% set limit = 15 %}
-
-{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
-{% set articles = articlesArr.articles %}
-{% set firstCount = articles | length %}
 
 <!-- used to index each article as we loop over throughout the template -->
-{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
-{% set popCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set eventCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 
-{% set blogLower = blogData.title | lower | split(" ")[0] %}
-{% set cta = _CallToAction.getKeywordBasedCTA('cta_'~blogLower)%}
-{% set ctaURL = ""%}
-{% if cta.button['url'] %}
-    {% set ctaURL = cta.button['url'] %}
-{% endif %}
-
-
-<main id="main" class="site-main u-margin-top-60" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="c-page-head c-page-head--withBorder c-page-head-xs">
-                    <div class="u-heading__large u-heading__large-xs u-pr--6">{{blogData.title}}</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col">
-                <div class="c-cards-container c-cards-container-xs bottom-border section-page-firstRow">
-                    <div class="row">
-                        <div class="col-12 col-lg-6 left-border">
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                position: (articleCount+1),
-                                imageSize: {width: 600, height: 300},
-                                containerClass: "card-2-mobile card-2-tablet card-5-desktop"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+    <main id="main" class="site-main" role="main">
+        <div class="container u-margin-top-60 u-margin-bottom-60">
+            <section class="row">
+                <div class="col-12">
+                    <div class="c-events__main">
+                        <div class="c-page-head c-page-head-xs">
+                            <div class="u-heading__large u-heading__large-xs u-pr--6">{{this.title}}</div>
                         </div>
-                        <div class="col-12 col-lg-6 left-border section_1_firstVertical">
-                            <div class="row">
-                                <div class="col-12 col-lg-6 left-border section-page-genricTabView">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 306, height: 185},
-                                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 306, height: 185},
-                                                containerClass: "card-2-mobile card-2-tablet card-4-desktop card-withoutImage"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 600, height: 300},
-                                                containerClass: "card-1-mobile card-1-tablet card-1-desktop"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12 col-lg-6 left-border section-page-genricTabView">
-                                    <div class="row">
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 306, height: 185},
-                                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 306, height: 185},
-                                                containerClass: "card-2-mobile card-2-tablet card-4-desktop card-withoutImage"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 600, height: 300},
-                                                containerClass: "card-1-mobile card-1-tablet card-1-desktop"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> 
-                    </div>
-                </div>    
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                {% if config['inventory']['adSpace']['banner'][1] is defined %}
-                    <div class="my-5 overflow-hidden">
-                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
-                    </div>
-                {% endif %}
-
-                <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
-                    <div class="row">
-                        {% for i in 7..10 if articles[articleCount] %}
-                            <div class="col-12 col-md-6 col-lg-3 left-border">
-                                {{this.render('partials/_single-article.twig', {
-                                    article: articles[articleCount], 
-                                    position: (articleCount+1),
-                                    imageSize: {width: 600, height: 300},
-                                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                                }) | raw}}
-                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                            </div>
-                        {% endfor %}
                     </div>
                 </div>
-                <div class="c-cards-container c-cards-container-xs section-page-genricTabView">
+            </section>
+
+            <section class="row">
+                <div class="col-12 col-lg-11">
+                    {{this.render('partials/_single-event.twig', {
+                        event: events[eventCount], 
+                        position: eventCount + 1, 
+                        imageSize: {width:300},
+                        containerClass: 'event-card-1__desktop event-card-1__tablet event-card-1__mobile fullWidth',
+                    }) | raw}}
+                    {% set eventCount = (dev) ? eventCount : eventCount + 1 %}
                     <div class="row">
-                        {% for i in 11..14 if articles[articleCount] %}
-                            <div class="col-12 col-md-6 col-lg-3 left-border">
-                                {{this.render('partials/_single-article.twig', {
-                                    article: articles[articleCount], 
-                                    position: (articleCount+1),
-                                    imageSize: {width: 600, height: 300},
-                                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                                }) | raw}}
-                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                            </div>
+
+                    </div>
+                </div>
+            </section>
+            
+            {% set monthDivider = '' %}
+
+            <section class="middle">
+                <div class="row row-space maincards">
+                    <div class="col-12 col-lg-7">
+                        {% for i in 0..49 if events[eventCount] %}
+
+                            {% set eventMonth = _AppHelper.getDateTimeBasedOnTimezone(events[eventCount].startDate, 'F Y') %}
+                            {% if monthDivider != eventMonth %}
+                                <div class="u-generic-topBorder u-margin-top-20 u-margin-bottom-20 clearfix"></div>
+                                <p class="c-events__head c-events__head-xs">{{ eventMonth }}</p>
+                                {% set monthDivider = eventMonth %}
+                            {% endif %}
+
+                            {{this.render('partials/_single-event.twig', {
+                                event: events[eventCount], 
+                                position: eventCount + 1, 
+                                imageSize: {width:300},
+                                containerClass: 'event-card-1__desktop event-card-1__tablet event-card-1__mobile',
+                            }) | raw}}
+                            {% set eventCount = (dev) ? eventCount : eventCount + 1 %}
                         {% endfor %}
                     </div>
-                    <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
-                </div>
 
-                <section class="loadmore__section my-5 text-center {{site}}">
-                    {% if articles|length >= limit %}
-                        {{ this.render('/partials/load_more.twig', {
-                            name            : "section-load",
-                            label           : "Load more",
-                            buttonClass     : "u-loadmore-button",
-                        }) | raw }}
-                    {% endif %}
-                </section>
-                
-                {% if config['inventory']['adSpace']['banner'][2] is defined %}
-                    <div class="my-5 overflow-hidden">
-                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
+
+                    <div class="col-12 offset-lg-1 col-lg-4 d-md-none d-lg-block">
+                        {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                            <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                        {% endif %}
                     </div>
-                {% endif %}
-            </div>
+                </div>
+            </section>
         </div>
-    </div>
-    {% set theKeywords = '' %}
-    {% if article.keywords is defined and article.keywords != '' %}
-        {% set theKeywords = article.keywords %}
-    {% elseif blogInfo.keywords is defined and blogInfo.keywords != '' %}
-        {% set theKeywords = blogInfo.keywords %}
-    {% endif %}
-    <div class="ad-keywords" data-keywords="{{theKeywords}}"></div>
-</main>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        const events = new Acme.Card();
-
-        Acme.loadMore = new Acme.ArticleFeed({
-            model           : Acme.Card,
-            container       : 'loadmore_section',
-            offset          : {{limit}},
-            limit           : 12,
-            label           : "Load more",
-            name            : 'section-load',
-            blogid          : "{{ blogData['guid'] }}",
-            card_class      : 'card-2-mobile card-2-tablet card-2-desktop card-2--noDescription col-12 col-md-6 col-lg-3 left-border mb-4',
-            non_pinned      : "{{ articlesArr.existingNonPinnedCount }}"
-        });
-    });
-</script>
+    </main>

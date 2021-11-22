@@ -64,7 +64,7 @@
 {% set eventMonth       = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'F') %}
 
 {% set startMonth       = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'M') %}
-{% set endMonth         = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'M') %}
+{% set endMonth         = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'F') %}
 
 {% set fullStartTime    = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'g:ia M j') %}
 {% set fullEndTime      = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'g:ia M j') %}
@@ -112,7 +112,24 @@
                     <h2  class="c-eventcards-view__heading js-card-heading j-truncate {{figureClass}}">{{ quotes.smarten(event.title) }}</h2>
                     <p   class="c-eventcards-view__description j-truncate">{{ quotes.smarten(event.excerpt | raw) }}</p>
                     <div class="c-eventcards-view__otherInfo">
-                        <div class="c-eventcards-view__day">{{startDay~'th'}}    {{eventMonth}}</div>
+                        {% set superscriptStartDay = 'th' %}
+                        {% if startDay == '01' %}
+                            {% set superscriptStartDay = 'st' %}
+                            {% elseif startDay == '02' %}
+                                {% set superscriptStartDay = 'nd' %}
+                            {% elseif startDay == '03' %}
+                                {% set superscriptStartDay = 'rd' %}
+                        {% endif %}
+
+                        {% set superscriptEndDay = 'th' %}
+                        {% if endDay == '01' %}
+                            {% set superscriptEndDay = 'st' %}
+                            {% elseif endDay == '02' %}
+                                {% set superscriptEndDay = 'nd' %}
+                            {% elseif endDay == '03' %}
+                                {% set superscriptEndDay = 'rd' %}
+                        {% endif %}
+                        <div class="c-eventcards-view__day">{{startDay ~ superscriptStartDay}}    {{eventMonth}} {% if endDate != "" and endDate != startDate %} - {{endDay ~ superscriptEndDay}}  {{endMonth}}{%endif%}</div>
                         <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
             
                         <div class="c-eventcards-view__author">
