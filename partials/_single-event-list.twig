@@ -80,14 +80,7 @@
     {% set eventImgSmall = _Media.getMediaUrl(event.media[0], 500, 500, {'crop': 'fill', 'gravity': 'faces'} ) %}
     {% set eventImg = _Media.getMediaUrl(event.media[0], imgWidth, imgHeight, {'crop': 'fill', 'gravity': 'faces'} ) %}
     
-    <a  href="{{event.url}}" 
-        class="{{swap}} {{hasMedia}}" 
-        data-id="{{event.eventId}}" 
-        data-guid="{{event.eventGuid}}" 
-        data-position="{{position}}" 
-        data-social="0"
-        data-event-image="{{eventImg}}" 
-        data-event-text="{{Helper.htmlToText(event.title, -1) | raw | escape('html')}}">
+    <a>
 
         <article class="c-eventcards-view  {{lightbox}} {{figureClass}}">
             <div class="c-eventcards-view__date">
@@ -96,7 +89,7 @@
             </div>
             {% if event.media[0].path is defined and event.media[0].path is not empty  %}
                 <div class="c-eventcards-view__conditionalImage">
-                    <img src={{event.media[0].path}} alt={{ quotes.smarten(event.title) }} />
+                    <img src="{{event.media[0].path}}" alt="{{ quotes.smarten(event.title) }}" />
                 </div>
             {% endif %}
             <div class="c-eventcards-view__container">
