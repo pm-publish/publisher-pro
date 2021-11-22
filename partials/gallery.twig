@@ -123,12 +123,12 @@ with width taken up with borders on the side #}
             ~ videoId ~ "&playsinline" %}
             {% endif %}
 
-
-            <iframe src="{{mediaUrl}}" class="external-article-video" data-source={{image.source}} allowfullscreen
-                webkitallowfullscreen mozallowfullscreen
-                style="width: 100%; height: 100%; top: 0px; bottom: 0px; right: 0px; left: 0px;">
-            </iframe>
-
+            <div class="ratio ratio-16x9 pb-5">
+                <iframe src="{{mediaUrl}}" class="external-article-video" data-source={{image.source}} allowfullscreen
+                    webkitallowfullscreen mozallowfullscreen
+                    style="width: 100%; height: 100%; top: 0px; bottom: 0px; right: 0px; left: 0px;">
+                </iframe>
+            </div>
             {% endif %}
 
             {% endif %}
