@@ -94,40 +94,44 @@
                         <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
                     </div>
                 {% endif %}
+                {% if articles | length > 4 %}
+                    <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="row">
+                            {% for i in 5..8 if articles[articleCount] %}
+                                <div class="col-12 col-md-6 col-lg-3 left-border">
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: articles[articleCount], 
+                                        position: (articleCount+1),
+                                        template: 'property',
+                                        imageSize: {width: 360, height: 270},
+                                        containerClass: 'card-property-mobile card-property-tablet card-property-desktop'
+                                    }) | raw}}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
 
-                <div class="c-cards-container c-cards-container-xs bottom-border">
-                    <div class="row">
-                        {% for i in 5..8 if articles[articleCount] %}
-                            <div class="col-12 col-md-6 col-lg-3 left-border">
-                                {{this.render('partials/_single-article.twig', {
-                                    article: articles[articleCount], 
-                                    position: (articleCount+1),
-                                    template: 'property',
-                                    imageSize: {width: 360, height: 270},
-                                    containerClass: 'card-property-mobile card-property-tablet card-property-desktop'
-                                }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                            </div>
-                        {% endfor %}
+                {% if articles | length > 8 %}
+                    <div class="c-cards-container c-cards-container-xs bottom-border">
+                        <div class="row">
+                            {% for i in 9..12 if articles[articleCount] %}
+                                <div class="col-12 col-md-6 col-lg-3 left-border">
+                                    {{this.render('partials/_single-article.twig', {
+                                        article: articles[articleCount], 
+                                        position: (articleCount+1),
+                                        template: 'property',
+                                        imageSize: {width: 360, height: 270},
+                                        containerClass: 'card-property-mobile card-property-tablet card-property-desktop'
+                                    }) | raw}}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
                     </div>
-                </div>
-                <div class="c-cards-container c-cards-container-xs bottom-border">
-                    <div class="row">
-                        {% for i in 9..12 if articles[articleCount] %}
-                            <div class="col-12 col-md-6 col-lg-3 left-border">
-                                {{this.render('partials/_single-article.twig', {
-                                    article: articles[articleCount], 
-                                    position: (articleCount+1),
-                                    template: 'property',
-                                    imageSize: {width: 360, height: 270},
-                                    containerClass: 'card-property-mobile card-property-tablet card-property-desktop'
-                                }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                            </div>
-                        {% endfor %}
-                    </div>
-                    <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
-                </div>
+                {% endif %}
             </div>
         </div>
     </div>

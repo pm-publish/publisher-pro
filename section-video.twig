@@ -73,55 +73,60 @@
                 </div>
             {% endif %}
         </div>
-
-        <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
-            <div class="row">
-                {% for i in 5..8 if articles[articleCount] %}
-                    <div class="col-12  col-md-6 col-lg-3 left-border">
-                        {{this.render('partials/_single-article.twig', {
-                            article: articles[articleCount], 
-                            position: (articleCount+1),
-                            imageSize: {width: 600, height: 300},
-                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                        }) | raw}}
-                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                    </div>
-                {% endfor %}
+        {% if articles | length > 4 %}
+            <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
+                <div class="row">
+                    {% for i in 5..8 if articles[articleCount] %}
+                        <div class="col-12  col-md-6 col-lg-3 left-border">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 600, height: 300},
+                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endif %}
 
-        <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
-            <div class="row">
-                {% for i in 9..12 if articles[articleCount] %}
-                    <div class="col-12  col-md-6 col-lg-3 left-border">
-                        {{this.render('partials/_single-article.twig', {
-                            article: articles[articleCount], 
-                            position: (articleCount+1),
-                            imageSize: {width: 600, height: 300},
-                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                        }) | raw}}
-                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                    </div>
-                {% endfor %}
+        {% if articles | length > 8 %}
+            <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
+                <div class="row">
+                    {% for i in 9..12 if articles[articleCount] %}
+                        <div class="col-12  col-md-6 col-lg-3 left-border">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 600, height: 300},
+                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
             </div>
-        </div>
+        {% endif %}
 
-        <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
-            <div class="row">
-                {% for i in 13..16 if articles[articleCount] %}
-                    <div class="col-12 col-md-6 col-lg-3 left-border">
-                        {{this.render('partials/_single-article.twig', {
-                            article: articles[articleCount], 
-                            position: (articleCount+1),
-                            imageSize: {width: 600, height: 300},
-                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                        }) | raw}}
-                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                    </div>
-                {% endfor %}
+        {% if articles | length > 12 %}
+            <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
+                <div class="row">
+                    {% for i in 13..16 if articles[articleCount] %}
+                        <div class="col-12 col-md-6 col-lg-3 left-border">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 600, height: 300},
+                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
+                <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
             </div>
-            <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
-        </div>
+        {% endif %}
 
         <section class="loadmore__section my-5 text-center {{site}}">
             {% if articles|length >= limit %}
