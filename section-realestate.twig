@@ -94,7 +94,7 @@
                         <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
                     </div>
                 {% endif %}
-                {% if articles | length > 4 %}
+                {% if articles | length > 5 %}
                     <div class="c-cards-container c-cards-container-xs bottom-border">
                         <div class="row">
                             {% for i in 5..8 if articles[articleCount] %}
@@ -113,7 +113,7 @@
                     </div>
                 {% endif %}
 
-                {% if articles | length > 8 %}
+                {% if articles | length > 9 %}
                     <div class="c-cards-container c-cards-container-xs bottom-border">
                         <div class="row">
                             {% for i in 9..12 if articles[articleCount] %}
