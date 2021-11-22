@@ -174,6 +174,8 @@ ArticleFeed.prototype = new Feed();
 ArticleFeed.constructor = ArticleFeed;
 ArticleFeed.prototype.render = function(data) 
 {
+    console.log('rendering');
+    console.log(this.renderType);
 
     var self = this;
     var articles = [];
