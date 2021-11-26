@@ -1,7 +1,7 @@
-{% set networkData = _Network.getNetworkData() %}
-{% set plans 		= networkData['paywallPlans'] %}
+{% set networkData  = _Network.getNetworkData() %}
+{% set plans        = _Paywall.getActiveNetworkPaywallPlans() %}
 {% set blogData		= _Blog.getBlog() %}
-{% set blogName      = blogData.title %}
+{% set blogName     = blogData.title %}
 {% set config       = _Network.getThemeConfig() %}
 
 {# separate plans by currency #}
