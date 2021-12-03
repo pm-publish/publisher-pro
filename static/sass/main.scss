@@ -73,6 +73,10 @@
 //my account page
 @import "cus_acnt_grid";
 @import "cus_acnt_page";
+
+//coming soon page
+@import "cus_coming_soon";
+
 // old
 @import "component.modal-login-form";
 @import "component.modal-password-reset-form";
@@ -80,6 +84,7 @@
 @import "component.signin-modal";
 @import "component.spinner-modal";
 @import "component.lightbox-modal";
+@import "component.subscription";
 
 //Cards
 @import "card";

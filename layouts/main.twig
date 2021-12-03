@@ -74,7 +74,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=b3afded0" type="text/css" smedia="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=7c9c9e88" type="text/css" smedia="all">
 
     {% else %}
 
@@ -156,7 +156,7 @@
 </head>
 
 
-<body class="body {{ layout }} {{ pageClass }}" data-class="{{ pageClass | split(' ')[0] }}" data-networkid="{{networkData['id']}}" data-v="27">
+<body class="body {{ layout }} {{ pageClass }} {% if this.params['customClass'] is defined %}{{this.params['customClass'] }}{% endif %}" data-class="{{ pageClass | split(' ')[0] }}" data-networkid="{{networkData['id']}}" data-v="27">
 
     {{ this.beginBody() }}
 
