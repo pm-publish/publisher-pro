@@ -83,6 +83,10 @@
                                         <div class="amount">{{planPrice}}</div>
                                         <div class="duration d-none">/year</div>
                                     </div>
+                                    {% else %}
+                                    <div class="plan-wrap__info-price">
+                                        <div class="amount">Free</div>
+                                    </div>
                                 {% endif %}
                                 {% if plan.trial_status == "1" %}
                                     <div class="plan-wrap__info-trail">Includes free {{plan.trial_period}} day trial</div>
