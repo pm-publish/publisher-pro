@@ -1,6 +1,6 @@
 {% set eventsCount = 0 %}
 {% set cardIndex = 0 %}
-{% set events = _Event.getEvents({'limit' : 4, 'offset' : 0, 'excludeMetaInfo' : 1}) %}
+{% set events = _Event.getEvents({'limit' : 4, 'offset' : 0, 'excludeMetaInfo' : 1, "start_date": date() | date("Y-m-d")}) %}
 
 <div class="row" data-section="10">
     <div class="col-12">
