@@ -1,7 +1,7 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
-{% set blogData = _Blog.getBlog() %}
+{% set blogData		= _Blog.getBlog() %}
 {% set config = _Network.getThemeConfig() %}
 
 {% set plan = false %}
@@ -19,64 +19,63 @@
 
 
 {% set break = false %}
-{% for k, p in params %}
+{% for k, p in params  %}
 
-{% if k == 'plan' %}
-{% for pl in plans %}
-{% if pl.guid == p %}
-{% set plan = pl %}
-{% if plan['type'] == 'signup' %}
-{% set signup = true %}
-{% endif %}
-{% endif %}
+    {% if k == 'plan' %}
+        {% for pl in plans %}
+            {% if pl.guid == p %}
+                {% set plan = pl %}
+                {% if plan['type'] == 'signup' %}
+                    {% set signup = true %}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if k == 'trial' %}
+        {% if p == 'true' and plan['trial_status'] == '1' %}
+            {% set trial = true %}
+            {% set trialPeriod = plan['trial_period'] %}
+        {% endif %}
+    {% endif %}
+
+    {% if k == 'code' %}
+        {% if p == 'true' %}
+            {% set code = true %}
+        {% endif %}
+    {% endif %}
+
+    {% if k == 'paypal' %}
+        {% if p == 'true' %}
+            {% set code = true %}
+            {% set paypal = true %}
+        {% endif %}
+    {% endif %}
+
+
 {% endfor %}
-{% endif %}
 
-{% if k == 'trial' %}
-{% if p == 'true' and plan['trial_status'] == '1' %}
-{% set trial = true %}
-{% set trialPeriod = plan['trial_period'] %}
-{% endif %}
-{% endif %}
-
-{% if k == 'code' %}
-{% if p == 'true' %}
-{% set code = true %}
-{% endif %}
-{% endif %}
-
-{% if k == 'paypal' %}
-{% if p == 'true' %}
-{% set code = true %}
-{% set paypal = true %}
-{% endif %}
-{% endif %}
-
-
-{% endfor %}
-
-{% set blogScreen = false %}
+{% set blogScreen = false %} 
 {% if blogData.media.thumb.path != "" %}
-{% set blogScreen = true %}
-{% set screenImgMedium = _Media.getMediaUrl(blogData.media.thumb, 767, 0, {'crop': 'fill', 'gravity': 'faces'} ) %}
-{% set screenImg = _Media.getMediaUrl(blogData.media.thumb, 0, 0, {'crop': 'fill', 'gravity': 'faces'} ) %}
+    {% set blogScreen = true %} 
+    {% set screenImgMedium = _Media.getMediaUrl(blogData.media.thumb,  767,        0,      {'crop': 'fill', 'gravity': 'faces'} ) %}
+    {% set screenImg       = _Media.getMediaUrl(blogData.media.thumb,    0,        0,      {'crop': 'fill', 'gravity': 'faces'} ) %}
 {% endif %}
 
 
 {% set subscribeFields = [] %}
 {% set fields = {} %}
 {% if config['forms']['subscribe']['fields'] is defined %}
-{% set subscribeFields = config['forms']['subscribe']['fields'] %}
+    {% set subscribeFields = config['forms']['subscribe']['fields'] %}
 {% endif %}
 
 {% set subscribeText = 'Subscribe now to ' ~ networkData.title %}
 
 {% if config['subscriptions'] is defined %}
-{% if config['subscriptions']['subscribe'] is defined and config['subscriptions']['subscribe'] != "" %}
-{% set subscribeText = config['subscriptions']['subscribe'] %}
+    {% if config['subscriptions']['subscribe'] is defined and config['subscriptions']['subscribe'] != "" %}
+        {% set subscribeText = config['subscriptions']['subscribe'] %}
+    {% endif %}
 {% endif %}
-{% endif %}
-
 
 <main id="main" class="o-body-container o-body-container-md u-margin-top-50" role="main">
     <div id="stripekey" class="d-none">{{networkData['stripe_publishable_key']}}</div>
