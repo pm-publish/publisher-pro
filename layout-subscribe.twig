@@ -389,3 +389,12 @@
         {% endif %}
     </div>
 </main>
+
+
+<script>
+    // main script is defered so event listener makes sure
+    // defered script is loaded before this runs
+    document.addEventListener("DOMContentLoaded", function() {
+        var signin = new Acme.Signin('signinForm', '#signin');
+    });
+</script>
