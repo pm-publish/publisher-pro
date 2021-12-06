@@ -53,7 +53,7 @@
             position: relative;
             @include calc(height, "100% - 70px");
             @include flexbox;
-            @include flex-direction(column,vertical);
+            @include flex-direction(column, vertical);
 
             &:after {
                 content: "";
@@ -130,7 +130,7 @@
                 flex: 1;
                 ul {
                     @include flexbox;
-                    @include flex-direction(column,vertical);
+                    @include flex-direction(column, vertical);
 
                     li {
                         @include font-size(13);
@@ -143,7 +143,7 @@
                         padding-left: 30px;
 
                         &:before {
-                            content: '\f05d';
+                            content: "\f05d";
                             font-family: $iconfont;
                             color: $grey4;
                             @include font-size(22);
@@ -159,7 +159,7 @@
             &__btn {
                 height: 140px;
                 @include flexbox;
-                @include flex-direction(column,vertical);
+                @include flex-direction(column, vertical);
                 position: relative;
 
                 ._btn {
@@ -228,7 +228,7 @@
                         line-height: 1.14;
                         font-family: $primaryFont;
                         font-weight: $weightBold;
-                        text-transform: uppercase
+                        text-transform: uppercase;
                     }
 
                     &__title {
@@ -264,7 +264,8 @@
                         border-left: 1px solid $grey4;
                         border-bottom: none;
 
-                        &:first-child, &:nth-child(2n+1) {
+                        &:first-child,
+                        &:nth-child(2n + 1) {
                             border: none;
                         }
                     }
@@ -286,7 +287,7 @@
                     &-items {
                         border-left: 1px solid $grey4;
                         border-bottom: none;
-                        &:nth-child(2n+1) {
+                        &:nth-child(2n + 1) {
                             border-left: 1px solid $grey4;
                         }
                         &:first-child {
@@ -299,7 +300,49 @@
     }
 }
 
+.c-thankyouPage {
+    $selfThankYou: &;
+    margin: 80px 0 100px;
 
-.tetss {
-    overflow: auto;
+    &__content {
+        text-align: center;
+        margin-top: 25px;
+
+        &-heading {
+            @include font-size(30);
+            line-height: 1.3;
+            color: $black;
+            font-family: $secondaryFont;
+            margin-bottom: 20px;
+        }
+
+        &-subText {
+            color: $grey5;
+            font-family: $primaryFont;
+            font-weight: $weightRegular;
+            @include font-size(18);
+            line-height: 1.78;
+            a {
+                color: $grey5;
+                font-family: $primaryFont;
+                font-weight: $weightBold;
+            }
+        }
+    }
+
+    @include responsive(xs) {
+        @include respond-to(md) {
+            margin: 100px 0 200px;
+            
+            #{$selfThankYou} {
+                &__content {
+                    text-align: left;
+                    &-heading {
+                        @include font-size(50);
+                        line-height: 1.16;
+                    }
+                }
+            }
+        }
+    }
 }

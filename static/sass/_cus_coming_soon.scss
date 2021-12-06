@@ -13,9 +13,115 @@
 }
 
 .g-commingSoon {
+  $selfComingSoon: &;
   background-color: var(--main-color);
   min-height: 100vh;
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    margin: 150px 20px 50px;
+
+    &-ls {
+      border-bottom: 1px solid $grey3;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+    }
+
+    h2 {
+      font-size: 42px;
+      line-height: 1.19;
+      color: $white;
+      font-family: $secondaryFont;
+    }
+
+    p {
+      color: $grey4;
+      font-size: 22px;
+      line-height: 1.45;
+    }
+
+    &__input {
+      box-shadow: inset 2px 2px 4px 2px $grey3;
+      background: $grey3;
+      height: 48px;
+      width: 100%;
+      outline: none;
+      border: none;
+      padding: 12px 20px;
+      margin-top: 36px;
+      
+      &:placeholder {
+        color: $grey4;
+      }
+    }
+
+    &__btn {
+      background: $blue_sh5;
+      height: 48px;
+      width: 100%;
+      color: $white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: $weightBold;
+    }
+  }
+
+  @include responsive(xs) {
+    @include respond-to(md) {
+      #{$selfComingSoon} {
+        &__main {
+          flex-direction: row;
+          justify-content: center;
+
+          h2 {
+            font-size: 50px;
+          }
+
+          &__btn {
+            width: auto;
+            min-width: 182px;
+          }
+
+          &-ls {
+            border-bottom: none;
+            border-right: 1px solid $grey3;
+            max-width: 380px;
+            padding-right: 100px;
+            margin-right: 180px;
+            margin-bottom: 0;
+          }
+
+          &-rs {
+            max-width: 400px;
+            margin: 70px 0 120px;
+          }
+        }
+      }
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 $cus_coming-soon-columns:                12 !default;
@@ -286,7 +392,3 @@ $cus_coming-soon-container-max-widths: (
 
 
 @include cus_coming-soon-make-grid-columns();
-
-
-
-//$blue_sh5
