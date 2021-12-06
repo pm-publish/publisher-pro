@@ -402,6 +402,106 @@
         }
     }
 
+    &-sidebar {
+        background: $mainColor;
+
+        .c-orderSummary {
+            padding: 32px;
+            border-bottom: 12px solid $blue_sh5;
+            &__info {
+                @include flexbox;
+                @include flex-direction(column,vertical);
+                @include align-items(center);
+                border-bottom: 1px solid $grey4;
+                padding-bottom: 20px;
+
+            }
+            &__name {
+                color: $white;
+                text-transform: uppercase;
+                @include font-size(20);
+                line-height: 1.25;
+                font-family: $primaryFont;
+                font-weight: $weightBold;
+                max-width: 199px;
+                width: 100%;
+                height: 40px;
+                text-align: center;
+                margin-bottom: 12px;
+            }
+
+            &__price {
+                margin-top: 15px;
+                color: $white;
+                @include font-size(30.4);
+                line-height: 1.25;
+                font-family: $primaryFont;
+                font-weight: $weightBold;
+            }
+
+            &__info-trail {
+                color: $grey4;
+                font-style: italic;
+                @include font-size(12);
+                font-family: $secondaryFont;
+                font-weight: $weightBold;
+                margin-top: 5px;
+            }
+
+            &__details {
+                flex: 1;
+                ul {
+                    @include flexbox;
+                    @include flex-direction(column, vertical);
+
+                    li {
+                        @include font-size(13);
+                        line-height: 1.38;
+                        font-family: $primaryFont;
+                        font-weight: $weightRegular;
+                        color: $white;
+                        margin-top: 20px;
+                        position: relative;
+                        padding-left: 30px;
+
+                        &:before {
+                            content: "\f05d";
+                            font-family: $iconfont;
+                            color: $grey4;
+                            @include font-size(22);
+                            line-height: 1;
+                            position: absolute;
+                            left: 0;
+                            top: -2px;
+                        }
+                    }
+                }
+            }
+
+            .btn-change {
+                color: $grey4;
+                margin-top: 40px;
+                font-style: italic;
+                @include font-size(12);
+                line-height: 1.33;
+                font-family: $secondaryFont;
+                font-weight: $weightRegular;
+                display: inline-block;
+            }
+
+            #{$selfSubscribe} {
+                &__Device {
+                    display: block;
+                    text-align: center;
+            
+                    img {
+                        max-width: 120px;
+                    }
+                }
+            }
+        }
+    }
+    
     .generic-form {
         .form-group {
             @include flexbox;

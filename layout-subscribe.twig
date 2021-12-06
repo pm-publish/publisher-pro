@@ -117,7 +117,6 @@
                     </div>
                     <div class="row">
                         <div class="col-12 col-md-7 col-lg-8">
-
                             <div class="c-subscribeWrap-box">
                                 {% if config['subscribe-notice'] is defined %}
                                 {% set link = false %}
@@ -343,13 +342,39 @@
                                         {% endif %}
 
                                     </div>
-
                                 </div>
-
                             </div>
-
                         </div>
-                        <div class="col-12 col-md-5 col-lg-4">ff</div>
+                        <div class="col-12 col-md-5 col-lg-4">
+                            <div class="c-subscribeWrap-sidebar">
+                                {% set uc = plan.user_count %}
+
+                                <div class="c-orderSummary">
+                                    <div class="c-orderSummary__info">
+                                        <p class="c-orderSummary__name">{{plan.plan_name}}</p>
+                                        <picture class="c-subscribeWrap__Device">
+                                            {% if blogScreen %}
+                                                <img src="{{screenImg}}" srcset="{{screenImgMedium}} 1x, {{screenImg}} 2x" class="img-fluid">
+                                            {% else %}
+                                                <img src="{{networkData.templatePath}}/static/icons/laptop_3.png?ver=3" srcset="{{networkData.templatePath}}/static/icons/laptop_3.png?ver=3 1x, {{networkData.templatePath}}/static/icons/laptop_3@2x.png?ver=3 2x, {{networkData.templatePath}}/static/icons/laptop_3@3x.png?ver=3 3x" class="img-fluid">
+                                            {% endif %}
+                                        </picture>
+
+                                        <div class="c-orderSummary__price">{{planPrice}}</div>
+                                        {% if plan.trial_status == "1" %}
+                                            <div class="c-orderSummary__info-trail">Includes free {{plan.trial_period}} day trial</div>
+                                        {% endif %}
+                                    </div>
+                                    
+                                    <div class="c-orderSummary__details">
+                                        <ul>
+                                            <li>{{(plan.description|replace({';': '</li><li>'}))|raw}}</li>
+                                        </ul>
+                                    </div>
+                                    <a href="{{networkData.defaultBlogUrl}}/subscriptions" class="btn-change">Change subscription</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
