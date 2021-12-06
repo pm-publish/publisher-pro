@@ -1,7 +1,7 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
-{% set blogData = _Blog.getBlog() %}
+{% set blogData		= _Blog.getBlog() %}
 {% set config = _Network.getThemeConfig() %}
 
 {% set plan = false %}
@@ -81,40 +81,31 @@
     <div id="stripekey" class="d-none">{{networkData['stripe_publishable_key']}}</div>
 
     <div class="container">
+        {% if plan != false %}
 
-        {% if plan != false  %}
+        {# The first payment is due on DD Month 20XX unless cancelled. #}
+        {% set val = plan.plan_value / 100 %}
+        {% if val == 19.89 %}
+        {% set val = 19.90 %}
+        {% endif %}
+        {% set planPrice = plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"}) ~
+        val|number_format(2, '.', ',') %}
+        {% if plan.type == 'signup' %}
+        {% set planPrice = 'Free' %}
+        {% endif %}
 
-            {# The first payment is due on DD Month 20XX unless cancelled. #}
-            {% set val = plan.plan_value / 100 %}
-            {% if val == 19.89 %}
-                {% set val = 19.90 %}
-            {% endif %}
-            {% set planPrice = plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"}) ~ val|number_format(2, '.', ',') %}
-            {% if plan.type == 'signup' %}
-                {% set planPrice = 'Free' %}
-            {% endif %}
+        {% set frequency = plan.period_count > 1 ? plan.period_count : "" %}
 
-            {% set frequency = plan.period_count > 1 ? plan.period_count : ""  %}
+        {% set planPeriod = plan.period %}
+        {% if plan.period_count > 1 %}
+        {% set planPeriod = plan.period ~ 's' %}
+        {% endif %}
 
-            {% set planPeriod = plan.period %}
-            {% if plan.period_count > 1 %}
-                {% set planPeriod = plan.period ~ 's' %}
-            {% endif %}
-
-            {% set frequency = frequency ~ " " ~ planPeriod  %}
-
-            {# {% set now = _AppHelper.getCurrentTimestampBasedOnTimezone() %}
-                        {% set log = _AppHelper.log(now) %} #}
-
-            {# {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'Y-m-d') %} #}
-
-
-
-            <div class="row">
-                
-                <div class="col-12 col-lg-7">
-                    <div class="c-subscribe c-subscribe-xs">
-
+        {% set frequency = frequency ~ " " ~ planPeriod %}
+        <div class="row">
+            <div class="col-12 col-md-10 mx-auto">
+                <div class="c-subscribeWrap c-subscribeWrap-xs">
+                    <div class="c-subscribeWrap__headContainer">
                         {% if trial %}
                             <h2 class="c-subscribeWrap--heading">Start your {{trialPeriod}}-day free trial now</h2>
                             <div class="c-subscribeWrap--text">
