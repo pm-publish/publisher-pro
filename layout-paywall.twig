@@ -38,7 +38,7 @@
 {# {{this.registerJs("var signin = new Acme.Signin('signinForm', '#signin');")}} #}
 {# {{this.registerJs("var signup = new Acme.Signup();")}} #}
 
-{% set subscribeText = 'Subscribe now to<br class="hidden-xs">' ~ networkData.title %}
+{% set subscribeText = 'Subscribe now to ' ~ networkData.title %}
 {% set signupText = 'Sign up now for unlimited access to the latest local news, sport and special features.' %}
 
 {% if config['subscriptions'] is defined %}

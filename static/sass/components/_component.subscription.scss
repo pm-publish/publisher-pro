@@ -300,6 +300,7 @@
     }
 }
 
+/* thankyou page */
 .c-thankyouPage {
     $selfThankYou: &;
     margin: 80px 0 100px;
@@ -333,7 +334,7 @@
     @include responsive(xs) {
         @include respond-to(md) {
             margin: 100px 0 200px;
-            
+
             #{$selfThankYou} {
                 &__content {
                     text-align: left;
@@ -341,6 +342,113 @@
                         @include font-size(50);
                         line-height: 1.16;
                     }
+                }
+            }
+        }
+    }
+}
+
+/* Subscribe page */
+
+.c-subscribeWrap {
+    $selfSubscribe: &;
+    &--heading {
+        font-family: var(--sec-font);
+        @include font-size(20);
+        line-height: 1.5;
+        color: $black;
+        text-align: center;
+    }
+
+    &--text {
+        font-family: $primaryFont;
+        font-weight: $weightMedium; 
+        @include font-size(16);
+        line-height: 1.5;
+        color: $black;
+        text-align: center;
+        margin-top: 15px;
+    }
+
+    &__headContainer {
+        margin-bottom: 50px;
+    }
+
+    &-box {
+        #{$selfSubscribe} {
+            &__head,
+            &__subhead {
+                color: $blue_sh5;
+                @include font-size(20);
+                line-height: 1.2;
+                font-family: $primaryFont;
+                font-weight: $weightBold;
+                margin-bottom: 10px;
+            }
+
+            &__text {
+                color: $black;
+                @include font-size(16);
+                line-height: 1.2;
+                font-family: $primaryFont;
+                font-weight: $weightMedium;
+                margin-bottom: 10px;
+            }
+
+            &__subhead {
+                margin-top: 20px;
+                color: $black;
+            }
+        }
+    }
+
+    .generic-form {
+        .form-group {
+            @include flexbox;
+            @include flex-direction(column, vertical);
+
+            .input {
+                &__label {
+                    @include font-size(16);
+                    line-height: 1.5;
+                    font-family: $primaryFont;
+                    font-weight: $weightRegular;
+                    color: $grey5;
+                    margin-bottom: 6px;
+
+                    span {
+                        @include font-size(12);
+                    }
+                }
+
+                &__text {
+                    height: 48px;
+                    box-shadow: inset 2px 2px 4px 2px $grey3;
+                    background-color: $grey3;
+                    padding: 0 20px;
+                    font-family: $primaryFont;
+                    font-weight: $weightRegular;
+                    color: $black;
+                    @include font-size(16);
+                    outline: none;
+                }
+            }
+            .help-block {
+                color: $error;
+                font-family: $primaryFont;
+                font-weight: $weightMedium;
+                @include font-size(12);
+                margin-top: 5px
+            }
+        }
+    }
+
+    @include responsive(xs) {
+        @include respond-to(md) {
+            #{$selfSubscribe} {
+                &--heading {
+                    @include font-size(38);
+                    line-height: 1.5;
                 }
             }
         }
