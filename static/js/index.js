@@ -9,7 +9,7 @@ import AdLoader from './advertising'
 import * as signip from './signup'
 
 window.Acme = window.Acme || {};
-// window.Acme.UserProfileController = UserProfileController;
+window.Acme.UserProfileController = UserProfileController;
 window.Acme.View.UserFeed = UserFeed;
 window.Acme.ArticleFeed = ArticleFeed;
 window.Acme.Usercard = UserCard;
