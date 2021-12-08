@@ -142,6 +142,11 @@
               display: none;
             }
 
+            .three-column {
+              background: #ffffff;
+              padding: 15px;
+            }
+
             &.has-error {
               position: relative;
               &:after {
