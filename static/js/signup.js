@@ -101,13 +101,14 @@ SubscribeForm.prototype.submit = function(event)
     if (!validated) return;
 
     if (self.botTimer < 5 || $('#email-confirm').val() !== "") {
-        // window.location.href = location.origin + "/auth/thank-you";
+        window.location.href = location.origin + "/auth/thank-you";
     }
 
+    var signup = $('#signup').val();
+    
     var submitResponse= function(r) {
-        console.log(r);
+        // console.log(r);
         if (r.success == 1) {
-                // setTimeout('window.location.href = location.origin + "/auth/thank-you";', 2000);
                 window.location.href = location.origin + '/auth/thank-you';
 
         } else {
@@ -124,13 +125,19 @@ SubscribeForm.prototype.submit = function(event)
     }
 
 
-
     this.signup = new Modal('modal', 'spinner-modal', {"spinner": 'spinnerTmpl'});
 
-    if (this.code) {
+    if (this.code || signup) {
         this.signup.render("spinner", "Authorising code");
         self.data['planid'] = $('#planid').val();
-        self.data['giftcode'] = $('#code-redeem').val();
+        self.data['redirect'] = false;
+        if (signup == 1) {
+            self.data['signuponly'] = 'true';
+        }
+        if (this.code) {
+            self.data['giftcode'] = $('#code-redeem').val();
+        }
+
         self.data['stripetoken'] = null;
         Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
             self.signup.closeWindow();
