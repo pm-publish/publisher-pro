@@ -101,7 +101,7 @@ SubscribeForm.prototype.submit = function(event)
     if (!validated) return;
 
     if (self.botTimer < 5 || $('#email-confirm').val() !== "") {
-        window.location.href = location.origin + "/auth/thank-you";
+        // window.location.href = location.origin + "/auth/thank-you";
     }
 
     var signup = $('#signup').val();
@@ -109,7 +109,7 @@ SubscribeForm.prototype.submit = function(event)
     var submitResponse= function(r) {
         // console.log(r);
         if (r.success == 1) {
-                window.location.href = location.origin + '/auth/thank-you';
+                // window.location.href = location.origin + '/auth/thank-you';
 
         } else {
 
