@@ -108,11 +108,10 @@ SubscribeForm.prototype.submit = function(event)
         console.log(r);
         if (r.success == 1) {
                 // setTimeout('window.location.href = location.origin + "/auth/thank-you";', 2000);
-                // window.location.href = location.origin + '/auth/thank-you';
+                window.location.href = location.origin + '/auth/thank-you';
 
         } else {
 
-            console.log('ERRORRR');
             var errorElement = document.getElementById('card-errors');
             var text = '';
             for (var key in r.error) {
