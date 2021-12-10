@@ -138,7 +138,6 @@ export const Form = function(validators, rules) {
 
     Form.prototype.events = function( /* Array */ checkFields)  {
         var self = this;
-        // console.log('running events from parent');
         // console.log(this.id);
         // console.log($("#"+this.id));
         // console.log('#'+this.id +' input, #'+this.id +' textarea');
@@ -165,7 +164,6 @@ export const Form = function(validators, rules) {
             var validated = self.validate([elemid]);
             self.render();
         });
-
         var form = document.getElementById(this.id);
         if (form != null) {
             form.addEventListener('submit', function(event) {

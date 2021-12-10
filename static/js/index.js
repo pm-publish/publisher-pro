@@ -6,7 +6,8 @@ import { View, PubSub } from './framework'
 import { SigninModal } from './signinModal'
 import { Card } from './card'
 import AdLoader from './advertising'
-import * as signip from './signup'
+import {SubscribeForm} from './signup'
+
 
 window.Acme = window.Acme || {};
 window.Acme.UserProfileController = UserProfileController;
@@ -14,9 +15,6 @@ window.Acme.View.UserFeed = UserFeed;
 window.Acme.ArticleFeed = ArticleFeed;
 window.Acme.Usercard = UserCard;
 window.Acme.Card = Card;
-
-
-
 
 const ads = new AdLoader();
 ads.LoadAds();

@@ -45,7 +45,7 @@ export const Server = {
             // console.log(r);
             if (r.status == 501 || r.status == 404) console.log(r.responseText);
             if (r.responseJSON) console.log(r.responseJSON);
-            console.log(r.responseText);
+            if (r.responseText) console.log(r.responseText);
         });
     }
 }
