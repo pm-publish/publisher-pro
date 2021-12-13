@@ -506,7 +506,13 @@
         .form-group {
             @include flexbox;
             @include flex-direction(column, vertical);
-
+            .formError { 
+                border: 1px solid red;
+            }
+            .errorText { 
+                font-weight: bold;
+                color: red;
+            }
             .input {
                 &__label {
                     @include font-size(16);
