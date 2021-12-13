@@ -245,6 +245,8 @@
                                         {% set planPeriod = pwstats.period ~ 's' %}
                                     {% endif %}
 
+                                    {{_AppHelper.printArray(pwstats)}}
+
                                     <div class="cus_acnt__paymentBox">
                                         {% if pwstats['status'] != 'free' %}
                                             <div class="cus_acnt__paymentBox-box1">
@@ -281,7 +283,7 @@
                                                         <div class="cus_acnt__planInfo-status--value">{{ managedUserScreenCount }} of {{totalPlanUserCount}}</div>
                                                     </div>
                                                 {% endif %}
-                                            </div>
+                                                </div>
                                             <div class="cus_acnt__subInfo">
                                                 {% if pwstats['status'] == 'cancelled' %}
                                                     <div class="cus_acnt__subInfo__article-info">Your account will be permanently deleted 30 days after the most recent payment date.</div>
