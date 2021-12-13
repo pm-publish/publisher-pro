@@ -1,503 +1,655 @@
 {{ set(this, 'title', 'Edit Profile') }}
-
-
-
-{% set networkData = _Network.getNetworkData() %}
-{% set blogData = _Blog.getBlog() %}
-{% set jobsBlogId = blogData.additionalInfo['joblistingsid'] %}
-{% set propBlogId = blogData.additionalInfo['propertylistingsid'] %}
+{% set networkData  = _Network.getNetworkData() %}
+{% set propBlogId   = blogData.additionalInfo['propertylistingsid'] %}
+{% set blogData     = _Blog.getBlog() %}
+{% set config       = _Network.getThemeConfig() %}
 
 <!-- Begin User Profile Page -->
 
-{% set commenter = false %}
-
+{% set propListingsArr = [] %}
 {% set pwstats = _User.getPaywallStats(true) %}
-
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
-
-{% set userLimit = 20 %}
+{% set userLimit = 10 %}
 {% set user = _User.getUser() %}
-{% set donor = false %}
-
-{% if user['additional_info']['donor'] is defined and user['additional_info']['donor'] != "" %}
-    {% set donor = true %}
-{% endif %}
-
 
 {% if user %} 
-
-    {% if user.additionalInfo is defined and user.additionalInfo.allow_comments is defined and user.additionalInfo.allow_comments != null %} 
-        {% set setting = user.additionalInfo.allow_comments %}
-        {% if setting == "true" %}
-            {% set commenter = true %}
-        {% endif %}
-    {% endif %}
+    {% set propListingsArr = _User.getUserArticles(user.guid, 0, 10, {'blogs':[propBlogId], 'status': 'published'}) %}
 {% endif %}
-            
+
+
+{% set totalPlanUserCount  = 0 %}
+{% if pwstats.userManager == true  %}
+    {% set totalPlanUserCount = pwstats['user_count'] %}
+{% endif %}
 
 
 
 
-{# {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %} #}
+
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 <!-- 3 is job, 4 is property, 5 is event -->
-{# {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %} #}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
-<main id="main" class="user_profile account-form u-tablet-margin-top-40 u-desktop-margin-top-40 u-mobile-margin-top-150 u-padding-bottom-40 u-padding-top-20" role="main">
+<main>
+    <div id="stripekey" class="cus_acnt__hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
+    <div class="cus_acnt__headerBar">
+        <div class="cus_acnt-container">
+            <div class="cus_acnt-row">
+                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto ">
+                    <p class="cus_acnt__helptext cus_acnt__helptext-xs">Need help with your account? <br class="d-md-none" /><a href="{{networkData.defaultBlogUrl}}/FAQ">Read our FAQs</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cus_acnt__info-container">
+        <div class="cus_acnt-container">
+            <div class="cus_acnt-row">
+                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                    <div class="cus_acnt-row">
+                        <div class="cus_acnt-col-12 cus_acnt-col-lg-8">
+                            <div class="cus_acnt__infoBox cus_acnt__infoBox-xs">
+                                {{this.render('layouts/partials/messages.twig') | raw}}
+                                <div class="cus_acnt__infoBox__area js-profileViewOnly">
+                                    <div class="cus_acnt__infoBox-head">
+                                        <div class="cus_acnt__infoBox-head--label">My account</div>
+                                        <a href="javascript:;" class="cus_acnt__infoBox-head--link js-cus_acnt__showForm">Edit your details</a>
+                                    </div>
+                                    <div class="cus_acnt__infoBox-dataGrid">
+                                        <ul>
+                                            <li class="cus_acnt__infoBox-dataGrid-item">
+                                                <span class="cus_acnt__infoBox-dataGrid-item--label">First name</span>
+                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.firstname}}</span>
+                                            </li>
+                                            <li class="cus_acnt__infoBox-dataGrid-item">
+                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Last name</span>
+                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.lastname}}</span>
+                                            </li>
+                                            <li class="cus_acnt__infoBox-dataGrid-item">
+                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Email</span>
+                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.email}}</span>
+                                            </li>
+                                            <li class="cus_acnt__infoBox-dataGrid-item">
+                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Password</span>
+                                                <span class="cus_acnt__infoBox-dataGrid-item--value">**********</span>
+                                            </li>
+                                            <li class="cus_acnt__infoBox-dataGrid-item">
+                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Organisation</span>
+                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.business_name}}</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="cus_acnt__infoBox-form cus_acnt__hide">
+                                        <form id="profile-form" class="c-form" action="#" method="post" autocomplete="off">
+                                        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                                        <input type="hidden" name="profileImage" id="userProfileImage" value="" />
 
-    <div id="" class="container">
-
-        <div class="user_profile_section">
-            <div class="row">
-                <div class="col-sm-12">
-                    {{this.render('layouts/partials/messages.twig') | raw}}
-
-                    <div class="profile-section" style="padding-bottom:18px;">
-                        
-                        <div class="profile-section__header">
-                            <p class="profile-section__heading">My details</p>                                    
-                        </div>
-
-
-                        <div class="">
-                            <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" autocomplete="off" >
-                                <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
-                                <input type="hidden" name="profileImage" id="userProfileImage" value="" />
-
-
-                                <label class="account-form__label account-form__label--mobile d-block d-md-none" for="firstname">First name</label>
-                                <div class="account-form__inline-inputs u-margin-bottom-10">
-                                    <label class="account-form__label d-none d-md-block" for="firstname">First name</label>
-                                    <input type="text" id="firstname" class="account-form__input" name="firstname" value="{{user.firstname}}" placeholder="First name" >
-                                </div>
-
-
-                                <label class="account-form__label account-form__label--mobile d-block d-md-none" for="lastname">Last name</label>
-                                <div class="account-form__inline-inputs  u-margin-bottom-10">
-                                    <label class="account-form__label d-none d-md-block" for="lastname">Last name</label>
-                                    <input type="text" id="lastname" class="account-form__input" name="lastname" value="{{user.lastname}}" placeholder="Last name" >
-                                </div>                            
-                               
-                             
-
-
-                                <label class="account-form__label account-form__label--mobile d-block d-md-none" for="email">Email</label>
-                                <div class="account-form__inline-inputs">
-                                    <label class="account-form__label d-none d-md-block" for="email">Email</label>
-                                    <input type="text" id="email" class="account-form__input" name="email" value="{{user.email}}" placeholder="email@domain.com" >
-                                </div>
-                                <div class="account-form__inline-inputs u-margin-top-10 u-margin-bottom-10">
-                                    <label class="account-form__label d-none d-md-block" for=""></label>
-                                    <p class="account-form__explainer">This is the email address you will sign in with</p>
-                                </div>
-
-
-
-                                <label class="account-form__label account-form__label--mobile d-block d-md-none" for="password">Change password</label>
-                                <div class="account-form__inline-inputs">
-                                    <label class="account-form__label d-none d-md-block" for="password">Password</label>
-                                    <input type="password" id="password" class="account-form__input" name="password" placeholder="new password" >
-                                </div>
-                                <div class="account-form__inline-inputs u-margin-top-10 u-margin-bottom-10">
-                                    <label class="account-form__label d-none d-md-block" for=""></label>
-                                    <p class="account-form__explainer">Passwords must be at least six characters with upper case, lower case and digit</p>
-                                </div>
-
-
-
-
-                                <label class="account-form__label account-form__label--mobile d-block d-md-none" for="password">Verify Password</label>
-                                <div class="account-form__inline-inputs  u-margin-bottom-10">
-                                    <label class="account-form__label d-none d-md-block" for="password">Verify Password</label>
-                                    <input type="password" id="verifypassword" class="account-form__input" name="verifypassword" placeholder="retype password" >
-                                </div>
-                                
-
-                                <label class="account-form__label account-form__label--mobile d-block d-md-none" for="password">Organisation</label>
-                                <div class="account-form__inline-inputs  u-margin-bottom-10">
-                                    <label class="account-form__label d-none d-md-block" for="organisation">Organisation</label>
-                                    <input type="text" id="organisation" class="account-form__input" value="{{user.business_name}}" name="abn_business_name" placeholder="Organisation (optional)" >
-                                </div>
-
-                                <div class="button-full">
-                                    <button type="submit" class="text-button u-float-right update-details">Update Details</button>
-                                </div>
-
-                                <div id="account-form__email" class="email-subscription">
-                                </div>
-
-                                {# <p class="account-form__unsubscribe">Alternatively, email <a href="mailto:unsubscribe@newsroom.co.nz">unsubscribe@newsroom.co.nz</a> to cancel your email subscriptions</p> #}
-
-
-
-                            </form>
-
-                        </div>
-                    </div>
-
-
-
-
-                    {% if pwstats.plan_id %}
-                        <div class='commenter-request u-margin-top-20'>
-                            <div class="commenter-request__status-container">
-                                <p class="commenter-request__status-label">Commenter Status</p>
-                                {% if  commenter %}
-                                    <p class="commenter-request__status commenter-request__status--active">Approved</p>
-                                {% else %}
-                                    <p class="commenter-request__status commenter-request__status--inactive">Inactive</p>
-                                {% endif %}
-                            </div>
-
-                            {% if not commenter %}
-                                <div class="commenter-request__form">
-                                    <script src ="https://form.jotform.com/static/feedback2.js" type="text/javascript"></script>
-                                    <script type="text/javascript"> var JFL_202310448358047 = new JotformFeedback({ formId: '202310448358047', base: 'https://form.jotform.com/', windowTitle: 'Join the conversation ', background: '#FFA500', fontColor: '#FFFFFF', type: 'false', height: 500, width: 700, openOnLoad: false }); </script> 
-                                    <button class="commenter-request__button lightbox-202310448358047" style="">BECOME A COMMENTER</button>
-                                </div>
-                            {% endif %}
-
-                        </div>
-                    {% endif %}
-
-
-
-
-
-
-                {% if pwstats.userManager == true %}
-                    <hr class="divide30 " style="border-top:1px solid #97999c;">
-
-                    {% set totalPlanUserCount = pwstats['user_count'] %}
-
-                    {% set managedUsersObj = _User.getPaywallManagedUsers({"limit": userLimit}) %}
-
-                    {% set managedUserScreenCount = managedUsersObj | length %}
-
-                    {% set managedUsers = managedUsersObj %}
-                    {% if managedUsersObj['users'] is defined %}
-                        {% set managedUsers = managedUsersObj['users'] %}
-                        {% set managedUserScreenCount = managedUsers | length %}
-
-                    {% endif %}
-
-
-                    {% set managedUserCount = managedUsers | length %}
-                    {% if managedUsersObj['totalCount'] is defined %}
-                        {% set managedUserCount = managedUsersObj['totalCount'] %}
-                    {% endif %}
-
-
-                    {% set remainingUsers       = totalPlanUserCount - managedUserCount %}
-                    {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
-
-                    <div class="profile-section">
-                       
-                       <div class="profile-section__header">
-                            <p class="profile-section__heading">Subscription Details</p>
-                        </div>
-
-
-                        <div id="userPlanSection">
-                            
-                            <div class="user-details">
-                                
-                                {# <form id="profile-form" class="form-horizontal" action="" method="post" enctype="multipart/form-data" disabled="disabled"> #}
-                                    
-                                    {% if pwstats['type'] == 'time' %}
-
-                                        {% set planPeriod = pwstats.period %}
-                                        {% set planPeriodCount = "" %}
-
-                                        {% if pwstats.period_count > 1 %}
-                                            {% set planPeriodCount = pwstats.period_count ~ " " %}
-                                            {% set planPeriod = pwstats.period ~ 's' %}
-                                        {% endif %}
-
-
-
-
-
-                                        <div class="account-form__inline-inputs">
-                                            <label class="account-form__label account-form__label--red account-form__label--mobile" for="currentplan">Current Plan</label>
-                                            <p type="text" id="currentplan" class="account-form__value">{{pwstats['name']}}: {{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}} per {{planPeriodCount}}{{planPeriod}}</p>
+                                        {# FIRST NAME #}
+                                        <div class="cus_acnt__form__group  has-error">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="first-name">First name</label>
+                                            <input id="first-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="firstname" placeholder="Full Name" aria-required="true" type="text" value="{{user.firstname}}">
+                                            <div class="cus_acnt__form__help-block">Please enter your first name</div>
                                         </div>
 
-                                        <div class="account-form__inline-inputs">
-                                            <label class="account-form__label account-form__label--red account-form__label--mobile" for="planstatus">Plan Status</label>
-                                            <p style="cursor: pointer; cursor: hand;" type="text" id="planstatus" class="account-form__value">{{ pwstats['status'] | capitalize }}</p>
-                                        </div>
-                                        <div class="account-form__inline-inputs profile-section__cancel">
-                                            {% if pwstats['status'] == 'cancelled' %}
-                                                
-                                                <span  class="profile-section__users-left text-button--italic">Your account will be permanently deleted 30 days after the most recent payment date.</span>
-                                                <a  id='cancelAccount' style="cursor:hand; cursor:pointer;margin-top:-2px;" class="text-button text-button--italic">Restart Subscription</a>
-                                                
-                                            {% else %} 
-                                                <a href="#" id='cancelAccount' style="cursor:hand; cursor:pointer;" class="text-button profile-section__cancel-account">Cancel Subscription</a>
-                                            {% endif %} 
+                                        {# LAST NAME #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="last-name">Last name</label>
+                                            <input id="last-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="lastname" placeholder="Last Name" aria-required="true" type="text" value="{{user.lastname}}">
+                                            <div class="cus_acnt__form__help-block"></div>
                                         </div>
 
-                                        <div class="account-form__inline-inputs">
-                                            <label class="account-form__label account-form__label--red account-form__label--mobile" for="totalusers">My Users</label>
-                                            <p type="text" id="totalusers" class="account-form__value">{{ managedUserScreenCount }} of {{totalPlanUserCount}}</p>
-                                        </div>                            
-                                       
-
-                                        {% if pwstats['status'] != 'free' %}
-                                            <div class="account-form__inline-inputs">
-                                                <label class="account-form__label account-form__label--red account-form__label--mobile" for="expires">Next Payment</label>
-                                                <p type="text" id="expires" class="account-form__value">{{ pwstats['expiry_date']}}</p>
-                                            </div>
-                                        {% endif %} 
-
-                                    {% else %} 
-
-                                        <div class="account-form__inline-inputs">
-                                            <label class="account-form__label account-form__label--red account-form__label--mobile" for="currentplan">Current Plan</label>
-                                            <p type="text" id="currentplan" class="account-form__value">{{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</p>
+                                        {# EMAIL #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="email">Email</label>
+                                            <input id="email" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="email" placeholder="email" aria-required="true" type="text" value="{{user.email}}">
+                                            <div class="cus_acnt__form__help-block"></div>
                                         </div>
 
-                                        <div class="account-form__inline-inputs">
-                                            <label class="account-form__label account-form__label--red account-form__label--mobile" for="remaining">Articles Remaining</label>
-                                            <p type="text" id="remaining" class="account-form__value">{{ pwstats['article_count']}}</p>
-                                        </div>                            
+                                        {# PASSWORD #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="password">Password</label>
+                                            <input id="password" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="password" placeholder="Password" aria-required="true" type="password">
+                                            <div class="cus_acnt__form__help-block"></div>
+                                        </div>
+
+                                        {# PASSWORD VERIFY #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="verifypassword">Verify password</label>
+                                            <input id="verifypassword" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="verifypassword" placeholder="Set new password" aria-required="true" type="password">
+                                            <div class="cus_acnt__form__help-block"></div>
+                                        </div>
+
+
+                                        {# ADDRESS1 #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="address1">Street address</label>
+                                            <input id="address1" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="address1" placeholder="Street address" aria-required="true" type="text" value="{{user.address1}}">
+                                            <div class="cus_acnt__form__help-block"></div>
+                                        </div>
+
+                                        {# ADDRESS2 #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="address2">Street address 2</label>
+                                            <input id="address2" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="address2" placeholder="Street address line 2 (optional)" aria-required="true" type="text" value="{{user.address2}}">
+                                            <div class="cus_acnt__form__help-block"></div>
+                                        </div>
+
+                                        {# CITY #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="city">City / Town</label>
+                                            <input id="city" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="city" placeholder="City / Town" aria-required="true" type="text" value="{{user.city}}">
+                                            <div class="cus_acnt__form__help-block"></div>
+                                        </div>
+
+                                        {# POSTCODE #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="postcode">ZIP / Postcode</label>
+                                            <input id="postcode" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="postcode" placeholder="Postcode" aria-required="true" type="text" value="{{user.postcode}}">
+                                            <div class="cus_acnt__form__help-block"></div>
+                                        </div>
+
+
+                                        {# ORGANISATION #}
+                                        <div class="cus_acnt__form__group">
+                                            <label class="cus_acnt__form__label c-account-form__label" for="organisation">Organisation</label>
+                                            <input id="organisation" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="abn_business_name"  value="{{user.business_name}}" aria-required="true" type="text">
+                                            <div class="cus_acnt__form__help-block"></div>
+                                        </div>
                                         
-                                    {% endif %} 
-                                    
-                                    {# {% if 'enterprise' not in pwstats['name'] | lower and pwstats['status'] != 'free' %}
-                                        <div class="account-form__inline-inputs u-margin-bottom-20">
-                                            <label class="account-form__label account-form__label--red account-form__label--mobile" for="remaining">Payment Method</label>
-                                            <p type="text" id="remaining" class="account-form__value">{{ pwstats['card_brand']}} / •••• •••• •••• {{ pwstats['card_last_4']}}</p>
-                                        </div>                            
-                                    {% endif %} #}
-                                {# </form> #}
 
-                            </div>
-                        </div>
-                    </div>
-                {% endif %}
-
-
-                {% if donor %}
-                    <form class="u-margin-top-20"  method="POST" action="/api/user/user-portal-session">
-                        <button id="portal-session" class="profile-section__donate-button" type="submit">Manage my donations</button>
-                    </form>
-                {% endif %}
-
-
-
-
-                {% if pwstats.userManager == true %}
-                    <div class="profile-section">
-                        <div id="userPlanSection">
-
-                            <hr class="divide30" style="border-top:1px solid #97999c;">
-
-
-                            <div class='update-card'>
-                                <div class="">
-
-                                    <div class="profile-section__header">
-                                         <p class="profile-section__heading">Change your credit card details</p>
-                                     </div>
-
-                                    <form id="update-card-form" action="/update" method="post">
-
-                                        <div id="card-element">
-                                        <!-- a Stripe Element will be inserted here. -->
-                                        </div>
-
-                                        <!-- Used to display Element errors -->
-                                        <div id="card-errors" class="profile-section__card-errors" role="alert"></div>
-                                        <button type="submit" class="text-button text-button--italic u-margin-top-20">Change</button>
-                                    </form>
-                                </div>
-                            </div>
-
-
-
-                            <hr class="divide30" style="border-top:1px solid #97999c;">
-
-
-
-                            <div class="profile-section__header">
-                                <p class="profile-section__heading">Change Plan</p>
-                            </div>
-
-                            <div id="currentPlanStats" class="plans"
-                                data-cardsupplied="{{cardSupplied}}"
-                                data-currentUsers="{{managedUserCount}}"
-                                data-currentPeriod="{{pwstats['period']}}"
-                                data-currentCost="{{pwstats['plan_value']}}"
-                                data-currentType="{{pwstats['type']}}"
-                                data-expiry="{{pwstats['expiry_date']}}"
-                                data-currentplanperiodcount="{{pwstats['period_count']}}"
-                            >
-
-                            {% for plan in plans %}
-                                {# {% if pwstats['status'] != 'paid' and pwstats['status'] != 'trial' %} #}
-                                {% set description = plan.description | split("!*!") %}
-
-                                {% set data = _AppHelper.jsonDecode( description[0] ) %}
-                                {% if data['showplan'] is defined and data['showplan'] == false %}
-                                    {% set continue = true %}
-                                {% endif %}
-
-                                {% set userCount = plan.user_count %}
-                                {% set planCost = plan.plan_value / 100 %}
-                                {% if planCost == 19.89 %}
-                                    {% set planCost = 19.90 %}
-                                {% endif %}
-
-                                {% set planPeriod = plan.period %}
-                                {% set planPeriodCount = "" %}
-
-                                {% if plan.period_count > 1 %}
-                                    {% set planPeriodCount = plan.period_count ~ " " %}
-                                    {% set planPeriod = plan.period ~ 's' %}
-                                {% endif %}
-
-                                <div class="{% if plan.guid != pwstats['plan_guid'] %} j-setplan {% else %}plans__current{% endif %} plans__item" style="cursor:hand; cursor:pointer;"
-                                    data-planid          = "{{plan.guid}}"
-                                    data-planusercount   = "{{userCount}}"
-                                    data-plancost        = "{{plan.plan_value}}"
-                                    data-planperiod      = "{{plan.period}}"
-                                    data-trialstatus     = "{{plan['trial_status']}}"
-                                    data-planType        = "{{plan.type}}"
-                                    data-planPeriodCount = "{{plan.period_count}}"
-
-                                >
-                                    <h3 class="plans__name">{{plan.plan_name}}</h3>
-                                    
-                                    {% if plan.type == 'time' and userCount > 0 %}
-                                        <p class="plans__usercount">{{userCount + 1}} Users</p>
-                                    {% endif %}
-
-                                    {% if plan.type != 'signup' %}
-                                        <p class="plans__price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
-                                                            per {{planPeriodCount}}{{planPeriod}}</p>
-                                    {% endif %}
-
-                                </div>
-                                {# {% endif %} #}
-                            {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="divide30 " style="border-top:1px solid #97999c;">
-
-
-
-                    {% if pwstats['type'] == 'time' and totalPlanUserCount > 0 %}
-                        <div class="profile-section profile-section__managed-header">
-
-                            {% set usersLeft = totalPlanUserCount > 0 ? totalPlanUserCount -1 : totalPlanUserCount %}
-                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUserCount}} of {{totalPlanUserCount}} used.</span></p>
-                            <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUserCount + 1 >= totalPlanUserCount %} hidden{% endif %}">+ Add users</a>
-                            </div>
-
-                            {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
-                                <div id="menu-search" class="managed-users-search u-margin-bottom-20">
-                                    <form method="get" id="managed-user-search" action="">
-                                        <div style="position:relative">
-                                            <input type="search" class="managed-users-search__field" name="s" id="managed-user-search-field" placeholder="Search by first or last name" required="">
-                                            <button class="managed-users-search__button" type="submit" id="user-search-submit">
-                                                Search
-                                            </button>
-                                            <button class="managed-users-search__button managed-users-search__button-clear" type="submit" id="user-search-clear">
-                                                Clear search
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            {% endif %}
-
-                            <div id="createManagedUser"></div>
-
-                            <a id="createUserErrorMessage"></a>
-
-
-                            <div class="row">
-                                <div id="user_profile" class="col-md-12">
-                                    
-                                    <ul id="mangedUsers" class="managed-users">
-                                        {% if managedUserCount == 0 %} 
-                                            <div id="nousers" class="empty-listing">
-                                                <p>You have no current users.</p>
+                                        {# EMAIL ALERTS #}
+                                        {# <div class="cus_acnt__form__group u-margin-top-20">
+                                            <div class="button-set">
+                                                <label>
+                                                    <input id="alerts" name="alerts" type="checkbox" class="cus_acnt__form__checkbox validate[required]"><span><!-- fake radio --></span> Send me daily email alerts
+                                                </label>
                                             </div>
-                                        {% else %}
+                                        </div> #}
                                         
-                                            {% for user in managedUsers %}
 
-                                                <li id="{{user.id}}" class="userdetails">
-                                                    <div class="u-float-left">
-                                                        <p class="userdetails__name">
-                                                            <span class="j-firstname">{{user.firstname}}</span> 
-                                                            <span class="j-lastname">{{user.lastname}}</span>
-                                                        </p> 
-                                                        {# <p class="j-username userdetails__username">{{user.username}}</p> #}
-                                                    </div>
-                                                    <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a>
-                                                    <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
-                                                    <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
+                                        {# SUBMIT #}
+                                        <div class="cus_acnt__form__group cus_acnt__form__btns">
+                                            <button type="submit" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="">Save changes</button>
+                                            <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                {% if pwstats.userManager == true %}
+                                    <div class="cus_acnt__infoBox__area">
+                                        <div class="cus_acnt__infoBox-head">
+                                            <div class="cus_acnt__infoBox-head--label">Payment details</div>
+                                            <a href="javascript:;" class="cus_acnt__infoBox-head--link js-cus_acnt__showForm">Update credit card</a>
+                                        </div>
+                                        <div class="cus_acnt__infoBox-dataGrid">
+                                            <ul>
+                                                <li class="cus_acnt__infoBox-dataGrid-item">
+                                                    <span class="cus_acnt__infoBox-dataGrid-item--label">Payment method</span>
+                                                    <span class="cus_acnt__infoBox-dataGrid-item--value">**** **** **** {{ pwstats['card_last_4']}}</span>
                                                 </li>
-                                            {% endfor %}
+                                            </ul>
+                                        </div>
 
-                                        {% endif %}
+                                        <div class="cus_acnt__infoBox-form cus_acnt__hide">
+                                            <form id="update-card-form" action="/update" method="post">
+                                                <div class="cus_acnt__form__group">
+                                                    <label class="cus_acnt__form__label c-form__label" for="creditcarddetails">Credit card</label>
+                                                        <div class="three-column">
+                                                            <div id="card-element">
+                                                            <!-- a Stripe Element will be inserted here. -->
+                                                            </div>
+                                                        </div>
+                                                </div>
 
-                                    </ul>
-                                
-                                
-                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
-
-                                    {{ this.render('partials/ajaxarticles_new.twig', {
-                                        name            : "user-load",
-                                        limit           : userLimit,
-                                        label           : "Show more",
-                                        loadtype        : "user",
-                                        container       : "mangedUsers",
-                                        card_class      : "userdetails",
-                                        buttonClass     : "managed-users__more",
-                                        cardTemplate    : "managed_user",
-                                    }) | raw }}
-
+                                                <div class="cus_acnt__form__group cus_acnt__form__btns">
+                                                    <button type="submit" id="btnContact" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="contact-button">Update details</button>
+                                                    <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 {% endif %}
-                                
-                                </div>
-                                
-
-                                
                             </div>
-
                         </div>
-                    {% endif %}
+                        {% if pwstats.userManager == true %}
+                            {% set totalPlanUserCount = pwstats['user_count'] %}
 
-                {% endif %}
+                            {% set managedUsersObj = _User.getPaywallManagedUsers({"limit": userLimit}) %}
+
+                            {% set managedUserScreenCount = managedUsersObj | length %}
+
+                            {% set managedUsers = managedUsersObj %}
+                            {% if managedUsersObj['users'] is defined %}
+                                {% set managedUsers = managedUsersObj['users'] %}
+                                {% set managedUserScreenCount = managedUsers | length %}
+
+                            {% endif %}
 
 
+                            {% set managedUserCount = managedUsers | length %}
+                            {% if managedUsersObj['totalCount'] is defined %}
+                                {% set managedUserCount = managedUsersObj['totalCount'] %}
+                            {% endif %}
 
 
+                            {% set remainingUsers       = totalPlanUserCount - managedUserCount %}
+                            {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
 
+                            <div class="cus_acnt-col-12 cus_acnt-col-lg-4">
+                                {% if pwstats['type'] == 'time' %}
 
+                                    {% set planPeriod = pwstats.period %}
+                                    {% set planPeriodCount = "" %}
 
+                                    {% if pwstats.period_count > 1 %}
+                                        {% set planPeriodCount = pwstats.period_count ~ " " %}
+                                        {% set planPeriod = pwstats.period ~ 's' %}
+                                    {% endif %}
 
+                                    <div class="cus_acnt__paymentBox">
+                                        <div class="cus_acnt__paymentBox-box1">
+                                            <div class="cus_acnt__paymentBox-box1__img">
+                                                <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
+                                            </div>
 
-                {% if _User.isAdminUser() %}
-                    <div class="add-batch-users" style="display:none;">
-                        <textarea id="batch-user-input"></textarea>
-                        <button id="batch-add">Add</button>
-                        <button id="batch-add-csv">Add csv</button>
+                                            <div class="cus_acnt__paymentBox-box1__content">
+                                                <div class="content-title">Payment due</div>
+                                                <div class="content-date">{{ pwstats['expiry_date']}}</div>
+                                            </div>
+                                        </div>
+                                        <div class="cus_acnt__paymentBox-box2">
+                                            <div class="cus_acnt__planInfo">
+                                                <div class="cus_acnt__planInfo-text">Your plan</div>
+                                                <div class="cus_acnt__planInfo-subInfo">Annual subscription</div>
+                                                <div class="cus_acnt__planInfo__costWrap annual">
+                                                    <span class="cus_acnt__planInfo-amount">$165.00</span>
+                                                    <span class="cus_acnt__planInfo-month">/12 months</span>
+                                                </div>
+                                                <div class="cus_acnt__planInfo-status">
+                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                    <div class="cus_acnt__planInfo-status--value">Paid</div>
+                                                </div>
+                                                <div class="cus_acnt__planInfo-status cancelled cus_acnt__hide">
+                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                    <div class="cus_acnt__planInfo-status--value">Cancelled</div>
+                                                </div>
+                                            </div>
+                                            <div class="cus_acnt__subInfo">
+                                                <div class="cus_acnt__subInfo__article-info">To purchase more articles, choose a plan below</div>
+                                                <a href="javascript:;" class="cus_acnt__btn cus_acnt__btn__solid" name="">Renew subscription</a>
+                                                <a href="javascript:;" class="cancel-subBtn">Cancel subscription</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                             </div>
+                        {% endif %}
                     </div>
-                {% endif %}
-
+                </div>
             </div>
         </div>
     </div>
 
+
+
+
+    {% set managedUsersObj = _User.getPaywallManagedUsers({"limit": userLimit}) %}
+
+    {% set managedUserScreenCount = managedUsersObj | length %}
+
+    {% set managedUsers = managedUsersObj %}
+    {% if managedUsersObj['users'] is defined %}
+        {% set managedUsers = managedUsersObj['users'] %}
+        {% set managedUserScreenCount = managedUsers | length %}
+
+    {% endif %}
+
+
+    {% set managedUserCount = managedUsers | length %}
+    {% if managedUsersObj['totalCount'] is defined %}
+        {% set managedUserCount = managedUsersObj['totalCount'] %}
+    {% endif %}
+
+
+    {% set remainingUsers = totalPlanUserCount - managedUserCount %}
+    {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
+
+
+    <div class="cus_acnt__user-container">
+        <div class="cus_acnt-container-fluid">
+            <div class="cus_acnt-row">
+                <div class="col-12 p-0">
+                    <div class="cus_acnt-container">
+                        <div class="cus_acnt-row">
+                            <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                <div class="cus_acnt__user-head">
+                                    <div class="cus_acnt__user-head--label">Choose a plan</div>
+                                    <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
+                                </div>
+                                <div class="cus_acnt__plan-table js-tableView">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                 <tr>
+                                                    <th>Plan name</th>
+                                                    <th colspan="3">Cost</th>
+                                                </tr>
+                                            </thead>
+                                           <tbody>
+                                                <tr class="view">
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="folded">
+                                                    <td colspan="4">
+                                                        <div class="users-feature__list">
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="view">
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="folded">
+                                                    <td colspan="4">
+                                                        <div class="users-feature__list">
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="view">
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="folded">
+                                                    <td colspan="4">
+                                                        <div class="users-feature__list">
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="view">
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--tag">Best value</span>
+                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="folded">
+                                                    <td colspan="4">
+                                                        <div class="users-feature__list">
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="view">
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="folded">
+                                                    <td colspan="4">
+                                                        <div class="users-feature__list">
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr class="view">
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
+                                                    </td>
+                                                    <td>
+                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                    </td>
+                                                    <td>
+                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                    </td>
+                                                </tr>
+                                                <tr class="folded">
+                                                    <td colspan="4">
+                                                        <div class="users-feature__list">
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                            <ul>
+                                                                <li>News, sport and local events</li>
+                                                                <li>Access to all articles online</li>
+                                                                <li>Save $15</li>
+                                                            </ul>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                           </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cus_acnt-container">
+                        <div class="cus_acnt-row">
+                            <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                <div class="cus_acnt__user-head">
+                                    <div class="cus_acnt__user-head--label">My users</div>
+                                    <div class="cus_acnt__user-head--sub-text">You can add, search and remove users below.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs">
+                        <div class="cus_acnt-container">
+                            <div class="cus_acnt-row">
+                                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                    <div class="cus_acnt__user__addition">
+                                        <aside class="cus_acnt__user__addition-btn">
+                                            <a href="javascript:;" class="cus_acnt__btn cus_acnt__btn__bordered">Add user</a>
+                                        </aside>
+                                        <aside class="cus_acnt__user__allot-wrap">
+                                            <span class="cus_acnt__user__allot-wrap--image">
+                                                <img src="{{networkData.templatePath}}/static/icons/user_icon.png"" alt="user" class="img-fluid" />
+                                            </span>
+                                            <span class="cus_acnt__user__allot-wrap--text">Allocated users:</span>
+                                            <span class="cus_acnt__user__allot-wrap--text strong">{{managedUserCount}} of {{totalPlanUserCount}}</span>
+                                        </aside>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cus_acnt-container">
+                        <div class="cus_acnt-row">
+                            <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
+                                    <div class="cus_acnt__user-grid__search">
+                                        <form>
+                                            <div class="cus_acnt__user-grid__search--field">
+                                                <span>
+                                                    <img src="{{networkData.templatePath}}/static/icons/icons-navigation-search.svg" />
+                                                </span>
+                                                <input id="managed-user-search-field" name="s" type="text" placeholder="Find a user" class="cus_acnt__form__input" />
+                                            </div>
+                                            <div class="cus_acnt__user-grid__search--btn">
+                                                <button type="submit" class="cus_acnt__btn cus_acnt__btn__solid">Search</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="cus_acnt__user-grid__show-user">
+                                        Showing 0 users
+                                    </div>
+                                    <ul class="cus_acnt__user-grid__list">
+                                        <li class="no-data">No users found</li>
+                                        <li class="user-list--items">
+                                            <aside>
+                                                <div class="user-list--items-name">Tom Jones</div>
+                                                <div class="user-list--items-email">cheal@pagemasters.com.au</div>
+                                            </aside>
+                                            <aside>
+                                                <a href="javascript:;" class="user-list--items-remove">
+                                                    <span class="icon fa fa-trash"></span>
+                                                    <span>Remove</span>
+                                                </a>
+                                            </aside>
+                                        </li>
+                                        <li class="user-list--items">
+                                            <aside>
+                                                <div class="user-list--items-name">Tom Jones</div>
+                                                <div class="user-list--items-email">cheal@pagemasters.com.au</div>
+                                            </aside>
+                                            <aside>
+                                                <a href="javascript:;" class="user-list--items-remove">
+                                                    <span class="icon fa fa-trash"></span>
+                                                    <span>Remove</span>
+                                                </a>
+                                            </aside>
+                                        </li>
+                                        {% for user in managedUsers %}
+                                            <li id="{{user.id}}" class="c-managed-user">
+                                                <p class="c-managed-user__email j-email">{{user.email}}</p>
+                                                <a class="c-managed-user__close j-delete "></a>
+                                                <a class="c-managed-user__edit j-edit"></a>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
 </main>
-
-
 
 
 <script>
