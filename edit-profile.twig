@@ -235,6 +235,7 @@
                             {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
 
                             <div class="cus_acnt-col-12 cus_acnt-col-lg-4">
+                                {{_AppHelper.printArray(pwstats)}}
                                 {% if pwstats['type'] == 'time' %}
 
                                     {% set planPeriod = pwstats.period %}
@@ -244,8 +245,6 @@
                                         {% set planPeriodCount = pwstats.period_count ~ " " %}
                                         {% set planPeriod = pwstats.period ~ 's' %}
                                     {% endif %}
-
-                                    {{_AppHelper.printArray(pwstats)}}
 
                                     <div class="cus_acnt__paymentBox">
                                         {% if pwstats['status'] != 'free' %}
