@@ -262,7 +262,7 @@
                                                 <div class="cus_acnt__planInfo-text">Your plan</div>
                                                 <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
                                                 <div class="cus_acnt__planInfo__costWrap">
-                                                    <span class="cus_acnt__planInfo-amount">{{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}</span>
+                                                    <span class="cus_acnt__planInfo-amount">{{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}}</span>
                                                     <span class="cus_acnt__planInfo-month">/{{planPeriodCount}}{{planPeriod}}</span>
                                                 </div>
                                                 <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
@@ -275,10 +275,12 @@
                                                     {% endif %}
                                                     </div>
                                                 </div>
-                                                <div class="cus_acnt__planInfo-status">
-                                                    <div class="cus_acnt__planInfo-status--text">My Users</div>
-                                                    <div class="cus_acnt__planInfo-status--value">{{ managedUserScreenCount }} of {{totalPlanUserCount}}</div>
-                                                </div>
+                                                {% if totalPlanUserCount | length > 0 %}
+                                                    <div class="cus_acnt__planInfo-status">
+                                                        <div class="cus_acnt__planInfo-status--text">My Users</div>
+                                                        <div class="cus_acnt__planInfo-status--value">{{ managedUserScreenCount }} of {{totalPlanUserCount}}</div>
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                             <div class="cus_acnt__subInfo">
                                                 {% if pwstats['status'] == 'cancelled' %}
