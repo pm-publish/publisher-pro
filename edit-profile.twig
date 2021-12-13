@@ -301,14 +301,13 @@
                                                 <div class="cus_acnt__planInfo-text">Your plan</div>
                                                 <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
                                                 <div class="cus_acnt__planInfo__costWrap">
-                                                    <span class="cus_acnt__planInfo-amount">{{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</span>
+                                                    <span class="cus_acnt__planInfo-amount">{{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}}</span>
+                                                    <span class="cus_acnt__planInfo-month">/{{planPeriodCount}}{{planPeriod}}</span>
                                                 </div>
-                                                {% if pwstats['status'] == 'trail' %}
-                                                    <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
-                                                        <div class="cus_acnt__planInfo-status--text">Status</div>
-                                                        <div class="cus_acnt__planInfo-status--value">{{ pwstats['status']}}</div>
-                                                    </div>
-                                                {% endif %}
+                                                <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
+                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                    <div class="cus_acnt__planInfo-status--value">{{ pwstats['status']}}</div>
+                                                </div>
                                                 <div class="cus_acnt__planInfo-status">
                                                     <div class="cus_acnt__planInfo-status--text">Articles Remaining</div>
                                                     <div class="cus_acnt__planInfo-status--value">{{ pwstats['article_count']}}</div>
@@ -336,355 +335,197 @@
     </div>
 
 
-
-
-    {% set managedUsersObj = _User.getPaywallManagedUsers({"limit": userLimit}) %}
-
-    {% set managedUserScreenCount = managedUsersObj | length %}
-
-    {% set managedUsers = managedUsersObj %}
-    {% if managedUsersObj['users'] is defined %}
-        {% set managedUsers = managedUsersObj['users'] %}
-        {% set managedUserScreenCount = managedUsers | length %}
-
-    {% endif %}
-
-
-    {% set managedUserCount = managedUsers | length %}
-    {% if managedUsersObj['totalCount'] is defined %}
-        {% set managedUserCount = managedUsersObj['totalCount'] %}
-    {% endif %}
-
-
-    {% set remainingUsers = totalPlanUserCount - managedUserCount %}
-    {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
-
-
-    <div class="cus_acnt__user-container">
-        <div class="cus_acnt-container-fluid">
-            <div class="cus_acnt-row">
-                <div class="col-12 p-0">
-                    <div class="cus_acnt-container">
-                        <div class="cus_acnt-row">
-                            <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
-                                <div class="cus_acnt__user-head">
-                                    <div class="cus_acnt__user-head--label">Choose a plan</div>
-                                    <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
-                                </div>
-                                <div class="cus_acnt__plan-table js-tableView">
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                                 <tr>
-                                                    <th>Plan name</th>
-                                                    <th colspan="3">Cost</th>
-                                                </tr>
-                                            </thead>
-                                           <tbody>
-                                                <tr class="view">
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="folded">
-                                                    <td colspan="4">
-                                                        <div class="users-feature__list">
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="view">
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="folded">
-                                                    <td colspan="4">
-                                                        <div class="users-feature__list">
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="view">
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="folded">
-                                                    <td colspan="4">
-                                                        <div class="users-feature__list">
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="view">
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--tag">Best value</span>
-                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="folded">
-                                                    <td colspan="4">
-                                                        <div class="users-feature__list">
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="view">
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="folded">
-                                                    <td colspan="4">
-                                                        <div class="users-feature__list">
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr class="view">
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--price">$15.00 /month</span>
-                                                    </td>
-                                                    <td>
-                                                        <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
-                                                    </td>
-                                                    <td>
-                                                        <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
-                                                    </td>
-                                                </tr>
-                                                <tr class="folded">
-                                                    <td colspan="4">
-                                                        <div class="users-feature__list">
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                            <ul>
-                                                                <li>News, sport and local events</li>
-                                                                <li>Access to all articles online</li>
-                                                                <li>Save $15</li>
-                                                            </ul>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                           </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="cus_acnt-container">
-                        <div class="cus_acnt-row">
-                            <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
-                                <div class="cus_acnt__user-head">
-                                    <div class="cus_acnt__user-head--label">My users</div>
-                                    <div class="cus_acnt__user-head--sub-text">You can add, search and remove users below.</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs">
+    {% if pwstats.userManager == true %}
+        <div class="cus_acnt__user-container">
+            <div class="cus_acnt-container-fluid">
+                <div class="cus_acnt-row">
+                    <div class="col-12 p-0">
                         <div class="cus_acnt-container">
                             <div class="cus_acnt-row">
                                 <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
-                                    <div class="cus_acnt__user__addition">
-                                        <aside class="cus_acnt__user__addition-btn">
-                                            <a href="javascript:;" class="cus_acnt__btn cus_acnt__btn__bordered">Add user</a>
-                                        </aside>
-                                        <aside class="cus_acnt__user__allot-wrap">
-                                            <span class="cus_acnt__user__allot-wrap--image">
-                                                <img src="{{networkData.templatePath}}/static/icons/user_icon.png"" alt="user" class="img-fluid" />
-                                            </span>
-                                            <span class="cus_acnt__user__allot-wrap--text">Allocated users:</span>
-                                            <span class="cus_acnt__user__allot-wrap--text strong">{{managedUserCount}} of {{totalPlanUserCount}}</span>
-                                        </aside>
+                                    <div class="cus_acnt__user-head">
+                                        <div class="cus_acnt__user-head--label">Choose a plan</div>
+                                        <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
+                                    </div>
+                                    <div class="cus_acnt__plan-table js-tableView" id="currentPlanStats"
+                                        data-cardsupplied="{{cardSupplied}}"
+                                        data-currentUsers="{{managedUserCount}}"
+                                        data-currentPeriod="{{pwstats['period']}}"
+                                        data-currentCost="{{pwstats['plan_value']}}"
+                                        data-currentType="{{pwstats['type']}}"
+                                        data-expiry="{{pwstats['expiry_date']}}"
+                                        data-currentplanperiodcount="{{pwstats['period_count']}}"
+                                    >
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Plan name</th>
+                                                        <th colspan="3">Cost</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for plan in plans %}
+                                                        {# {% if pwstats['status'] != 'paid' and pwstats['status'] != 'trial' %} #}
+                                                        {% set description = plan.description | split("!*!") %}
+
+                                                        {% set data = _AppHelper.jsonDecode( description[0] ) %}
+                                                        {% if data['showplan'] is defined and data['showplan'] == false %}
+                                                            {% set continue = true %}
+                                                        {% endif %}
+
+                                                        {% set userCount = plan.user_count %}
+                                                        {% set planCost = plan.plan_value / 100 %}
+                                                        {% if planCost == 19.89 %}
+                                                            {% set planCost = 19.90 %}
+                                                        {% endif %}
+
+                                                        {% set planPeriod = plan.period %}
+                                                        {% set planPeriodCount = "" %}
+
+                                                        {% if plan.period_count > 1 %}
+                                                            {% set planPeriodCount = plan.period_count ~ " " %}
+                                                            {% set planPeriod = plan.period ~ 's' %}
+                                                        {% endif %}
+                                                        <tr class="view {% if plan.guid != pwstats['plan_guid'] %} j-setplan {% else %}plans__current{% endif %} plans__item" style="cursor:hand; cursor:pointer;"
+                                                            data-planid          = "{{plan.guid}}"
+                                                            data-planusercount   = "{{userCount}}"
+                                                            data-plancost        = "{{plan.plan_value}}"
+                                                            data-planperiod      = "{{plan.period}}"
+                                                            data-trialstatus     = "{{plan['trial_status']}}"
+                                                            data-planType        = "{{plan.type}}"
+                                                            data-planPeriodCount = "{{plan.period_count}}">
+                                                        <td>
+                                                            <span class="cus_acnt__plan-table--title">{{plan.plan_name}}</span>
+                                                        </td>
+                                                        <td>
+                                                            {% if plan.type != 'signup' %}
+                                                                <span class="cus_acnt__plan-table--price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
+                                                                per {{planPeriodCount}}{{planPeriod}}</span>
+                                                            {% endif %}
+                                                        </td>
+                                                        <td>
+                                                            <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                        </td>
+                                                        <td>
+                                                            <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="folded">
+                                                        <td colspan="4">
+                                                            <div class="users-feature__list">
+                                                                <ul>
+                                                                    <li>News, sport and local events</li>
+                                                                    <li>Access to all articles online</li>
+                                                                    <li>Save $15</li>
+                                                                </ul>
+                                                                <ul>
+                                                                    <li>News, sport and local events</li>
+                                                                    <li>Access to all articles online</li>
+                                                                    <li>Save $15</li>
+                                                                </ul>
+                                                                <ul>
+                                                                    <li>News, sport and local events</li>
+                                                                    <li>Access to all articles online</li>
+                                                                    <li>Save $15</li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                            </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="cus_acnt-container">
-                        <div class="cus_acnt-row">
-                            <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
-                                <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
-                                    <div class="cus_acnt__user-grid__search">
-                                        <form>
-                                            <div class="cus_acnt__user-grid__search--field">
-                                                <span>
-                                                    <img src="{{networkData.templatePath}}/static/icons/icons-navigation-search.svg" />
+                        <div class="cus_acnt-container d-none">
+                            <div class="cus_acnt-row">
+                                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                    <div class="cus_acnt__user-head">
+                                        <div class="cus_acnt__user-head--label">My users</div>
+                                        <div class="cus_acnt__user-head--sub-text">You can add, search and remove users below.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs">
+                            <div class="cus_acnt-container">
+                                <div class="cus_acnt-row">
+                                    <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                        <div class="cus_acnt__user__addition">
+                                            <aside class="cus_acnt__user__addition-btn">
+                                                <a href="javascript:;" class="cus_acnt__btn cus_acnt__btn__bordered">Add user</a>
+                                            </aside>
+                                            <aside class="cus_acnt__user__allot-wrap">
+                                                <span class="cus_acnt__user__allot-wrap--image">
+                                                    <img src="{{networkData.templatePath}}/static/icons/user_icon.png"" alt="user" class="img-fluid" />
                                                 </span>
-                                                <input id="managed-user-search-field" name="s" type="text" placeholder="Find a user" class="cus_acnt__form__input" />
-                                            </div>
-                                            <div class="cus_acnt__user-grid__search--btn">
-                                                <button type="submit" class="cus_acnt__btn cus_acnt__btn__solid">Search</button>
-                                            </div>
-                                        </form>
+                                                <span class="cus_acnt__user__allot-wrap--text">Allocated users:</span>
+                                                <span class="cus_acnt__user__allot-wrap--text strong">{{managedUserCount}} of {{totalPlanUserCount}}</span>
+                                            </aside>
+                                        </div>
                                     </div>
-                                    <div class="cus_acnt__user-grid__show-user">
-                                        Showing 0 users
-                                    </div>
-                                    <ul class="cus_acnt__user-grid__list">
-                                        <li class="no-data">No users found</li>
-                                        <li class="user-list--items">
-                                            <aside>
-                                                <div class="user-list--items-name">Tom Jones</div>
-                                                <div class="user-list--items-email">cheal@pagemasters.com.au</div>
-                                            </aside>
-                                            <aside>
-                                                <a href="javascript:;" class="user-list--items-remove">
-                                                    <span class="icon fa fa-trash"></span>
-                                                    <span>Remove</span>
-                                                </a>
-                                            </aside>
-                                        </li>
-                                        <li class="user-list--items">
-                                            <aside>
-                                                <div class="user-list--items-name">Tom Jones</div>
-                                                <div class="user-list--items-email">cheal@pagemasters.com.au</div>
-                                            </aside>
-                                            <aside>
-                                                <a href="javascript:;" class="user-list--items-remove">
-                                                    <span class="icon fa fa-trash"></span>
-                                                    <span>Remove</span>
-                                                </a>
-                                            </aside>
-                                        </li>
-                                        {% for user in managedUsers %}
-                                            <li id="{{user.id}}" class="c-managed-user">
-                                                <p class="c-managed-user__email j-email">{{user.email}}</p>
-                                                <a class="c-managed-user__close j-delete "></a>
-                                                <a class="c-managed-user__edit j-edit"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cus_acnt-container">
+                            <div class="cus_acnt-row">
+                                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                    <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
+                                        <div class="cus_acnt__user-grid__search">
+                                            <form>
+                                                <div class="cus_acnt__user-grid__search--field">
+                                                    <span>
+                                                        <img src="{{networkData.templatePath}}/static/icons/icons-navigation-search.svg" />
+                                                    </span>
+                                                    <input id="managed-user-search-field" name="s" type="text" placeholder="Find a user" class="cus_acnt__form__input" />
+                                                </div>
+                                                <div class="cus_acnt__user-grid__search--btn">
+                                                    <button type="submit" class="cus_acnt__btn cus_acnt__btn__solid">Search</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="cus_acnt__user-grid__show-user">
+                                            Showing 0 users
+                                        </div>
+                                        <ul class="cus_acnt__user-grid__list">
+                                            <li class="no-data">No users found</li>
+                                            <li class="user-list--items">
+                                                <aside>
+                                                    <div class="user-list--items-name">Tom Jones</div>
+                                                    <div class="user-list--items-email">cheal@pagemasters.com.au</div>
+                                                </aside>
+                                                <aside>
+                                                    <a href="javascript:;" class="user-list--items-remove">
+                                                        <span class="icon fa fa-trash"></span>
+                                                        <span>Remove</span>
+                                                    </a>
+                                                </aside>
                                             </li>
-                                        {% endfor %}
-                                    </ul>
+                                            <li class="user-list--items">
+                                                <aside>
+                                                    <div class="user-list--items-name">Tom Jones</div>
+                                                    <div class="user-list--items-email">cheal@pagemasters.com.au</div>
+                                                </aside>
+                                                <aside>
+                                                    <a href="javascript:;" class="user-list--items-remove">
+                                                        <span class="icon fa fa-trash"></span>
+                                                        <span>Remove</span>
+                                                    </a>
+                                                </aside>
+                                            </li>
+                                            {% for user in managedUsers %}
+                                                <li id="{{user.id}}" class="c-managed-user">
+                                                    <p class="c-managed-user__email j-email">{{user.email}}</p>
+                                                    <a class="c-managed-user__close j-delete "></a>
+                                                    <a class="c-managed-user__edit j-edit"></a>
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -692,7 +533,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
     
 
 </main>
