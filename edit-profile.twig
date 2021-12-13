@@ -210,43 +210,79 @@
                                 {% endif %}
                             </div>
                         </div>
-                        <div class="cus_acnt-col-12 cus_acnt-col-lg-4 d-none">
-                            <div class="cus_acnt__paymentBox">
-                                <div class="cus_acnt__paymentBox-box1">
-                                    <div class="cus_acnt__paymentBox-box1__img">
-                                        <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
-                                    </div>
+                        {% if pwstats.userManager == true %}
+                            {% set totalPlanUserCount = pwstats['user_count'] %}
 
-                                    <div class="cus_acnt__paymentBox-box1__content">
-                                        <div class="content-title">Payment due</div>
-                                        <div class="content-date">17/02/2022</div>
-                                    </div>
-                                </div>
-                                <div class="cus_acnt__paymentBox-box2">
-                                    <div class="cus_acnt__planInfo">
-                                        <div class="cus_acnt__planInfo-text">Your plan</div>
-                                        <div class="cus_acnt__planInfo-subInfo">Annual subscription</div>
-                                        <div class="cus_acnt__planInfo__costWrap annual">
-                                            <span class="cus_acnt__planInfo-amount">$165.00</span>
-                                            <span class="cus_acnt__planInfo-month">/12 months</span>
+                            {% set managedUsersObj = _User.getPaywallManagedUsers({"limit": userLimit}) %}
+
+                            {% set managedUserScreenCount = managedUsersObj | length %}
+
+                            {% set managedUsers = managedUsersObj %}
+                            {% if managedUsersObj['users'] is defined %}
+                                {% set managedUsers = managedUsersObj['users'] %}
+                                {% set managedUserScreenCount = managedUsers | length %}
+
+                            {% endif %}
+
+
+                            {% set managedUserCount = managedUsers | length %}
+                            {% if managedUsersObj['totalCount'] is defined %}
+                                {% set managedUserCount = managedUsersObj['totalCount'] %}
+                            {% endif %}
+
+
+                            {% set remainingUsers       = totalPlanUserCount - managedUserCount %}
+                            {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
+
+                            <div class="cus_acnt-col-12 cus_acnt-col-lg-4">
+                                {% if pwstats['type'] == 'time' %}
+
+                                    {% set planPeriod = pwstats.period %}
+                                    {% set planPeriodCount = "" %}
+
+                                    {% if pwstats.period_count > 1 %}
+                                        {% set planPeriodCount = pwstats.period_count ~ " " %}
+                                        {% set planPeriod = pwstats.period ~ 's' %}
+                                    {% endif %}
+
+                                    <div class="cus_acnt__paymentBox">
+                                        <div class="cus_acnt__paymentBox-box1">
+                                            <div class="cus_acnt__paymentBox-box1__img">
+                                                <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
+                                            </div>
+
+                                            <div class="cus_acnt__paymentBox-box1__content">
+                                                <div class="content-title">Payment due</div>
+                                                <div class="content-date">{{ pwstats['expiry_date']}}</div>
+                                            </div>
                                         </div>
-                                        <div class="cus_acnt__planInfo-status">
-                                            <div class="cus_acnt__planInfo-status--text">Status</div>
-                                            <div class="cus_acnt__planInfo-status--value">Paid</div>
-                                        </div>
-                                        <div class="cus_acnt__planInfo-status cancelled cus_acnt__hide">
-                                            <div class="cus_acnt__planInfo-status--text">Status</div>
-                                            <div class="cus_acnt__planInfo-status--value">Cancelled</div>
+                                        <div class="cus_acnt__paymentBox-box2">
+                                            <div class="cus_acnt__planInfo">
+                                                <div class="cus_acnt__planInfo-text">Your plan</div>
+                                                <div class="cus_acnt__planInfo-subInfo">Annual subscription</div>
+                                                <div class="cus_acnt__planInfo__costWrap annual">
+                                                    <span class="cus_acnt__planInfo-amount">$165.00</span>
+                                                    <span class="cus_acnt__planInfo-month">/12 months</span>
+                                                </div>
+                                                <div class="cus_acnt__planInfo-status">
+                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                    <div class="cus_acnt__planInfo-status--value">Paid</div>
+                                                </div>
+                                                <div class="cus_acnt__planInfo-status cancelled cus_acnt__hide">
+                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                    <div class="cus_acnt__planInfo-status--value">Cancelled</div>
+                                                </div>
+                                            </div>
+                                            <div class="cus_acnt__subInfo">
+                                                <div class="cus_acnt__subInfo__article-info">To purchase more articles, choose a plan below</div>
+                                                <a href="javascript:;" class="cus_acnt__btn cus_acnt__btn__solid" name="">Renew subscription</a>
+                                                <a href="javascript:;" class="cancel-subBtn">Cancel subscription</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="cus_acnt__subInfo">
-                                        <div class="cus_acnt__subInfo__article-info">To purchase more articles, choose a plan below</div>
-                                        <a href="javascript:;" class="cus_acnt__btn cus_acnt__btn__solid" name="">Renew subscription</a>
-                                        <a href="javascript:;" class="cancel-subBtn">Cancel subscription</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                {% endif %}
+                             </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
@@ -278,7 +314,7 @@
     {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
 
 
-    <div class="cus_acnt__user-container d-none">
+    <div class="cus_acnt__user-container">
         <div class="cus_acnt-container-fluid">
             <div class="cus_acnt-row">
                 <div class="col-12 p-0">
