@@ -235,7 +235,6 @@
                             {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
 
                             <div class="cus_acnt-col-12 cus_acnt-col-lg-4">
-                                {{_AppHelper.printArray(pwstats)}}
                                 {% if pwstats['type'] == 'time' %}
 
                                     {% set planPeriod = pwstats.period %}
