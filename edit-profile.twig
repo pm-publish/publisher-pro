@@ -246,37 +246,80 @@
                                     {% endif %}
 
                                     <div class="cus_acnt__paymentBox">
-                                        <div class="cus_acnt__paymentBox-box1">
-                                            <div class="cus_acnt__paymentBox-box1__img">
-                                                <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
+                                        {% if pwstats['status'] != 'free' %}
+                                            <div class="cus_acnt__paymentBox-box1">
+                                                <div class="cus_acnt__paymentBox-box1__img">
+                                                    <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
+                                                </div>
+                                                <div class="cus_acnt__paymentBox-box1__content">
+                                                    <div class="content-title">Payment due</div>
+                                                    <div class="content-date">{{ pwstats['expiry_date']}}</div>
+                                                </div>
                                             </div>
-
-                                            <div class="cus_acnt__paymentBox-box1__content">
-                                                <div class="content-title">Payment due</div>
-                                                <div class="content-date">{{ pwstats['expiry_date']}}</div>
-                                            </div>
-                                        </div>
+                                        {% endif %}
                                         <div class="cus_acnt__paymentBox-box2">
                                             <div class="cus_acnt__planInfo">
                                                 <div class="cus_acnt__planInfo-text">Your plan</div>
-                                                <div class="cus_acnt__planInfo-subInfo">Annual subscription</div>
-                                                <div class="cus_acnt__planInfo__costWrap annual">
-                                                    <span class="cus_acnt__planInfo-amount">$165.00</span>
-                                                    <span class="cus_acnt__planInfo-month">/12 months</span>
+                                                <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
+                                                <div class="cus_acnt__planInfo__costWrap">
+                                                    <span class="cus_acnt__planInfo-amount">{{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}</span>
+                                                    <span class="cus_acnt__planInfo-month">/{{planPeriodCount}}{{planPeriod}}</span>
+                                                </div>
+                                                <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
+                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                    <div class="cus_acnt__planInfo-status--value">
+                                                    {% if pwstats['status'] != 'free' %}
+                                                        {{ pwstats['status'] | capitalize }}
+                                                    {% else %}
+                                                        Free
+                                                    {% endif %}
+                                                    </div>
                                                 </div>
                                                 <div class="cus_acnt__planInfo-status">
-                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
-                                                    <div class="cus_acnt__planInfo-status--value">Paid</div>
-                                                </div>
-                                                <div class="cus_acnt__planInfo-status cancelled cus_acnt__hide">
-                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
-                                                    <div class="cus_acnt__planInfo-status--value">Cancelled</div>
+                                                    <div class="cus_acnt__planInfo-status--text">My Users</div>
+                                                    <div class="cus_acnt__planInfo-status--value">{{ managedUserScreenCount }} of {{totalPlanUserCount}}</div>
                                                 </div>
                                             </div>
                                             <div class="cus_acnt__subInfo">
-                                                <div class="cus_acnt__subInfo__article-info">To purchase more articles, choose a plan below</div>
-                                                <a href="javascript:;" class="cus_acnt__btn cus_acnt__btn__solid" name="">Renew subscription</a>
-                                                <a href="javascript:;" class="cancel-subBtn">Cancel subscription</a>
+                                                {% if pwstats['status'] == 'cancelled' %}
+                                                    <div class="cus_acnt__subInfo__article-info">Your account will be permanently deleted 30 days after the most recent payment date.</div>
+                                                    <a href="javascript:;" id='cancelAccount' class="cus_acnt__btn cus_acnt__btn__solid" name="">Restart subscription</a>
+                                                {% else %}
+                                                    <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                {% else %}
+                                    <div class="cus_acnt__paymentBox">
+                                        <div class="cus_acnt__paymentBox-box2">
+                                            <div class="cus_acnt__planInfo">
+                                                <div class="cus_acnt__planInfo-text">Your plan</div>
+                                                <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
+                                                <div class="cus_acnt__planInfo__costWrap">
+                                                    <span class="cus_acnt__planInfo-amount">{{ pwstats['plan_value']/100}}/{{pwstats['total_articles']}}</span>
+                                                </div>
+                                                {% if pwstats['status'] == 'trail' %}
+                                                    <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
+                                                        <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                        <div class="cus_acnt__planInfo-status--value">{{ pwstats['status']}}</div>
+                                                    </div>
+                                                {% endif %}
+                                                <div class="cus_acnt__planInfo-status">
+                                                    <div class="cus_acnt__planInfo-status--text">Articles Remaining</div>
+                                                    <div class="cus_acnt__planInfo-status--value">{{ pwstats['article_count']}}</div>
+                                                </div>
+                                            </div>
+                                            <div class="cus_acnt__subInfo">
+                                                {% if pwstats['status'] == 'trail' %}
+                                                    <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
+                                                {% else %}
+                                                    <div class="cus_acnt__subInfo__article-info">To purchase more articles, choose a plan below</div>
+                                                    {% if pwstats['status'] != 'cancelled' %}
+                                                        <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
+                                                    {% endif %}
+                                                {% endif %}
                                             </div>
                                         </div>
                                     </div>
