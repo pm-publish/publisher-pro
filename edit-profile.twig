@@ -385,16 +385,14 @@
                                                             {% set planPeriod = plan.period ~ 's' %}
                                                         {% endif %}
 
-                                                        <tr class="{% if plan.guid != pwstats['plan_guid'] %} j-setplan {% else %}plans__current{% endif %} plans__item" style="cursor:hand; cursor:pointer;"
-                                    data-planid          = "{{plan.guid}}"
-                                    data-planusercount   = "{{userCount}}"
-                                    data-plancost        = "{{plan.plan_value}}"
-                                    data-planperiod      = "{{plan.period}}"
-                                    data-trialstatus     = "{{plan['trial_status']}}"
-                                    data-planType        = "{{plan.type}}"
-                                    data-planPeriodCount = "{{plan.period_count}}"
-
-                                >
+                                                        <tr class="{% if plan.guid == pwstats['plan_guid'] %} active {% endif %} view"
+                                                            data-planid          = "{{plan.guid}}"
+                                                            data-planusercount   = "{{userCount}}"
+                                                            data-plancost        = "{{plan.plan_value}}"
+                                                            data-planperiod      = "{{plan.period}}"
+                                                            data-trialstatus     = "{{plan['trial_status']}}"
+                                                            data-planType        = "{{plan.type}}"
+                                                            data-planPeriodCount = "{{plan.period_count}}">
                                                             <td>
                                                                 <span class="cus_acnt__plan-table--title">{{plan.plan_name}}</span>
                                                             </td>
@@ -419,27 +417,6 @@
                                                                 {% else %}
                                                                     <a href="javascript:;" class="cus_acnt__plan-table--purchase">Your Plan</a>
                                                                 {% endif %}
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="folded">
-                                                            <td colspan="4">
-                                                                <div class="users-feature__list">
-                                                                    <ul>
-                                                                        <li>News, sport and local events</li>
-                                                                        <li>Access to all articles online</li>
-                                                                        <li>Save $15</li>
-                                                                    </ul>
-                                                                    <ul>
-                                                                        <li>News, sport and local events</li>
-                                                                        <li>Access to all articles online</li>
-                                                                        <li>Save $15</li>
-                                                                    </ul>
-                                                                    <ul>
-                                                                        <li>News, sport and local events</li>
-                                                                        <li>Access to all articles online</li>
-                                                                        <li>Save $15</li>
-                                                                    </ul>
-                                                                </div>
                                                             </td>
                                                         </tr>
                                                         {# {% endif %} #}
