@@ -416,7 +416,7 @@
                                 </div>
                             </div>
 
-                            <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs d-none">
+                            <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs">
                                 <div class="cus_acnt-container">
                                     <div class="cus_acnt-row">
                                         <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
@@ -433,147 +433,110 @@
                                                     <span class="cus_acnt__user__allot-wrap--text strong">{{managedUserCount}} of {{totalPlanUserCount}}</span>
                                                 </aside>
                                             </div>
+                                            <div class="cus_acnt__user__addSec">
+                                                <div id="createManagedUser"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="profile-section profile-section__managed-header d-none">
-                                
-                                <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUserCount}} of {{totalPlanUserCount}} used.</span></p>
-                                <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUserCount + 1 >= totalPlanUserCount %} hidden{% endif %}">+ Add users</a>
-                            </div>
 
-                            {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
-                                <div id="menu-search" class="managed-users-search u-margin-bottom-20">
-                                    <form method="get" id="managed-user-search" action="">
-                                        <div style="position:relative">
-                                            <input type="search" class="managed-users-search__field" name="s" id="managed-user-search-field" placeholder="Search by first or last name" required="">
-                                            <button class="managed-users-search__button" type="submit" id="user-search-submit">
-                                                Search
-                                            </button>
-                                            <button class="managed-users-search__button managed-users-search__button-clear" type="submit" id="user-search-clear">
-                                                Clear search
-                                            </button>
+                            <div class="cus_acnt-container">
+                                <div class="cus_acnt-row">
+                                    <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                        <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
+                                                {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
+                                                <div id="menu-search" class="cus_acnt__user-grid__search">
+                                                    <form method="get" id="managed-user-search" action="">
+                                                        <div class="cus_acnt__user-grid__search--field">
+                                                            <span>
+                                                                <img src="{{networkData.templatePath}}/static/icons/icons-navigation-search.svg" />
+                                                            </span>
+                                                            <input id="managed-user-search-field" name="s" type="text" placeholder="Find a user" class="cus_acnt__form__input" required="" />
+                                                        </div>
+                                                        <div class="cus_acnt__user-grid__search--btn">
+                                                            <button type="submit" class="cus_acnt__btn cus_acnt__btn__solid" type="submit" id="user-search-submit">Search</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            {% endif %}
+
+
+                                             <ul id="mangedUsers" class="managed-users">
+                                            {% if managedUserCount == 0 %} 
+                                                <div id="nousers" class="empty-listing">
+                                                    <p>You have no current users.</p>
+                                                </div>
+                                            {% else %}
+                                            
+                                                {% for user in managedUsers %}
+
+                                                    <li id="{{user.id}}" class="userdetails">
+                                                        <div class="u-float-left">
+                                                            <p class="userdetails__name">
+                                                                <span class="j-firstname">{{user.firstname}}</span> 
+                                                                <span class="j-lastname">{{user.lastname}}</span>
+                                                            </p> 
+                                                            {# <p class="j-username userdetails__username">{{user.username}}</p> #}
+                                                        </div>
+                                                        <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a>
+                                                        <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
+                                                        <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
+                                                    </li>
+                                                {% endfor %}
+
+                                            {% endif %}
+
+                                        </ul>
+                                            <div class="cus_acnt__user-grid__show-user">
+                                                Showing 0 users
+                                            </div>
+                                            <div id="user_profile">
+                                                <ul class="cus_acnt__user-grid__list">
+                                                    {% if managedUserCount == 0 %}
+                                                        <li id="nousers" class="no-data">No users found</li>
+                                                    {% else %}
+
+                                                    {% for user in managedUsers %}
+                                                        <li id="{{user.id}}" class="user-list--items">
+                                                            <aside>
+                                                                <div class="user-list--items-name">{{user.firstname}} {{user.lastname}}</div>
+                                                                <div class="user-list--items-email">{{user.email}}</div>
+                                                            </aside>
+                                                            <aside>
+                                                                <a href="javascript:;" class="user-list--items-remove j-delete userdetails__button">
+                                                                    <span class="icon fa fa-trash"></span>
+                                                                    <span>Remove</span>
+                                                                </a>
+                                                            </aside>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ul>
+
+                                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
+
+                                                    {{ this.render('partials/ajaxarticles_new.twig', {
+                                                        name            : "user-load",
+                                                        limit           : userLimit,
+                                                        label           : "Show more",
+                                                        loadtype        : "user",
+                                                        container       : "mangedUsers",
+                                                        card_class      : "userdetails",
+                                                        buttonClass     : "managed-users__more",
+                                                        cardTemplate    : "managed_user",
+                                                    }) | raw }}
+
+                                                {% endif %}
+                                            </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            {% endif %}
-
-                            <div id="createManagedUser"></div>
+                            </div>
 
                             <a id="createUserErrorMessage"></a>
-
-
-                            <div class="row">
-                                <div id="user_profile" class="col-md-12">
-                                    
-                                    <ul id="mangedUsers" class="managed-users">
-                                        {% if managedUserCount == 0 %} 
-                                            <div id="nousers" class="empty-listing">
-                                                <p>You have no current users.</p>
-                                            </div>
-                                        {% else %}
-                                        
-                                            {% for user in managedUsers %}
-
-                                                <li id="{{user.id}}" class="userdetails">
-                                                    <div class="u-float-left">
-                                                        <p class="userdetails__name">
-                                                            <span class="j-firstname">{{user.firstname}}</span> 
-                                                            <span class="j-lastname">{{user.lastname}}</span>
-                                                        </p> 
-                                                        {# <p class="j-username userdetails__username">{{user.username}}</p> #}
-                                                    </div>
-                                                    <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a>
-                                                    <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
-                                                    <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
-                                                </li>
-                                            {% endfor %}
-
-                                        {% endif %}
-
-                                    </ul>
-                                
-                                
-                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
-
-                                    {{ this.render('partials/ajaxarticles_new.twig', {
-                                        name            : "user-load",
-                                        limit           : userLimit,
-                                        label           : "Show more",
-                                        loadtype        : "user",
-                                        container       : "mangedUsers",
-                                        card_class      : "userdetails",
-                                        buttonClass     : "managed-users__more",
-                                        cardTemplate    : "managed_user",
-                                    }) | raw }}
-
-                                {% endif %}
-                                
-                                </div>
-                            </div>
                         </div>
                     {% endif %}
-
-                        <div class="cus_acnt-container d-none">
-                            <div class="cus_acnt-row">
-                                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
-                                    <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
-                                        <div class="cus_acnt__user-grid__search">
-                                            <form>
-                                                <div class="cus_acnt__user-grid__search--field">
-                                                    <span>
-                                                        <img src="{{networkData.templatePath}}/static/icons/icons-navigation-search.svg" />
-                                                    </span>
-                                                    <input id="managed-user-search-field" name="s" type="text" placeholder="Find a user" class="cus_acnt__form__input" />
-                                                </div>
-                                                <div class="cus_acnt__user-grid__search--btn">
-                                                    <button type="submit" class="cus_acnt__btn cus_acnt__btn__solid">Search</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div class="cus_acnt__user-grid__show-user">
-                                            Showing 0 users
-                                        </div>
-                                        <ul class="cus_acnt__user-grid__list">
-                                            <li class="no-data">No users found</li>
-                                            <li class="user-list--items">
-                                                <aside>
-                                                    <div class="user-list--items-name">Tom Jones</div>
-                                                    <div class="user-list--items-email">cheal@pagemasters.com.au</div>
-                                                </aside>
-                                                <aside>
-                                                    <a href="javascript:;" class="user-list--items-remove">
-                                                        <span class="icon fa fa-trash"></span>
-                                                        <span>Remove</span>
-                                                    </a>
-                                                </aside>
-                                            </li>
-                                            <li class="user-list--items">
-                                                <aside>
-                                                    <div class="user-list--items-name">Tom Jones</div>
-                                                    <div class="user-list--items-email">cheal@pagemasters.com.au</div>
-                                                </aside>
-                                                <aside>
-                                                    <a href="javascript:;" class="user-list--items-remove">
-                                                        <span class="icon fa fa-trash"></span>
-                                                        <span>Remove</span>
-                                                    </a>
-                                                </aside>
-                                            </li>
-                                            {% for user in managedUsers %}
-                                                <li id="{{user.id}}" class="c-managed-user">
-                                                    <p class="c-managed-user__email j-email">{{user.email}}</p>
-                                                    <a class="c-managed-user__close j-delete "></a>
-                                                    <a class="c-managed-user__edit j-edit"></a>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

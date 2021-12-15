@@ -403,7 +403,7 @@ export const Templates = {
     userPlanOkCancel:
         '<form name="loginForm" id="loginForm" class="active button-set" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
      <button id="okaybutton" class="login-form__button okay" data-role="okay">No, take me back</button> \
-     <button id="cancelbutton" class="login-form__button signin close" data-role="cancel">Yes, cancel my plan</button> \
+     <button id="cancelbutton" class="login-form__button signin close" data-role="cancel">Yes, cancel my plan </button> \
 </form>',
 
     modalVideo:

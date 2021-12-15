@@ -514,6 +514,7 @@
                   &-grid {
                     &__search,
                     form {
+                      flex: 1;
                       flex-direction: row;
 
                       &--field {
