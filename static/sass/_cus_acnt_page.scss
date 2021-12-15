@@ -768,6 +768,7 @@
 
             .cus_acnt__form__group {
               flex: 1 0 100%;
+              margin-bottom: 20px;
             }
           }
         }
@@ -816,7 +817,12 @@
               .user-editor {    
                 .cus_acnt__infoBox-form {    
                   .cus_acnt__form__group {
-                    flex: 1 0 50%;
+                    flex: 1 0 calc(50% - 20px);
+                    margin: 0 10px 20px;
+
+                    &.cus_acnt__form__btns {
+                      margin-top: 34px;
+                    }
                   }
                 }
               }

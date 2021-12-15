@@ -249,15 +249,15 @@ export const Templates = {
         '<div class="cus_acnt__infoBox-form" style="height:100%; overflow:auto; position:relative"> \
     <div class="cus_acnt__form__group"> \
         <label class="cus_acnt__form__label c-account-form__label" for="newuserfirstname">First name</label>\
-        <input type="text" id="newuserfirstname" class="j-firstname c-account-form__input" value="" placeholder="{{firstname}}"> \
+        <input type="text" id="newuserfirstname" class="j-firstname cus_acnt__form__input" value="" placeholder="{{firstname}}"> \
     </div> \
     <div class="cus_acnt__form__group"> \
         <label class="cus_acnt__form__label c-account-form__label" for="newuserlastname">Last name</label>\
-        <input type="text" id="newuserlastname" class="j-lastname c-account-form__input" value="" placeholder="{{lastname}}"> \
+        <input type="text" id="newuserlastname" class="j-lastname cus_acnt__form__input" value="" placeholder="{{lastname}}"> \
     </div> \
     <div class="cus_acnt__form__group"> \
         <label class="cus_acnt__form__label c-account-form__label" for="newuseruseremail">Email</label>\
-        <input type="text" id="newuseruseremail" class="j-email c-account-form__input" value="" placeholder="{{useremail}}"> \
+        <input type="text" id="newuseruseremail" class="j-email cus_acnt__form__input" value="" placeholder="{{useremail}}"> \
         <p id="userError" class="user-editor__error"></p> \
     </div> \
     <div id="user-editor-buttons" class="cus_acnt__form__group cus_acnt__form__btns"> \
