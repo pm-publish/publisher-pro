@@ -446,7 +446,7 @@
                                 <div class="cus_acnt-row">
                                     <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
                                         <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
-                                                {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
+                                            {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
                                                 <div id="menu-search" class="cus_acnt__user-grid__search">
                                                     <form method="get" id="managed-user-search" action="">
                                                         <div class="cus_acnt__user-grid__search--field">
@@ -460,21 +460,19 @@
                                                         </div>
                                                     </form>
                                                 </div>
+                                                <div class="cus_acnt__user-grid__show-user">
+                                                    {% set resultString = managedUserCount < 2 ? 'user' : 'users' %}
+                                                    Showing {{managedUserCount}} {{resultString}}
+                                                </div>
                                             {% endif %}
-                                            
-                                            <div class="cus_acnt__user-grid__show-user">
-                                                {% set userLength = user | length  %}
-                                                {% set resultString = userLength < 2 ? 'user' : 'users' %}
-                                                Showing {{userLength}} {{resultString}}
-                                            </div>
 
-                                             <ul id="mangedUsers" class="managed-users">
+                                             <ul id="mangedUsers" class="cus_acnt__user-grid__list">
                                                 {% if managedUserCount == 0 %}
                                                     <li id="nousers" class="no-data">No users found</li>
                                                 {% else %}
                                                 
                                                     {% for user in managedUsers %}
-                                                    
+
                                                         <li id="{{user.id}}" class="user-list--items">
                                                             <aside>
                                                                 <div class="user-list--items-name">{{user.firstname}} {{user.lastname}}</div>
