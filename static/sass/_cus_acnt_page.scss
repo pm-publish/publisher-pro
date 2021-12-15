@@ -512,8 +512,7 @@
               #{$selfCusAcnt} {
                 &__user {
                   &-grid {
-                    &__search,
-                    form {
+                    &__search {
                       flex: 1;
                       flex-direction: row;
 
@@ -525,6 +524,11 @@
                       &--btn {
                         max-width: 170px;
                       }
+                    }
+
+                    form {
+                      flex: 1;
+                      flex-direction: row;
                     }
 
                     &__list {
