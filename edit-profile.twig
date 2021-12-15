@@ -344,73 +344,71 @@
                                         <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
                                     </div>
                                     <div id="currentPlanStats" class="plans"
-                                data-cardsupplied="{{cardSupplied}}"
-                                data-currentUsers="{{managedUserCount}}"
-                                data-currentPeriod="{{pwstats['period']}}"
-                                data-currentCost="{{pwstats['plan_value']}}"
-                                data-currentType="{{pwstats['type']}}"
-                                data-expiry="{{pwstats['expiry_date']}}"
-                                data-currentplanperiodcount="{{pwstats['period_count']}}"
-                            >
+                                        data-cardsupplied="{{cardSupplied}}"
+                                        data-currentUsers="{{managedUserCount}}"
+                                        data-currentPeriod="{{pwstats['period']}}"
+                                        data-currentCost="{{pwstats['plan_value']}}"
+                                        data-currentType="{{pwstats['type']}}"
+                                        data-expiry="{{pwstats['expiry_date']}}"
+                                        data-currentplanperiodcount="{{pwstats['period_count']}}">
 
-                            {% for plan in plans %}
-                                {# {% if pwstats['status'] != 'paid' and pwstats['status'] != 'trial' %} #}
-                                {% set description = plan.description | split("!*!") %}
+                                        {% for plan in plans %}
+                                            {# {% if pwstats['status'] != 'paid' and pwstats['status'] != 'trial' %} #}
+                                            {% set description = plan.description | split("!*!") %}
 
-                                {% set data = _AppHelper.jsonDecode( description[0] ) %}
-                                {% if data['showplan'] is defined and data['showplan'] == false %}
-                                    {% set continue = true %}
-                                {% endif %}
+                                            {% set data = _AppHelper.jsonDecode( description[0] ) %}
+                                            {% if data['showplan'] is defined and data['showplan'] == false %}
+                                                {% set continue = true %}
+                                            {% endif %}
 
-                                {% set userCount = plan.user_count %}
-                                {% set planCost = plan.plan_value / 100 %}
-                                {% if planCost == 19.89 %}
-                                    {% set planCost = 19.90 %}
-                                {% endif %}
+                                            {% set userCount = plan.user_count %}
+                                            {% set planCost = plan.plan_value / 100 %}
+                                            {% if planCost == 19.89 %}
+                                                {% set planCost = 19.90 %}
+                                            {% endif %}
 
-                                {% set planPeriod = plan.period %}
-                                {% set planPeriodCount = "" %}
+                                            {% set planPeriod = plan.period %}
+                                            {% set planPeriodCount = "" %}
 
-                                {% if plan.period_count > 1 %}
-                                    {% set planPeriodCount = plan.period_count ~ " " %}
-                                    {% set planPeriod = plan.period ~ 's' %}
-                                {% endif %}
+                                            {% if plan.period_count > 1 %}
+                                                {% set planPeriodCount = plan.period_count ~ " " %}
+                                                {% set planPeriod = plan.period ~ 's' %}
+                                            {% endif %}
 
-                                <div class="{% if plan.guid != pwstats['plan_guid'] %} j-setplan {% else %}plans__current{% endif %} plans__item" style="cursor:hand; cursor:pointer;"
-                                    data-planid          = "{{plan.guid}}"
-                                    data-planusercount   = "{{userCount}}"
-                                    data-plancost        = "{{plan.plan_value}}"
-                                    data-planperiod      = "{{plan.period}}"
-                                    data-trialstatus     = "{{plan['trial_status']}}"
-                                    data-planType        = "{{plan.type}}"
-                                    data-planPeriodCount = "{{plan.period_count}}"
+                                            <div class="{% if plan.guid != pwstats['plan_guid'] %} j-setplan {% else %}plans__current{% endif %} plans__item" style="cursor:hand; cursor:pointer;"
+                                                data-planid          = "{{plan.guid}}"
+                                                data-planusercount   = "{{userCount}}"
+                                                data-plancost        = "{{plan.plan_value}}"
+                                                data-planperiod      = "{{plan.period}}"
+                                                data-trialstatus     = "{{plan['trial_status']}}"
+                                                data-planType        = "{{plan.type}}"
+                                                data-planPeriodCount = "{{plan.period_count}}"
 
-                                >
-                                    <h3 class="plans__name">{{plan.plan_name}}</h3>
-                                    
-                                    {% if plan.type == 'time' and userCount > 0 %}
-                                        <p class="plans__usercount">{{userCount + 1}} Users</p>
-                                    {% endif %}
+                                            >
+                                                <h3 class="plans__name">{{plan.plan_name}}</h3>
+                                                
+                                                {% if plan.type == 'time' and userCount > 0 %}
+                                                    <p class="plans__usercount">{{userCount + 1}} Users</p>
+                                                {% endif %}
 
-                                    {% if plan.type != 'signup' %}
-                                        <p class="plans__price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
-                                                            per {{planPeriodCount}}{{planPeriod}}</p>
-                                    {% endif %}
+                                                {% if plan.type != 'signup' %}
+                                                    <p class="plans__price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
+                                                                        per {{planPeriodCount}}{{planPeriod}}</p>
+                                                {% endif %}
 
-                                </div>
-                                {# {% endif %} #}
-                            {% endfor %}
-                            </div>
+                                            </div>
+                                            {# {% endif %} #}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         {% if pwstats['type'] == 'time' and totalPlanUserCount > 0 %}
-                        <div class="profile-section profile-section__managed-header">
-
-                            {% set usersLeft = totalPlanUserCount > 0 ? totalPlanUserCount -1 : totalPlanUserCount %}
-                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUserCount}} of {{totalPlanUserCount}} used.</span></p>
-                            <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUserCount + 1 >= totalPlanUserCount %} hidden{% endif %}">+ Add users</a>
+                            <div class="profile-section profile-section__managed-header">
+                                {% set usersLeft = totalPlanUserCount > 0 ? totalPlanUserCount -1 : totalPlanUserCount %}
+                                <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUserCount}} of {{totalPlanUserCount}} used.</span></p>
+                                <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUserCount + 1 >= totalPlanUserCount %} hidden{% endif %}">+ Add users</a>
                             </div>
 
                             {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
@@ -481,11 +479,7 @@
                                 {% endif %}
                                 
                                 </div>
-                                
-
-                                
                             </div>
-
                         </div>
                     {% endif %}
 
