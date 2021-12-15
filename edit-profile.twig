@@ -392,8 +392,7 @@
                                                             {% if plan.type != 'signup' %}                                                            
                                                                 <td>
                                                                     <span class="cus_acnt__plan-table--price">
-                                                                    {{_AppHelper.printArray(plan)}}
-                                                                    {{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})
+                                                                    {{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}
                                                                                     /{{planPeriodCount}}{{planPeriod}}</span>
                                                                 </td>
                                                                 {% else %}
