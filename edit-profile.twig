@@ -343,6 +343,64 @@
                                         <div class="cus_acnt__user-head--label">Choose a plan</div>
                                         <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
                                     </div>
+                                    <div class="cus_acnt__plan-table js-tableView" id="currentPlanStats"
+                                        data-cardsupplied="{{cardSupplied}}"
+                                        data-currentUsers="{{managedUserCount}}"
+                                        data-currentPeriod="{{pwstats['period']}}"
+                                        data-currentCost="{{pwstats['plan_value']}}"
+                                        data-currentType="{{pwstats['type']}}"
+                                        data-expiry="{{pwstats['expiry_date']}}"
+                                        data-currentplanperiodcount="{{pwstats['period_count']}}>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Plan name</th>
+                                                        <th colspan="3">Cost</th>
+                                                    </tr>
+                                                </thead>
+                                            <tbody>
+                                                {% for plan in plans %}
+                                                    <tr class="view">
+                                                        <td>
+                                                            <span class="cus_acnt__plan-table--title">Ultimate Plan</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="cus_acnt__plan-table--price">$15.00 /month</span>
+                                                        </td>
+                                                        <td>
+                                                            <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                        </td>
+                                                        <td>
+                                                            <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="folded">
+                                                        <td colspan="4">
+                                                            <div class="users-feature__list">
+                                                                <ul>
+                                                                    <li>News, sport and local events</li>
+                                                                    <li>Access to all articles online</li>
+                                                                    <li>Save $15</li>
+                                                                </ul>
+                                                                <ul>
+                                                                    <li>News, sport and local events</li>
+                                                                    <li>Access to all articles online</li>
+                                                                    <li>Save $15</li>
+                                                                </ul>
+                                                                <ul>
+                                                                    <li>News, sport and local events</li>
+                                                                    <li>Access to all articles online</li>
+                                                                    <li>Save $15</li>
+                                                                </ul>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                     <div id="currentPlanStats" class="plans"
                                         data-cardsupplied="{{cardSupplied}}"
                                         data-currentUsers="{{managedUserCount}}"
