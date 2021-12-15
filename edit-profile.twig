@@ -385,14 +385,7 @@
                                                             {% set planPeriod = plan.period ~ 's' %}
                                                         {% endif %}
 
-                                                        <tr class="view {% if plan.guid = pwstats['plan_guid'] %} active {% endif %}" 
-                                                            data-planid          = "{{plan.guid}}"
-                                                            data-planusercount   = "{{userCount}}"
-                                                            data-plancost        = "{{plan.plan_value}}"
-                                                            data-planperiod      = "{{plan.period}}"
-                                                            data-trialstatus     = "{{plan['trial_status']}}"
-                                                            data-planType        = "{{plan.type}}"
-                                                            data-planPeriodCount = "{{plan.period_count}}">
+                                                        <tr class="view {% if plan.guid = pwstats['plan_guid'] %} active {% endif %}">
                                                             <td>
                                                                 <span class="cus_acnt__plan-table--title">{{plan.plan_name}}</span>
                                                             </td>
