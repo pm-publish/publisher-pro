@@ -385,7 +385,7 @@
                                                             {% set planPeriod = plan.period ~ 's' %}
                                                         {% endif %}
 
-                                                        <tr class="view">
+                                                        <tr class="view {% if plan.guid = pwstats['plan_guid'] %} active {% endif %}">
                                                             <td>
                                                                 <span class="cus_acnt__plan-table--title">{{plan.plan_name}}</span>
                                                             </td>
@@ -468,8 +468,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="clearfix"></div>
 
                             <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs">
                                 <div class="cus_acnt-container">
@@ -565,8 +563,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endif %}
+                        {% endif %}
                     </div>
                 </div>
             </div>
