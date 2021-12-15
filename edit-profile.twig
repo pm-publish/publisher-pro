@@ -464,77 +464,93 @@
 
 
                                              <ul id="mangedUsers" class="managed-users">
-                                            {% if managedUserCount == 0 %} 
-                                                <div id="nousers" class="empty-listing">
-                                                    <p>You have no current users.</p>
-                                                </div>
-                                            {% else %}
-                                            
-                                                {% for user in managedUsers %}
+                                                {% if managedUserCount == 0 %} 
+                                                    <div id="nousers" class="empty-listing">
+                                                        <p>You have no current users.</p>
+                                                    </div>
+                                                {% else %}
+                                                
+                                                    {% for user in managedUsers %}
 
-                                                    <li id="{{user.id}}" class="userdetails">
-                                                        <div class="u-float-left">
-                                                            <p class="userdetails__name">
-                                                                <span class="j-firstname">{{user.firstname}}</span> 
-                                                                <span class="j-lastname">{{user.lastname}}</span>
-                                                            </p> 
-                                                            {# <p class="j-username userdetails__username">{{user.username}}</p> #}
-                                                        </div>
-                                                        <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a>
-                                                        <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
-                                                        <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
-                                                    </li>
-                                                {% endfor %}
+                                                        <li id="{{user.id}}" class="userdetails">
+                                                            <div class="u-float-left">
+                                                                <p class="userdetails__name">
+                                                                    <span class="j-firstname">{{user.firstname}}</span> 
+                                                                    <span class="j-lastname">{{user.lastname}}</span>
+                                                                </p> 
+                                                                {# <p class="j-username userdetails__username">{{user.username}}</p> #}
+                                                            </div>
+                                                            <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a>
+                                                            <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
+                                                            <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
+                                                        </li>
+                                                    {% endfor %}
 
-                                            {% endif %}
+                                                {% endif %}
 
-                                        </ul>
+                                            </ul>
+
                                             <div class="cus_acnt__user-grid__show-user">
                                                 Showing 0 users
                                             </div>
-                                            <div id="user_profile">
-                                                <ul class="cus_acnt__user-grid__list">
-                                                    {% if managedUserCount == 0 %}
-                                                        <li id="nousers" class="no-data">No users found</li>
-                                                    {% else %}
-
-                                                    {% for user in managedUsers %}
-                                                        <li id="{{user.id}}" class="user-list--items">
-                                                            <aside>
-                                                                <div class="user-list--items-name">{{user.firstname}} {{user.lastname}}</div>
-                                                                <div class="user-list--items-email">{{user.email}}</div>
-                                                            </aside>
-                                                            <aside>
-                                                                <a href="javascript:;" class="user-list--items-remove j-delete userdetails__button">
-                                                                    <span class="icon fa fa-trash"></span>
-                                                                    <span>Remove</span>
-                                                                </a>
-                                                            </aside>
-                                                        </li>
-                                                    {% endfor %}
-                                                </ul>
-
-                                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
-
-                                                    {{ this.render('partials/ajaxarticles_new.twig', {
-                                                        name            : "user-load",
-                                                        limit           : userLimit,
-                                                        label           : "Show more",
-                                                        loadtype        : "user",
-                                                        container       : "mangedUsers",
-                                                        card_class      : "userdetails",
-                                                        buttonClass     : "managed-users__more",
-                                                        cardTemplate    : "managed_user",
-                                                    }) | raw }}
-
-                                                {% endif %}
-                                            </div>
+                                            <ul class="cus_acnt__user-grid__list">
+                                                <li class="no-data">No users found</li>
+                                                <li class="user-list--items">
+                                                    <aside>
+                                                        <div class="user-list--items-name">Tom Jones</div>
+                                                        <div class="user-list--items-email">cheal@pagemasters.com.au</div>
+                                                    </aside>
+                                                    <aside>
+                                                        <a href="javascript:;" class="user-list--items-remove">
+                                                            <span class="icon fa fa-trash"></span>
+                                                            <span>Remove</span>
+                                                        </a>
+                                                    </aside>
+                                                </li>
+                                                <li class="user-list--items">
+                                                    <aside>
+                                                        <div class="user-list--items-name">Tom Jones</div>
+                                                        <div class="user-list--items-email">cheal@pagemasters.com.au</div>
+                                                    </aside>
+                                                    <aside>
+                                                        <a href="javascript:;" class="user-list--items-remove">
+                                                            <span class="icon fa fa-trash"></span>
+                                                            <span>Remove</span>
+                                                        </a>
+                                                    </aside>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <a id="createUserErrorMessage"></a>
+
+
+                            <div class="row">
+                                <div id="user_profile" class="col-md-12">
+                                    
+                                   
+                                
+                                
+                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
+
+                                    {{ this.render('partials/ajaxarticles_new.twig', {
+                                        name            : "user-load",
+                                        limit           : userLimit,
+                                        label           : "Show more",
+                                        loadtype        : "user",
+                                        container       : "mangedUsers",
+                                        card_class      : "userdetails",
+                                        buttonClass     : "managed-users__more",
+                                        cardTemplate    : "managed_user",
+                                    }) | raw }}
+
+                                {% endif %}
+                                
+                                </div>
+                            </div>
                         </div>
                     {% endif %}
                     </div>
