@@ -385,16 +385,27 @@
                                                             {% set planPeriod = plan.period ~ 's' %}
                                                         {% endif %}
 
-                                                        <tr class="view">
+                                                        <tr class="view {% if plan.guid = pwstats['plan_guid'] %} active {% endif %}" 
+                                                            data-planid          = "{{plan.guid}}"
+                                                            data-planusercount   = "{{userCount}}"
+                                                            data-plancost        = "{{plan.plan_value}}"
+                                                            data-planperiod      = "{{plan.period}}"
+                                                            data-trialstatus     = "{{plan['trial_status']}}"
+                                                            data-planType        = "{{plan.type}}"
+                                                            data-planPeriodCount = "{{plan.period_count}}">
                                                             <td>
                                                                 <span class="cus_acnt__plan-table--title">{{plan.plan_name}}</span>
                                                             </td>
-                                                            {% if plan.type != 'signup' %}
-                                                                <p class="plans__price"></p>
-                                                            
+                                                            {% if plan.type != 'signup' %}                                                            
                                                                 <td>
-                                                                    <span class="cus_acnt__plan-table--price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
-                                                                                    / {{planPeriodCount}}{{planPeriod}}</span>
+                                                                    <span class="cus_acnt__plan-table--price">
+                                                                    {{_AppHelper.printArray(plan)}}
+                                                                    {{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})
+                                                                                    /{{planPeriodCount}}{{planPeriod}}</span>
+                                                                </td>
+                                                                {% else %}
+                                                                <td>
+                                                                    <span class="cus_acnt__plan-table--price">Free</span>
                                                                 </td>
                                                             {% endif %}
                                                             
@@ -402,7 +413,11 @@
                                                                 <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
                                                             </td>
                                                             <td>
-                                                                <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
+                                                                {% if plan.guid != pwstats['plan_guid'] %}
+                                                                    <a href="javascript:;" class="cus_acnt__plan-table--purchase j-setplan">Purchase</a>
+                                                                {% else %}
+                                                                    <a href="javascript:;" class="cus_acnt__plan-table--purchase">Your Plan</a>
+                                                                {% endif %}
                                                             </td>
                                                         </tr>
                                                         <tr class="folded">
@@ -436,19 +451,7 @@
                                                             data-planType        = "{{plan.type}}"
                                                             data-planPeriodCount = "{{plan.period_count}}"
 
-                                                        >
-                                                            <h3 class="plans__name"></h3>
-                                                            
-                                                            {% if plan.type == 'time' and userCount > 0 %}
-                                                                <p class="plans__usercount">{{userCount + 1}} Users</p>
-                                                            {% endif %}
-
-                                                            {% if plan.type != 'signup' %}
-                                                                <p class="plans__price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
-                                                                                    per {{planPeriodCount}}{{planPeriod}}</p>
-                                                            {% endif %}
-
-                                                        </div>
+                                                        ></div>
                                                         {# {% endif %} #}
                                                     {% endfor %}
                                                 </tbody>
