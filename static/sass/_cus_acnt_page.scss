@@ -743,6 +743,35 @@
           }
         }
 
+        &__addSec {
+          .user-editor {
+            .text-button {
+              position: absolute;
+              top: 0;
+              width: 170px;
+              height: 48px;
+              left: 15px;
+              background-color: $grey3;
+              display: flex;
+              align-items: center;
+              font-size: 16px;
+              line-height: 1.23;
+              color: $black;
+              font-weight: $weightBold;
+              font-family: $primaryFont;
+            }
+          }
+
+          .cus_acnt__infoBox-form {
+            display: flex;
+            flex-wrap: wrap;
+
+            .cus_acnt__form__group {
+              flex: 1 0 100%;
+            }
+          }
+        }
+
         &__allot-wrap {
           display: flex;
           align-items: center;
@@ -780,6 +809,16 @@
               &-btn {
                 max-width: 170px;
                 margin-bottom: 0;
+              }
+            }
+
+            &__addSec {
+              .user-editor {    
+                .cus_acnt__infoBox-form {    
+                  .cus_acnt__form__group {
+                    flex: 1 0 50%;
+                  }
+                }
               }
             }
           }

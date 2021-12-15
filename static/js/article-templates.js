@@ -246,20 +246,23 @@ export const Templates = {
 
 
     create_user:
-        '<div class="" style="height:100%; overflow:auto; position:relative"> \
-    <div class="user-editor__input-container u-float-left"> \
-        <input type="text" id="newuserfirstname" class="j-firstname account-form__input" value="" placeholder="{{firstname}}"> \
+        '<div class="cus_acnt__infoBox-form" style="height:100%; overflow:auto; position:relative"> \
+    <div class="cus_acnt__form__group"> \
+        <label class="cus_acnt__form__label c-account-form__label" for="newuserfirstname">First name</label>\
+        <input type="text" id="newuserfirstname" class="j-firstname c-account-form__input" value="" placeholder="{{firstname}}"> \
     </div> \
-    <div class="user-editor__input-container u-float-right"> \
-        <input type="text" id="newuserlastname" class="j-lastname account-form__input" value="" placeholder="{{lastname}}"> \
+    <div class="cus_acnt__form__group"> \
+        <label class="cus_acnt__form__label c-account-form__label" for="newuserlastname">Last name</label>\
+        <input type="text" id="newuserlastname" class="j-lastname c-account-form__input" value="" placeholder="{{lastname}}"> \
     </div> \
-    <div class="user-editor__input-container u-float-left"> \
-        <input type="text" id="newuseruseremail" class="j-email account-form__input" value="" placeholder="{{useremail}}"> \
+    <div class="cus_acnt__form__group"> \
+        <label class="cus_acnt__form__label c-account-form__label" for="newuseruseremail">Email</label>\
+        <input type="text" id="newuseruseremail" class="j-email c-account-form__input" value="" placeholder="{{useremail}}"> \
         <p id="userError" class="user-editor__error"></p> \
     </div> \
-    <div id="user-editor-buttons" class="user-editor__input-container user-editor__buttons u-float-right"> \
-        <a id="cancelUserCreate" class="userdetails__button userdetails__button--delete u-float-right"></a> \
-        <a id="saveUser"       class="userdetails__button userdetails__button--save u-float-right">Save</a> \
+    <div id="user-editor-buttons" class="cus_acnt__form__group cus_acnt__form__btns"> \
+        <a id="saveUser"       class="cus_acnt__btn cus_acnt__btn__solid">Add user</a> \
+        <a id="cancelUserCreate" class="cus_acnt__btn cus_acnt__btn__bordered">cancel</a> \
     </div> \
     <div id="user-editor__spinner" class="user-editor__spinner"></div> \
 </div>',
