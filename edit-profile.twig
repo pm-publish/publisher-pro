@@ -441,7 +441,7 @@
                                 </div>
                             </div>
 
-
+                            <a id="createUserErrorMessage"></a>
                             <div class="cus_acnt-container">
                                 <div class="cus_acnt-row">
                                     <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
@@ -465,60 +465,49 @@
                                                     Showing {{managedUserCount}} {{resultString}}
                                                 </div>
                                             {% endif %}
+                                            <div id="user_profile"">
+                                                <ul id="mangedUsers" class="cus_acnt__user-grid__list">
+                                                    {% if managedUserCount == 0 %}
+                                                        <li id="nousers" class="no-data">No users found</li>
+                                                    {% else %}
+                                                    
+                                                        {% for user in managedUsers %}
 
-                                             <ul id="mangedUsers" class="cus_acnt__user-grid__list">
-                                                {% if managedUserCount == 0 %}
-                                                    <li id="nousers" class="no-data">No users found</li>
-                                                {% else %}
-                                                
-                                                    {% for user in managedUsers %}
+                                                            <li id="{{user.id}}" class="user-list--items">
+                                                                <aside>
+                                                                    <div class="user-list--items-name">{{user.firstname}} {{user.lastname}}</div>
+                                                                    <div class="user-list--items-email">{{user.email}}</div>
+                                                                </aside>
+                                                                <aside>
+                                                                    <a href="javascript:;" class="user-list--items-remove j-delete userdetails__button">
+                                                                        <span class="icon fa fa-trash"></span>
+                                                                        <span>Remove</span>
+                                                                    </a>
+                                                                </aside>
+                                                            </li>
+                                                        {% endfor %}
 
-                                                        <li id="{{user.id}}" class="user-list--items">
-                                                            <aside>
-                                                                <div class="user-list--items-name">{{user.firstname}} {{user.lastname}}</div>
-                                                                <div class="user-list--items-email">{{user.email}}</div>
-                                                            </aside>
-                                                            <aside>
-                                                                <a href="javascript:;" class="user-list--items-remove j-delete userdetails__button">
-                                                                    <span class="icon fa fa-trash"></span>
-                                                                    <span>Remove</span>
-                                                                </a>
-                                                            </aside>
-                                                        </li>
-                                                    {% endfor %}
+                                                    {% endif %}
+
+                                                </ul>
+
+                                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
+
+                                                    {{ this.render('partials/ajaxarticles_new.twig', {
+                                                        name            : "user-load",
+                                                        limit           : userLimit,
+                                                        label           : "Show more",
+                                                        loadtype        : "user",
+                                                        container       : "mangedUsers",
+                                                        card_class      : "userdetails",
+                                                        buttonClass     : "managed-users__more",
+                                                        cardTemplate    : "managed_user",
+                                                    }) | raw }}
 
                                                 {% endif %}
-
-                                            </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <a id="createUserErrorMessage"></a>
-
-
-                            <div class="row">
-                                <div id="user_profile" class="col-md-12">
-                                    
-                                   
-                                
-                                
-                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
-
-                                    {{ this.render('partials/ajaxarticles_new.twig', {
-                                        name            : "user-load",
-                                        limit           : userLimit,
-                                        label           : "Show more",
-                                        loadtype        : "user",
-                                        container       : "mangedUsers",
-                                        card_class      : "userdetails",
-                                        buttonClass     : "managed-users__more",
-                                        cardTemplate    : "managed_user",
-                                    }) | raw }}
-
-                                {% endif %}
-                                
                                 </div>
                             </div>
                         </div>
