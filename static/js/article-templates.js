@@ -98,7 +98,7 @@ export const Templates = {
         <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="{{name}}__header"> \
                 <h2 class="{{name}}__title">{{{title}}}</h2> \
-                <p class="{{name}}__description">Welcome to The News Regional Victoria.</p> \
+                <p class="{{name}}__description">Please confirm you would like to cancel your plan.</p> \
                 <a class="{{name}}__close" href="#" data-behaviour="close"></a> \
             </div> \
             <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
@@ -401,9 +401,9 @@ export const Templates = {
 </form>',
 
     userPlanOkCancel:
-        '<form name="loginForm" id="loginForm" class="active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-     <button id="okaybutton" class="_btn _btn--red okay" data-role="okay">OK</button> \
-     <button id="cancelbutton" class="_btn _btn--gray close" data-role="cancel">Cancel</button> \
+        '<form name="loginForm" id="loginForm" class="active button-set" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+     <button id="okaybutton" class="login-form__button okay" data-role="okay">No, take me back</button> \
+     <button id="cancelbutton" class="login-form__button signin close" data-role="cancel">Yes, cancel my plan</button> \
 </form>',
 
     modalVideo:

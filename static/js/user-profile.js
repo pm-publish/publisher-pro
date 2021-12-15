@@ -478,7 +478,7 @@ UserProfileController.prototype.events = function ()
         // var listelem = $(e.target).closest('li');
 
         let status = 'cancelled';
-        let message = "Are you sure you want to cancel your plan?"
+        let message = "Are you sure?"
         if ($(e.target).text() == 'Restart Subscription') {
             message = "Do you want to reactivate your plan? You will be billed on the next payment date."
             status = 'paid'

@@ -346,98 +346,151 @@
                                         <div class="cus_acnt__user-head--label">Choose a plan</div>
                                         <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
                                     </div>
-                                    <div class="cus_acnt__plan-table js-tableView" id="currentPlanStats"
-                                        data-cardsupplied="{{cardSupplied}}"
-                                        data-currentUsers="{{managedUserCount}}"
-                                        data-currentPeriod="{{pwstats['period']}}"
-                                        data-currentCost="{{pwstats['plan_value']}}"
-                                        data-currentType="{{pwstats['type']}}"
-                                        data-expiry="{{pwstats['expiry_date']}}"
-                                        data-currentplanperiodcount="{{pwstats['period_count']}}"
-                                    >
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Plan name</th>
-                                                        <th colspan="3">Cost</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {% for plan in plans %}
-                                                        {# {% if pwstats['status'] != 'paid' and pwstats['status'] != 'trial' %} #}
-                                                        {% set description = plan.description | split("!*!") %}
+                                    <div id="currentPlanStats" class="plans"
+                                data-cardsupplied="{{cardSupplied}}"
+                                data-currentUsers="{{managedUserCount}}"
+                                data-currentPeriod="{{pwstats['period']}}"
+                                data-currentCost="{{pwstats['plan_value']}}"
+                                data-currentType="{{pwstats['type']}}"
+                                data-expiry="{{pwstats['expiry_date']}}"
+                                data-currentplanperiodcount="{{pwstats['period_count']}}"
+                            >
 
-                                                        {% set data = _AppHelper.jsonDecode( description[0] ) %}
-                                                        {% if data['showplan'] is defined and data['showplan'] == false %}
-                                                            {% set continue = true %}
-                                                        {% endif %}
+                            {% for plan in plans %}
+                                {# {% if pwstats['status'] != 'paid' and pwstats['status'] != 'trial' %} #}
+                                {% set description = plan.description | split("!*!") %}
 
-                                                        {% set userCount = plan.user_count %}
-                                                        {% set planCost = plan.plan_value / 100 %}
-                                                        {% if planCost == 19.89 %}
-                                                            {% set planCost = 19.90 %}
-                                                        {% endif %}
+                                {% set data = _AppHelper.jsonDecode( description[0] ) %}
+                                {% if data['showplan'] is defined and data['showplan'] == false %}
+                                    {% set continue = true %}
+                                {% endif %}
 
-                                                        {% set planPeriod = plan.period %}
-                                                        {% set planPeriodCount = "" %}
+                                {% set userCount = plan.user_count %}
+                                {% set planCost = plan.plan_value / 100 %}
+                                {% if planCost == 19.89 %}
+                                    {% set planCost = 19.90 %}
+                                {% endif %}
 
-                                                        {% if plan.period_count > 1 %}
-                                                            {% set planPeriodCount = plan.period_count ~ " " %}
-                                                            {% set planPeriod = plan.period ~ 's' %}
-                                                        {% endif %}
-                                                        <tr class="view {% if plan.guid != pwstats['plan_guid'] %} j-setplan {% else %}plans__current{% endif %} plans__item" style="cursor:hand; cursor:pointer;"
-                                                            data-planid          = "{{plan.guid}}"
-                                                            data-planusercount   = "{{userCount}}"
-                                                            data-plancost        = "{{plan.plan_value}}"
-                                                            data-planperiod      = "{{plan.period}}"
-                                                            data-trialstatus     = "{{plan['trial_status']}}"
-                                                            data-planType        = "{{plan.type}}"
-                                                            data-planPeriodCount = "{{plan.period_count}}">
-                                                        <td>
-                                                            <span class="cus_acnt__plan-table--title">{{plan.plan_name}}</span>
-                                                        </td>
-                                                        <td>
-                                                            {% if plan.type != 'signup' %}
-                                                                <span class="cus_acnt__plan-table--price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
-                                                                per {{planPeriodCount}}{{planPeriod}}</span>
-                                                            {% endif %}
-                                                        </td>
-                                                        <td>
-                                                            <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
-                                                        </td>
-                                                        <td>
-                                                            <a href="javascript:;" class="cus_acnt__plan-table--purchase">Purchase</a>
-                                                        </td>
-                                                    </tr>
-                                                    <tr class="folded">
-                                                        <td colspan="4">
-                                                            <div class="users-feature__list">
-                                                                <ul>
-                                                                    <li>News, sport and local events</li>
-                                                                    <li>Access to all articles online</li>
-                                                                    <li>Save $15</li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li>News, sport and local events</li>
-                                                                    <li>Access to all articles online</li>
-                                                                    <li>Save $15</li>
-                                                                </ul>
-                                                                <ul>
-                                                                    <li>News, sport and local events</li>
-                                                                    <li>Access to all articles online</li>
-                                                                    <li>Save $15</li>
-                                                                </ul>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                            </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                                {% set planPeriod = plan.period %}
+                                {% set planPeriodCount = "" %}
+
+                                {% if plan.period_count > 1 %}
+                                    {% set planPeriodCount = plan.period_count ~ " " %}
+                                    {% set planPeriod = plan.period ~ 's' %}
+                                {% endif %}
+
+                                <div class="{% if plan.guid != pwstats['plan_guid'] %} j-setplan {% else %}plans__current{% endif %} plans__item" style="cursor:hand; cursor:pointer;"
+                                    data-planid          = "{{plan.guid}}"
+                                    data-planusercount   = "{{userCount}}"
+                                    data-plancost        = "{{plan.plan_value}}"
+                                    data-planperiod      = "{{plan.period}}"
+                                    data-trialstatus     = "{{plan['trial_status']}}"
+                                    data-planType        = "{{plan.type}}"
+                                    data-planPeriodCount = "{{plan.period_count}}"
+
+                                >
+                                    <h3 class="plans__name">{{plan.plan_name}}</h3>
+                                    
+                                    {% if plan.type == 'time' and userCount > 0 %}
+                                        <p class="plans__usercount">{{userCount + 1}} Users</p>
+                                    {% endif %}
+
+                                    {% if plan.type != 'signup' %}
+                                        <p class="plans__price">{{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}({{plan.currency|raw}})<br />
+                                                            per {{planPeriodCount}}{{planPeriod}}</p>
+                                    {% endif %}
+
+                                </div>
+                                {# {% endif %} #}
+                            {% endfor %}
+                            </div>
                                 </div>
                             </div>
                         </div>
+
+                        {% if pwstats['type'] == 'time' and totalPlanUserCount > 0 %}
+                        <div class="profile-section profile-section__managed-header">
+
+                            {% set usersLeft = totalPlanUserCount > 0 ? totalPlanUserCount -1 : totalPlanUserCount %}
+                            <p class="profile-section__heading">My Users <span class="profile-section__users-left">{{managedUserCount}} of {{totalPlanUserCount}} used.</span></p>
+                            <a id="addManagedUser" style="z-index:1000;" class="text-button text-button--italic u-float-right{% if managedUserCount + 1 >= totalPlanUserCount %} hidden{% endif %}">+ Add users</a>
+                            </div>
+
+                            {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
+                                <div id="menu-search" class="managed-users-search u-margin-bottom-20">
+                                    <form method="get" id="managed-user-search" action="">
+                                        <div style="position:relative">
+                                            <input type="search" class="managed-users-search__field" name="s" id="managed-user-search-field" placeholder="Search by first or last name" required="">
+                                            <button class="managed-users-search__button" type="submit" id="user-search-submit">
+                                                Search
+                                            </button>
+                                            <button class="managed-users-search__button managed-users-search__button-clear" type="submit" id="user-search-clear">
+                                                Clear search
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            {% endif %}
+
+                            <div id="createManagedUser"></div>
+
+                            <a id="createUserErrorMessage"></a>
+
+
+                            <div class="row">
+                                <div id="user_profile" class="col-md-12">
+                                    
+                                    <ul id="mangedUsers" class="managed-users">
+                                        {% if managedUserCount == 0 %} 
+                                            <div id="nousers" class="empty-listing">
+                                                <p>You have no current users.</p>
+                                            </div>
+                                        {% else %}
+                                        
+                                            {% for user in managedUsers %}
+
+                                                <li id="{{user.id}}" class="userdetails">
+                                                    <div class="u-float-left">
+                                                        <p class="userdetails__name">
+                                                            <span class="j-firstname">{{user.firstname}}</span> 
+                                                            <span class="j-lastname">{{user.lastname}}</span>
+                                                        </p> 
+                                                        {# <p class="j-username userdetails__username">{{user.username}}</p> #}
+                                                    </div>
+                                                    <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a>
+                                                    <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>
+                                                    <p class="j-email userdetails__email u-float-right">{{user.email}}</p>
+                                                </li>
+                                            {% endfor %}
+
+                                        {% endif %}
+
+                                    </ul>
+                                
+                                
+                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
+
+                                    {{ this.render('partials/ajaxarticles_new.twig', {
+                                        name            : "user-load",
+                                        limit           : userLimit,
+                                        label           : "Show more",
+                                        loadtype        : "user",
+                                        container       : "mangedUsers",
+                                        card_class      : "userdetails",
+                                        buttonClass     : "managed-users__more",
+                                        cardTemplate    : "managed_user",
+                                    }) | raw }}
+
+                                {% endif %}
+                                
+                                </div>
+                                
+
+                                
+                            </div>
+
+                        </div>
+                    {% endif %}
 
                         <div class="cus_acnt-container d-none">
                             <div class="cus_acnt-row">
@@ -449,7 +502,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs">
+                        <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs d-none">
                             <div class="cus_acnt-container">
                                 <div class="cus_acnt-row">
                                     <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
