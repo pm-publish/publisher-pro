@@ -526,11 +526,6 @@
                       }
                     }
 
-                    form {
-                      flex: 1;
-                      flex-direction: row;
-                    }
-
                     &__list {
                       .user-list--items {
                         flex-direction: row;
@@ -544,6 +539,11 @@
                     }
                   }
                 }
+              }
+
+              form {
+                flex: 1;
+                flex-direction: row;
               }
             }
           }
