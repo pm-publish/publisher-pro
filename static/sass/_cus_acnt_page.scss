@@ -512,7 +512,8 @@
               #{$selfCusAcnt} {
                 &__user {
                   &-grid {
-                    &__search {
+                    &__search,
+                    form {
                       flex-direction: row;
 
                       &--field {
