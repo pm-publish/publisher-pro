@@ -358,11 +358,12 @@ article.additionalInfo.image_crop == 'full' %}
                                             {% endfor %}
                                         </div>
                                     </div>
-
-                                    {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
-                                        <div class="mt-4">
-                                            <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
-                                        </div>
+                                    {% if showPaywall != true %}
+                                        {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                                            <div class="mt-4">
+                                                <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
 
                                 </div>

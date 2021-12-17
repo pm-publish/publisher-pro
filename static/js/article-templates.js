@@ -370,10 +370,12 @@ export const Templates = {
             <input id="email" class="login-form__input password-reset-form__input" type="text" name="email" placehold="Email" value=""> \
         </div> \
         <div class="message active u-hide"> \
-            <div class="password-reset-form__error_text">No user with that email found.</div> \
+            <div class="login-form__error_text">No user with that email found.</div> \
         </div> \
         \
-        <button id="forgotBtn" type="submit" class="login-form__button fullwidth _btn _btn--red forgot">Send email</button> \
+        <div class="button-set"> \
+            <button id="forgotBtn" type="submit" class="login-form__button fullwidth _btn _btn--red forgot">Send email</button> \
+        </div> \
     </form>',
 
 
