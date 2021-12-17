@@ -98,7 +98,7 @@ export const Templates = {
         <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="{{name}}__header"> \
                 <h2 class="{{name}}__title">{{{title}}}</h2> \
-                <p class="{{name}}__description">Please confirm you would like to cancel your plan.</p> \
+                <p class="{{name}}__description">{{description}}</p> \
                 <a class="{{name}}__close" href="#" data-behaviour="close"></a> \
             </div> \
             <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
@@ -317,14 +317,14 @@ export const Templates = {
             <div class="signin-modal__form-group__label"> \
                 <label class="signin-modal__form-group__label-text">Email address</label> \
             </div> \
-            <input id="loginName" class="{{class-prefix}}login-form__input j-register-username" type="text" name="username" placeholder="Email address" value="" /> \
+            <input id="loginName" class="{{class-prefix}}login-form__input j-register-username" type="text" name="username" placeholder="Email" value="" /> \
         </div> \
         <div class="signin-modal__form-group"> \
             <div class="signin-modal__form-group__label"> \
                 <label class="signin-modal__form-group__label-text">Password</label> \
                 <p class="{{class-prefix}}login-form__forgot layout" data-layout="forgot" class="">Forgot password</p> \
             </div> \
-            <input id="loginPass" class="{{class-prefix}}login-form__input j-signin-password" type="password" name="password" placeholder="Password" value="" /> \
+            <input id="loginPass" class="{{class-prefix}}login-form__input j-signin-password" type="password" name="password" placeholder="******" value="" /> \
         </div> \
         \
         <div class="{{class-prefix}}login-form__error message active u-hide"> \
@@ -333,7 +333,7 @@ export const Templates = {
         \
         <div class="button-set"> \
             <button type="submit" class="login-form__button cancel">Cancel</button> \
-            <button data-elem="signin" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button _btn _btn--red signin">Log in</button> \
+            <button data-elem="signin" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button _btn _btn--red signin">Sign in</button> \
         </div> \
         \
         <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script>\
@@ -363,13 +363,17 @@ export const Templates = {
         '<form name="forgotForm" id="forgotForm" class="password-reset-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
         <input type="hidden" name="_csrf" value="" /> \
         <p class="password-reset-form__p">Enter your email below and we will send you a link to set your password.</p> \
-        <input id="email" class="password-reset-form__input" type="text" name="email" placehold="Email" value=""> \
-        \
+        <div class="signin-modal__form-group"> \
+            <div class="signin-modal__form-group__label"> \
+                <label class="signin-modal__form-group__label-text">Email address</label> \
+            </div> \
+            <input id="email" class="login-form__input password-reset-form__input" type="text" name="email" placehold="Email" value=""> \
+        </div> \
         <div class="message active u-hide"> \
             <div class="password-reset-form__error_text">No user with that email found.</div> \
         </div> \
         \
-        <button id="forgotBtn" type="submit" class="_btn _btn--red forgot">SEND EMAIL</button> \
+        <button id="forgotBtn" type="submit" class="login-form__button fullwidth _btn _btn--red forgot">Send email</button> \
     </form>',
 
 
