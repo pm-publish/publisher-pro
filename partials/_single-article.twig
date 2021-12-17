@@ -161,7 +161,7 @@
 
     {% if url is defined and url != '' %}
         {% set redirUrl = url %}
-        {% set newWindow = true %}
+        {% set newWindow = false %}
     {% endif %}
 
     {% if url.path == '/real-estate' %}
