@@ -374,7 +374,7 @@ export const Templates = {
         </div> \
         \
         <div class="button-set"> \
-            <button id="forgotBtn" type="submit" class="login-form__button fullwidth _btn _btn--red forgot">Send email</button> \
+            <button id="forgotBtn" type="submit" class="login-form__button fullwidth _btn _btn--red forgot signin">Send email</button> \
         </div> \
     </form>',
 
