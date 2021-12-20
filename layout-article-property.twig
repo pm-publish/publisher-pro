@@ -1,0 +1,356 @@
+{% import "partials/quotes.twig" as quotes %}
+{{ set(this, 'title', article.title) }}
+{{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
+
+
+
+{{this.registerJs("Acme.articleController = Acme.ArticleController();")}}
+
+
+{% set blogInfo = _Blog.getBlog() %}
+{% set networkData = _Network.getNetworkData() %}
+{% set config       = _Network.getThemeConfig() %}
+
+{% set relatedArticles = [] %}
+
+
+{% set showPaywall = false %}
+{% set ArticleContent = article.content %}
+
+{% if   not _User.isAdminUser()     and
+        paywallSection == true      and
+        articleBlogData['showPaywall'] == true  %}
+    
+    {% set showPaywall = true %}
+{% endif %}
+
+
+
+
+{% if showPaywall == true %}
+    {% set storySplit = ArticleContent | split('<p>')  %}
+    {% set para2_words = storySplit[2] | split(' ') | slice(0, 10) %}
+    {% set para2 = para2_words | join(' ') ~ '</p>'  %}
+    {% set ArticleContent = '<p>' ~ [storySplit[1], para2] | join('<p>') %}
+
+{% else %}
+    {# Only grab these if article is not paywalled #}
+    {# {% set relatedArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, excludeArticleIds : [article.id], interval: 168 }) %} #}
+    {% set recentArticles = _Article.getRecentArticles({ limit: 5, excludeArticleIds : [article.id] }) %}
+{% endif %}
+
+
+
+
+{% set articleImg = false %}
+{% set featured = false %}
+
+{% if article.media|length > 0 %}
+    {% set articleImg = _Media.getMediaUrl(article.media[0],1094, 515, {'crop': 'fill', 'gravity': 'faces'} ) %}
+
+    {% set featured = article.media[0].type %}
+{% endif %}
+
+
+
+
+{% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
+{% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
+{% set updateDate = _AppHelper.getDefaultTimezoneDateTime(article.updatedDateTime,'F j, Y') %}
+
+{% set updated = false %}
+{% if article.publishedDateTime != article.updatedDateTime %}
+    {% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
+    {% if updatedAgo < 86400 %}
+        {% set updateDate = _AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %}
+    {% endif %}
+    {% set updated = true %}
+{% endif %}
+
+
+{% set relatedArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, excludeArticleIds : [article.id], interval: 168 }) %}
+{% set recentArticles = _Article.getRecentArticles({ limit: 5, excludeArticleIds : [article.id] }) %}
+
+{% set testCount = 0 %}
+
+
+
+<main id="main" class="o-body-container o-body-container-md u-margin-top-60" role="main">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-8 j-article-container">
+                
+                        <div class="c-article c-article-sm ">
+
+                            {% if articleImg %} 
+
+                                <div class="gallery-container relative">
+
+                                    {% if article.media|length > 0 %}
+                                        {% set imageFeature = featured == 'image' ? true : false %}
+                                        {{this.render('partials/gallery.twig', {
+                                            media: article.media,
+                                            default: imageFeature,
+                                            type: 'article',
+                                            galleryStyle: 'property'
+                                        }) | raw}}
+                                    {% endif %}
+
+
+                                </div>
+                                <div id="owl-thumbs" class="owl-thumbs article-gallery__thumbs article-gallery__thumbs-horizontal" data-slider-id="1">
+                                    {% for thumb in article.media %}
+                                        {% set articleImg = _Media.getMediaUrl(thumb,152, 95, {'crop': 'fill', 'gravity':'faces'} ) %}
+                                        <img id="owl-{{loop.index}}" src="{{articleImg}}" class="owl-thumb-item">
+                                    {% endfor %}
+                                </div>
+
+
+                            {% endif %}
+                            <div class="row">
+                                
+                                <div class="col-12 col-md-8">
+
+
+                                    <div class="c-article__main u-desktop-margin-top-50">
+                                        <div class="c-article__head">
+                                            
+                                            {% if _User.isAdminUser() %}
+                                                    <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link">Edit article</a>
+                                            {% endif %}
+
+                                            {% set listingType = 'For Sale' %}
+                                            {% if article.additionalInfo.listing_type != 'buy' %}
+                                                {% set listingType = 'For Rent' %}
+                                            {% endif %}
+
+                                            <p class="c-article__category u-desktop-margin-top-40 u-tablet-margin-top-40">{{ listingType }}</p>
+
+
+                                            <p class="c-article__title">{{ quotes.smarten(article.title) }}
+                                                
+                                            </p>
+
+                                            <p class="c-article__address">
+                                                {% if article.additionalInfo.address != '' %}
+                                                    {{ article.additionalInfo.address }}
+                                                {% endif %}
+                                            </p>
+
+                                            <h1 class="c-article__price">{{ article.additionalInfo.pricerange}}</h1>
+
+
+                                            <div class="c-article__features u-margin-top-20 u-margin-bottom-30">
+                                                {% if article.additionalInfo.bedroom_count %}
+                                                    <div class="c-article__feature">
+                                                        <span class="c-article__feature-icon c-article__feature-icon--fill">{{ this.render('partials/icons.twig', {icon: 'bed'} ) | raw }}</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--label">Bedrooms</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--count">{{article.additionalInfo.bedroom_count}}</span>
+                                                    </div>
+                                                {% endif %}
+                                                
+                                                {% if article.additionalInfo.bathroom_count %}
+                                                    <div class="c-article__feature">
+                                                        <span class="c-article__feature-icon c-article__feature-icon--fill">{{ this.render('partials/icons.twig', {icon: 'bathtub'} ) | raw }}</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--label">Bathrooms</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--count">{{article.additionalInfo.bathroom_count}}</span>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if article.additionalInfo.car_count %}
+                                                    <div class="c-article__feature">
+                                                        <span class="c-article__feature-icon c-article__feature-icon--fill">{{ this.render('partials/icons.twig', {icon: 'car'} ) | raw }}</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--label">Car parks</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--count">{{article.additionalInfo.car_count}}</span>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if article.additionalInfo.sq_meters %}
+                                                    <div class="c-article__feature">
+                                                        <span class="c-article__feature-icon c-article__feature-icon--stroke">{{ this.render('partials/icons.twig', {icon: 'square'} ) | raw }}</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--label">Floor area</span>
+                                                        <span class="c-article__feature-item c-article__feature-item--count">{{article.additionalInfo.sq_meters}}m²</span>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+
+
+
+
+
+
+                                        </div>
+
+                                        <div class="c-article__container c-article__container-sm c-article__container--property">
+                                                {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                        </div>  
+                                        {% if article.additionalInfo.map %}
+                                            <div class="c-propertyarticle__map">
+                                                {{article.additionalInfo.map|raw}}
+                                            </div>
+                                        {% endif %}
+
+
+
+
+                                        {% if showPaywall == true %}
+                                            <div class="c-article__paywalled-view">
+                                                <div class="o-paywalled">
+                                                    <div class="o-paywalled__head">
+                                                        To read the full story on Regional News
+                                                    </div>
+                                                    <div class="o-paywalled__action">
+                                                        <a href="{{networkData.defaultBlogUrl}}/paywall" class="c-button c-button--rounded c-button--blue c-article__subscribe-button">Subscribe Now</a>
+                                                        <a href="{{networkData.defaultBlogUrl}}/paywall" class="c-button c-button--rounded c-button--blue-bordered">Start Free Trail</a>
+                                                    </div>
+                                                    <div class="o-paywalled__period">
+                                                        Subscribe now to start a free trial of Regional News for 28 days
+                                                        <a href="{{networkData.defaultBlogUrl}}/paywall#subscriptions">View our subscription options</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+                                <div class="col-12 col-md-4">
+                                    <div class="c-propertyarticle-agent u-mobile-margin-top-50 u-margin-top-80">
+                                        <div class="c-propertyarticle-agent__imagebar u-margin-bottom-30">
+                                            <div class="c-propertyarticle-agent__image">
+                                                {% if article.additionalInfo.contactimage %}  
+                                                    <img src="{{article.additionalInfo.contactimage}}">
+                                                {% else %}
+                                                    {{ this.render('partials/icons.twig', {icon: 'agent'} ) | raw }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        {% if article.additionalInfo.contactname %}  
+                                            <p class="c-propertyarticle-agent__name">{{article.additionalInfo.contactname}}</p>
+                                        {% endif %}
+                                        {% if article.additionalInfo.contactcompany %}  
+                                            <p class="c-propertyarticle-agent__agency">{{article.additionalInfo.contactcompany}}</p>
+                                        {% endif %}
+                                        {% if article.additionalInfo.contactphone %}  
+                                            <p class="c-propertyarticle-agent__phone u-margin-top-15">{{article.additionalInfo.contactphone}}</p>
+                                        {% endif %}
+                                        {% if article.additionalInfo.contactemail %}  
+                                            <a href="mailto:{{article.additionalInfo.contactemail}}">
+                                                <span class="c-propertyarticle-agent__emailbutton u-margin-top-20">
+                                                    <div class="c-propertyarticle-agent__emailicon">
+                                                        {{ this.render('partials/icons.twig', {icon: 'email'} ) | raw }}
+                                                    </div>
+                                                    GET IN TOUCH
+                                                </span>
+                                            </a>
+                                        {% endif %}
+
+                                    </div>
+                                    <hr class="divide">
+                                    <div class="c-propertyarticle-inspection">
+                                        <h4 class="c-propertyarticle-inspection__title">Inspection</h4>
+                                        {% if article.additionalInfo.inspection_date is defined and "now"|date() < article.additionalInfo.inspection_date|date() %}
+
+                                            <span class="c-propertyarticle-inspection__dateandtime">
+                                                <div class="c-propertyarticle-inspection__calicon">
+                                                    {{ this.render('partials/icons.twig', {icon: 'calendar'} ) | raw }}
+                                                </div>
+                                                {{ _AppHelper.getDefaultTimezoneDateTime(article.additionalInfo.inspection_date, "l, F j, g:i a")}}
+                                            </span>
+                                        {% else %}
+                                            <p class="c-propertyarticle-inspection__text">Please contact the Agent for inspection times.</p>
+                                        {% endif %}
+                                    </div>
+                                    <hr class="divide"> 
+                                    <div class="c-propertyarticle-links">
+                                        {% if article.additionalInfo.link_1_text !='' and article.additionalInfo.link_1_url !='' %} 
+                                            <a href="{{article.additionalInfo.link_1_url}}" target="_blank">
+                                                <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_1_text}}</p>
+                                            </a>
+                                        {% endif %}
+                                        {% if article.additionalInfo.link_2_text !='' and article.additionalInfo.link_2_url !='' %}
+                                            <a href="{{article.additionalInfo.link_2_url}}" target="_blank">
+                                                <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_2_text}}</p>
+                                            </a>
+                                        {% endif %}
+                                        {% if article.additionalInfo.link_3_text !='' and article.additionalInfo.link_3_url !='' %}
+                                            <a href="{{article.additionalInfo.link_3_url}}" target="_blank">
+                                                <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_3_text}}</p>
+                                            </a>
+                                        {% endif %}
+                                        {% if article.additionalInfo.link_4_text !='' and article.additionalInfo.link_4_url !='' %}
+                                            <a href="{{article.additionalInfo.link_4_url}}" target="_blank">
+                                                <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_4_text}}</p>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    {% if article.additionalInfo.features !='' %} 
+                                        {% set features = article.additionalInfo.features | split(',') %}
+                                        <hr class="divide"> 
+                                        <div class="c-propertyarticle-features">
+                                            <h4 class="c-propertyarticle-features__title">Property features</h4>
+                                            {% for feature in features %}
+                                                <p class="c-propertyarticle-features__feature">{{feature}}</p>
+                                            {% endfor %}
+                                        </div>
+
+                                    {% endif %}
+                                </div>
+                                
+                            </div>
+
+                            <!-- Disqus Comment Added -->
+                            {% if networkData.thirdPartyIntegrations['disqus'] | length > 0 and networkData.thirdPartyIntegrations['disqus']['shortName'] != '' %}
+                                {{this.render("partials/article/_disqus_comments.twig", {disqus: networkData.thirdPartyIntegrations['disqus'], userId: article.createdBy['id'], url:article.url, articleId: article.id}) | raw}}
+                            {% endif %}
+
+
+                        </div>
+
+                    
+                <!-- End Article Page -->
+            </div>
+            <div class="col-12 col-lg-4">
+                <div class="o-body-container__right-layout j-article-sidebar">
+                    {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row c-related-articles u-desktop-margin-top-100">
+            <div class="col-12">
+                <h1 class="c-related-articles__header" >More Properties</h1>
+            </div>
+            {% set relatedArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, excludeArticleIds : [article.id], interval: 168 }) %}
+            <div class="col-12 u-margin-top-30">
+                <div class="row">
+                    {% for i in 0..3 if relatedArticles[i] %}
+                        <div class="col-12 col-md-6 col-lg-3">
+                            {{this.render('partials/_single-article.twig', {
+                                article: recentArticles[i], 
+                                imageSize: {width: 300, height: 180},
+                                template: 'property',
+                                containerClass: 'card-property-mobile card-property-tablet card-property-desktop',
+                                site:   site
+                            }) | raw}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+    {% set theKeywords = '' %}
+    {% if article.keywords is defined and article.keywords != '' %}
+        {% set theKeywords = article.keywords %}
+    {% elseif blogInfo.keywords is defined and blogInfo.keywords != '' %}
+        {% set theKeywords = blogInfo.keywords %}
+    {% endif %}
+    <div class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
+</main>
