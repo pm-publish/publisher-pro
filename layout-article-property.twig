@@ -101,10 +101,6 @@
                                         <div class="c-article__additionalInfo">
                                             <div class="c-article__posted-on">
                                                 <time class="c-article__published">{{article.publishedDate}}</time>
-                                                {% if updated %}
-                                                <time class="c-article__updated">Updated
-                                                    {{ updateDate | capitalize }}</time>
-                                                {% endif %}
 
                                                 <div class="c-article__author">
                                                     {% if config['hide-author'] is defined and config['hide-author'] %}
@@ -174,6 +170,170 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="row c-article__main-container">
+                <div class="col-12 col-lg-1">
+                    <div class="u-generic-socialIcons u-generic-socialIcons--sticky u-generic-socialIcons-xs">
+                        <a class="u-generic-socialIcons__item"
+                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
+                                src="{{networkData.templatePath}}/static/icons/icons-socials-email-reverse-circle.svg" />
+                        </a>
+                        <a class="u-generic-socialIcons__item"
+                            href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                            target="_blank">
+                            <img
+                                src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-reverse-circle.svg" />
+                        </a>
+                        <a class="u-generic-socialIcons__item"
+                            href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                            target="_blank">
+                            <img
+                                src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-reverse-circle.svg" />
+                        </a>
+                        <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                            target="_blank">
+                            <img
+                                src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-reverse-circle.svg" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-10">
+                    <div class="row">
+                        <div class="col-12 col-lg-8">
+                            <div class="gallery-container relative">
+                                {% if article.media|length > 0 %}
+                                    {% set imageFeature = featured == 'image' ? true : false %}
+                                    {{this.render('partials/gallery.twig', {
+                                        media: article.media,
+                                        default: imageFeature,
+                                        type: 'article',
+                                        galleryStyle: 'property'
+                                    }) | raw}}
+                                {% endif %}
+                            </div>
+                            <div class="{% if showPaywall == true %} c-article__main__paywall-container {% endif %}"> 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="c-article__main-content">
+                                            <div class="c-article__container">
+                                                {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                            </div>
+                                        </div>
+                                        <hr />
+                                        {% if showPaywall == false %}
+                                            <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
+                                                <div class="u-generic-socialIcons-text">Share article</div>
+                                                <a class="u-generic-socialIcons__item"
+                                                    href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank"><img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-email-solid.svg" />
+                                                </a>
+                                                <a class="u-generic-socialIcons__item"
+                                                    href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                                    target="_blank">
+                                                    <img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-facebook-solid.svg" />
+                                                </a>
+                                                <a class="u-generic-socialIcons__item"
+                                                    href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                                    target="_blank">
+                                                    <img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-twitter-solid.svg" />
+                                                </a>
+                                                <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                                    <img
+                                                        src="{{networkData.templatePath}}/static/icons/icons-socials-linkedin-solid.svg" />
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="c-propertyarticle-agent u-mobile-margin-top-50 u-margin-top-80">
+                                <div class="c-propertyarticle-agent__imagebar u-margin-bottom-30">
+                                    <div class="c-propertyarticle-agent__image">
+                                        {% if article.additionalInfo.contactimage %}  
+                                            <img src="{{article.additionalInfo.contactimage}}">
+                                        {% else %}
+                                            {{ this.render('partials/icons.twig', {icon: 'agent'} ) | raw }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if article.additionalInfo.contactname %}  
+                                    <p class="c-propertyarticle-agent__name">{{article.additionalInfo.contactname}}</p>
+                                {% endif %}
+                                {% if article.additionalInfo.contactcompany %}  
+                                    <p class="c-propertyarticle-agent__agency">{{article.additionalInfo.contactcompany}}</p>
+                                {% endif %}
+                                {% if article.additionalInfo.contactphone %}  
+                                    <p class="c-propertyarticle-agent__phone u-margin-top-15">{{article.additionalInfo.contactphone}}</p>
+                                {% endif %}
+                                {% if article.additionalInfo.contactemail %}  
+                                    <a href="mailto:{{article.additionalInfo.contactemail}}">
+                                        <span class="c-propertyarticle-agent__emailbutton u-margin-top-20">
+                                            <div class="c-propertyarticle-agent__emailicon">
+                                                {{ this.render('partials/icons.twig', {icon: 'email'} ) | raw }}
+                                            </div>
+                                            GET IN TOUCH
+                                        </span>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                            <hr class="divide">
+                            <div class="c-propertyarticle-inspection">
+                                <h4 class="c-propertyarticle-inspection__title">Inspection</h4>
+                                {% if article.additionalInfo.inspection_date is defined and "now"|date() < article.additionalInfo.inspection_date|date() %}
+
+                                    <span class="c-propertyarticle-inspection__dateandtime">
+                                        <div class="c-propertyarticle-inspection__calicon">
+                                            {{ this.render('partials/icons.twig', {icon: 'calendar'} ) | raw }}
+                                        </div>
+                                        {{ _AppHelper.getDefaultTimezoneDateTime(article.additionalInfo.inspection_date, "l, F j, g:i a")}}
+                                    </span>
+                                {% else %}
+                                    <p class="c-propertyarticle-inspection__text">Please contact the Agent for inspection times.</p>
+                                {% endif %}
+                            </div>
+                            <hr class="divide"> 
+                            <div class="c-propertyarticle-links">
+                                {% if article.additionalInfo.link_1_text !='' and article.additionalInfo.link_1_url !='' %} 
+                                    <a href="{{article.additionalInfo.link_1_url}}" target="_blank">
+                                        <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_1_text}}</p>
+                                    </a>
+                                {% endif %}
+                                {% if article.additionalInfo.link_2_text !='' and article.additionalInfo.link_2_url !='' %}
+                                    <a href="{{article.additionalInfo.link_2_url}}" target="_blank">
+                                        <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_2_text}}</p>
+                                    </a>
+                                {% endif %}
+                                {% if article.additionalInfo.link_3_text !='' and article.additionalInfo.link_3_url !='' %}
+                                    <a href="{{article.additionalInfo.link_3_url}}" target="_blank">
+                                        <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_3_text}}</p>
+                                    </a>
+                                {% endif %}
+                                {% if article.additionalInfo.link_4_text !='' and article.additionalInfo.link_4_url !='' %}
+                                    <a href="{{article.additionalInfo.link_4_url}}" target="_blank">
+                                        <p class="c-propertyarticle-links__link">{{article.additionalInfo.link_4_text}}</p>
+                                    </a>
+                                {% endif %}
+                            </div>
+                            {% if article.additionalInfo.features !='' %} 
+                                {% set features = article.additionalInfo.features | split(',') %}
+                                <hr class="divide"> 
+                                <div class="c-propertyarticle-features">
+                                    <h4 class="c-propertyarticle-features__title">Property features</h4>
+                                    {% for feature in features %}
+                                        <p class="c-propertyarticle-features__feature">{{feature}}</p>
+                                    {% endfor %}
+                                </div>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>  
             </div>
         </div>
     </div>
