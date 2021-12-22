@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function (event) {
         });
     }), 750);
 
-    $("#owl-gallery-image").owlCarousel({
+    $("#owl-gallery-image, #owl-gallery-article").owlCarousel({
         items: 1,
         thumbs: true,
         thumbsPrerendered: true,
