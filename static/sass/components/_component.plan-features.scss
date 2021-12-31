@@ -1,0 +1,35 @@
+.plan-features {
+	display: flex;
+
+	&__row {
+		flex: 1;
+		+ul {
+			margin-left: 25px;
+		  }
+	
+	}
+
+	&__item {
+		position: relative;
+		padding-left: 27px;
+		padding-top: 5px;
+		margin-bottom: 10px;
+		line-height: 1.38;
+		font-size: 13px;
+		color: black;
+		font-family: $primaryFont;
+		font-weight: $weightRegular;
+
+		&:before {
+		  content: "\f05d";
+		  position: absolute;
+		  display: block;
+		  font-family: $iconfont;
+		  left: 0;
+		  top: 0;
+		  color: $grey4;
+		  font-size: 20px;
+		}
+	}
+
+  }

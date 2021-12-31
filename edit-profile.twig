@@ -314,7 +314,7 @@
                                         <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
                                     </div>
 
-                                    <div class="cus_acnt__plan-table js-tableView" id="currentPlanStats"
+                                    <div class="plan-table js-tableView" id="currentPlanStats"
                                         data-cardsupplied="{{cardSupplied}}"
                                         data-currentUsers="{{managedUserCount}}"
                                         data-currentPeriod="{{pwstats['period']}}"
@@ -322,14 +322,17 @@
                                         data-currentType="{{pwstats['type']}}"
                                         data-expiry="{{pwstats['expiry_date']}}"
                                         data-currentplanperiodcount="{{pwstats['period_count']}}">
+
                                         <div class="table-responsive">
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Plan name</th>
-                                                        <th colspan="3">Cost</th>
+                                            <table class="plan-table__table">
+                                                <thead class="plan-table__header">
+                                                    <tr class="plan-table__row">
+                                                        <th class="plan-table__header-labels">Plan name</th>
+                                                        <th class="plan-table__header-labels" colspan="3">Cost</th>
                                                     </tr>
                                                 </thead>
+
+
                                                 <tbody>
                                                     {% for plan in plans %}
                                                         
@@ -355,7 +358,7 @@
                                                             {% set planPeriod = plan.period ~ 's' %}
                                                         {% endif %}
 
-                                                        <tr class="{% if plan.guid == pwstats['plan_guid'] %} active {% endif %} view"
+                                                        <tr class="plan-table__row j-plan-details {% if plan.guid == pwstats['plan_guid'] %} active {% endif %} view"
                                                             data-planid          = "{{plan.guid}}"
                                                             data-planusercount   = "{{userCount}}"
                                                             data-plancost        = "{{plan.plan_value}}"
@@ -363,53 +366,54 @@
                                                             data-trialstatus     = "{{plan['trial_status']}}"
                                                             data-planType        = "{{plan.type}}"
                                                             data-planPeriodCount = "{{plan.period_count}}">
-                                                            <td>
-                                                                <span class="cus_acnt__plan-table--title">{{plan.plan_name}}</span>
+                                                            <td class="plan-table__col">
+                                                                <span class="plan-table__title">{{plan.plan_name}}</span>
                                                             </td>
                                                             {% if plan.type != 'signup' %}                                                            
-                                                                <td>
-                                                                    <span class="cus_acnt__plan-table--price">
+                                                                <td class="plan-table__col">
+                                                                    <span class="plan-table__price">
                                                                     {{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}
                                                                                     /{{planPeriodCount}}{{planPeriod}}</span>
                                                                 </td>
                                                                 {% else %}
-                                                                <td>
-                                                                    <span class="cus_acnt__plan-table--price">Free</span>
+                                                                <td class="plan-table__col">
+                                                                    <span class="plan-table__price">Free</span>
                                                                 </td>
                                                             {% endif %}
                                                             
-                                                            <td>
-                                                                <span class="cus_acnt__plan-table--feature js-toggleTableRow">View features</span>
+                                                            <td class="plan-table__col">
+                                                                <span class="plan-table__feature js-toggleTableRow">View features</span>
                                                             </td>
-                                                            <td>
+                                                            <td class="plan-table__col">
                                                                 {% if plan.guid != pwstats['plan_guid'] %}
-                                                                    <a href="javascript:;" class="cus_acnt__plan-table--purchase j-setplan">Purchase</a>
+                                                                    <a href="javascript:;" class="plan-table__purchase j-setplan">Purchase</a>
                                                                 {% else %}
-                                                                    <a href="javascript:;" class="cus_acnt__plan-table--purchase">Your Plan</a>
+                                                                    <a href="javascript:;" class="plan-table__purchase">Your Plan</a>
                                                                 {% endif %}
                                                             </td>
                                                         </tr>
                                                         <tr class="folded">
                                                             <td colspan="4">
-                                                                <div class="users-feature__list">
-                                                                    <ul>
-                                                                        <li>News, sport and local events</li>
-                                                                        <li>Access to all articles online</li>
-                                                                        <li>Save $15</li>
+                                                                <div class="plan-features">
+                                                                    <ul class="plan-features__row">
+                                                                        <li class="plan-features__item">News, sport and local events</li>
+                                                                        <li class="plan-features__item">Access to all articles online</li>
+                                                                        <li class="plan-features__item">Save $15</li>
                                                                     </ul>
-                                                                    <ul>
-                                                                        <li>News, sport and local events</li>
-                                                                        <li>Access to all articles online</li>
-                                                                        <li>Save $15</li>
+                                                                    <ul class="plan-features__row">
+                                                                        <li class="plan-features__item">News, sport and local events</li>
+                                                                        <li class="plan-features__item">Access to all articles online</li>
+                                                                        <li class="plan-features__item">Save $15</li>
                                                                     </ul>
-                                                                    <ul>
-                                                                        <li>News, sport and local events</li>
-                                                                        <li>Access to all articles online</li>
-                                                                        <li>Save $15</li>
+                                                                    <ul class="plan-features__row">
+                                                                        <li class="plan-features__item">News, sport and local events</li>
+                                                                        <li class="plan-features__item">Access to all articles online</li>
+                                                                        <li class="plan-features__item">Save $15</li>
                                                                     </ul>
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        
                                                         {# {% endif %} #}
                                                     {% endfor %}
                                                 </tbody>

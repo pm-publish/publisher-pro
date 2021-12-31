@@ -1,7 +1,7 @@
 'use strict';
 
 import { ArticleFeed, UserFeed, UserCard } from './articleFeed'
-import { UserProfileController } from './user-profile'
+import { UserProfileController } from './myaccount'
 import { View, PubSub } from './framework'
 import { SigninModal } from './signinModal'
 import { Card } from './card'
@@ -18,7 +18,7 @@ window.Acme.Card = Card;
 
 const ads = new AdLoader();
 ads.LoadAds();
-
+console.log(window.Acme.UserProfileController);
 
 
 
@@ -373,4 +373,87 @@ $('.j-recent-header').click(function (e) {
 });
 
 
+
+$("img.lazyload").lazyload({
+    effect: "fadeIn"
+});
+
+
+var cardHolder = '';
+clearTimeout(cardHolder);
+cardHolder = setTimeout((function () {
+    $('.j-truncate').dotdotdot({
+        watch: true
+    });
+}), 750);
+
+$("#owl-gallery-image, #owl-gallery-article").owlCarousel({
+    items: 1,
+    thumbs: true,
+    thumbsPrerendered: true,
+    URLhashListener: true,
+    startPosition: 'URLHash',
+    pagination: true,
+    dots: false,
+    nav: true,
+    onInitialized: counter,
+    onTranslated: counter,
+    navText: [
+        "",
+        ""
+    ]
+});
+
+function counter(event) {
+    var element = event.target;
+    var items = event.item.count;
+    var item = event.item.index + 1;
+
+    // it loop is true then reset counter from 1
+    if (item > items) {
+        item = item - items
+    }
+    $('#counter').html(item + " of " + items)
+}
+
+//sidebar function
+
+function sidebarMenuOpen() {
+    let getMenuClick = document.querySelector('.js-menu');
+    getMenuClick.addEventListener('click', openMenuFunction);
+    function openMenuFunction() {
+        document.querySelector('.c-sidebarMenu').classList.add("sidebar-active");
+        document.querySelector('body').classList.add("u-noscroll");
+    }
+}
+sidebarMenuOpen();
+
+function sidebarMenuClose() {
+    let getMenuClick = document.querySelector('.js-closeMenu');
+    getMenuClick.addEventListener('click', closeMenuFunction);
+    function closeMenuFunction() {
+        document.querySelector('.c-sidebarMenu').classList.remove("sidebar-active");
+        document.querySelector('.body').classList.remove("u-noscroll");
+    }
+}
+
+sidebarMenuClose();
+
+$('.js-sideBarItem').on('click', function (e) {
+    e.preventDefault();
+    var getParentLi = $(this).closest('.js-sideBarList');
+    if (getParentLi.hasClass('active')) {
+        getParentLi.toggleClass('active');
+    } else {
+        getParentLi.siblings(".js-sideBarList").removeClass('active');
+        getParentLi.addClass('active');
+    }
+});
+
+$('body').not('.js-menu').on('click', function (e) {
+    if (!$(e.target).is('.c-sidebarMenu, .c-sidebarMenu *') && !$(e.target).is('.js-menu, .js-menu *')) {
+        $('.c-sidebarMenu').removeClass("sidebar-active");
+        $('.body').removeClass("u-noscroll");
+    }
+});
 

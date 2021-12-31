@@ -98,7 +98,6 @@ export const Templates = {
         <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
             <div class="{{name}}__header"> \
                 <h2 class="{{name}}__title">{{{title}}}</h2> \
-                <p class="{{name}}__description">{{description}}</p> \
                 <a class="{{name}}__close" href="#" data-behaviour="close"></a> \
             </div> \
             <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
@@ -106,6 +105,7 @@ export const Templates = {
     </div> \
 </div>',
 
+// <p class="{{name}}__description">{{description}}</p> \
 
     donate_modal:
         // style="scrolling == unusable position:fixed element might be fixing login for ios safari
@@ -171,142 +171,142 @@ export const Templates = {
     donateSignupForm:
         // <script> tag possible ios safari login fix
         '<div id="{{id}}" class="donate-form" data-selected="{{selected.price_id}}"> \
-    <div class="donate-form__header"> \
-        <div class="donate-form__close"> \
-            <a class="donate-form__close-icon o-close" href="#" data-behaviour="close"></a> \
-        </div> \
-    </div> \
-    \
-    <img src="{{logo}}" class="donate-form__logo"/> \
-    \
-    \
-    {{# ifCond validEmail "==" null}} \
-        <p class="{{class-prefix}}login-form__email-share j-email-text">Please enter your email address</p> \
-    {{/ifCond}} \
-    {{# ifCond validEmail "==" false}} \
-        <p class="{{class-prefix}}login-form__email-share j-email-text">It looks like you don\'t have an account with us.<br />Would you like to continue with this email address?</p> \
-    {{/ifCond}} \
-    \
-    {{# ifCond validEmail "==" true}} \
-        <p class="{{class-prefix}}login-form__email-share j-email-text"><strong>It looks like you have an account with us!</strong> <br />Please enter your password to continue.</p> \
-    {{/ifCond}} \
-    \
-    \
-    {{# ifCond validEmail "==" false}} \
-        <p class="{{class-prefix}}login-form__input-result {{class-prefix}}login-form__input-result--active j-email-result">{{user.username}}</p> \
-    {{/ifCond}} \
-    \
-    <form name="loginForm" id="loginForm" class="{{class-prefix}}login-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-        \
-        <div class="{{class-prefix}}login-form__email-container j-email-container u-margin-top-20"> \
-            {{#if user.username }} \
-                {{#if validEmail }} \
-                    <input id="loginPass" class="{{class-prefix}}login-form__input {{class-prefix}}login-form__input--password j-signin-password" type="password" name="password"  value="" /> \
-                {{/if}} \
-            {{/if}} \
+            <div class="donate-form__header"> \
+                <div class="donate-form__close"> \
+                    <a class="donate-form__close-icon o-close" href="#" data-behaviour="close"></a> \
+                </div> \
+            </div> \
+            \
+            <img src="{{logo}}" class="donate-form__logo"/> \
+            \
             \
             {{# ifCond validEmail "==" null}} \
-                <input id="loginName" class="{{class-prefix}}login-form__input j-register-username" type="text" name="username" value="" placeholder="" /> \
-                <label for="loginName" class="{{class-prefix}}login-form__input-label input__label">Enter your email address</label> \
+                <p class="{{class-prefix}}login-form__email-share j-email-text">Please enter your email address</p> \
+            {{/ifCond}} \
+            {{# ifCond validEmail "==" false}} \
+                <p class="{{class-prefix}}login-form__email-share j-email-text">It looks like you don\'t have an account with us.<br />Would you like to continue with this email address?</p> \
             {{/ifCond}} \
             \
-            {{# ifCond validEmail "==" false}} \
-                <button data-elem="" id="" type="" class="{{class-prefix}}login-form__button-back j-retry">Use a different email</button> \
+            {{# ifCond validEmail "==" true}} \
+                <p class="{{class-prefix}}login-form__email-share j-email-text"><strong>It looks like you have an account with us!</strong> <br />Please enter your password to continue.</p> \
             {{/ifCond}} \
-        </div> \
-        \
-        <div class="{{class-prefix}}login-form__error_text u-display-none j-error-text"></div> \
-        \
-        <div class="{{class-prefix}}login-form__button-container"> \
-            <button data-elem="" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button {{# ifCond validEmail "==" false}}{{class-prefix}}login-form__button--active{{/ifCond}} j-continue">Continue</button> \
-            <div id="email_spinner" class="{{class-prefix}}login-form__spinner u-display-none"><div class="spinner"></div></div> \
-        </div> \
-        \
-        {{# ifCond validEmail "==" true}} \
-            <p class="{{class-prefix}}login-form__forgot  j-forgot" data-elem="forgot" data-behaviour="forgot" class="">Forgot password?</p> \
-        {{/ifCond}} \
-        <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script> \
-    </form> \
-</div>',
+            \
+            \
+            {{# ifCond validEmail "==" false}} \
+                <p class="{{class-prefix}}login-form__input-result {{class-prefix}}login-form__input-result--active j-email-result">{{user.username}}</p> \
+            {{/ifCond}} \
+            \
+            <form name="loginForm" id="loginForm" class="{{class-prefix}}login-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+                \
+                <div class="{{class-prefix}}login-form__email-container j-email-container u-margin-top-20"> \
+                    {{#if user.username }} \
+                        {{#if validEmail }} \
+                            <input id="loginPass" class="{{class-prefix}}login-form__input {{class-prefix}}login-form__input--password j-signin-password" type="password" name="password"  value="" /> \
+                        {{/if}} \
+                    {{/if}} \
+                    \
+                    {{# ifCond validEmail "==" null}} \
+                        <input id="loginName" class="{{class-prefix}}login-form__input j-register-username" type="text" name="username" value="" placeholder="" /> \
+                        <label for="loginName" class="{{class-prefix}}login-form__input-label input__label">Enter your email address</label> \
+                    {{/ifCond}} \
+                    \
+                    {{# ifCond validEmail "==" false}} \
+                        <button data-elem="" id="" type="" class="{{class-prefix}}login-form__button-back j-retry">Use a different email</button> \
+                    {{/ifCond}} \
+                </div> \
+                \
+                <div class="{{class-prefix}}login-form__error_text u-display-none j-error-text"></div> \
+                \
+                <div class="{{class-prefix}}login-form__button-container"> \
+                    <button data-elem="" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button {{# ifCond validEmail "==" false}}{{class-prefix}}login-form__button--active{{/ifCond}} j-continue">Continue</button> \
+                    <div id="email_spinner" class="{{class-prefix}}login-form__spinner u-display-none"><div class="spinner"></div></div> \
+                </div> \
+                \
+                {{# ifCond validEmail "==" true}} \
+                    <p class="{{class-prefix}}login-form__forgot  j-forgot" data-elem="forgot" data-behaviour="forgot" class="">Forgot password?</p> \
+                {{/ifCond}} \
+                <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script> \
+            </form> \
+        </div>',
 
 
 
     mailchimpList:
         '<div> \
-        <input type="checkbox" class="email-subscription__checkbox" name="summary-email" id="mailchimp" value="{{listId}}:{{groupId}}" {{checked}}> \
-        <label class="email-subscription__label">{{{name}}}</label> \
-    </div>',
+            <input type="checkbox" class="email-subscription__checkbox" name="summary-email" id="mailchimp" value="{{listId}}:{{groupId}}" {{checked}}> \
+            <label class="email-subscription__label">{{{name}}}</label> \
+        </div>',
 
     pulldown:
         '<div id="{{ name }}" class="Acme-pulldown {{class}}"> \
-    <p class="Acme-pulldown__selected-item"></p> \
-    <span class="Acme-pulldown__span"></span> \
-    <ul class="Acme-pulldown__list" data-key="{{ key }}"></ul> \
-</div>',
+            <p class="Acme-pulldown__selected-item"></p> \
+            <span class="Acme-pulldown__span"></span> \
+            <ul class="Acme-pulldown__list" data-key="{{ key }}"></ul> \
+        </div>',
 
 
     create_user:
         '<div class="cus_acnt__infoBox-form" style="height:100%; overflow:auto; position:relative"> \
-    <div class="cus_acnt__form__group"> \
-        <label class="cus_acnt__form__label c-account-form__label" for="newuserfirstname">First name</label>\
-        <input type="text" id="newuserfirstname" class="j-firstname cus_acnt__form__input" value="" placeholder="{{firstname}}"> \
-    </div> \
-    <div class="cus_acnt__form__group"> \
-        <label class="cus_acnt__form__label c-account-form__label" for="newuserlastname">Last name</label>\
-        <input type="text" id="newuserlastname" class="j-lastname cus_acnt__form__input" value="" placeholder="{{lastname}}"> \
-    </div> \
-    <div class="cus_acnt__form__group"> \
-        <label class="cus_acnt__form__label c-account-form__label" for="newuseruseremail">Email</label>\
-        <input type="text" id="newuseruseremail" class="j-email cus_acnt__form__input" value="" placeholder="{{useremail}}"> \
-        <p id="userError" class="user-editor__error"></p> \
-    </div> \
-    <div id="user-editor-buttons" class="cus_acnt__form__group cus_acnt__form__btns"> \
-        <a id="saveUser"       class="cus_acnt__btn cus_acnt__btn__solid">Add user</a> \
-        <a id="cancelUserCreate" class="cus_acnt__btn cus_acnt__btn__bordered">cancel</a> \
-    </div> \
-    <div id="user-editor__spinner" class="user-editor__spinner"></div> \
-</div>',
+            <div class="cus_acnt__form__group"> \
+                <label class="cus_acnt__form__label c-account-form__label" for="newuserfirstname">First name</label>\
+                <input type="text" id="newuserfirstname" class="j-firstname cus_acnt__form__input" value="" placeholder="{{firstname}}"> \
+            </div> \
+            <div class="cus_acnt__form__group"> \
+                <label class="cus_acnt__form__label c-account-form__label" for="newuserlastname">Last name</label>\
+                <input type="text" id="newuserlastname" class="j-lastname cus_acnt__form__input" value="" placeholder="{{lastname}}"> \
+            </div> \
+            <div class="cus_acnt__form__group"> \
+                <label class="cus_acnt__form__label c-account-form__label" for="newuseruseremail">Email</label>\
+                <input type="text" id="newuseruseremail" class="j-email cus_acnt__form__input" value="" placeholder="{{useremail}}"> \
+                <p id="userError" class="user-editor__error"></p> \
+            </div> \
+            <div id="user-editor-buttons" class="cus_acnt__form__group cus_acnt__form__btns"> \
+                <a id="saveUser"       class="cus_acnt__btn cus_acnt__btn__solid">Add user</a> \
+                <a id="cancelUserCreate" class="cus_acnt__btn cus_acnt__btn__bordered">cancel</a> \
+            </div> \
+            <div id="user-editor__spinner" class="user-editor__spinner"></div> \
+        </div>',
 
 
     edit_user:
         '<div class="" style="height:100%; overflow:auto"> \
-    <div class="user-editor__input-container u-float-left"> \
-        <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="{{firstname}}" placeholder="First name"> \
-        <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Email address"> \
-        </div> \
-    <div class="user-editor__input-container u-float-right"> \
-        <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="{{lastname}}" placeholder="Last name"> \
-    </div> \
-    <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
-        <a id="cancelUserCreate" class="userdetails__button userdetails__button--delete u-float-right"></a> \
-        <a id="saveUser"       class="userdetails__button userdetails__button--save u-float-right">Save</a> \
-    </div> \
-</div>',
+            <div class="user-editor__input-container u-float-left"> \
+                <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="{{firstname}}" placeholder="First name"> \
+                <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Email address"> \
+                </div> \
+            <div class="user-editor__input-container u-float-right"> \
+                <input type="text" id="newuserlastname" class="j-lastname user-editor__input" value="{{lastname}}" placeholder="Last name"> \
+            </div> \
+            <div id="user-editor-buttons" class="user-editor__input-container u-float-right"> \
+                <a id="cancelUserCreate" class="userdetails__button userdetails__button--delete u-float-right"></a> \
+                <a id="saveUser"       class="userdetails__button userdetails__button--save u-float-right">Save</a> \
+            </div> \
+        </div>',
 
     managed_user:
         '<div class="u-float-left"> \
-    <p class="userdetails__name"> \
-        <span class="j-firstname">{{firstname}}</span> \
-        <span class="j-lastname">{{lastname}}</span> \
-    </p> \
-    <p class="j-username userdetails__username">{{username}}</p> \
-</div>\
-<a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
-<a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>',
+            <p class="userdetails__name"> \
+                <span class="j-firstname">{{firstname}}</span> \
+                <span class="j-lastname">{{lastname}}</span> \
+            </p> \
+            <p class="j-username userdetails__username">{{username}}</p> \
+        </div>\
+        <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
+        <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>',
 
 
     managed_user:
         '<li id="{{id}}" class="userdetails {{cardClass}}"> \
-    <div class="u-float-left"> \
-        <p class="userdetails__name"> \
-            <span class="j-firstname">{{firstname}}</span> \
-            <span class="j-lastname">{{lastname}}</span> \
-        </p> \
-    </div>\
-    <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
-    <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a> \
-    <p class="j-email  userdetails__email u-float-right">{{email}}</p> \
-</li>',
+            <div class="u-float-left"> \
+                <p class="userdetails__name"> \
+                    <span class="j-firstname">{{firstname}}</span> \
+                    <span class="j-lastname">{{lastname}}</span> \
+                </p> \
+            </div>\
+            <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
+            <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a> \
+            <p class="j-email  userdetails__email u-float-right">{{email}}</p> \
+        </li>',
 
 
     signinFormTmpl:
@@ -396,34 +396,35 @@ export const Templates = {
 
     ipnotice:
         '<p class="ipdialog__p u-margin-bottom-20">You can access Pro under this subscription – simply email <a href="mailto:pro@newsroom.co.nz"><strong>pro@newsroom.co.nz</strong></a> for a login.</p> \
-    <div> \
-        <form> \
-            <a href="mailto:pro@newsroom.co.nz" class="ipdialog__btn _btn _btn--red _btn--outline-red">CONTACT US</a> \
-            <button class="ipdialog__btn _btn _btn--outline" data-role="close">I\'LL DO IT LATER</button> \
-        </form> \
-    </div>',
+            <div> \
+                <form> \
+                    <a href="mailto:pro@newsroom.co.nz" class="ipdialog__btn _btn _btn--red _btn--outline-red">CONTACT US</a> \
+                    <button class="ipdialog__btn _btn _btn--outline" data-role="close">I\'LL DO IT LATER</button> \
+                </form> \
+            </div>',
 
     userPlanMessage:
         '<p class="{{name}}__message centerText">{{{message}}}</p> \
-<form name="loginForm" id="loginForm" class="active u-margin-top-20" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-     <button id="cancelbutton" class="_btn _btn--red close" data-role="cancel">OK</button> \
-</form>',
+        <form name="loginForm" id="loginForm" class="active u-margin-top-20" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+            <button id="cancelbutton" class="_btn _btn--red close" data-role="cancel">OK</button> \
+        </form>',
 
     userPlanOkCancel:
-        '<form name="loginForm" id="loginForm" class="active button-set" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-     <button id="okaybutton" class="login-form__button okay" data-role="okay">No, take me back</button> \
-     <button id="cancelbutton" class="login-form__button signin close" data-role="cancel">Yes, cancel my plan </button> \
-</form>',
+        '<p class="{{name}}__message centerText u-margin-top-20">{{message}}</p> \
+        <form name="loginForm" id="loginForm" class="active button-set u-margin-top-40" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+            <button id="cancelbutton" class="login-form__button  close" data-role="cancel">Cancel</button> \
+            <button id="okaybutton" class="login-form__button signin okay" data-role="okay">{{okayLabel}}</button> \
+        </form>',
 
     modalVideo:
         '<div id="popupVideo" class="popup-video"> \
-    <div class="popupVideo__logo-container"> \
-        <img class="popupVideo__logo" src="{{path}}/static/images/nr-logo.svg" alt="logo"> \
-    </div> \
-    <video class="popupVideo__video" controls autoplay poster="{{path}}/static/videos/newsroom_awards_full.jpg"> \
-         <source src="https://s3-ap-southeast-2.amazonaws.com/cog-aap/themes/g02Ei4J8TjnbLiR/static/videos/Newsroom_Awards_Full.mp4" type="video/mp4"/> \
-    </video> \
-</div>',
+            <div class="popupVideo__logo-container"> \
+                <img class="popupVideo__logo" src="{{path}}/static/images/nr-logo.svg" alt="logo"> \
+            </div> \
+            <video class="popupVideo__video" controls autoplay poster="{{path}}/static/videos/newsroom_awards_full.jpg"> \
+                <source src="https://s3-ap-southeast-2.amazonaws.com/cog-aap/themes/g02Ei4J8TjnbLiR/static/videos/Newsroom_Awards_Full.mp4" type="video/mp4"/> \
+            </video> \
+        </div>',
 
     registerPopup:
         '<div id="register-popup" class="register-popup"> \
