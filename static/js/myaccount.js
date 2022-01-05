@@ -7,7 +7,6 @@ import Card from './StripeCard'
 
 export const UserProfileController = function()
 {
-    console.log('in the ;user profile controller');
     this.mailChimpUser  = false;
     this.emailLists     = [];
     // test mailchimp accounts
@@ -482,7 +481,7 @@ UserProfileController.prototype.events = function ()
         let title = "Are you sure?";
         let buttonLabel = "Yes, cancel my plan";
         let message = "Please confirm you would like to cancel your plan";
-        if ($(e.target).text() == 'Restart Subscription') {
+        if ($(e.target).text().toLowerCase() == 'restart subscription') {
             title = "Welcome back!";
             message = "Please confirm you would like to reactivate this plan."
             buttonLabel = "Yes, restart my plan";
@@ -505,7 +504,7 @@ UserProfileController.prototype.events = function ()
                 var spinner = new Modal('modal', 'swap-modal', {
                     "spinner"       : 'spinnerTmpl'
                 } );                
-                spinner.render("spinner", "Swapping card"); 
+                spinner.render("spinner", ""); 
 
 
                 
@@ -519,10 +518,14 @@ UserProfileController.prototype.events = function ()
                             text = text + data.error[key] + " ";
                         } 
                         $('#createUserErrorMessage').text(text);
+                        let msg =  "It looks like your payment details are missing. Please add a payment method, click Update, then choose a new plan";
+                        self.modal.render("userPlan", "Oops...", {message: msg}); 
+                        spinner.closeWindow();
                     }
 
                 }).fail((r) => {
                     $('#createUserErrorMessage').text(r.textStatus);
+                    spinner.closeWindow();
                 });
        
             }); 

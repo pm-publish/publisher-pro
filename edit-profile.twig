@@ -281,11 +281,11 @@
                                             </div>
                                             <div class="cus_acnt__subInfo">
 
-                                                {% if pwstats['status'] == 'cancelled' %}
+                                                {# {% if pwstats['status'] == 'cancelled' %}
                                                     <a id="cancelAccount" href="#" class="cancel-subBtn">Restart Subscription</a>
                                                 {% else %} 
                                                     <a id="cancelAccount" href="#" class="cancel-subBtn">Cancel subscription</a>
-                                                {% endif %} 
+                                                {% endif %}  #}
 
                                                 {# {% if pwstats['status'] == 'trial' %}
                                                     <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
@@ -331,9 +331,9 @@
                                         data-currentplanperiodcount="{{pwstats['period_count']}}">
 
                                         <div class="table-responsive">
-                                            <table class="plan-table__table">
+                                            <table class="plan-table__table" cellspacing="0">
                                                 <thead class="plan-table__header">
-                                                    <tr class="plan-table__row">
+                                                    <tr class="">
                                                         <th class="plan-table__header-labels">Plan name</th>
                                                         <th class="plan-table__header-labels" colspan="3">Cost</th>
                                                     </tr>
