@@ -10,25 +10,29 @@
 	}
 
 	&__item {
+		display:flex;
 		position: relative;
-		padding-left: 27px;
+		padding-left: 34px;
 		padding-top: 5px;
-		margin-bottom: 10px;
-		line-height: 1.38;
+		margin-bottom: 20px;
+		// line-height: 1.38;
 		font-size: 13px;
 		color: black;
 		font-family: $primaryFont;
 		font-weight: $weightRegular;
+		
 
 		&:before {
-		  content: "\f05d";
+		  content: "";
+		  background-image: url('../icons/plan-tick.svg');
+		  background-repeat: no-repeat;
+		  background-size:cover;
 		  position: absolute;
 		  display: block;
-		  font-family: $iconfont;
+		  width:22px;
+		  height:22px;
 		  left: 0;
 		  top: 0;
-		  color: $grey4;
-		  font-size: 20px;
 		}
 	}
 

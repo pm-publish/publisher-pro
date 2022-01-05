@@ -519,7 +519,7 @@ UserProfileController.prototype.events = function ()
                         } 
                         $('#createUserErrorMessage').text(text);
                         let msg =  "It looks like your payment details are missing. Please add a payment method, click Update, then choose a new plan";
-                        self.modal.render("userPlan", "Oops...", {message: msg}); 
+                        self.modal.render("userPlan", "Oops...", {message: text}); 
                         spinner.closeWindow();
                     }
 
