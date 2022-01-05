@@ -390,23 +390,26 @@ export const Templates = {
     </div>',
 
 
+    spinner: 
+    '<div id="{{name}}" class="flex_col {{name}}"> \
+        <div id="dialog" class="{{name}}__window"> \
+            <div class="{{name}}__header"> \
+                <h2 class="{{name}}__title">{{title}}</h2> \
+            </div> \
+            <div class="{{name}}__content-window" id="dialogContent"></div> \
+        </div> \
+    </div>',
+    
+
     spinnerTmpl: '<div class="spinner"></div>',
 
     subscribeTerms: '<p class="password-reset-form__p u-margin-bottom-20">Please agree to the terms of use.</p><div><form><button class="_btn _btn--red" data-role="okay">OK</button></form></div>',
 
-    ipnotice:
-        '<p class="ipdialog__p u-margin-bottom-20">You can access Pro under this subscription – simply email <a href="mailto:pro@newsroom.co.nz"><strong>pro@newsroom.co.nz</strong></a> for a login.</p> \
-            <div> \
-                <form> \
-                    <a href="mailto:pro@newsroom.co.nz" class="ipdialog__btn _btn _btn--red _btn--outline-red">CONTACT US</a> \
-                    <button class="ipdialog__btn _btn _btn--outline" data-role="close">I\'LL DO IT LATER</button> \
-                </form> \
-            </div>',
 
     userPlanMessage:
         '<p class="{{name}}__message centerText">{{{message}}}</p> \
-        <form name="loginForm" id="loginForm" class="active u-margin-top-20" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-            <button id="cancelbutton" class="_btn _btn--red close" data-role="cancel">OK</button> \
+        <form name="loginForm" id="loginForm" class="active u-flex-justify-center button-set u-margin-top-30" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
+            <button id="cancelbutton" class="login-form__button signin okay" data-role="cancel">OK</button> \
         </form>',
 
     userPlanOkCancel:
@@ -416,61 +419,8 @@ export const Templates = {
             <button id="okaybutton" class="login-form__button signin okay" data-role="okay">{{okayLabel}}</button> \
         </form>',
 
-    modalVideo:
-        '<div id="popupVideo" class="popup-video"> \
-            <div class="popupVideo__logo-container"> \
-                <img class="popupVideo__logo" src="{{path}}/static/images/nr-logo.svg" alt="logo"> \
-            </div> \
-            <video class="popupVideo__video" controls autoplay poster="{{path}}/static/videos/newsroom_awards_full.jpg"> \
-                <source src="https://s3-ap-southeast-2.amazonaws.com/cog-aap/themes/g02Ei4J8TjnbLiR/static/videos/Newsroom_Awards_Full.mp4" type="video/mp4"/> \
-            </video> \
-        </div>',
 
-    registerPopup:
-        '<div id="register-popup" class="register-popup"> \
-    <div class="container"> \
-        <div class="row"> \
-            <div class="col-xs-6 "> \
-                <img class="register-popup__logo" src="{{path}}/static/images/newsroom-reversed.png" alt="logo"> \
-            </div> \
-            <div class="col-xs-6 "> \
-                <div class="register-popup__close-container"> \
-                    <a href="#" id="register-popup-close" class="register-popup__close register-popup__close@sm">CLOSE <span class="register-popup__close-icon"></span></a> \
-                    <a href="#" id="register-popup-subscriber" class="register-popup__subscriber register-popup__subscriber@sm">I\'ve already subscribed</a> \
-                </div>\
-            </div> \
-        </div> \
-        <div class="row">\
-            <div class="col-sm-5"> \
-                <p class="register-popup__text"> \
-                    Start your day with our editors\' picks of the very best stories. \
-                    Sign up here for your free daily briefing email. <br /> \
-                </p> \
-            </div> \
-            \
-            <div class="col-sm-offset-1 col-sm-6"> \
-                <div id="mc_embed_signup" class="popup-embed-signup"> \
-                    <form action="//newsroom.us14.list-manage.com/subscribe/post?u=e0ae259e8f9472b9c54037c25&amp;id=71de5c4b35" method="post" id="mc-embedded-subscribe-form-popup" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate> \
-                        <div id="mc_embed_signup_scroll" style="display:flex"> \
-                            <div class="mc-field-group popup-embed-signup__field"> \
-                                <input type="email" value="" name="EMAIL" class="required email popup-embed-signup__input" id="mce-EMAIL" placeholder="Email address" style="color:black; border:none"> \
-                            </div> \
-                            <button type="submit" class="popup-embed-signup__button" name="subscribe" id="mc-embedded-subscribe"> \
-                                Sign Up \
-                            </button> \
-                            \
-                            <div id="mce-responses" class="clear"> \
-                                <div class="response" id="mce-error-response" style="display:none"></div> \
-                                <div class="response" id="mce-success-response" style="display:none"></div> \
-                            </div> \
-                            <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_e0ae259e8f9472b9c54037c25_71de5c4b35" tabindex="-1" value=""></div> \
-                        </div> \
-                    </form> \
-                </div> \
-            </div> \
-        </div> \
-    </div> \
-</div>',
+
 
     systemCardTemplate:
         cardTemplateTop +

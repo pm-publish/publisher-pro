@@ -280,14 +280,21 @@
                                                 </div>
                                             </div>
                                             <div class="cus_acnt__subInfo">
-                                                {% if pwstats['status'] == 'trail' %}
+
+                                                {% if pwstats['status'] == 'cancelled' %}
+                                                    <a id="cancelAccount" href="#" class="cancel-subBtn">Restart Subscription</a>
+                                                {% else %} 
+                                                    <a id="cancelAccount" href="#" class="cancel-subBtn">Cancel subscription</a>
+                                                {% endif %} 
+
+                                                {# {% if pwstats['status'] == 'trial' %}
                                                     <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
                                                 {% else %}
                                                     <div class="cus_acnt__subInfo__article-info">To purchase more articles, choose a plan below</div>
                                                     {% if pwstats['status'] != 'cancelled' %}
                                                         <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
                                                     {% endif %}
-                                                {% endif %}
+                                                {% endif %} #}
                                             </div>
                                         </div>
                                     </div>

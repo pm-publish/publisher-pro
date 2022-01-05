@@ -479,9 +479,13 @@ UserProfileController.prototype.events = function ()
         // var listelem = $(e.target).closest('li');
 
         let status = 'cancelled';
-        let message = "Are you sure you want to cancel your plan?"
+        let title = "Are you sure?";
+        let buttonLabel = "Yes, cancel my plan";
+        let message = "Please confirm you would like to cancel your plan";
         if ($(e.target).text() == 'Restart Subscription') {
-            message = "Do you want to reactivate your plan? You will be billed on the next payment date."
+            title = "Welcome back!";
+            message = "Please confirm you would like to reactivate this plan."
+            buttonLabel = "Yes, restart my plan";
             status = 'paid'
         }
         const requestData = { 
@@ -493,12 +497,18 @@ UserProfileController.prototype.events = function ()
             "userPlanChange" : 'userPlanOkCancel'
         });
 
-        modal.render("userPlanChange", message)
+        modal.render("userPlanChange", title, {"message" : message, "okayLabel": buttonLabel})
             .done(function(r) {
 
                 $('#dialog').parent().remove();
 
+                var spinner = new Modal('modal', 'swap-modal', {
+                    "spinner"       : 'spinnerTmpl'
+                } );                
+                spinner.render("spinner", "Swapping card"); 
 
+
+                
                 Server.create(_appJsConfig.baseHttpPath + '/user/paywall-account-status', requestData).done((data) => {
                     
                     if (data.success == 1) {
@@ -521,6 +531,10 @@ UserProfileController.prototype.events = function ()
 
     $('.j-setplan').on('click', function(e) {
         e.stopPropagation();
+
+
+        let modalTitle = "You've chosen a new plan";
+
         console.log('clicked set plan');
         const modal = new Modal('modal', 'signin-modal', {
             "userPlan" : 'userPlanMessage',
@@ -546,6 +560,8 @@ UserProfileController.prototype.events = function ()
         let newdays            =  newPlan.data('planperiod');
         const newPlanType      =  newPlan.data('plantype');
 
+        console.log(oldPlanType);
+        console.log(newPlanType);
 
         if (currentUserCount > 0 && currentUserCount > planusers) {
             modal.render("userPlan", "You have too many users to change to that plan.");
@@ -568,13 +584,15 @@ UserProfileController.prototype.events = function ()
 
         let msg = "";
         let newCharge = 0;
-        if (( newPlanType == 'article' && oldPlanType !== 'time') || ( newPlanType == 'time' && oldPlanType === 'article') ) {
+        if ( newPlanType == 'article' || ( newPlanType == 'time' && oldPlanType === 'article') ) {
             newCharge = newcost / 100;
         }
+
 
         if (oldPlanType === 'signup' ) {
             newCharge = newcost / 100;
         }
+        
         
         if (oldPlanType === 'time' && newPlanType === 'time' && newcost < oldcost ) {
             newCharge = 0;
@@ -591,7 +609,8 @@ UserProfileController.prototype.events = function ()
 
         const expiryObj = new Date(expDate);
         const today = new Date();
-        
+        console.log(expiryObj);
+        console.log(today);
         // var diffTime = Math.abs(today.getTime() - expiryObj.getTime());
         // var diffDays1 = Math.ceil(diffTime / (1000 * 3600 * 24)); 
         const diffDays = dateDiffInDays(today, expiryObj); 
@@ -604,13 +623,33 @@ UserProfileController.prototype.events = function ()
             }
         }
         console.log(newCharge);
+        let charge = "";
         if (newCharge > 0) {
-            msg = "This plan change will cost $" + newCharge.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            charge = newCharge.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            msg = "This plan change will cost $" + charge + ".";
         }
 
+        if (oldPlanType === 'time' && newPlanType === 'article') {
+            msg += " Articles will be counted from the end of your current paid period.";
+        }
+
+        if (oldPlanType === 'article' && newPlanType === 'article') {
+            modalTitle = "Buy more articles";
+            msg = "Please confirm your article purchase, this will cost $" + charge + ".";
+        }
+
+        if (oldPlanType === 'article' && newPlanType === 'time') {
+            msg += " You will have access to your new plan immediately.";
+        }
+
+        if (newPlanType === 'signup') {
+            msg = "The new plan will start on the next payment date shown on this page.";
+        }
+
+
         if (cardSupplied === 'f' ) {
-            msg = msg + "However, you will need to supply your credit card details. You can enter those on this page and then we can finalise the plan change.";
-            self.modal.render("userPlan", "Almost there! ", {message: msg});
+            msg = msg + "It looks like your payment details are missing. Please add a payment method, click Update, then choose a new plan";
+            self.modal.render("userPlan", "Oops...", {message: msg});
             return;
         }
 
@@ -624,7 +663,7 @@ UserProfileController.prototype.events = function ()
             "userPlanChange" : 'userPlanOkCancel'
         });
         console.log(msg);
-        changeModal.render("userPlanChange",  "You've chosen a new plan", {"message" : msg, "okayLabel": "Purchase now"})
+        changeModal.render("userPlanChange",  modalTitle, {"message" : msg, "okayLabel": "Purchase now"})
             .done(function() {
                 // console.log('donee!!');
                 $('#dialog').parent().remove();
