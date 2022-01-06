@@ -360,6 +360,10 @@ UserProfileController.prototype.events = function ()
         $("#account-form__errorText").html(errorText);
         
         if (!errorText) {
+            var spinner = new Modal('modal', 'swap-modal', {
+                "spinner"       : 'spinnerTmpl'
+            } );                
+            spinner.render("spinner", ""); 
             $(this).unbind('submit').submit()
         }
     });
@@ -724,14 +728,14 @@ UserProfileController.prototype.events = function ()
     }
 
     $('.js-cus_acnt__showForm').on('click', function() {
-        $this = $(this);
+        const $this = $(this);
         $this.addClass('cus_acnt__hide');
         $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').addClass('cus_acnt__hide');
         $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').removeClass('cus_acnt__hide');
     });
 
     $('.js-cus_acnt__HideForm').on('click', function() {
-        $this = $(this);
+        const $this = $(this);
         $('.js-cus_acnt__showForm').removeClass('cus_acnt__hide');
         $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').removeClass('cus_acnt__hide');
         $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').addClass('cus_acnt__hide');
