@@ -20,7 +20,8 @@ export const UserProfileController = function()
     this.modal = new SigninModal('modal', 'signin-modal', {
         "spinner"       : 'spinnerTmpl',
         "userPlan"      : 'userPlanMessage',
-        "userPlanChange" : 'userPlanOkCancel'
+        "userPlanChange" : 'userPlanOkCancel',
+        "message"        : "message"
     } );
 
     this.stripekey = $('#stripekey').html();
@@ -31,90 +32,7 @@ export const UserProfileController = function()
     this.events();
     this.userEvents();
     // this.listingEvents();
-    this.fetchEmailLists();
-};
-
-UserProfileController.prototype.updateCardForm = function() {
-
-
-}
-UserProfileController.prototype.subscribeToEmail = function(user, group) {
-    
-
-    var data = {
-        list   : this.newsroom,
-        group  : group,
-        user   : user,
-        action : 'create',
-    };
-
-    return Server.create( _appJsConfig.baseHttpPath + '/api/integration/mailchimp-subscription', data).done(function(r) {
-        console.log(r);
-    });
-
-};
-
-
-UserProfileController.prototype.fetchUserMailchimpStatus = function(list) {
-
-    var requestData = {
-        action: 'get',
-        list: list
-    };
-
-    return Server.create(_appJsConfig.baseHttpPath + '/api/integration/mailchimp-subscription', requestData );
-
-};
-
-
-UserProfileController.prototype.fetchEmailLists = function() {
-
-    var self = this;
-
-    Server.fetch( _appJsConfig.baseHttpPath + '/api/integration/mailchimp-get-list-data?list='+this.newsroom+'&group='+this.group).done(function(data) {
-
-        if (typeof data.data.interests != 'undefined') {
-            self.emailLists = data.data.interests;
-        }
-
-        var emails    = Handlebars.compile(Templates.mailchimpList);
-
-
-
-        self.fetchUserMailchimpStatus(self.newsroom).done(function(status) {
-
-            self.mailChimpUser = status.data === false ? false : true;
-
-                for (var i=self.emailLists.length -1; i > -1; i--) {
-                    var checked = '';
-                    var name = self.emailLists[i].name;
-
-                    if ( status.data !== false && status.data.interests[self.emailLists[i].id] === true && status.data.status !== 'unsubscribed' ) {
-                        checked = 'checked';
-                    }
-
-                    if (self.emailLists[i].name.toLowerCase() == 'daily summaries') {
-                        name = "Send me Jonathan Milne's <i>8 Things</i> email each day";
-                    }
-
-                    if (self.emailLists[i].name.toLowerCase() == 'breaking news alerts') {
-                        name = "Send me an email alert when important news breaks";
-                    }
-
-                    var params = {
-                        listId: self.newsroom,
-                        groupId: self.emailLists[i].id,
-                        name: name,
-                        checked: checked
-                    };
-    
-                    
-                    $('#account-form__email').append( emails(params) );
-                }
-
-        });
-    });
-
+    // this.fetchEmailLists();
 };
 
 
@@ -691,47 +609,15 @@ UserProfileController.prototype.events = function ()
 
 
 
-    var udform = document.getElementById('update-card-form');
-    if (udform != null) {
-        udform.addEventListener('submit', function(event) {
 
-            event.preventDefault();
-
-            
-            self.modal.render("spinner", "Your request is being processed.");
-
-            const errorElement = document.getElementById('card-errors');
-
-            errorElement.textContent = '';
-            // const stripe = Stripe(self.stripekey);
-            self.stripe.createToken(self.card).then(function(result) {
-                // console.log(result);
-                if (result.error) {
-                    self.modal.closeWindow();
-
-                    // Inform the user if there was an error
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                } else {
-                    // Send the token to your server
-
-                    const formdata = {"stripetoken":result.token.id}
-                    Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
-                        self.modal.closeWindow();
-                        if (r.success === true) {
-                            location.reload();
-                        }
-                    });
-                }
-            });
-        });
-    }
 
     $('.js-cus_acnt__showForm').on('click', function() {
         const $this = $(this);
         $this.addClass('cus_acnt__hide');
         $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').addClass('cus_acnt__hide');
         $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').removeClass('cus_acnt__hide');
+
+        self.stripeCardEvent();
     });
 
     $('.js-cus_acnt__HideForm').on('click', function() {
@@ -751,28 +637,47 @@ UserProfileController.prototype.events = function ()
         console.log($elem.text());
         var fr = $(this).closest('tr.view').next('.folded');
         fr.toggleClass('open');
-      });
+    });
 };
 
 
+UserProfileController.prototype.stripeCardEvent = function () {
+    var self = this;
+    var udform = document.getElementById('update-card-form');
 
+    if (udform != null) {
 
-// UserProfileController.prototype.listingEvents = function() {
-//     var self = this;
+        udform.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-//     $('.j-deleteListing').unbind().on('click', function(e) {
-//         e.preventDefault();
-//         const listing = $(e.target).closest('a.card');
-//         const id      = listing.data("guid");
-//         self.modal.render("userPlanChange", "Are you sure you want to delete this listing?")
-//             .done(function() {
-//                 Server.create('/api/article/delete-user-article', {"articleguid": id}).done(function(r) {
-//                     listing.remove();
-//                 }).fail(function(r) {
-//                     // console.log(r);
-//                 });
-//             });
-//     });  
-// };
+            self.modal.render("spinner", "Updating card...", {'class':'u-relative'});
 
-    
+            const errorElement = document.getElementById('card-errors');
+
+            errorElement.textContent = '';
+            // const stripe = Stripe(self.stripekey);
+            self.stripe.createToken(self.card).then(function(result) {
+                if (result.error) {
+                    self.modal.closeWindow();
+
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server
+                    const formdata = {"stripetoken":result.token.id}
+                    Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
+                        if (r.success === 1) {
+
+                            self.modal.renderLayout('message', {message: "Success"});
+
+                            location.reload();
+                        } else {
+                            self.modal.closeWindow();
+                        }
+                    });
+                }
+            });
+        });
+    }
+}

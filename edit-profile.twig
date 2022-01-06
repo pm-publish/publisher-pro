@@ -78,69 +78,71 @@
                                             </li>
                                         </ul>
                                     </div>
+
                                     <div class="cus_acnt__infoBox-form cus_acnt__hide">
                                         <form id="profile-form" class="c-form" action="#" method="post" autocomplete="off">
-                                        <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
-                                        <input type="hidden" name="profileImage" id="userProfileImage" value="" />
+                                            <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
+                                            <input type="hidden" name="profileImage" id="userProfileImage" value="" />
 
-                                        {# FIRST NAME #}
-                                        <div class="cus_acnt__form__group">
-                                            <label class="cus_acnt__form__label c-account-form__label" for="first-name">First name</label>
-                                            <input id="first-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="firstname" placeholder="Full Name" aria-required="true" type="text" value="{{user.firstname}}">
-                                            <div class="cus_acnt__form__help-block"></div>
-                                        </div>
-
-                                        {# LAST NAME #}
-                                        <div class="cus_acnt__form__group">
-                                            <label class="cus_acnt__form__label c-account-form__label" for="last-name">Last name</label>
-                                            <input id="last-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="lastname" placeholder="Last Name" aria-required="true" type="text" value="{{user.lastname}}">
-                                            <div class="cus_acnt__form__help-block"></div>
-                                        </div>
-
-                                        {# EMAIL #}
-                                        <div class="cus_acnt__form__group">
-                                            <label class="cus_acnt__form__label c-account-form__label" for="email">Email</label>
-                                            <input id="email" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="email" placeholder="email" aria-required="true" type="text" value="{{user.email}}">
-                                            <div class="cus_acnt__form__help-block"></div>
-                                        </div>
-
-                                        {# PASSWORD #}
-                                        <div class="cus_acnt__form__group">
-                                            <label class="cus_acnt__form__label c-account-form__label" for="password">Password</label>
-                                            <input id="password" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="password" placeholder="Password" aria-required="true" type="password">
-                                            <div class="cus_acnt__form__help-block"></div>
-                                        </div>
-
-                                        {# PASSWORD VERIFY #}
-                                        <div class="cus_acnt__form__group">
-                                            <label class="cus_acnt__form__label c-account-form__label" for="verifypassword">Verify password</label>
-                                            <input id="verifypassword" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="verifypassword" placeholder="Set new password" aria-required="true" type="password">
-                                            <div class="cus_acnt__form__help-block"></div>
-                                        </div>
-
-                                        {# ORGANISATION #}
-                                        <div class="cus_acnt__form__group">
-                                            <label class="cus_acnt__form__label c-account-form__label" for="organisation">Organisation</label>
-                                            <input id="organisation" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="abn_business_name"  value="{{user.business_name}}" aria-required="true" type="text">
-                                            <div class="cus_acnt__form__help-block"></div>
-                                        </div>
-                                        
-
-                                        {# EMAIL ALERTS #}
-                                        {# <div class="cus_acnt__form__group u-margin-top-20">
-                                            <div class="button-set">
-                                                <label>
-                                                    <input id="alerts" name="alerts" type="checkbox" class="cus_acnt__form__checkbox validate[required]"><span><!-- fake radio --></span> Send me daily email alerts
-                                                </label>
+                                            {# FIRST NAME #}
+                                            <div class="cus_acnt__form__group">
+                                                <label class="cus_acnt__form__label c-account-form__label" for="first-name">First name</label>
+                                                <input id="first-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="firstname" placeholder="Full Name" aria-required="true" type="text" value="{{user.firstname}}">
+                                                <div class="cus_acnt__form__help-block"></div>
                                             </div>
-                                        </div> #}
-                                        
 
-                                        {# SUBMIT #}
-                                        <div class="cus_acnt__form__group cus_acnt__form__btns">
-                                            <button type="submit" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="">Save changes</button>
-                                            <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>
-                                        </div>
+                                            {# LAST NAME #}
+                                            <div class="cus_acnt__form__group">
+                                                <label class="cus_acnt__form__label c-account-form__label" for="last-name">Last name</label>
+                                                <input id="last-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="lastname" placeholder="Last Name" aria-required="true" type="text" value="{{user.lastname}}">
+                                                <div class="cus_acnt__form__help-block"></div>
+                                            </div>
+
+                                            {# EMAIL #}
+                                            <div class="cus_acnt__form__group">
+                                                <label class="cus_acnt__form__label c-account-form__label" for="email">Email</label>
+                                                <input id="email" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="email" placeholder="email" aria-required="true" type="text" value="{{user.email}}">
+                                                <div class="cus_acnt__form__help-block"></div>
+                                            </div>
+
+                                            {# PASSWORD #}
+                                            <div class="cus_acnt__form__group">
+                                                <label class="cus_acnt__form__label c-account-form__label" for="password">Password</label>
+                                                <input id="password" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="password" placeholder="Password" aria-required="true" type="password">
+                                                <div class="cus_acnt__form__help-block"></div>
+                                            </div>
+
+                                            {# PASSWORD VERIFY #}
+                                            <div class="cus_acnt__form__group">
+                                                <label class="cus_acnt__form__label c-account-form__label" for="verifypassword">Verify password</label>
+                                                <input id="verifypassword" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="verifypassword" placeholder="Set new password" aria-required="true" type="password">
+                                                <div class="cus_acnt__form__help-block"></div>
+                                            </div>
+
+                                            {# ORGANISATION #}
+                                            <div class="cus_acnt__form__group">
+                                                <label class="cus_acnt__form__label c-account-form__label" for="organisation">Organisation</label>
+                                                <input id="organisation" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="abn_business_name"  value="{{user.business_name}}" aria-required="true" type="text">
+                                                <div class="cus_acnt__form__help-block"></div>
+                                            </div>
+                                            
+
+                                            {# EMAIL ALERTS #}
+                                            {# <div class="cus_acnt__form__group u-margin-top-20">
+                                                <div class="button-set">
+                                                    <label>
+                                                        <input id="alerts" name="alerts" type="checkbox" class="cus_acnt__form__checkbox validate[required]"><span><!-- fake radio --></span> Send me daily email alerts
+                                                    </label>
+                                                </div>
+                                            </div> #}
+                                            
+
+                                            {# SUBMIT #}
+                                            <div class="cus_acnt__form__group cus_acnt__form__btns">
+                                                <button type="submit" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="">Save changes</button>
+                                                <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>
+                                            </div>
+                                        </form>
                                     </div>
 
                                 </div>
@@ -171,6 +173,7 @@
                                                 </div>
 
                                                 <div class="cus_acnt__form__group cus_acnt__form__btns">
+                                                    <div id="card-errors" class="profile-section__card-errors" role="alert"></div>
                                                     <button type="submit" id="btnContact" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="contact-button">Update details</button>
                                                     <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>
                                                 </div>
@@ -550,12 +553,10 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
-        window.intercomSettings = {
-            app_id: "zxwsoz9f"
-        }; 
 
         var usercard = new Acme.Usercard();
         Acme.userController = new Acme.UserProfileController();
+
         Acme.userFeed = new Acme.View.UserFeed({
             model: usercard, 
             limit: "{{userLimit}}",

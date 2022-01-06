@@ -18,7 +18,6 @@ window.Acme.Card = Card;
 
 const ads = new AdLoader();
 ads.LoadAds();
-console.log(window.Acme.UserProfileController);
 
 
 

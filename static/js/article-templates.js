@@ -379,15 +379,7 @@ export const Templates = {
     </form>',
 
 
-    spinner:
-        '<div id="{{name}}" class="flex_col {{name}}"> \
-        <div id="dialog" class="{{name}}__window"> \
-            <div class="{{name}}__header"> \
-                <h2 class="{{name}}__title">{{title}}</h2> \
-            </div> \
-            <div class="{{name}}__content-window" id="dialogContent"></div> \
-        </div> \
-    </div>',
+
 
 
     spinner: 
@@ -401,7 +393,7 @@ export const Templates = {
     </div>',
     
 
-    spinnerTmpl: '<div class="spinner"></div>',
+    spinnerTmpl: '<div class="spinner u-margin-top-30 {{class}}"></div>',
 
     subscribeTerms: '<p class="password-reset-form__p u-margin-bottom-20">Please agree to the terms of use.</p><div><form><button class="_btn _btn--red" data-role="okay">OK</button></form></div>',
 
@@ -419,8 +411,9 @@ export const Templates = {
             <button id="okaybutton" class="login-form__button signin okay" data-role="okay">{{okayLabel}}</button> \
         </form>',
 
-
-
+    message:
+    '<p class="{{name}}__message centerText u-margin-top-20">{{message}}</p>',
+ 
 
     systemCardTemplate:
         cardTemplateTop +
