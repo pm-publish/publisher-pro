@@ -307,8 +307,8 @@ UserProfileController.prototype.events = function ()
             search[field.name] = field.value;
         });
         self.search(search);
-        $('#user-search-submit').hide();
-        $('#user-search-clear').show();
+        // $('#user-search-submit').hide();
+        // $('#user-search-clear').show();
 
     });
 

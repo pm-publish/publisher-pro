@@ -283,30 +283,21 @@ export const Templates = {
             </div> \
         </div>',
 
+        
     managed_user:
-        '<div class="u-float-left"> \
-            <p class="userdetails__name"> \
-                <span class="j-firstname">{{firstname}}</span> \
-                <span class="j-lastname">{{lastname}}</span> \
-            </p> \
-            <p class="j-username userdetails__username">{{username}}</p> \
-        </div>\
-        <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
-        <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a>',
+        '<li id="{{id}}" class="user-list--items"> \
+        <aside> \
+            <div class="user-list--items-name">{{firstname}} {{lastname}}</div> \
+            <div class="user-list--items-email">{{email}}</div> \
+        </aside> \
+        <aside> \
+            <a href="javascript:;" class="user-list--items-remove j-delete userdetails__button"> \
+                <span class="icon fa fa-trash"></span> \
+                <span>Remove</span> \
+            </a> \
+        </aside> \
+    </li>',
 
-
-    managed_user:
-        '<li id="{{id}}" class="userdetails {{cardClass}}"> \
-            <div class="u-float-left"> \
-                <p class="userdetails__name"> \
-                    <span class="j-firstname">{{firstname}}</span> \
-                    <span class="j-lastname">{{lastname}}</span> \
-                </p> \
-            </div>\
-            <a class="j-delete userdetails__button userdetails__button--delete u-float-right"></a> \
-            <a class="j-edit userdetails__button userdetails__button--edit u-float-right"></a> \
-            <p class="j-email  userdetails__email u-float-right">{{email}}</p> \
-        </li>',
 
 
     signinFormTmpl:
