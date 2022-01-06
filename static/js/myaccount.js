@@ -36,47 +36,51 @@ export const UserProfileController = function()
 };
 
 
+UserProfileController.prototype.getError = function(data) {
+    let text = data;
+    if (typeof data.error !== 'string') {
+        for (var key in data.error) {
+            text = text + data.error[key] + " ";
+        } 
+    }
+    return text;
+}
 
+UserProfileController.prototype.showError = function(error) {
+    const modal = new Modal('modal', 'signin-modal', {
+        "userPlanChange" : 'userPlanOkCancel'
+    });
+    modal.render("userPlanChange", "Error", {"message" : error, "okayLabel": "OK"})
+}
 
 UserProfileController.prototype.deleteUser = function(e) {
+    const self = this;
+    const user = $(e.target).closest('li');
+    const userid = user.attr("id");
+    const requestData = { 
+        id: userid, 
+    };
+    return Server.create(_appJsConfig.baseHttpPath + '/user/delete-managed-user', requestData).done(function(data) {
 
-    var user = $(e.target).closest('li');
-    var userid = user.attr("id");
-
-    var mailChimpData = {
-        user    : userid,
-        list    : this.newsroom,
-        action  : 'unsubscribe'
-    }
-
-    // first remove from email lists
-    Server.create( _appJsConfig.baseHttpPath + '/api/integration/mailchimp-subscription', mailChimpData).done(function(r) {
-
-        var requestData = { 
-            id: userid, 
-        };
-
-
-        Server.create(_appJsConfig.baseHttpPath + '/user/delete-managed-user', requestData).done(function(data) {
-            if (data.success == 1) {
-                user.remove();
-                $('#addManagedUser').removeClass('hidden');
-                var usertxt = $('.profile-section__users-left').text();
-                var usercount = usertxt.split(" ");
-                var total = usercount[2];
-                usercount = parseInt(usercount[0]);
-                $('.profile-section__users-left').text((usercount - 1) + " of " + total + " used.");
-            } else {
-                var text = '';
-                for (var key in data.error) {
-                    text = text + data.error[key] + " ";
-                } 
-                $('#createUserErrorMessage').text(text);
+        if (data.success == 1) {
+            user.remove();
+            var userCountElem = $('.js-usercount');
+            const userTxt = userCountElem.text();
+            var usercount = userTxt.split(" ");
+            var total = usercount[2];
+            usercount = parseInt(usercount[0]);
+            userCountElem.text((usercount - 1) + " of " + total);
+            if (usercount -1 < total) {
+                $('.js-addUserButton').removeClass('u-hide');
             }
-        }).fail((r)=> {
-            $('#createUserErrorMessage').text(r.textStatus);
-        });
+        } else {
+            const error = self.getError(data.error);
+            self.showError(error);
+        }
+    }).fail((r)=> {
+        $('#createUserErrorMessage').text(r.textStatus);
     });
+ 
 };
 
 UserProfileController.prototype.renderUser = function(parent, data, template) {
@@ -176,16 +180,13 @@ UserProfileController.prototype.userEvents = function()
                     $('#createUserErrorMessage').text('');
 
                 } else {
-                    var text = '';
-                    for (var key in data.error) {
-                        text = text + data.error[key] + " ";
-                    } 
-                    $('#createUserErrorMessage').text(text);
+                    const error = self.getError(data.error);
+                    self.showError(error);
                 }
                 self.userEvents();
 
             }).fail((r) => {
-                $('#createUserErrorMessage').text(r.textStatus);
+                self.showError(r.textStatus);
             });     
         });
     });  
@@ -193,11 +194,19 @@ UserProfileController.prototype.userEvents = function()
     $('.j-delete').unbind().on('click', function(e) {
 
         const modal = new Modal('modal', 'signin-modal', {
-            "userPlanChange" : 'userPlanOkCancel'
+            "userPlanChange" : 'userPlanOkCancel',
+            "spinner"       : 'spinnerTmpl',
+
         });
-        modal.render("userPlanChange", "Are you sure you want to delete this user?")
+        modal.render("userPlanChange", "Are you sure?", {"okayLabel" : "Yes, delete user"})
             .done(function() {
-                self.deleteUser(e);
+                var spinner = new Modal('modal', 'swap-modal', {
+                    "spinner"       : 'spinnerTmpl'
+                } );                
+                spinner.render("spinner", "");        
+                self.deleteUser(e).done(() => {
+                    spinner.closeWindow();
+                });
             });
     });   
 };
@@ -362,27 +371,17 @@ UserProfileController.prototype.events = function ()
             $('#user-editor__spinner').addClass('spinner');
 
             Server.create(_appJsConfig.baseHttpPath + '/user/create-paywall-managed-user', requestData).done((data) => {
-                $('#user-editor__spinner').removeClass('spinner');
 
                 if (data.success == 1) {
-
-                    var groups = self.emailLists.map(function(g) {
-                        return g['id'];
-                    });
-
-                    self.subscribeToEmail(data.user, groups);
-
                     location.reload(false);             
                 } else {
-                    var text = '';
-                    for (var key in data.error) {
-                        text = text + data.error[key] + " ";
-                    } 
-                    $('#createUserErrorMessage').text(text);
+                    $('#user-editor__spinner').removeClass('spinner');
+                    const error = self.getError(data.error);
+                    self.showError(error);
                 }
             }).fail((r) => {
                 $('#user-editor-buttons').removeClass('spinner');
-                $('#createUserErrorMessage').text(r.textStatus);
+                self.showError(r.textStatus);
             });
         });
 
@@ -435,13 +434,9 @@ UserProfileController.prototype.events = function ()
                     if (data.success == 1) {
                         window.location.reload(false);             
                     } else {
-                        let text = '';
-                        for (let key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#createUserErrorMessage').text(text);
+                        const error = self.getError(data.error);
                         let msg =  "It looks like your payment details are missing. Please add a payment method, click Update, then choose a new plan";
-                        self.modal.render("userPlan", "Oops...", {message: text}); 
+                        self.modal.render("userPlan", "Oops...", {message: error}); 
                         spinner.closeWindow();
                     }
 
@@ -485,11 +480,8 @@ UserProfileController.prototype.events = function ()
         let newdays            =  newPlan.data('planperiod');
         const newPlanType      =  newPlan.data('plantype');
 
-        console.log(oldPlanType);
-        console.log(newPlanType);
-
         if (currentUserCount > 0 && currentUserCount > planusers) {
-            modal.render("userPlan", "You have too many users to change to that plan.");
+            modal.render("userPlan", "Oops...", {message: "You have too many users for that plan. Please remove <br /> them and try again"});
             return;
         }
 
@@ -534,8 +526,7 @@ UserProfileController.prototype.events = function ()
 
         const expiryObj = new Date(expDate);
         const today = new Date();
-        console.log(expiryObj);
-        console.log(today);
+
         // var diffTime = Math.abs(today.getTime() - expiryObj.getTime());
         // var diffDays1 = Math.ceil(diffTime / (1000 * 3600 * 24)); 
         const diffDays = dateDiffInDays(today, expiryObj); 
@@ -547,7 +538,7 @@ UserProfileController.prototype.events = function ()
                 newCharge = Math.round((( newplandailycost-plandailycost) * diffDays) / 100 );
             }
         }
-        console.log(newCharge);
+
         let charge = "";
         if (newCharge > 0) {
             charge = newCharge.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
@@ -587,7 +578,7 @@ UserProfileController.prototype.events = function ()
         const changeModal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel'
         });
-        console.log(msg);
+
         changeModal.render("userPlanChange",  modalTitle, {"message" : msg, "okayLabel": "Purchase now"})
             .done(function() {
                 // console.log('donee!!');

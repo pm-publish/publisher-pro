@@ -62,6 +62,9 @@
         margin-top: 25px;
     }
 
+    &__message {
+        line-height: 1.4;
+    }
     .login-form__forgot {
         margin-bottom: 0;
         font-family: $secondaryFont;
