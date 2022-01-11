@@ -71,17 +71,17 @@ const cardTemplateBottom =
     '</article>' +
 
     '{{#if userHasBlogAccess}}' +
-    '<div class="btn_overlay articleMenu">' +
-    '<button title="Hide" data-guid="{{guid}}" class="btnhide social-tooltip HideBlogArticle" type="button" data-social="0">' +
-    '<i class="fa fa-eye-slash"></i><span class="hide">Hide</span>' +
-    '</button>' +
-    '<button onclick="window.location=\'{{{editUrl}}}\'; return false;" title="Edit" class="btnhide social-tooltip" type="button">' +
-    '<i class="fa fa-edit"></i><span class="hide">Edit</span>' +
-    '</button>' +
-    '<button data-position="{{position}}" data-social="0" data-id="{{articleId}}" title="{{pinTitle}}" class="btnhide social-tooltip PinArticleBtn {{# ifCond isPinned "==" 1}} selected {{/ifCond}} " type="button" data-status="{{isPinned}}">' +
-    '<i class="fa fa-thumb-tack"></i><span class="hide">{{pinText}}</span>' +
-    '</button>' +
-    '</div>' +
+        '<div class="btn_overlay articleMenu">' +
+            '<button title="Hide" data-guid="{{guid}}" class="btnhide social-tooltip HideBlogArticle" type="button" data-social="0">' +
+                '<i class="fa fa-eye-slash"></i><span class="hide">Hide</span>' +
+            '</button>' +
+            '<button onclick="window.location=\'{{{editUrl}}}\'; return false;" title="Edit" class="btnhide social-tooltip" type="button">' +
+                '<i class="fa fa-edit"></i><span class="hide">Edit</span>' +
+            '</button>' +
+            '<button data-position="{{position}}" data-social="0" data-id="{{articleId}}" title="{{pinTitle}}" class="btnhide social-tooltip PinArticleBtn {{# ifCond isPinned "==" 1}} selected {{/ifCond}} " type="button" data-status="{{isPinned}}">' +
+                '<i class="fa fa-thumb-tack"></i><span class="hide">{{pinText}}</span>' +
+            '</button>' +
+        '</div>' +
     "{{/if}}" +
     '</a>' +
     '</div>';
@@ -94,76 +94,75 @@ export const Templates = {
         // style="scrolling == unusable position:fixed element might be fixing login for ios safari
         // also margin-top:10px
         '<div id="{{name}}" class="flex_col {{name}}"> \
-    <div id="dialog" class="{{name}}__window"> \
-        <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
-            <div class="{{name}}__header"> \
-                <h2 class="{{name}}__title">{{{title}}}</h2> \
-                <a class="{{name}}__close" href="#" data-behaviour="close"></a> \
+            <div id="dialog" class="{{name}}__window"> \
+                <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
+                    <div class="{{name}}__header"> \
+                        <h2 class="{{name}}__title">{{{title}}}</h2> \
+                        <a class="{{name}}__close" href="#" data-behaviour="close"></a> \
+                    </div> \
+                    <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
+                </div> \
             </div> \
-            <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
-        </div> \
-    </div> \
-</div>',
+        </div>',
 
-// <p class="{{name}}__description">{{description}}</p> \
 
     donate_modal:
         // style="scrolling == unusable position:fixed element might be fixing login for ios safari
         // also margin-top:10px
         '<div id="{{name}}" class="flex_col {{name}}"> \
-    <div id="dialog" class="{{name}}__window"> \
-        <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
-            <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
-        </div> \
-    </div> \
-</div>',
+            <div id="dialog" class="{{name}}__window"> \
+                <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
+                    <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
+                </div> \
+            </div> \
+        </div>',
 
 
 
     donations:
         '<div id="{{id}}" class="donate-form" data-selected="{{selected.price_id}}"> \
-    \
-    <div class="donate-form__header"> \
-        <div class="donate-form__periods j-donation-periods" data-active="{{active}}"> \
-            {{#each prices}} \
-                {{#each this}} \
-                    <button data-elem="period" data-period="{{@key}}" data-product="{{../../id}}" class="donate-form__period-button {{# ifCond @key "==" ../../active}} donate-form__period-button--active {{/ifCond}} u-margin-right-10">{{labelFix @key}}</button>\
-                {{/each}} \
-            {{/each}} \
-        </div> \
-        \
-        <div class="donate-form__close"> \
-            <a class="donate-form__close-icon o-close" href="#" data-behaviour="close"></a> \
-        </div> \
-    </div> \
-    \
-    \
-    <img src="{{logo}}" class="donate-form__logo"/> \
-    \
-    <p class="donate-form__text">How much would you like to contribute{{intervalString}}?</p> \
-    \
-    {{#each prices}} \
-        {{#each this}} \
-            {{# ifCond @key "==" ../../active}} \
-                <div data-key="{{@key}}" data-active="{{../../active}}" class="donate-form__prices j-donation-price"> \
-                    {{#each this}} \
-                        <button data-selected="{{../../../selected.price_id}}" class="donate-form__price-button  {{# ifCond ../../../selected.price_id "==" this.id}} donate-form__price-button--active {{/ifCond}}    u-margin-right-10" data-elem="price" data-product="{{this.product}}" data-price_id="{{this.id}}">${{this.price}}</button>\
+            \
+            <div class="donate-form__header"> \
+                <div class="donate-form__periods j-donation-periods" data-active="{{active}}"> \
+                    {{#each prices}} \
+                        {{#each this}} \
+                            <button data-elem="period" data-period="{{@key}}" data-product="{{../../id}}" class="donate-form__period-button {{# ifCond @key "==" ../../active}} donate-form__period-button--active {{/ifCond}} u-margin-right-10">{{labelFix @key}}</button>\
+                        {{/each}} \
                     {{/each}} \
                 </div> \
+                \
+                <div class="donate-form__close"> \
+                    <a class="donate-form__close-icon o-close" href="#" data-behaviour="close"></a> \
+                </div> \
+            </div> \
+            \
+            \
+            <img src="{{logo}}" class="donate-form__logo"/> \
+            \
+            <p class="donate-form__text">How much would you like to contribute{{intervalString}}?</p> \
+            \
+            {{#each prices}} \
+                {{#each this}} \
+                    {{# ifCond @key "==" ../../active}} \
+                        <div data-key="{{@key}}" data-active="{{../../active}}" class="donate-form__prices j-donation-price"> \
+                            {{#each this}} \
+                                <button data-selected="{{../../../selected.price_id}}" class="donate-form__price-button  {{# ifCond ../../../selected.price_id "==" this.id}} donate-form__price-button--active {{/ifCond}}    u-margin-right-10" data-elem="price" data-product="{{this.product}}" data-price_id="{{this.id}}">${{this.price}}</button>\
+                            {{/each}} \
+                        </div> \
+                    {{/ifCond}} \
+                {{/each}} \
+            {{/each}} \
+            \
+            <div class="donations__amount"> \
+                <p class="donate-form__amount-label">or specify an amount</p> \
+                <input class="donate-form__input donate-form__input--override j-donate-input" data-elem="input" data-product="{{id}}" type="text" value="{{priceFix selected.amount}}" placeholder="$NZD" /> \
+            </div> \
+            {{# ifCond selected.amount ">" 0}} \
+                <button id="donate-button" class="donate-form__button" data-elem="checkout">Donate ${{priceFix selected.amount}}</button> \
+            {{ else }} \
+                <button id="donate-button" class="donate-form__button" data-elem="checkout">Donate</button> \
             {{/ifCond}} \
-        {{/each}} \
-    {{/each}} \
-    \
-    <div class="donations__amount"> \
-        <p class="donate-form__amount-label">or specify an amount</p> \
-        <input class="donate-form__input donate-form__input--override j-donate-input" data-elem="input" data-product="{{id}}" type="text" value="{{priceFix selected.amount}}" placeholder="$NZD" /> \
-    </div> \
-    {{# ifCond selected.amount ">" 0}} \
-        <button id="donate-button" class="donate-form__button" data-elem="checkout">Donate ${{priceFix selected.amount}}</button> \
-    {{ else }} \
-        <button id="donate-button" class="donate-form__button" data-elem="checkout">Donate</button> \
-    {{/ifCond}} \
-</div>',
+        </div>',
 
 
 

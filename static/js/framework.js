@@ -300,7 +300,19 @@ export const Modal = function(template, name, layouts, data) {
     Modal.prototype.renderLayout = function(layout, data) {
 
         var data = data || {};
-        var tmp = Handlebars.compile(Templates[this.layouts[layout]]);
+        let template = null;
+        if (this.layouts !== null && typeof Templates[this.layouts[layout]] !== 'undefined') {
+            template = Templates[this.layouts[layout]]; 
+        }
+        if (template === null && Templates[layout] !== 'undefined') {
+            template = Templates[layout];
+        }
+
+        if (template === null) {
+            return;
+        }
+
+        var tmp = Handlebars.compile(template);
         var layout = tmp(data);
 
         $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 

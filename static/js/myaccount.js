@@ -5,17 +5,10 @@ import { SigninModal }  from './signinModal'
 import Card from './StripeCard'
 
 
-export const UserProfileController = function()
+export const UserProfileController = function(data)
 {
-    this.mailChimpUser  = false;
-    this.emailLists     = [];
-    // test mailchimp accounts
-    // this.newsroom       = '17ba69a02c';
-    // this.group          = 'cb03aca14d'; // me
-    
-    
-    this.newsroom       = '2412c1d355';
-    this.group          = 'f6f5aaa06b';
+    this.currentUserCount = data.currentUserCount || 0;
+    this.planUserCount = data.planUserCount || 0;
 
     this.modal = new SigninModal('modal', 'signin-modal', {
         "spinner"       : 'spinnerTmpl',
@@ -63,14 +56,14 @@ UserProfileController.prototype.deleteUser = function(e) {
     return Server.create(_appJsConfig.baseHttpPath + '/user/delete-managed-user', requestData).done(function(data) {
 
         if (data.success == 1) {
+            if (self.currentUserCount > 0) {
+                self.currentUserCount -= 1;
+            }
             user.remove();
             var userCountElem = $('.js-usercount');
-            const userTxt = userCountElem.text();
-            var usercount = userTxt.split(" ");
-            var total = usercount[2];
-            usercount = parseInt(usercount[0]);
-            userCountElem.text((usercount - 1) + " of " + total);
-            if (usercount -1 < total) {
+            userCountElem.text(self.currentUserCount + " of " + self.planUserCount);
+
+            if (self.currentUserCount < self.planUserCount) {
                 $('.js-addUserButton').removeClass('u-hide');
             }
         } else {
@@ -356,9 +349,6 @@ UserProfileController.prototype.events = function ()
             if (requestData.lastname === ""){
                 errorText += "Last name cannot be blank. ";
             }
-            // if (requestData.username === ""){
-            //     errorText += "Username cannot be blank. ";
-            // }
             if (requestData.useremail === ""){
                 errorText += "Email cannot be blank. ";
             }
@@ -368,19 +358,20 @@ UserProfileController.prototype.events = function ()
             }
             
             
-            $('#user-editor__spinner').addClass('spinner');
+            var spinner = new Modal('modal', 'swap-modal');                
+            spinner.render("spinnerTmpl"); 
 
             Server.create(_appJsConfig.baseHttpPath + '/user/create-paywall-managed-user', requestData).done((data) => {
 
                 if (data.success == 1) {
                     location.reload(false);             
                 } else {
-                    $('#user-editor__spinner').removeClass('spinner');
+                    spinner.closeWindow();
                     const error = self.getError(data.error);
                     self.showError(error);
                 }
             }).fail((r) => {
-                $('#user-editor-buttons').removeClass('spinner');
+                spinner.closeWindow();
                 self.showError(r.textStatus);
             });
         });
@@ -455,7 +446,6 @@ UserProfileController.prototype.events = function ()
 
         let modalTitle = "You've chosen a new plan";
 
-        console.log('clicked set plan');
         const modal = new Modal('modal', 'signin-modal', {
             "userPlan" : 'userPlanMessage',
             "userPlanChange" : 'userPlanOkCancel'
@@ -467,7 +457,8 @@ UserProfileController.prototype.events = function ()
         const currentPlan      = $('#currentPlanStats');
         const cardSupplied     = currentPlan.data("cardsupplied");
 
-        const currentUserCount = +currentPlan.data('currentusers');
+        const currentUserCount = +self.currentUserCount;
+        console.log(currentUserCount);
         const oldcost          = +currentPlan.data('currentcost');
         const oldPlanPeriod    = +currentPlan.data('currentplanperiodcount');
         const expDate          =  currentPlan.data('expiry');

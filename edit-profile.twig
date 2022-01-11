@@ -250,7 +250,7 @@
                                                 {% if totalPlanUserCount | length > 0 %}
                                                     <div class="cus_acnt__planInfo-status">
                                                         <div class="cus_acnt__planInfo-status--text">My Users</div>
-                                                        <div class="cus_acnt__planInfo-status--value">{{ managedUserScreenCount }} of {{totalPlanUserCount}}</div>
+                                                        <div class="cus_acnt__planInfo-status--value">{{ managedUserCount }} of {{totalPlanUserCount}}</div>
                                                     </div>
                                                 {% endif %}
                                                 </div>
@@ -327,7 +327,6 @@
 
                                     <div class="plan-table js-tableView" id="currentPlanStats"
                                         data-cardsupplied="{{cardSupplied}}"
-                                        data-currentUsers="{{managedUserCount}}"
                                         data-currentPeriod="{{pwstats['period']}}"
                                         data-currentCost="{{pwstats['plan_value']}}"
                                         data-currentType="{{pwstats['type']}}"
@@ -558,7 +557,10 @@
     document.addEventListener("DOMContentLoaded", function(event) {
 
         var usercard = new Acme.Usercard();
-        Acme.userController = new Acme.UserProfileController();
+        Acme.userController = new Acme.UserProfileController({
+            currentUserCount: "{{managedUserCount}}",
+            planUserCount: "{{totalPlanUserCount}}"
+        });
 
         Acme.userFeed = new Acme.View.UserFeed({
             model: usercard, 
