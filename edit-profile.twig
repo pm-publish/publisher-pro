@@ -216,8 +216,10 @@
                                     {% set planPeriodCount = pwstats.period_count ~ " " %}
                                     {% set planPeriod = pwstats.period ~ 's' %}
                                 {% endif %}
+                                
                                 {% if pwstats['type'] == 'time' %}
                                     <div class="cus_acnt__paymentBox">
+                                        
                                         {% if pwstats['status'] != 'free' %}
                                             <div class="cus_acnt__paymentBox-box1">
                                                 <div class="cus_acnt__paymentBox-box1__img">
@@ -233,10 +235,12 @@
                                             <div class="cus_acnt__planInfo">
                                                 <div class="cus_acnt__planInfo-text">Your plan</div>
                                                 <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
-                                                <div class="cus_acnt__planInfo__costWrap">
-                                                    <span class="cus_acnt__planInfo-amount">{{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}}</span>
-                                                    <span class="cus_acnt__planInfo-month">/{{planPeriodCount}}{{planPeriod}}</span>
-                                                </div>
+                                                
+                                                    <div class="cus_acnt__planInfo__costWrap">
+                                                        <span class="cus_acnt__planInfo-amount">{{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}}</span>
+                                                        <span class="cus_acnt__planInfo-month">/{{planPeriodCount}}{{planPeriod}}</span>
+                                                    </div>
+
                                                 <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
                                                     <div class="cus_acnt__planInfo-status--text">Status</div>
                                                     <div class="cus_acnt__planInfo-status--value">
@@ -270,10 +274,6 @@
                                             <div class="cus_acnt__planInfo">
                                                 <div class="cus_acnt__planInfo-text">Your plan</div>
                                                 <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
-                                                <div class="cus_acnt__planInfo__costWrap">
-                                                    <span class="cus_acnt__planInfo-amount">{{pwstats['currency']|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{ pwstats['plan_value']/100}}</span>
-                                                    <span class="cus_acnt__planInfo-month">/{{planPeriodCount}}{{planPeriod}}</span>
-                                                </div>
                                                 <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
                                                     <div class="cus_acnt__planInfo-status--text">Status</div>
                                                     <div class="cus_acnt__planInfo-status--value">{{ pwstats['status']}}</div>
@@ -284,21 +284,7 @@
                                                 </div>
                                             </div>
                                             <div class="cus_acnt__subInfo">
-
-                                                {# {% if pwstats['status'] == 'cancelled' %}
-                                                    <a id="cancelAccount" href="#" class="cancel-subBtn">Restart Subscription</a>
-                                                {% else %} 
-                                                    <a id="cancelAccount" href="#" class="cancel-subBtn">Cancel subscription</a>
-                                                {% endif %}  #}
-
-                                                {# {% if pwstats['status'] == 'trial' %}
-                                                    <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
-                                                {% else %}
-                                                    <div class="cus_acnt__subInfo__article-info">To purchase more articles, choose a plan below</div>
-                                                    {% if pwstats['status'] != 'cancelled' %}
-                                                        <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
-                                                    {% endif %}
-                                                {% endif %} #}
+                                                <div class="cus_acnt__subInfo__article-info">To top up, choose an article plan below</div>
                                             </div>
                                         </div>
                                     </div>
