@@ -6,15 +6,11 @@
 
 <!-- Begin User Profile Page -->
 
-{% set propListingsArr = [] %}
 {% set pwstats = _User.getPaywallStats(true) %}
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
 {% set userLimit = 10 %}
 {% set user = _User.getUser() %}
 
-{% if user %} 
-    {% set propListingsArr = _User.getUserArticles(user.guid, 0, 10, {'blogs':[propBlogId], 'status': 'published'}) %}
-{% endif %}
 
 
 {% set totalPlanUserCount  = 0 %}

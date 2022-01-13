@@ -46,6 +46,8 @@ Handlebars.registerHelper('ifCond', function (v1, operator, v2, options) {
             return (v1 && v2) ? options.fn(this) : options.inverse(this);
         case '||':
             return (v1 || v2) ? options.fn(this) : options.inverse(this);
+        case 'empty':
+            return (typeof v1 === 'undefined') ? options.fn(this) : options.inverse(this);
         default:
             return options.inverse(this);
     }
@@ -397,7 +399,7 @@ export const Templates = {
     userPlanOkCancel:
         '<p class="{{name}}__message centerText u-margin-top-20">{{message}}</p> \
         <form name="loginForm" id="loginForm" class="active button-set u-margin-top-40" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> \
-            <button id="cancelbutton" class="login-form__button  close" data-role="cancel">Cancel</button> \
+            <button id="cancelbutton" class="login-form__button  close" data-role="cancel">{{# ifCond cancelLabel "empty" 1}}Cancel{{else}}{{cancelLabel}}{{/ifCond}} </button> \
             <button id="okaybutton" class="login-form__button signin okay" data-role="okay">{{okayLabel}}</button> \
         </form>',
 

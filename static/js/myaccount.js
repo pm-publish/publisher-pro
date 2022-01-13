@@ -391,6 +391,7 @@ UserProfileController.prototype.events = function ()
 
         let status = 'cancelled';
         let title = "Are you sure?";
+        let cancelLabel = "No";
         let buttonLabel = "Yes, cancel my plan";
         let message = "Please confirm you would like to cancel your plan";
         if ($(e.target).text().toLowerCase() == 'restart subscription') {
@@ -408,7 +409,7 @@ UserProfileController.prototype.events = function ()
             "userPlanChange" : 'userPlanOkCancel'
         });
 
-        modal.render("userPlanChange", title, {"message" : message, "okayLabel": buttonLabel})
+        modal.render("userPlanChange", title, {"message" : message, "okayLabel": buttonLabel, "cancelLabel": cancelLabel})
             .done(function(r) {
 
                 $('#dialog').parent().remove();
@@ -458,7 +459,6 @@ UserProfileController.prototype.events = function ()
         const cardSupplied     = currentPlan.data("cardsupplied");
 
         const currentUserCount = +self.currentUserCount;
-        console.log(currentUserCount);
         const oldcost          = +currentPlan.data('currentcost');
         const oldPlanPeriod    = +currentPlan.data('currentplanperiodcount');
         const expDate          =  currentPlan.data('expiry');
