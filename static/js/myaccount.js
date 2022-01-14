@@ -618,6 +618,7 @@ UserProfileController.prototype.events = function ()
         }
         console.log($elem.text());
         var fr = $(this).closest('tr.view').next('.folded');
+        console.log(fr);
         fr.toggleClass('open');
     });
 };
