@@ -146,7 +146,7 @@
 	.folded {
 	  display: none;
 
-	  &.open {
+	  &.active {
 		display: table-row;
 	  }
 	  td {

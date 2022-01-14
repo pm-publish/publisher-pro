@@ -617,15 +617,6 @@ UserProfileController.prototype.events = function ()
             $elem.text('View features');
         }
         var fr = $(this).closest('tr.view').next('.folded');
-        // if (fr.hasClass('open')) {
-        //     console.log('removing class');
-        //     fr.removeClass('open');
-        //     fr.removeClass('active');
-        // } else {
-        //     console.log('adding class');
-        //     fr.addClass('open');
-        //     fr.addClass('active');
-        // }
         fr.toggleClass('active');
     });
 };
