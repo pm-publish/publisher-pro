@@ -661,6 +661,7 @@ UserProfileController.prototype.stripeCardEvent = function () {
                             location.reload();
                         } else {
                             self.modal.closeWindow();
+                            self.showError(r.error);
                         }
                     });
                 }

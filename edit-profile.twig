@@ -212,7 +212,9 @@
                                     {% set planPeriodCount = pwstats.period_count ~ " " %}
                                     {% set planPeriod = pwstats.period ~ 's' %}
                                 {% endif %}
-                                
+
+
+
                                 {% if pwstats['type'] == 'time' %}
                                     <div class="cus_acnt__paymentBox">
                                         
@@ -264,24 +266,49 @@
                                             </div>
                                         </div>
                                     </div>
+
+
                                 {% else %}
+
+
                                     <div class="cus_acnt__paymentBox">
                                         <div class="cus_acnt__paymentBox-box2">
                                             <div class="cus_acnt__planInfo">
                                                 <div class="cus_acnt__planInfo-text">Your plan</div>
                                                 <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
-                                                <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
-                                                    <div class="cus_acnt__planInfo-status--text">Status</div>
-                                                    <div class="cus_acnt__planInfo-status--value">{{ pwstats['status']}}</div>
-                                                </div>
-                                                <div class="cus_acnt__planInfo-status">
-                                                    <div class="cus_acnt__planInfo-status--text">Articles Remaining</div>
-                                                    <div class="cus_acnt__planInfo-status--value">{{ pwstats['article_count']}}</div>
-                                                </div>
+                                                
+                                                {% if pwstats.type == 'article' or pwstats.status == 'trial' %}
+                                                    <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
+                                                        <div class="cus_acnt__planInfo-status--text">Status</div>
+                                                        <div class="cus_acnt__planInfo-status--value">{{ pwstats['status']}}</div>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if pwstats.type == 'article' %}
+                                                    <div class="cus_acnt__planInfo-status">
+                                                        <div class="cus_acnt__planInfo-status--text">Articles Remaining</div>
+                                                        <div class="cus_acnt__planInfo-status--value">{{ pwstats['article_count']}}</div>
+                                                    </div>
+                                                {% endif %}
                                             </div>
-                                            <div class="cus_acnt__subInfo">
-                                                <div class="cus_acnt__subInfo__article-info">To top up, choose an article plan below</div>
-                                            </div>
+
+                                            {% if pwstats.type == 'signup' %}
+                                                <div class="cus_acnt__subInfo">
+                                                    {% if pwstats['status'] == 'cancelled' %}
+                                                        {# <div class="cus_acnt__subInfo__article-info">Your account will be permanently deleted 30 days after the most recent payment date.</div> #}
+                                                        <a href="javascript:;" id='cancelAccount' class="cus_acnt__btn cus_acnt__btn__solid" name="">Restart subscription</a>
+                                                    {% else %}
+                                                        <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                            
+                                            {% if pwstats.type == 'article' %}
+                                                <div class="cus_acnt__subInfo">
+                                                    <div class="cus_acnt__subInfo__article-info">To top up, choose an article plan below</div>
+                                                </div>
+                                            {% endif %}
+
                                         </div>
                                     </div>
                                 {% endif %}
