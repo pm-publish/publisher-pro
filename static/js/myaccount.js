@@ -444,10 +444,10 @@ UserProfileController.prototype.events = function ()
     $('.j-setplan').on('click', function(e) {
         e.stopPropagation();
 
-
         let modalTitle = "You've chosen a new plan";
 
         const modal = new Modal('modal', 'signin-modal', {
+            "spinner": "spinnerTmpl",
             "userPlan" : 'userPlanMessage',
             "userPlanChange" : 'userPlanOkCancel'
         });
@@ -569,21 +569,27 @@ UserProfileController.prototype.events = function ()
         const changeModal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel'
         });
+        const spinner = new Modal('modal', 'swap-modal', {
+            "spinner" : 'spinnerTmpl'
+        });
 
         changeModal.render("userPlanChange",  modalTitle, {"message" : msg, "okayLabel": "Purchase now"})
             .done(function() {
-                // console.log('donee!!');
                 $('#dialog').parent().remove();
+
+                spinner.render("spinner");
 
                 Server.create(_appJsConfig.baseHttpPath + '/user/change-paywall-plan', requestData).done((data) => {
                     if (data.success == 1) {
                         window.location.reload();
                     } else {
                         $('#dialog').parent().remove();
+                        spinner.closeWindow();
                         self.modal.render("userPlan", data.error);
                     }
 
                 }).fail((r) => {
+                    spinner.closeWindow();
                     $('#createUserErrorMessage').text(r.textStatus);
                 });
             }); 

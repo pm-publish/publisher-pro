@@ -128,13 +128,13 @@ SubscribeForm.prototype.submit = function(event)
     this.signup = new Modal('modal', 'spinner-modal', {"spinner": 'spinnerTmpl'});
 
     if (this.code || signup) {
-        this.signup.render("spinner", "Authorising code");
         self.data['planid'] = $('#planid').val();
         self.data['redirect'] = false;
         if (signup == 1) {
             self.data['signuponly'] = 'true';
         }
         if (this.code) {
+            this.signup.render("spinner", "Authorising code");
             self.data['giftcode'] = $('#code-redeem').val();
         }
 

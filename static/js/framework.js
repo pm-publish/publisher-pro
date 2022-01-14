@@ -342,12 +342,12 @@ export const Modal = function(template, name, layouts, data) {
         }
         if ( $elem.is('button') ) {
             if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
-                this.dfd.fail();
                 this.closeWindow();
+                this.dfd.fail();
 
             } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
-                this.dfd.resolve();
                 this.closeWindow();
+                this.dfd.resolve();
             }
         }
         return $elem;
