@@ -621,9 +621,13 @@ UserProfileController.prototype.events = function ()
         console.log(fr);
         // console.log(fr.toggleClass)
         if (fr.hasClass('open')) {
+            console.log('removing class');
             fr.removeClass('open');
+            fr.removeClass('debug');
         } else {
+            console.log('adding class');
             fr.addClass('open');
+            fr.addClass('debug');
         }
         // fr.toggleClass('open');
     });
