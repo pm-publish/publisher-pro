@@ -263,7 +263,7 @@ export const Templates = {
             </div> \
             <div id="user-editor-buttons" class="cus_acnt__form__group cus_acnt__form__btns"> \
                 <a id="saveUser"       class="cus_acnt__btn cus_acnt__btn__solid">Add user</a> \
-                <a id="cancelUserCreate" class="cus_acnt__btn cus_acnt__btn__bordered">cancel</a> \
+                <a id="cancelUserCreate" class="cus_acnt__btn cus_acnt__btn__bordered">Cancel</a> \
             </div> \
             <div id="user-editor__spinner" class="user-editor__spinner"></div> \
         </div>',
