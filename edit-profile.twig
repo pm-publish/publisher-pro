@@ -21,7 +21,6 @@
 
 
 
-
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
 <!-- 3 is job, 4 is property, 5 is event -->
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
@@ -225,7 +224,7 @@
                                                 </div>
                                                 <div class="cus_acnt__paymentBox-box1__content">
                                                     <div class="content-title">Payment due</div>
-                                                    <div class="content-date">{{ pwstats['expiry_date']}}</div>
+                                                    <div class="content-date">{{ pwstats['expiry_date'] | date('d-m-Y')}}</div>
                                                 </div>
                                             </div>
                                         {% endif %}
@@ -276,7 +275,13 @@
                                             <div class="cus_acnt__planInfo">
                                                 <div class="cus_acnt__planInfo-text">Your plan</div>
                                                 <div class="cus_acnt__planInfo-subInfo">{{pwstats['name']}}</div>
-                                                
+
+                                                {% if pwstats.type == 'signup' %}
+                                                    <div class="cus_acnt__planInfo__costWrap">
+                                                        <span class="cus_acnt__planInfo-amount">Free</span>
+                                                    </div>
+                                                {% endif %}
+
                                                 {% if pwstats.type == 'article' or pwstats.status == 'trial' %}
                                                     <div class="cus_acnt__planInfo-status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
                                                         <div class="cus_acnt__planInfo-status--text">Status</div>
@@ -404,7 +409,7 @@
                                                                 <span class="plan-table__feature js-toggleTableRow">View features</span>
                                                             </td>
                                                             <td class="plan-table__col">
-                                                                {% if plan.guid != pwstats['plan_guid'] %}
+                                                                {% if plan.guid != pwstats['plan_guid']  or pwstats.type == 'article' %}
                                                                     <a href="javascript:;" class="plan-table__purchase j-setplan">Purchase</a>
                                                                 {% else %}
                                                                     <a href="javascript:;" class="plan-table__purchase">Your Plan</a>
