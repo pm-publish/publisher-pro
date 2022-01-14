@@ -616,20 +616,17 @@ UserProfileController.prototype.events = function ()
         } else {
             $elem.text('View features');
         }
-        console.log($elem.text());
         var fr = $(this).closest('tr.view').next('.folded');
-        console.log(fr);
-        // console.log(fr.toggleClass)
-        if (fr.hasClass('open')) {
-            console.log('removing class');
-            fr.removeClass('open');
-            fr.removeClass('debug');
-        } else {
-            console.log('adding class');
-            fr.addClass('open');
-            fr.addClass('debug');
-        }
-        // fr.toggleClass('open');
+        // if (fr.hasClass('open')) {
+        //     console.log('removing class');
+        //     fr.removeClass('open');
+        //     fr.removeClass('active');
+        // } else {
+        //     console.log('adding class');
+        //     fr.addClass('open');
+        //     fr.addClass('active');
+        // }
+        fr.toggleClass('active');
     });
 };
 
