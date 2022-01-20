@@ -103,10 +103,13 @@
                                     </div>
                                     {% endif %}
                                 </div>
+
                                 <div class="c-eventdetail__content u-mobile-margin-top-20">
                                     {{ event.content | raw }}
                                 </div>
+
                                 <hr />
+                                
                                 <div class="u-generic-socialIcons mb-5 justify-content-end">
                                     <div class="u-generic-socialIcons-text">Share article</div>
                                     <a class="u-generic-socialIcons__item"
@@ -157,18 +160,26 @@
     </div>
 
     {% set googleMapAddress = ''%}
-    {% if businessDetails.contact['address'] is not empty%}
-        {% set googleMapAddress = businessDetails.contact['address'] %}
-        {% if businessDetails.contact['city'] is not empty %}
-            {% set googleMapAddress = googleMapAddress~','~businessDetails.contact['city'] %}
+    {% if event.address is not empty%}
+        {% set googleMapAddress = event.address.address1 %}
+
+        {% if event.address.suburb is not empty %}
+            {% set googleMapAddress = googleMapAddress ~','~ event.address.suburb %}
         {% endif %}
-        {% if businessDetails.contact['state'] is not empty %}
-            {% set googleMapAddress = googleMapAddress~','~businessDetails.contact['state'] %}
+
+        {% if event.address.city is not empty %}
+            {% set googleMapAddress = googleMapAddress ~','~ event.address.city %}
         {% endif %}
-        {% if businessDetails.contact['country'] is not empty %}
-            {% set googleMapAddress = googleMapAddress~','~businessDetails.contact['country'] %}
+
+        {% if event.address.state is not empty %}
+            {% set googleMapAddress = googleMapAddress ~','~ event.address.state %}
+        {% endif %}
+
+        {% if event.address.country is not empty %}
+            {% set googleMapAddress = googleMapAddress ~','~ event.address.country %}
         {% endif %}
     {% endif %}
+
 
     {% if googleMapAddress is not empty %}
         <iframe
