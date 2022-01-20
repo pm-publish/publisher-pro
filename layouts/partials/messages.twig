@@ -1,6 +1,10 @@
-{% set message = "PROFILE UPDATED SUCCESFULLY" %}
+{% set messages = _AppHelper.getFlashMessages() %}
 
-{% for key,message in _AppHelper.getFlashMessages() %}
+{# {% set messages = { "error" : "<div><ul><li>Username can only contain alphanumeric characters.</li><li>Username can only contain alphanumeric characters.</li><li>Username can only contain alphanumeric characters.</li></ul></div>"} %} #}
+{# {% set messages = { "success" : "Your changes have been saved."} %}  #}
+
+
+{% for key, message in messages %}
     
     {% set textStyle = "--error" %}
     {% if key == 'success'%}
@@ -9,7 +13,7 @@
 
     <div class="profile-message profile-message{{textStyle}}" role="alert">
         <a id="message-close" class="profile-message__close" href="#"></a>
-        <p class="profile-message__text">{{message | raw }}</p>
+        <div class="profile-message__text">{{message | raw }}</div>
     </div>
 
 

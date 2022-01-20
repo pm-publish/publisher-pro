@@ -9,9 +9,10 @@
 
 .signin-modal__window {
     margin: auto auto;
-    width: 468px;
+    max-width: 633px;
+    width: 100%;
     background: white;
-    padding: 0 50px 60px 50px;
+    padding: 0 70px 60px 70px;
     text-align: center;
     @media #{$media-ipadSmall} {
         width: auto;
@@ -39,7 +40,7 @@
         display: block;
         position: absolute;
         top: 8px;
-        right: 0;
+        right: -45px;
         height: 30px;
         width: 30px;
         background: url("../icons/cross.svg");
@@ -52,14 +53,18 @@
         text-align: center;
         font-weight: $weightBold;
         padding-top: 25px;
+        color: $black;
     }
     &__description {
-        @include font-size(14);
-        line-height: 1.14;
+        @include font-size(16);
+        line-height: 1.5;
         color: $grey5;
-        margin-top: 15px;
+        margin-top: 25px;
     }
 
+    &__message {
+        line-height: 1.4;
+    }
     .login-form__forgot {
         margin-bottom: 0;
         font-family: $secondaryFont;
@@ -75,7 +80,7 @@
         @include flexbox;
         @include align-items(center);
         width: 100%;
-        margin-top: 10px;
+        // margin-top: 10px;
 
         .login-form__button {
             height: 48px;
@@ -97,6 +102,10 @@
 
             + .login-form__button {
                 margin-left: 10px;
+            }
+
+            &.fullwidth {
+                width: 100%;
             }
         }
     }

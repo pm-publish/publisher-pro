@@ -32,7 +32,7 @@
 @import "component.forgot-form";
 @import "component.reset-password";
 @import "component.checkbox";
-
+@import "component.swap-modal";
 @import "component.error";
 
 @import "component.article";
@@ -73,6 +73,9 @@
 //my account page
 @import "cus_acnt_grid";
 @import "cus_acnt_page";
+@import "component.plan-table";
+@import "component.plan-features";
+@import "component.profile-message";
 
 //coming soon page
 @import "cus_coming_soon";

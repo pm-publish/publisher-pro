@@ -1,8 +1,22 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
+
+{% if not _User.isGuest() %}
+    {% set redir = _Page.setHttpRedirects(
+        { '|^/.*|': networkData.defaultBlogUrl ~ '/user/edit-profile', }, false) 
+    %} 
+{% endif %}
+
+
+
+
 {% set networkData = _Network.getNetworkData() %}
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
 {% set blogData		= _Blog.getBlog() %}
 {% set config = _Network.getThemeConfig() %}
+
+
+
+
 
 {% set plan = false %}
 {% set trial = false %}
@@ -153,6 +167,7 @@
                                         <label for="email" class="input__label">Email address</label>
                                         <input id="email" class="input__text" name="email" placeholder="Email address"
                                             aria-required="true" type="email" />
+                                        <input id="email-confirm" class="input__text u-hide" name="email-confirm" placeholder="email-confirm" aria-required="true" type="email">
                                         <div class="help-block"></div>
                                     </div>
 
@@ -381,8 +396,8 @@
 <script>
     // main script is defered so event listener makes sure
     // defered script is loaded before this runs
-    document.addEventListener("DOMContentLoaded", function() {
+    {# document.addEventListener("DOMContentLoaded", function() {
         var signin = new Acme.Signin('signinForm', '#signin');
-    });
+    }); #}
 
 </script>

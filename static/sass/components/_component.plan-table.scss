@@ -1,0 +1,158 @@
+.plan-table {
+	margin-bottom: 80px;
+	&__table {
+	  min-width: 800px;
+	}
+	&__row {
+		border-bottom: 8px solid white;
+		background-color: $grey3;
+
+		&:nth-child(4n-3) {
+			background-color: #ececec;
+		}
+	
+	}
+	&__header {
+		background-color: #0a1630;
+		color: $white;
+		font-family: $primaryFont;
+		font-weight: $weightBold;
+		font-size: 16px;
+		height: 48px;
+		vertical-align: middle;
+		padding: 0 30px;
+		text-align: left;
+	}
+	&__header-labels {
+		vertical-align:middle;
+		&:first-child {
+			padding-left: 30px;
+		};
+		&:last-child {
+			padding-left: 15px;
+		};
+
+	}
+
+	// .plan-table__col:first-child {
+	// 	padding-left: 30px;
+	// 	width: 400px;
+	// }
+
+	&__col {
+		height: 96px;
+		padding: 0 15px;
+		vertical-align: middle;
+		text-align: left;
+		position: relative;
+
+		&:first-child {
+			padding-left: 30px;
+			width: 400px;
+		}
+		&:last-child {
+			padding-right: 30px;
+		}
+	}
+
+	
+	
+
+	.table-responsive {
+	  .table {
+		width: 100%;
+	  }
+
+	  @media #{$mobile} {
+		overflow-x: auto;
+		white-space: nowrap;
+	  }
+
+	}
+
+	&__title {
+	  font-size: 18px;
+	  font-family: $primaryFont;
+	  font-weight: $weightMedium;
+	  color: $black;
+	  line-height: 1.22;
+	}
+
+	&__tag {
+	  background-color: #c40000;
+	  border-radius: 4px;
+	  position: absolute;
+	  top: 50%;
+	  transform: translate(0px, -50%);
+	  left: -80px;
+	  color: $white;
+	  font-size: 12px;
+	  text-transform: uppercase;
+	  font-family: $primaryFont;
+	  font-weight: $weightMedium;
+	  padding: 7px 4px;
+	}
+
+	&__price {
+	  font-size: 16px;
+	  line-height: 1.13;
+	  color: $black;
+	  font-family: $primaryFont;
+	  font-weight: $weightRegular;
+	}
+
+	&__feature {
+	  font-size: 12px;
+	  line-height: 1.33;
+	  font-family: $primaryFont;
+	  font-weight: $weightMedium;
+	  color: $grey5;
+	  text-decoration: underline;
+	  cursor: pointer;
+
+	  &:hover {
+		color: $blue_sh5;
+	  }
+	}
+
+	&__purchase {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  height: 48px;
+	  min-height: 48px;
+	  border-radius: 6px;
+	  font-size: 16px;
+	  font-weight: $weightBold;
+	  line-height: 1.5;
+	  text-decoration: none;
+	  background-color: $blue_sh5;
+	  color: $white;
+	  width: 100px;
+	}
+
+	.active {
+		background-color: #d5d1fd !important;
+		.cus_acnt__plan-table--feature {
+		  color: $blue_sh5 !important;
+		}
+		.cus_acnt__plan-table--purchase {
+		  background-color: transparent !important;
+		  color: $blue_sh5 !important;
+		  border: 1px solid $blue_sh5;
+		}
+	}
+
+	.folded {
+	  display: none;
+
+	  &.active {
+		display: table-row;
+	  }
+	  td {
+		background-color: #fbfbfb !important;
+		padding: 30px !important;
+	  }
+	}
+
+  }

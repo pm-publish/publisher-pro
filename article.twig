@@ -9,7 +9,7 @@
 
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['headingColor'] is defined %}
-{% set themeColor = networkData['styling']['colours']['headingColor'] %}
+    {% set themeColor = networkData['styling']['colours']['headingColor'] %}
 {% endif %}
 
 {% set relatedArticles = [] %}
@@ -19,9 +19,8 @@
 
 
 {% set cropped = true %}
-{% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and
-article.additionalInfo.image_crop == 'full' %}
-{% set cropped = false %}
+    {% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and article.additionalInfo.image_crop == 'full' %}
+    {% set cropped = false %}
 {% endif %}
 
 
@@ -30,7 +29,7 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% set pwstats = {} %}
 {% if not _User.isGuest() %}
-{% set pwstats = _User.getPaywallStats(false) %}
+    {% set pwstats = _User.getPaywallStats(false) %}
 {% endif %}
 
 
@@ -40,35 +39,35 @@ article.additionalInfo.image_crop == 'full' %}
 {% set paywallType = "" %}
 {% if not _User.isAdminUser() and article.showPaywall == true %}
 
-{% set showPaywall = true %}
+    {% set showPaywall = true %}
 
-{# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
-{% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
-{# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
+    {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
+    {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
+    {# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
 
-{% if not _User.isGuest() %}
-{% set showPaywall = false %}
-{% else %}
-{% set paywallType = "signup" %}
-{% endif %}
+        {% if not _User.isGuest() %}
+            {% set showPaywall = false %}
+        {% else %}
+            {% set paywallType = "signup" %}
+        {% endif %}
 
 
-{% else %}
-{# DETERMINE WHICH PAYWALL TO SHOW #}
-{% if not _User.isGuest() %}
+    {% else %}
+        {# DETERMINE WHICH PAYWALL TO SHOW #}
+        {% if not _User.isGuest() %}
 
-{% if pwstats['type'] == 'article' %}
-{% set paywallType = "topup" %}
-{% elseif pwstats['type'] == 'time' %}
-{% set paywallType = "renew" %}
-{% else %}
-{% set paywallType = "upgrade" %}
-{% endif %}
+            {% if pwstats['type'] == 'article' %}
+                {% set paywallType = "topup" %}
+            {% elseif pwstats['type'] == 'time' %}
+                {% set paywallType = "renew" %}
+            {% else %}
+                {% set paywallType = "upgrade" %}
+            {% endif %}
 
-{% else %}
-{% set paywallType = "subscribe" %}
-{% endif %}
-{% endif %}
+        {% else %}
+            {% set paywallType = "subscribe" %}
+        {% endif %}
+    {% endif %}
 {% endif %}
 
 
@@ -78,46 +77,43 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% if showPaywall == true %}
 
-{% set storySplit = ArticleContent | split('</p>') %}
-{% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
-{% set ArticleContent = [storySplit[0], para2] | join('</p>') %}
+    {% set storySplit = ArticleContent | split('</p>') %}
+    {% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
+    {% set ArticleContent = [storySplit[0], para2] | join('</p>') %}
 
-{% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
-{% for plan in plans %}
-{% if plan.trial_status == "1" %}
-{% set trialToggle = true %}
-{% endif %}
-{% endfor %}
+    {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
+    {% for plan in plans %}
+        {% if plan.trial_status == "1" %}
+            {% set trialToggle = true %}
+        {% endif %}
+    {% endfor %}
 
 {% else %}
 {# Only grab these if article is not paywalled #}
 
-{% if config['inventory']['articleAd'] is defined %}
-{% set adPos = config['inventory']['articleAd'] %}
+    {% if config['inventory']['articleAd'] is defined %}
+        {% set adPos = config['inventory']['articleAd'] %}
 
-{% set storySplit = ArticleContent | split('<p>') %}
+        {% set storySplit = ArticleContent | split('<p>') %}
 
-    {% if storySplit[(adPos['position'] * 2) - 1] %}
-    {% if adPos['slot'] is defined %}
-    {% set inarticleslot = adPos['slot'] %}
-    {% set ArticleContent = '
-<p>' %}
-    {% for para in storySplit %}
-    {% set ArticleContent = ArticleContent ~ '
-<p>' ~ para %}
-    {% if loop.index == adPos['position'] %}
-    {% set ArticleContent = ArticleContent ~ '
-<div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
-    <div class="j-adslot" id="' ~ inarticleslot ~ '" data-adshape="banner"></div>
-</div>' %}
-{% endif %}
-{% endfor %}
-{% endif %}
-
-{% endif %}
-{% endif %}
-{% set recentArticles = _Article.getRecentArticles({ blogId: article.blog.id, limit: 4, excludeArticleIds : [article.id], interval: 168 }) %}
-{% set popularArticles = _Article.getPopularArticles({  limit: 4,  sortBy: 'VIEWS', scope: 'network'  }) %}
+        {% if storySplit[(adPos['position'] * 2) - 1] %}
+            {% if adPos['slot'] is defined %}
+                {% set inarticleslot = adPos['slot'] %}
+                {% set ArticleContent = '<p>' %}
+                {% for para in storySplit %}
+                    {% set ArticleContent = ArticleContent ~ '<p>' ~ para %}
+                    {% if loop.index == adPos['position'] %}
+                        {% set ArticleContent = ArticleContent ~ '
+                            <div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
+                                <div class="j-adslot" id="' ~ inarticleslot ~ '" data-adshape="banner"></div>
+                            </div>' %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    {% set recentArticles = _Article.getRecentArticles({ blogId: article.blog.id, limit: 4, excludeArticleIds : [article.id], interval: 168 }) %}
+    {% set popularArticles = _Article.getPopularArticles({  limit: 4,  sortBy: 'VIEWS', scope: 'network'  }) %}
 {% endif %}
 
 
@@ -126,7 +122,7 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% set watermark = false %}
 {% if config['watermark']['settings'] is defined and config['watermark']['sections'][articleBlog|lower] is defined %}
-{% set watermark = config['watermark']['settings'] %}
+    {% set watermark = config['watermark']['settings'] %}
 {% endif %}
 
 
@@ -135,23 +131,27 @@ article.additionalInfo.image_crop == 'full' %}
 {% set articleImg = false %}
 {% set featured = false %}
 {% if article.media|length > 0 %}
-{% set articleImg = true %}
-{% set featured = article.media[0].type %}
+    {% set articleImg = true %}
+    {% set featured = article.media[0].type %}
 {% endif %}
 
 
 
-{% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop':
-'thumb', type: 'user'}) %}
+{% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop':'thumb', type: 'user'}) %}
 {% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
 {% set updateDate = _AppHelper.getDefaultTimezoneDateTime(article.updatedDateTime,'F j, Y') %}
 
 
 {% set updated = false %}
 {% if article.publishedDateTime != article.updatedDateTime %}
-{% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
-{% if updatedAgo < 86400 %} {% set updateDate=_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} {% endif
-    %} {% set updated=true %} {% endif %} 
+    {% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
+    {% if updatedAgo < 86400 %} 
+        {% set updateDate =_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} 
+    {% endif %} 
+    {% set updated = true %} 
+{% endif %} 
+
+
     <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}">
         <div class="c-article c-article-xs c-article__carousel">
             <div class="container">
@@ -348,21 +348,22 @@ article.additionalInfo.image_crop == 'full' %}
                                             {% for i in 0..3 if popularArticles[i] %}
                                             <div class="col-12 card-borderBottom__deskVersion">
                                                 {{this.render('partials/_single-article.twig', {
-                                                article: popularArticles[i],
-                                                imageSize: {width: 300, height: 180},
-                                                swap            : false,
-                                                containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
-                                                site: site
+                                                    article: popularArticles[i],
+                                                    imageSize: {width: 300, height: 180},
+                                                    swap            : false,
+                                                    containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
+                                                    site: site
                                                 }) | raw}}
                                             </div>
                                             {% endfor %}
                                         </div>
                                     </div>
-
-                                    {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
-                                        <div class="mt-4">
-                                            <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
-                                        </div>
+                                    {% if showPaywall != true %}
+                                        {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                                            <div class="mt-4">
+                                                <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
 
                                 </div>
@@ -379,10 +380,10 @@ article.additionalInfo.image_crop == 'full' %}
                             {% for i in 0..3 if recentArticles[i] %}
                             <div class="col-12 col-lg-3 left-border">
                                 {{this.render('partials/_single-article.twig', {
-                                article: recentArticles[i],
-                                imageSize: {width: 296, height: 260},
-                                containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                                site: site
+                                    article: recentArticles[i],
+                                    imageSize: {width: 296, height: 260},
+                                    containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                                    site: site
                                 }) | raw}}
                             </div>
                             {% endfor %}

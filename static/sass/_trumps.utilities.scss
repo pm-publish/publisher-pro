@@ -91,6 +91,10 @@ div[class*="col-sm"] {
 .relative {
     position: relative;
 }
+.u-relative {
+    position: relative;
+}
+
 .no-padding {
     padding: 0;
 }
@@ -1149,7 +1153,7 @@ hr.divide {
 
 .u-noscroll {
     overflow: hidden;
-    height: 100%;
+    // height: 100%;
 }
 .clearfix {
     overflow: auto;
@@ -1246,6 +1250,10 @@ hr.divide {
 
 .flex_between {
     justify-content: space-between;
+}
+
+.u-flex-justify-center {
+    justify-content: center;
 }
 
 .flex-shrink0 {

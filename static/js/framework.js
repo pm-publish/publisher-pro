@@ -300,7 +300,19 @@ export const Modal = function(template, name, layouts, data) {
     Modal.prototype.renderLayout = function(layout, data) {
 
         var data = data || {};
-        var tmp = Handlebars.compile(Templates[this.layouts[layout]]);
+        let template = null;
+        if (this.layouts !== null && typeof Templates[this.layouts[layout]] !== 'undefined') {
+            template = Templates[this.layouts[layout]]; 
+        }
+        if (template === null && Templates[layout] !== 'undefined') {
+            template = Templates[layout];
+        }
+
+        if (template === null) {
+            return;
+        }
+
+        var tmp = Handlebars.compile(template);
         var layout = tmp(data);
 
         $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
@@ -330,12 +342,12 @@ export const Modal = function(template, name, layouts, data) {
         }
         if ( $elem.is('button') ) {
             if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
-                this.dfd.fail();
                 this.closeWindow();
+                this.dfd.fail();
 
             } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
-                this.dfd.resolve();
                 this.closeWindow();
+                this.dfd.resolve();
             }
         }
         return $elem;

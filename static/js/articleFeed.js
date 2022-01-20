@@ -1,6 +1,6 @@
 import { Templates } from './article-templates'
 import { Server } from './framework'
-
+import Handlebars from 'handlebars'
 
 
 const Feed = function() {
@@ -42,7 +42,7 @@ Feed.prototype.fetch = function()
 
 
     if (this.options.loadtype == 'user') {
-        this.url = this.domain + '/api/'+options.loadtype+'/load-more-managed';
+        this.url = this.domain + '/api/'+this.options.loadtype+'/load-more-managed';
         this.requestType = 'fetch';
     }
     
@@ -69,9 +69,6 @@ Feed.prototype.fetch = function()
         this.requestType = 'fetch';
     }
 
-    console.log(this.requestType);
-    console.log(this.url);
-    console.log(this.requestData);
     return Server[this.requestType](this.url, this.requestData).done(function(r) {
         if (r.success == 1) {
             console.log(r);
@@ -174,8 +171,6 @@ ArticleFeed.prototype = new Feed();
 ArticleFeed.constructor = ArticleFeed;
 ArticleFeed.prototype.render = function(data) 
 {
-    console.log('rendering');
-    console.log(this.renderType);
 
     var self = this;
     var articles = [];
@@ -279,17 +274,20 @@ ArticleFeed.prototype.render = function(data)
 
 
 
-export const UserFeed = function(feedModel, limit, offset, infinite, failText, controller)
+export const UserFeed = function(options)
 {
-    this.feedModel = feedModel;
-    this.controller = controller || null;
-    this.offset    = offset || 0;
-    this.limit     = limit || 10;
-    this.infinite  = infinite || false;
+    this.options = options;
+    this.feedModel = options.model;
+    this.controller = options.controller || null;
+    this.offset    = options.offset || 0;
+    this.limit     = options.limit || 10;
+    this.infinite  = options.infinite || false;
+    this.template = options.template || null;
+    this.card_class = options.card_class || null;
     this.waypoint  = false;
-    this.options   = {};
-    this.elem      = $('.loadMore');
-    this.failText  = failText || null;
+    
+    this.elem      = $('.managed-users__more');
+    this.failText  = options.failText || null;
     this.events();
 };
 
@@ -300,11 +298,11 @@ UserFeed.prototype.render = function(data)
     var self = this;
     var users = data.users.users || data.users;
 
-    var cardClass  =   self.elem.data('card-class'),
-        template   =   self.elem.data('card-template') || null,
-        label      =   self.elem.data('button-label')  || "Load more",
-        ads_on     =   self.elem.data('ads')           || null,
-        rendertype =   self.elem.data('rendertype')    || null;
+    var cardClass  =   self.card_class,
+        template   =   self.template || null,
+        label      =   "Load more",
+        ads_on     =   null,
+        rendertype =   null;
 
     self.elem.html(label);
     (users.length < self.options.limit) 
@@ -312,10 +310,9 @@ UserFeed.prototype.render = function(data)
         : self.elem.show();
 
     // add counts to the dom for next request
-    self.elem.data('offset', (self.options.offset + self.options.limit));
+    self.options.offset += parseInt(self.options.limit);
 
     var html = [];
-
     if (users.length === 0 && self.failText) {
         html = ["<p>" + self.failText + "</p>"];
     } else {
@@ -323,11 +320,11 @@ UserFeed.prototype.render = function(data)
             html.push( self.feedModel.render(users[i], cardClass, template) );
         }
     }
-
     (rendertype === "write")
         ? self.options.container.empty().append( html.join('') )
         : self.options.container.append( html.join('') );
-        
+    
+
     if (self.waypoint) {
         (users.length < self.options.limit)
             ? self.waypoint.disable()
@@ -336,13 +333,7 @@ UserFeed.prototype.render = function(data)
 
     this.controller.userEvents();
 
-    $(".card .content > p, .card h2").dotdotdot();     
-    // $('.video-player').videoPlayer();
-    $("div.lazyload").lazyload({
-        effect: "fadeIn"
-    });
-
-    self.elem.data('rendertype', '');
+    // self.elem.data('rendertype', '');
 };
 
 
@@ -354,8 +345,7 @@ UserCard.prototype.render = function(user, cardClass, template, type)
 {
     user['cardClass'] = cardClass;
     var template = (template) ? Templates[template] : Templates.systemCardTemplate;
-    userTemplate = Handlebars.compile(template);
+    const userTemplate = Handlebars.compile(template);
     return userTemplate(user);
 }
-
 

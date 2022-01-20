@@ -5,22 +5,16 @@ import { SigninModal }  from './signinModal'
 import Card from './StripeCard'
 
 
-export const UserProfileController = function()
+export const UserProfileController = function(data)
 {
-    this.mailChimpUser  = false;
-    this.emailLists     = [];
-    // test mailchimp accounts
-    // this.newsroom       = '17ba69a02c';
-    // this.group          = 'cb03aca14d'; // me
-    
-    
-    this.newsroom       = '2412c1d355';
-    this.group          = 'f6f5aaa06b';
+    this.currentUserCount = data.currentUserCount || 0;
+    this.planUserCount = data.planUserCount || 0;
 
     this.modal = new SigninModal('modal', 'signin-modal', {
         "spinner"       : 'spinnerTmpl',
         "userPlan"      : 'userPlanMessage',
-        "userPlanChange" : 'userPlanOkCancel'
+        "userPlanChange" : 'userPlanOkCancel',
+        "message"        : "message"
     } );
 
     this.stripekey = $('#stripekey').html();
@@ -31,134 +25,55 @@ export const UserProfileController = function()
     this.events();
     this.userEvents();
     // this.listingEvents();
-    this.fetchEmailLists();
+    // this.fetchEmailLists();
 };
 
-UserProfileController.prototype.updateCardForm = function() {
 
-
+UserProfileController.prototype.getError = function(data) {
+    let text = data;
+    if (typeof data.error !== 'string') {
+        for (var key in data.error) {
+            text = text + data.error[key] + " ";
+        } 
+    }
+    return text;
 }
-UserProfileController.prototype.subscribeToEmail = function(user, group) {
-    
 
-    var data = {
-        list   : this.newsroom,
-        group  : group,
-        user   : user,
-        action : 'create',
-    };
-
-    return Server.create( _appJsConfig.baseHttpPath + '/api/integration/mailchimp-subscription', data).done(function(r) {
-        console.log(r);
+UserProfileController.prototype.showError = function(error) {
+    const modal = new Modal('modal', 'signin-modal', {
+        "userPlanChange" : 'userPlanOkCancel'
     });
-
-};
-
-
-UserProfileController.prototype.fetchUserMailchimpStatus = function(list) {
-
-    var requestData = {
-        action: 'get',
-        list: list
-    };
-
-    return Server.create(_appJsConfig.baseHttpPath + '/api/integration/mailchimp-subscription', requestData );
-
-};
-
-
-UserProfileController.prototype.fetchEmailLists = function() {
-
-    var self = this;
-
-    Server.fetch( _appJsConfig.baseHttpPath + '/api/integration/mailchimp-get-list-data?list='+this.newsroom+'&group='+this.group).done(function(data) {
-
-        if (typeof data.data.interests != 'undefined') {
-            self.emailLists = data.data.interests;
-        }
-
-        var emails    = Handlebars.compile(Templates.mailchimpList);
-
-
-
-        self.fetchUserMailchimpStatus(self.newsroom).done(function(status) {
-
-            self.mailChimpUser = status.data === false ? false : true;
-
-                for (var i=self.emailLists.length -1; i > -1; i--) {
-                    var checked = '';
-                    var name = self.emailLists[i].name;
-
-                    if ( status.data !== false && status.data.interests[self.emailLists[i].id] === true && status.data.status !== 'unsubscribed' ) {
-                        checked = 'checked';
-                    }
-
-                    if (self.emailLists[i].name.toLowerCase() == 'daily summaries') {
-                        name = "Send me Jonathan Milne's <i>8 Things</i> email each day";
-                    }
-
-                    if (self.emailLists[i].name.toLowerCase() == 'breaking news alerts') {
-                        name = "Send me an email alert when important news breaks";
-                    }
-
-                    var params = {
-                        listId: self.newsroom,
-                        groupId: self.emailLists[i].id,
-                        name: name,
-                        checked: checked
-                    };
-    
-                    
-                    $('#account-form__email').append( emails(params) );
-                }
-
-        });
-    });
-
-};
-
-
-
+    modal.render("userPlanChange", "Error", {"message" : error, "okayLabel": "OK"})
+}
 
 UserProfileController.prototype.deleteUser = function(e) {
+    const self = this;
+    const user = $(e.target).closest('li');
+    const userid = user.attr("id");
+    const requestData = { 
+        id: userid, 
+    };
+    return Server.create(_appJsConfig.baseHttpPath + '/user/delete-managed-user', requestData).done(function(data) {
 
-    var user = $(e.target).closest('li');
-    var userid = user.attr("id");
-
-    var mailChimpData = {
-        user    : userid,
-        list    : this.newsroom,
-        action  : 'unsubscribe'
-    }
-
-    // first remove from email lists
-    Server.create( _appJsConfig.baseHttpPath + '/api/integration/mailchimp-subscription', mailChimpData).done(function(r) {
-
-        var requestData = { 
-            id: userid, 
-        };
-
-
-        Server.create(_appJsConfig.baseHttpPath + '/user/delete-managed-user', requestData).done(function(data) {
-            if (data.success == 1) {
-                user.remove();
-                $('#addManagedUser').removeClass('hidden');
-                var usertxt = $('.profile-section__users-left').text();
-                var usercount = usertxt.split(" ");
-                var total = usercount[2];
-                usercount = parseInt(usercount[0]);
-                $('.profile-section__users-left').text((usercount - 1) + " of " + total + " used.");
-            } else {
-                var text = '';
-                for (var key in data.error) {
-                    text = text + data.error[key] + " ";
-                } 
-                $('#createUserErrorMessage').text(text);
+        if (data.success == 1) {
+            if (self.currentUserCount > 0) {
+                self.currentUserCount -= 1;
             }
-        }).fail((r)=> {
-            $('#createUserErrorMessage').text(r.textStatus);
-        });
+            user.remove();
+            var userCountElem = $('.js-usercount');
+            userCountElem.text(self.currentUserCount + " of " + self.planUserCount);
+
+            if (self.currentUserCount < self.planUserCount) {
+                $('.js-addUserButton').removeClass('u-hide');
+            }
+        } else {
+            const error = self.getError(data.error);
+            self.showError(error);
+        }
+    }).fail((r)=> {
+        $('#createUserErrorMessage').text(r.textStatus);
     });
+ 
 };
 
 UserProfileController.prototype.renderUser = function(parent, data, template) {
@@ -258,16 +173,13 @@ UserProfileController.prototype.userEvents = function()
                     $('#createUserErrorMessage').text('');
 
                 } else {
-                    var text = '';
-                    for (var key in data.error) {
-                        text = text + data.error[key] + " ";
-                    } 
-                    $('#createUserErrorMessage').text(text);
+                    const error = self.getError(data.error);
+                    self.showError(error);
                 }
                 self.userEvents();
 
             }).fail((r) => {
-                $('#createUserErrorMessage').text(r.textStatus);
+                self.showError(r.textStatus);
             });     
         });
     });  
@@ -275,11 +187,19 @@ UserProfileController.prototype.userEvents = function()
     $('.j-delete').unbind().on('click', function(e) {
 
         const modal = new Modal('modal', 'signin-modal', {
-            "userPlanChange" : 'userPlanOkCancel'
+            "userPlanChange" : 'userPlanOkCancel',
+            "spinner"       : 'spinnerTmpl',
+
         });
-        modal.render("userPlanChange", "Are you sure you want to delete this user?")
+        modal.render("userPlanChange", "Are you sure?", {"okayLabel" : "Yes, delete user"})
             .done(function() {
-                self.deleteUser(e);
+                var spinner = new Modal('modal', 'swap-modal', {
+                    "spinner"       : 'spinnerTmpl'
+                } );                
+                spinner.render("spinner", "");        
+                self.deleteUser(e).done(() => {
+                    spinner.closeWindow();
+                });
             });
     });   
 };
@@ -360,6 +280,10 @@ UserProfileController.prototype.events = function ()
         $("#account-form__errorText").html(errorText);
         
         if (!errorText) {
+            var spinner = new Modal('modal', 'swap-modal', {
+                "spinner"       : 'spinnerTmpl'
+            } );                
+            spinner.render("spinner", ""); 
             $(this).unbind('submit').submit()
         }
     });
@@ -376,8 +300,8 @@ UserProfileController.prototype.events = function ()
             search[field.name] = field.value;
         });
         self.search(search);
-        $('#user-search-submit').hide();
-        $('#user-search-clear').show();
+        // $('#user-search-submit').hide();
+        // $('#user-search-clear').show();
 
     });
 
@@ -425,9 +349,6 @@ UserProfileController.prototype.events = function ()
             if (requestData.lastname === ""){
                 errorText += "Last name cannot be blank. ";
             }
-            // if (requestData.username === ""){
-            //     errorText += "Username cannot be blank. ";
-            // }
             if (requestData.useremail === ""){
                 errorText += "Email cannot be blank. ";
             }
@@ -437,30 +358,21 @@ UserProfileController.prototype.events = function ()
             }
             
             
-            $('#user-editor__spinner').addClass('spinner');
+            var spinner = new Modal('modal', 'swap-modal');                
+            spinner.render("spinnerTmpl"); 
 
             Server.create(_appJsConfig.baseHttpPath + '/user/create-paywall-managed-user', requestData).done((data) => {
-                $('#user-editor__spinner').removeClass('spinner');
 
                 if (data.success == 1) {
-
-                    var groups = self.emailLists.map(function(g) {
-                        return g['id'];
-                    });
-
-                    self.subscribeToEmail(data.user, groups);
-
                     location.reload(false);             
                 } else {
-                    var text = '';
-                    for (var key in data.error) {
-                        text = text + data.error[key] + " ";
-                    } 
-                    $('#createUserErrorMessage').text(text);
+                    spinner.closeWindow();
+                    const error = self.getError(data.error);
+                    self.showError(error);
                 }
             }).fail((r) => {
-                $('#user-editor-buttons').removeClass('spinner');
-                $('#createUserErrorMessage').text(r.textStatus);
+                spinner.closeWindow();
+                self.showError(r.textStatus);
             });
         });
 
@@ -478,9 +390,14 @@ UserProfileController.prototype.events = function ()
         // var listelem = $(e.target).closest('li');
 
         let status = 'cancelled';
-        let message = "Are you sure?"
-        if ($(e.target).text() == 'Restart Subscription') {
-            message = "Do you want to reactivate your plan? You will be billed on the next payment date."
+        let title = "Are you sure?";
+        let cancelLabel = "No";
+        let buttonLabel = "Yes, cancel my plan";
+        let message = "Please confirm you would like to cancel your plan";
+        if ($(e.target).text().toLowerCase() == 'restart subscription') {
+            title = "Welcome back!";
+            message = "Please confirm you would like to reactivate this plan."
+            buttonLabel = "Yes, restart my plan";
             status = 'paid'
         }
         const requestData = { 
@@ -492,26 +409,32 @@ UserProfileController.prototype.events = function ()
             "userPlanChange" : 'userPlanOkCancel'
         });
 
-        modal.render("userPlanChange", message)
+        modal.render("userPlanChange", title, {"message" : message, "okayLabel": buttonLabel, "cancelLabel": cancelLabel})
             .done(function(r) {
 
                 $('#dialog').parent().remove();
 
+                var spinner = new Modal('modal', 'swap-modal', {
+                    "spinner"       : 'spinnerTmpl'
+                } );                
+                spinner.render("spinner", ""); 
 
+
+                
                 Server.create(_appJsConfig.baseHttpPath + '/user/paywall-account-status', requestData).done((data) => {
                     
                     if (data.success == 1) {
                         window.location.reload(false);             
                     } else {
-                        let text = '';
-                        for (let key in data.error) {
-                            text = text + data.error[key] + " ";
-                        } 
-                        $('#createUserErrorMessage').text(text);
+                        const error = self.getError(data.error);
+                        let msg =  "It looks like your payment details are missing. Please add a payment method, click Update, then choose a new plan";
+                        self.modal.render("userPlan", "Oops...", {message: error}); 
+                        spinner.closeWindow();
                     }
 
                 }).fail((r) => {
                     $('#createUserErrorMessage').text(r.textStatus);
+                    spinner.closeWindow();
                 });
        
             }); 
@@ -521,21 +444,21 @@ UserProfileController.prototype.events = function ()
     $('.j-setplan').on('click', function(e) {
         e.stopPropagation();
 
+        let modalTitle = "You've chosen a new plan";
+
         const modal = new Modal('modal', 'signin-modal', {
+            "spinner": "spinnerTmpl",
             "userPlan" : 'userPlanMessage',
             "userPlanChange" : 'userPlanOkCancel'
         });
 
 
-        let newPlan = $(e.target);
-        if (!newPlan.hasClass('j-setplan')) {
-            newPlan = $(e.target.parentNode);
-        }
-        
+        let elem = $(e.target);
+        const newPlan = elem.parents('.j-plan-details');
         const currentPlan      = $('#currentPlanStats');
         const cardSupplied     = currentPlan.data("cardsupplied");
 
-        const currentUserCount = +currentPlan.data('currentusers');
+        const currentUserCount = +self.currentUserCount;
         const oldcost          = +currentPlan.data('currentcost');
         const oldPlanPeriod    = +currentPlan.data('currentplanperiodcount');
         const expDate          =  currentPlan.data('expiry');
@@ -548,9 +471,8 @@ UserProfileController.prototype.events = function ()
         let newdays            =  newPlan.data('planperiod');
         const newPlanType      =  newPlan.data('plantype');
 
-
         if (currentUserCount > 0 && currentUserCount > planusers) {
-            modal.render("userPlan", "You have too many users to change to that plan.");
+            modal.render("userPlan", "Oops...", {message: "You have too many users for that plan. Please remove <br /> them and try again"});
             return;
         }
 
@@ -570,18 +492,19 @@ UserProfileController.prototype.events = function ()
 
         let msg = "";
         let newCharge = 0;
-        if (( newPlanType == 'article' && oldPlanType !== 'time') || ( newPlanType == 'time' && oldPlanType === 'article') ) {
+        if ( newPlanType == 'article' || ( newPlanType == 'time' && oldPlanType === 'article') ) {
             newCharge = newcost / 100;
         }
+
 
         if (oldPlanType === 'signup' ) {
             newCharge = newcost / 100;
         }
         
+        
         if (oldPlanType === 'time' && newPlanType === 'time' && newcost < oldcost ) {
             newCharge = 0;
         }
-
         const _MS_PER_DAY = 1000 * 60 * 60 * 24;
         function dateDiffInDays(a, b) {
             // Discard the time and time-zone information.
@@ -594,7 +517,7 @@ UserProfileController.prototype.events = function ()
 
         const expiryObj = new Date(expDate);
         const today = new Date();
-        
+
         // var diffTime = Math.abs(today.getTime() - expiryObj.getTime());
         // var diffDays1 = Math.ceil(diffTime / (1000 * 3600 * 24)); 
         const diffDays = dateDiffInDays(today, expiryObj); 
@@ -607,13 +530,33 @@ UserProfileController.prototype.events = function ()
             }
         }
 
+        let charge = "";
         if (newCharge > 0) {
-            msg = "<p>This will cost $" + newCharge.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + ".</p>";
+            charge = newCharge.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+            msg = "This plan change will cost $" + charge + ".";
         }
 
+        if (oldPlanType === 'time' && newPlanType === 'article') {
+            msg += " Articles will be counted from the end of your current paid period.";
+        }
+
+        if (oldPlanType === 'article' && newPlanType === 'article') {
+            modalTitle = "Buy more articles";
+            msg = "Please confirm your article purchase, this will cost $" + charge + ".";
+        }
+
+        if (oldPlanType === 'article' && newPlanType === 'time') {
+            msg += " You will have access to your new plan immediately.";
+        }
+
+        if (newPlanType === 'signup') {
+            msg = "The new plan will start on the next payment date shown on this page.";
+        }
+
+
         if (cardSupplied === 'f' ) {
-            msg = msg + "However, you will need to supply your credit card details. You can enter those on this page and then we can finalise the plan change.";
-            self.modal.render("userPlan", "Almost there! ", {message: msg});
+            msg = msg + "It looks like your payment details are missing. Please add a payment method, click Update, then choose a new plan";
+            self.modal.render("userPlan", "Oops...", {message: msg});
             return;
         }
 
@@ -626,21 +569,27 @@ UserProfileController.prototype.events = function ()
         const changeModal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel'
         });
+        const spinner = new Modal('modal', 'swap-modal', {
+            "spinner" : 'spinnerTmpl'
+        });
 
-        changeModal.render("userPlanChange", "Are you sure you want to change plan?" + msg)
+        changeModal.render("userPlanChange",  modalTitle, {"message" : msg, "okayLabel": "Purchase now"})
             .done(function() {
-                // console.log('donee!!');
                 $('#dialog').parent().remove();
+
+                spinner.render("spinner");
 
                 Server.create(_appJsConfig.baseHttpPath + '/user/change-paywall-plan', requestData).done((data) => {
                     if (data.success == 1) {
                         window.location.reload();
                     } else {
                         $('#dialog').parent().remove();
+                        spinner.closeWindow();
                         self.modal.render("userPlan", data.error);
                     }
 
                 }).fail((r) => {
+                    spinner.closeWindow();
                     $('#createUserErrorMessage').text(r.textStatus);
                 });
             }); 
@@ -648,21 +597,53 @@ UserProfileController.prototype.events = function ()
 
 
 
-    var udform = document.getElementById('update-card-form');
-    if (udform != null) {
-        udform.addEventListener('submit', function(event) {
 
+
+    $('.js-cus_acnt__showForm').on('click', function() {
+        const $this = $(this);
+        $this.addClass('cus_acnt__hide');
+        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').addClass('cus_acnt__hide');
+        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').removeClass('cus_acnt__hide');
+
+        self.stripeCardEvent();
+    });
+
+    $('.js-cus_acnt__HideForm').on('click', function() {
+        const $this = $(this);
+        $('.js-cus_acnt__showForm').removeClass('cus_acnt__hide');
+        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').removeClass('cus_acnt__hide');
+        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').addClass('cus_acnt__hide');
+    });
+
+    $(".js-tableView tr .js-toggleTableRow").on("click", function(){
+        var $elem = $(this);
+        if ($elem.text().toLowerCase() === 'view features') {
+            $elem.text('Hide features');
+        } else {
+            $elem.text('View features');
+        }
+        var fr = $(this).closest('tr.view').next('.folded');
+        fr.toggleClass('active');
+    });
+};
+
+
+UserProfileController.prototype.stripeCardEvent = function () {
+    var self = this;
+    var udform = document.getElementById('update-card-form');
+
+    if (udform != null) {
+
+        udform.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            
-            self.modal.render("spinner", "Your request is being processed.");
+            self.modal.render("spinner", "Updating card...", {'class':'u-relative'});
 
             const errorElement = document.getElementById('card-errors');
 
             errorElement.textContent = '';
             // const stripe = Stripe(self.stripekey);
             self.stripe.createToken(self.card).then(function(result) {
-                // console.log(result);
                 if (result.error) {
                     self.modal.closeWindow();
 
@@ -671,41 +652,20 @@ UserProfileController.prototype.events = function ()
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
-
                     const formdata = {"stripetoken":result.token.id}
                     Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
-                        self.modal.closeWindow();
-                        if (r.success === true) {
+                        if (r.success === 1) {
+
+                            self.modal.renderLayout('message', {message: "Success"});
+
                             location.reload();
+                        } else {
+                            self.modal.closeWindow();
+                            self.showError(r.error);
                         }
                     });
                 }
             });
         });
     }
-
-
-};
-
-
-
-
-// UserProfileController.prototype.listingEvents = function() {
-//     var self = this;
-
-//     $('.j-deleteListing').unbind().on('click', function(e) {
-//         e.preventDefault();
-//         const listing = $(e.target).closest('a.card');
-//         const id      = listing.data("guid");
-//         self.modal.render("userPlanChange", "Are you sure you want to delete this listing?")
-//             .done(function() {
-//                 Server.create('/api/article/delete-user-article', {"articleguid": id}).done(function(r) {
-//                     listing.remove();
-//                 }).fail(function(r) {
-//                     // console.log(r);
-//                 });
-//             });
-//     });  
-// };
-
-    
+}

@@ -22,6 +22,7 @@
     font-weight: $weightBold;
     line-height: 1.5;
     text-decoration: none;
+    cursor:pointer;
 
     + .cus_acnt__btn {
       margin-left: 12px;
@@ -93,7 +94,7 @@
     }
 
     &-dataGrid {
-      margin-bottom: 40px;
+      // margin-bottom: 40px;
       &-item {
         @include flexbox;
         @include flex-direction(column, vertical);
@@ -513,6 +514,7 @@
                 &__user {
                   &-grid {
                     &__search {
+                      flex: 1;
                       flex-direction: row;
 
                       &--field {
@@ -539,183 +541,17 @@
                   }
                 }
               }
+
+              form {
+                flex: 1;
+                flex-direction: row;
+              }
             }
           }
         }
       }
 
-      &__plan-table {
-        margin-bottom: 80px;
-        .table {
-          min-width: 800px;
-          tr {
-            border-bottom: 8px solid $white;
-            th {
-              background-color: var(--main-color);
-              color: $white;
-              font-family: $primaryFont;
-              font-weight: $weightBold;
-              font-size: 16px;
-              height: 48px;
-              vertical-align: middle;
-              padding: 0 30px;
-              text-align: left;
-            }
 
-            td {
-              height: 96px;
-              background-color: $grey3;
-              padding: 0 15px;
-              vertical-align: middle;
-              text-align: left;
-              position: relative;
-
-              &:first-child {
-                padding-left: 30px;
-                width: 400px;
-              }
-              &:last-child {
-                padding-right: 30px;
-              }
-            }
-
-            &:nth-child(4n-3) {
-              td {
-                background-color: #ececec;
-              }
-            }
-          }
-        }
-
-        .table-responsive {
-          .table {
-            width: 100%;
-          }
-
-          @media screen and (max-width: 767px) {
-            overflow-x: auto;
-            white-space: nowrap;
-          }
-        }
-
-        &--title {
-          font-size: 18px;
-          font-family: $primaryFont;
-          font-weight: $weightMedium;
-          color: $black;
-          line-height: 1.22;
-        }
-
-        &--tag {
-          background-color: #c40000;
-          border-radius: 4px;
-          position: absolute;
-          top: 50%;
-          transform: translate(0px, -50%);
-          left: -80px;
-          color: $white;
-          font-size: 12px;
-          text-transform: uppercase;
-          font-family: $primaryFont;
-          font-weight: $weightMedium;
-          padding: 7px 4px;
-        }
-
-        &--price {
-          font-size: 16px;
-          line-height: 1.13;
-          color: $black;
-          font-family: $primaryFont;
-          font-weight: $weightRegular;
-        }
-
-        &--feature {
-          font-size: 12px;
-          line-height: 1.33;
-          font-family: $primaryFont;
-          font-weight: $weightMedium;
-          color: $grey5;
-          text-decoration: underline;
-          cursor: pointer;
-
-          &:hover {
-            color: $blue_sh5;
-          }
-        }
-
-        &--purchase {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          height: 48px;
-          min-height: 48px;
-          border-radius: 6px;
-          font-size: 16px;
-          font-weight: $weightBold;
-          line-height: 1.5;
-          text-decoration: none;
-          background-color: $blue_sh5;
-          color: $white;
-        }
-
-        .active {
-          > td {
-            background-color: #d5d1fd !important;
-            .cus_acnt__plan-table--feature {
-              color: $blue_sh5 !important;
-            }
-            .cus_acnt__plan-table--purchase {
-              background-color: transparent !important;
-              color: $blue_sh5 !important;
-              border: 1px solid $blue_sh5;
-            }
-          }  
-        }
-
-        .folded {
-          display: none;
-
-          &.open {
-            display: table-row;
-          }
-          td {
-            background-color: #fbfbfb !important;
-            padding: 30px !important;
-          }
-        }
-        .users-feature__list {
-          display: flex;
-
-          ul {
-            flex: 1;
-
-            li {
-              position: relative;
-              padding-left: 27px;
-              padding-top: 5px;
-              margin-bottom: 10px;
-              line-height: 1.38;
-              font-size: 13px;
-              font-family: $primaryFont;
-              font-weight: $weightRegular;
-
-              &:before {
-                content: "\f05d";
-                position: absolute;
-                display: block;
-                font-family: $iconfont;
-                left: 0;
-                top: 0;
-                color: $grey4;
-                font-size: 20px;
-              }
-            }
-            +ul {
-              margin-left: 25px;
-            }
-          }
-        }
-      }
     }
   }
 
@@ -733,6 +569,36 @@
           &-btn {
             width: 100%;
             margin-bottom: 15px;
+          }
+        }
+
+        &__addSec {
+          .user-editor {
+            .text-button {
+              position: absolute;
+              top: 0;
+              width: 170px;
+              height: 48px;
+              left: 15px;
+              background-color: $grey3;
+              display: flex;
+              align-items: center;
+              font-size: 26px;
+              line-height: 1.23;
+              color: $black;
+              font-weight: $weightBold;
+              font-family: $primaryFont;
+            }
+          }
+
+          .cus_acnt__infoBox-form {
+            display: flex;
+            flex-wrap: wrap;
+
+            .cus_acnt__form__group {
+              flex: 1 0 100%;
+              margin-bottom: 20px;
+            }
           }
         }
 
@@ -773,6 +639,21 @@
               &-btn {
                 max-width: 170px;
                 margin-bottom: 0;
+              }
+            }
+
+            &__addSec {
+              .user-editor {    
+                .cus_acnt__infoBox-form {    
+                  .cus_acnt__form__group {
+                    flex: 1 0 calc(50% - 20px);
+                    margin: 0 10px 20px;
+
+                    &.cus_acnt__form__btns {
+                      margin-top: 34px;
+                    }
+                  }
+                }
               }
             }
           }
