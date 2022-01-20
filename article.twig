@@ -9,7 +9,7 @@
 
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['headingColor'] is defined %}
-{% set themeColor = networkData['styling']['colours']['headingColor'] %}
+    {% set themeColor = networkData['styling']['colours']['headingColor'] %}
 {% endif %}
 
 {% set relatedArticles = [] %}
@@ -19,9 +19,8 @@
 
 
 {% set cropped = true %}
-{% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and
-article.additionalInfo.image_crop == 'full' %}
-{% set cropped = false %}
+    {% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and article.additionalInfo.image_crop == 'full' %}
+    {% set cropped = false %}
 {% endif %}
 
 
@@ -30,7 +29,7 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% set pwstats = {} %}
 {% if not _User.isGuest() %}
-{% set pwstats = _User.getPaywallStats(false) %}
+    {% set pwstats = _User.getPaywallStats(false) %}
 {% endif %}
 
 
@@ -40,35 +39,35 @@ article.additionalInfo.image_crop == 'full' %}
 {% set paywallType = "" %}
 {% if not _User.isAdminUser() and article.showPaywall == true %}
 
-{% set showPaywall = true %}
+    {% set showPaywall = true %}
 
-{# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
-{% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
-{# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
+    {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
+    {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
+    {# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
 
-{% if not _User.isGuest() %}
-{% set showPaywall = false %}
-{% else %}
-{% set paywallType = "signup" %}
-{% endif %}
+        {% if not _User.isGuest() %}
+            {% set showPaywall = false %}
+        {% else %}
+            {% set paywallType = "signup" %}
+        {% endif %}
 
 
-{% else %}
-{# DETERMINE WHICH PAYWALL TO SHOW #}
-{% if not _User.isGuest() %}
+    {% else %}
+        {# DETERMINE WHICH PAYWALL TO SHOW #}
+        {% if not _User.isGuest() %}
 
-{% if pwstats['type'] == 'article' %}
-{% set paywallType = "topup" %}
-{% elseif pwstats['type'] == 'time' %}
-{% set paywallType = "renew" %}
-{% else %}
-{% set paywallType = "upgrade" %}
-{% endif %}
+            {% if pwstats['type'] == 'article' %}
+                {% set paywallType = "topup" %}
+            {% elseif pwstats['type'] == 'time' %}
+                {% set paywallType = "renew" %}
+            {% else %}
+                {% set paywallType = "upgrade" %}
+            {% endif %}
 
-{% else %}
-{% set paywallType = "subscribe" %}
-{% endif %}
-{% endif %}
+        {% else %}
+            {% set paywallType = "subscribe" %}
+        {% endif %}
+    {% endif %}
 {% endif %}
 
 
@@ -123,7 +122,7 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% set watermark = false %}
 {% if config['watermark']['settings'] is defined and config['watermark']['sections'][articleBlog|lower] is defined %}
-{% set watermark = config['watermark']['settings'] %}
+    {% set watermark = config['watermark']['settings'] %}
 {% endif %}
 
 
@@ -132,8 +131,8 @@ article.additionalInfo.image_crop == 'full' %}
 {% set articleImg = false %}
 {% set featured = false %}
 {% if article.media|length > 0 %}
-{% set articleImg = true %}
-{% set featured = article.media[0].type %}
+    {% set articleImg = true %}
+    {% set featured = article.media[0].type %}
 {% endif %}
 
 
@@ -145,9 +144,14 @@ article.additionalInfo.image_crop == 'full' %}
 
 {% set updated = false %}
 {% if article.publishedDateTime != article.updatedDateTime %}
-{% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
-{% if updatedAgo < 86400 %} {% set updateDate=_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} {% endif
-    %} {% set updated=true %} {% endif %} 
+    {% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
+    {% if updatedAgo < 86400 %} 
+        {% set updateDate =_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} 
+    {% endif %} 
+    {% set updated = true %} 
+{% endif %} 
+
+
     <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}">
         <div class="c-article c-article-xs c-article__carousel">
             <div class="container">
@@ -344,11 +348,11 @@ article.additionalInfo.image_crop == 'full' %}
                                             {% for i in 0..3 if popularArticles[i] %}
                                             <div class="col-12 card-borderBottom__deskVersion">
                                                 {{this.render('partials/_single-article.twig', {
-                                                article: popularArticles[i],
-                                                imageSize: {width: 300, height: 180},
-                                                swap            : false,
-                                                containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
-                                                site: site
+                                                    article: popularArticles[i],
+                                                    imageSize: {width: 300, height: 180},
+                                                    swap            : false,
+                                                    containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
+                                                    site: site
                                                 }) | raw}}
                                             </div>
                                             {% endfor %}
@@ -376,10 +380,10 @@ article.additionalInfo.image_crop == 'full' %}
                             {% for i in 0..3 if recentArticles[i] %}
                             <div class="col-12 col-lg-3 left-border">
                                 {{this.render('partials/_single-article.twig', {
-                                article: recentArticles[i],
-                                imageSize: {width: 296, height: 260},
-                                containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                                site: site
+                                    article: recentArticles[i],
+                                    imageSize: {width: 296, height: 260},
+                                    containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                                    site: site
                                 }) | raw}}
                             </div>
                             {% endfor %}
