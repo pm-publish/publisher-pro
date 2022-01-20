@@ -115,57 +115,39 @@
     </div>
 
 
-    <div class="c-subscriptions__other-pub">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <h2>See our other publications</h2>
-                </div>
-            </div>
-            <div class="row c-subscriptions__other-pub__demo-Info">
-                <div class="col-12 col-md-6 col-lg-3 c-subscriptions__other-pub__demo-Info-items">
-                    <div class="content-section">
-                        <div class="content-section__subs">SUBSCRIBE TO</div>
-                        <div class="content-section__title">Demo Child 1</div>
-                        <div class="content-section__image">
-                            <img src="{{networkData.templatePath}}/static/icons/laptop.png" class="img-fluid" />
-                        </div>
-                        <a href="javascript:;" class="content-section__link">View Subscriptions</a>
+
+
+
+
+
+
+
+
+    {% if config['altSites'] is defined %}
+        <div class="c-subscriptions__other-pub">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>See our other publications</h2>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-3 c-subscriptions__other-pub__demo-Info-items">
-                    <div class="content-section">
-                        <div class="content-section__subs">SUBSCRIBE TO</div>
-                        <div class="content-section__title">Demo Child 1</div>
-                        <div class="content-section__image">
-                            <img src="{{networkData.templatePath}}/static/icons/laptop.png" class="img-fluid" />
+                <div class="row c-subscriptions__other-pub__demo-Info">
+                    {% for site in config['altSites'] %}
+                        <div class="col-12 col-md-6 col-lg-3 c-subscriptions__other-pub__demo-Info-items">
+                            <div class="content-section">
+                                <div class="content-section__subs">SUBSCRIBE TO</div>
+                                <div class="content-section__title">{{site.sitename}}</div>
+                                <div class="content-section__image">
+                                    <img src="{{networkData.templatePath}}/static/icons/laptop.png" class="img-fluid" />
+                                </div>
+                                <a href="{{site.url}}" target="_blank" class="content-section__link">View Subscriptions</a>
+                            </div>
                         </div>
-                        <a href="javascript:;" class="content-section__link">View Subscriptions</a>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3 c-subscriptions__other-pub__demo-Info-items">
-                    <div class="content-section">
-                        <div class="content-section__subs">SUBSCRIBE TO</div>
-                        <div class="content-section__title">Demo Child 1</div>
-                        <div class="content-section__image">
-                            <img src="{{networkData.templatePath}}/static/icons/laptop.png" class="img-fluid" />
-                        </div>
-                        <a href="javascript:;" class="content-section__link">View Subscriptions</a>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-3 c-subscriptions__other-pub__demo-Info-items">
-                    <div class="content-section">
-                        <div class="content-section__subs">SUBSCRIBE TO</div>
-                        <div class="content-section__title">Demo Child 1</div>
-                        <div class="content-section__image">
-                            <img src="{{networkData.templatePath}}/static/icons/laptop.png" class="img-fluid" />
-                        </div>
-                        <a href="javascript:;" class="content-section__link">View Subscriptions</a>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
-    </div>
+    {% endif %}
 
 </div>
 
