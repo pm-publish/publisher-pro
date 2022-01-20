@@ -1,6 +1,5 @@
 {{ set(this, 'title', 'Edit Profile') }}
 {% set networkData  = _Network.getNetworkData() %}
-{% set propBlogId   = blogData.additionalInfo['propertylistingsid'] %}
 {% set blogData     = _Blog.getBlog() %}
 {% set config       = _Network.getThemeConfig() %}
 
@@ -21,9 +20,6 @@
 
 
 
-{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
-<!-- 3 is job, 4 is property, 5 is event -->
-{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
 <main>
     <div id="stripekey" class="cus_acnt__hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
@@ -43,7 +39,6 @@
                     <div class="cus_acnt-row">
                         <div class="cus_acnt-col-12 cus_acnt-col-lg-8">
                             <div class="cus_acnt__infoBox cus_acnt__infoBox-xs">
-                                {{this.render('layouts/partials/messages.twig') | raw}}
                                 <div class="cus_acnt__infoBox__area js-profileViewOnly">
                                     <div class="cus_acnt__infoBox-head">
                                         <div class="cus_acnt__infoBox-head--label">My account</div>
@@ -74,7 +69,13 @@
                                         </ul>
                                     </div>
 
-                                    <div class="cus_acnt__infoBox-form cus_acnt__hide">
+
+                                    
+                                    {{this.render('layouts/partials/messages.twig') | raw}}
+
+
+
+                                    <div class="cus_acnt__infoBox-form cus_acnt__hide ">
                                         <form id="profile-form" class="c-form" action="#" method="post" autocomplete="off">
                                             <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
                                             <input type="hidden" name="profileImage" id="userProfileImage" value="" />
@@ -141,8 +142,11 @@
                                     </div>
 
                                 </div>
+
+
+
                                 {% if pwstats.userManager == true %}
-                                    <div class="cus_acnt__infoBox__area">
+                                    <div class="cus_acnt__infoBox__area u-margin-top-40">
                                         <div class="cus_acnt__infoBox-head">
                                             <div class="cus_acnt__infoBox-head--label">Payment details</div>
                                             <a href="javascript:;" class="cus_acnt__infoBox-head--link js-cus_acnt__showForm">Update credit card</a>
