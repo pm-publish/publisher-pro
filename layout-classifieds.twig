@@ -332,9 +332,7 @@
 
         // override the lightbox handler from the one set in card.js
         Card.prototype.bindLightbox = function() {
-            console.log('adding lightbox listent');
             $('article.{{contentType}}').unbind().on('click', function (e) {
-                console.log('clicked lightbox');
                 e.preventDefault();
                 var csrfToken = $('meta[name="csrf-token"]').attr("content");
                 
@@ -342,7 +340,6 @@
 
 
                 Acme.LightBox = new Acme.lightBox('modal', 'lightbox-modal');
-                console.log(blogTitle);
                 Acme.LightBox.render(null, blogTitle, '<div class="spinner {{title}}" style="position:relative;height:70px;margin-top:30px;margin-bottom:30px"></div>');
 
                 var isSocial = $(this).parent().data('social');
@@ -368,7 +365,6 @@
                         dataType: 'json',
                         data: payload,
                         success: function (data, textStatus, jqXHR) {
-                            console.log(data);
                             data.hasMediaVideo = false;
                             if (data.media['type'] === 'video') {
                                 data.hasMediaVideo = true;
@@ -563,7 +559,7 @@
             spinner.show();
             Acme.search.options.search = searchTerm;
             Acme.search.options.offset = 0;
-            Acme.search.fetch().done(function() {
+            Acme.search.fetch().done(function(r) {
                 spinner.hide();
             });
         };

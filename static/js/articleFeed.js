@@ -265,7 +265,7 @@ ArticleFeed.prototype.render = function(data)
         watch: true
     });
 
-    const cardEvents = new this.cardModel().events();
+    const cardEvents = this.cardModel.events();
 
     if (ads_on == true) {
         self.InsertAds();
