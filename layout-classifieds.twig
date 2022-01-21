@@ -403,14 +403,16 @@
                 }
             });
         }
-        var cardController = new Card();
+
+
+
 
 
 
         var offset = 0;
 
         Acme.search = new Acme.ArticleFeed({
-            model           : cardController,
+            model           : Acme.Card,
             container       : 'results',
             limit           : 30,
             offset          : offset,
