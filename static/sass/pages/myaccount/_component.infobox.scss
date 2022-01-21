@@ -1,0 +1,136 @@
+.infoBox {
+    &__head {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+
+      &-label {
+        color: $black;
+        font-size: 26px;
+        line-height: 1.23;
+        font-family: $primaryFont;
+        font-weight: 700;
+      }
+
+      &-link {
+        color: $blue_sh5;
+        line-height: 1.33;
+        font-family: $primaryFont;
+        font-weight: 700;
+        font-size: 12px;
+        margin-top: 3px;
+      }
+    }
+
+    &-dataGrid {
+      // margin-bottom: 40px;
+      &-item {
+        @include flexbox;
+        @include flex-direction(column, vertical);
+        margin-bottom: 12px;
+
+        &--label {
+          color: #636567;
+          @include font-size(14);
+          line-height: 1.71;
+          font-family: $primaryFont;
+        }
+
+        &--value {
+          color: #000;
+          @include font-size(18);
+          line-height: 1.78;
+          font-family: $primaryFont;
+        }
+      }
+    }
+
+    &-form {
+    //   #{$selfCusAcnt} {
+        &__form {
+          &__label {
+            color: #636567;
+            @include font-size(16);
+            line-height: 1.5;
+            font-family: $primaryFont;
+            margin-bottom: 8px;
+          }
+
+          &__input {
+            height: 48px;
+            padding: 20px;
+            outline: none;
+            border: none;
+          }
+
+          &__group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+
+            &__help-block {
+              display: none;
+            }
+
+            .three-column {
+              background: #ffffff; 
+              padding: 15px;
+            }
+
+            &.has-error {
+              position: relative;
+              &:after {
+                content: "";
+                background-image: url("../icons/icons-warning.svg");
+                width: 17px;
+                height: 17px;
+                position: absolute;
+                right: 15px;
+                bottom: 30px;
+              }
+            //   #{$selfCusAcnt}__form {
+                &__help-block {
+                  display: block;
+                  color: #c40000;
+                  font-family: $primaryFont;
+                  font-weight: $weightMedium;
+                  font-size: 12px;
+                  font-style: italic;
+                  margin-top: 5px;
+                }
+              }
+            // }
+          }
+
+          &__btns {
+            display: flex;
+            flex-direction: row;
+            // #{$selfCusAcnt} {
+              &__btn {
+                flex: 1;
+              }
+            // }
+            @media screen and (max-width: 540px) {
+              flex-direction: column;
+
+              .cus_acnt__btn + .cus_acnt__btn {
+                margin-left: 0;
+                margin-top: 20px;
+              }
+            }
+          }
+        }
+    //   }
+    }
+
+    @include responsive(xs) {
+      @include respond-to(md) {
+        .cus_acnt__infoBox {
+          &-head {
+            flex-direction: row;
+            justify-content: space-between;
+          }
+        }
+      }
+    }
+  }

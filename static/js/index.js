@@ -2,9 +2,10 @@
 
 import { ArticleFeed, UserFeed, UserCard } from './articleFeed'
 import { UserProfileController } from './myaccount'
-import { View, PubSub } from './framework'
+import { View, PubSub, ListMenu, Server, Modal, LightBox } from './framework'
 import { SigninModal } from './signinModal'
 import { Card } from './card'
+import { Form } from './form'
 import AdLoader from './advertising'
 import {SubscribeForm} from './signup'
 
@@ -15,7 +16,13 @@ window.Acme.View.UserFeed = UserFeed;
 window.Acme.ArticleFeed = ArticleFeed;
 window.Acme.Usercard = UserCard;
 window.Acme.Card = Card;
-
+window.Acme.Form = Form;
+window.Acme.listMenu = ListMenu;
+window.Acme.lightBox = LightBox;
+window.Acme.modal = Modal;
+window.Acme.server = Server;
+window.Acme.PubSub = PubSub;
+window.Acme.articleFeeds = {};
 const ads = new AdLoader();
 ads.LoadAds();
 

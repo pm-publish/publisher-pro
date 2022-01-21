@@ -24,47 +24,47 @@
 <main>
     <div id="stripekey" class="cus_acnt__hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
     <div class="cus_acnt__headerBar">
-        <div class="cus_acnt-container">
-            <div class="cus_acnt-row">
-                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto ">
+        <div class="acme-container">
+            <div class="acme-row">
+                <div class="acme-col-12 acme-col-lg-8 mx-auto ">
                     <p class="cus_acnt__helptext cus_acnt__helptext-xs">Need help with your account? <br class="d-md-none" /><a href="{{networkData.defaultBlogUrl}}/FAQ">Read our FAQs</a></p>
                 </div>
             </div>
         </div>
     </div>
     <div class="cus_acnt__info-container">
-        <div class="cus_acnt-container">
-            <div class="cus_acnt-row">
-                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
-                    <div class="cus_acnt-row">
-                        <div class="cus_acnt-col-12 cus_acnt-col-lg-8">
-                            <div class="cus_acnt__infoBox cus_acnt__infoBox-xs">
-                                <div class="cus_acnt__infoBox__area js-profileViewOnly">
-                                    <div class="cus_acnt__infoBox-head">
-                                        <div class="cus_acnt__infoBox-head--label">My account</div>
-                                        <a href="javascript:;" class="cus_acnt__infoBox-head--link js-cus_acnt__showForm">Edit your details</a>
+        <div class="acme-container">
+            <div class="acme-row">
+                <div class="acme-col-12 acme-col-lg-8 mx-auto">
+                    <div class="acme-row">
+                        <div class="acme-col-12 acme-col-lg-8">
+                            <div class="infoBox infoBox-xs">
+                                <div class="infoBox__area js-profileViewOnly">
+                                    <div class="infoBox__head">
+                                        <div class="infoBox__head-label">My account</div>
+                                        <a href="javascript:;" class="infoBox__head-link js-cus_acnt__showForm">Edit your details</a>
                                     </div>
-                                    <div class="cus_acnt__infoBox-dataGrid">
+                                  <div class="infoBox-dataGrid">
                                         <ul>
-                                            <li class="cus_acnt__infoBox-dataGrid-item">
-                                                <span class="cus_acnt__infoBox-dataGrid-item--label">First name</span>
-                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.firstname}}</span>
+                                            <li class="infoBox-dataGrid-item">
+                                                <span class="infoBox-dataGrid-item--label">First name</span>
+                                                <span class="infoBox-dataGrid-item--value">{{user.firstname}}</span>
                                             </li>
-                                            <li class="cus_acnt__infoBox-dataGrid-item">
-                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Last name</span>
-                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.lastname}}</span>
+                                            <li class="infoBox-dataGrid-item">
+                                                <span class="infoBox-dataGrid-item--label">Last name</span>
+                                                <span class="infoBox-dataGrid-item--value">{{user.lastname}}</span>
                                             </li>
-                                            <li class="cus_acnt__infoBox-dataGrid-item">
-                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Email</span>
-                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.email}}</span>
+                                            <li class="infoBox-dataGrid-item">
+                                                <span class="infoBox-dataGrid-item--label">Email</span>
+                                                <span class="infoBox-dataGrid-item--value">{{user.email}}</span>
                                             </li>
-                                            <li class="cus_acnt__infoBox-dataGrid-item">
-                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Password</span>
-                                                <span class="cus_acnt__infoBox-dataGrid-item--value">**********</span>
+                                            <li class="infoBox-dataGrid-item">
+                                                <span class="infoBox-dataGrid-item--label">Password</span>
+                                                <span class="infoBox-dataGrid-item--value">**********</span>
                                             </li>
-                                            <li class="cus_acnt__infoBox-dataGrid-item">
-                                                <span class="cus_acnt__infoBox-dataGrid-item--label">Organisation</span>
-                                                <span class="cus_acnt__infoBox-dataGrid-item--value">{{user.business_name}}</span>
+                                            <li class="infoBox-dataGrid-item">
+                                                <span class="infoBox-dataGrid-item--label">Organisation</span>
+                                                <span class="infoBox-dataGrid-item--value">{{user.business_name}}</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -75,7 +75,7 @@
 
 
 
-                                    <div class="cus_acnt__infoBox-form cus_acnt__hide ">
+                                    <div class="infoBox-form cus_acnt__hide ">
                                         <form id="profile-form" class="c-form" action="#" method="post" autocomplete="off">
                                             <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
                                             <input type="hidden" name="profileImage" id="userProfileImage" value="" />
@@ -146,21 +146,21 @@
 
 
                                 {% if pwstats.userManager == true %}
-                                    <div class="cus_acnt__infoBox__area u-margin-top-40">
-                                        <div class="cus_acnt__infoBox-head">
-                                            <div class="cus_acnt__infoBox-head--label">Payment details</div>
+                                    <div class="infoBox__area u-margin-top-40">
+                                        <div class="infoBox-head">
+                                            <div class="infoBox-head--label">Payment details</div>
                                             <a href="javascript:;" class="cus_acnt__infoBox-head--link js-cus_acnt__showForm">Update credit card</a>
                                         </div>
-                                        <div class="cus_acnt__infoBox-dataGrid">
+                                        <div class="infoBox-dataGrid">
                                             <ul>
-                                                <li class="cus_acnt__infoBox-dataGrid-item">
-                                                    <span class="cus_acnt__infoBox-dataGrid-item--label">Payment method</span>
-                                                    <span class="cus_acnt__infoBox-dataGrid-item--value">**** **** **** {{ pwstats['card_last_4']}}</span>
+                                                <li class="infoBox-dataGrid-item">
+                                                    <span class="infoBox-dataGrid-item--label">Payment method</span>
+                                                    <span class="infoBox-dataGrid-item--value">**** **** **** {{ pwstats['card_last_4']}}</span>
                                                 </li>
                                             </ul>
                                         </div>
 
-                                        <div class="cus_acnt__infoBox-form cus_acnt__hide">
+                                        <div class="infoBox-form cus_acnt__hide">
                                             <form id="update-card-form" action="/update" method="post">
                                                 <div class="cus_acnt__form__group">
                                                     <label class="cus_acnt__form__label c-form__label" for="creditcarddetails">Credit card</label>
@@ -207,7 +207,7 @@
                             {% set remainingUsers       = totalPlanUserCount - managedUserCount %}
                             {% set cardSupplied = pwstats['card_last_4'] ? 't' : 'f' %}
 
-                            <div class="cus_acnt-col-12 cus_acnt-col-lg-4">
+                            <div class="acme-col-12 acme-col-lg-4">
                                 {% set planPeriod = pwstats.period %}
                                 {% set planPeriodCount = "" %}
 
@@ -332,12 +332,12 @@
 
     {% if pwstats.userManager == true %}
         <div class="cus_acnt__user-container">
-            <div class="cus_acnt-container-fluid">
-                <div class="cus_acnt-row">
+            <div class="acme-container-fluid">
+                <div class="acme-row">
                     <div class="col-12 p-0">
-                        <div class="cus_acnt-container">
-                            <div class="cus_acnt-row">
-                                <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                        <div class="acme-container">
+                            <div class="acme-row">
+                                <div class="acme-col-12 acme-col-lg-8 mx-auto">
                                     <div class="cus_acnt__user-head">
                                         <div class="cus_acnt__user-head--label">Choose a plan</div>
                                         <div class="cus_acnt__user-head--sub-text">You will be asked to confirm before purchasing. </div>
@@ -453,9 +453,9 @@
                         </div>
 
                         {% if pwstats['type'] == 'time' and totalPlanUserCount > 0 %}
-                            <div class="cus_acnt-container">
-                                <div class="cus_acnt-row">
-                                    <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                            <div class="acme-container">
+                                <div class="acme-row">
+                                    <div class="acme-col-12 acme-col-lg-8 mx-auto">
                                         <div class="cus_acnt__user-head">
                                             <div class="cus_acnt__user-head--label">My users</div>
                                             <div class="cus_acnt__user-head--sub-text">You can add, search and remove users below.</div>
@@ -465,9 +465,9 @@
                             </div>
 
                             <div class="cus_acnt__user__allotment-container cus_acnt__user__allotment-container-xs">
-                                <div class="cus_acnt-container">
-                                    <div class="cus_acnt-row">
-                                        <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                                <div class="acme-container">
+                                    <div class="acme-row">
+                                        <div class="acme-col-12 acme-col-lg-8 mx-auto">
                                             {% set usersLeft = totalPlanUserCount > 0 ? totalPlanUserCount -1 : totalPlanUserCount %}
                                             <div class="cus_acnt__user__addition">
 
@@ -496,9 +496,9 @@
                             </div>
 
                             <a id="createUserErrorMessage"></a>
-                            <div class="cus_acnt-container">
-                                <div class="cus_acnt-row">
-                                    <div class="cus_acnt-col-12 cus_acnt-col-lg-8 mx-auto">
+                            <div class="acme-container">
+                                <div class="acme-row">
+                                    <div class="acme-col-12 acme-col-lg-8 mx-auto">
                                         <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
                                             {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
                                                 <div id="menu-search" class="cus_acnt__user-grid__search">

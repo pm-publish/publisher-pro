@@ -270,96 +270,282 @@ export const PubSub = {
 
      
 export const Modal = function(template, name, layouts, data) {
-    this.template = template || null;
-    this.parentCont = name   || null;
-    this.layouts = layouts   || null;
-    this.data = data         || {};
-    this.dfd = $.Deferred();
-}
-    Modal.prototype = new Acme.listen();
+        this.template = template || null;
+        this.parentCont = name   || null;
+        this.layouts = layouts   || null;
+        this.data = data         || {};
+        this.dfd = $.Deferred();
+    }
+        Modal.prototype = new Acme.listen();
 
-    Modal.prototype.render = function(layout, title, data) {
-        this.data = data || this.data;
-        
-        if (title) {
-            this.data['title'] = title;
-        }
-        this.data['name'] = this.parentCont;
-        var tmp = Handlebars.compile(Templates[this.template]);
-        var tmp = tmp(this.data);
+        Modal.prototype.render = function(layout, title, data) {
+            var preRendered = false;
 
-        $('html').addClass('u-noscroll')
-        $('body').addClass('u-noscroll').append(tmp);
-        if (layout) {
-            this.renderLayout(layout, this.data);
-        }
-        this.events();
-        this.rendered(); // lifecycle hook that can be overriden
-        return this.dfd.promise();
-    };
-    Modal.prototype.renderLayout = function(layout, data) {
-
-        var data = data || {};
-        let template = null;
-        if (this.layouts !== null && typeof Templates[this.layouts[layout]] !== 'undefined') {
-            template = Templates[this.layouts[layout]]; 
-        }
-        if (template === null && Templates[layout] !== 'undefined') {
-            template = Templates[layout];
-        }
-
-        if (template === null) {
-            return;
-        }
-
-        var tmp = Handlebars.compile(template);
-        var layout = tmp(data);
-
-        $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
-    };
-    Modal.prototype.events = function() 
-    {
-        var self = this;
-        $('#'+this.parentCont).on("click", function(e) {
-            // console.log(self.handler);
-            self.handle(e);
-        });
-
-    };
-    Modal.prototype.rendered = function() {
-        return true;
-    };
-    Modal.prototype.handle = function(e) {
-        var $elem = $(e.target);
-
-        if ( !$elem.is('input') && !$elem.is('a') && !$elem.parent().is('a') ) {
-            e.preventDefault();
-        }
-        if ($elem.data('behaviour') == 'close') {
-            e.preventDefault();
-            this.closeWindow();
-            return $elem;
-        }
-        if ( $elem.is('button') ) {
-            if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
-                this.closeWindow();
-                this.dfd.fail();
-
-            } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
-                this.closeWindow();
-                this.dfd.resolve();
+            if (typeof data === 'string') {
+                preRendered = true;
+            } else {
+                this.data = data || this.data;
             }
+
+            if (title) {
+                this.data['title'] = title;
+            }
+
+
+            this.data['name'] = this.parentCont;
+            var tmp = Handlebars.compile(Templates[this.template]);
+            var tmp = tmp(this.data);
+
+            $('html').addClass('u-noscroll')
+            $('body').addClass('u-noscroll').append(tmp);
+            // $('body').append(tmp);
+
+            if (layout) {
+                this.renderLayout(layout, this.data);
+            }
+
+            if (preRendered) {
+                this.renderPreLayout(data);
+            }
+
+            this.events();
+            this.rendered(); // lifecycle hook that can be overriden
+            return this.dfd.promise();
+        };
+        Modal.prototype.renderLayout = function(layout, data) {
+            var data = data || {};
+            var layoutTemplate = Templates[this.layouts[layout]];
+            if (layoutTemplate) {
+
+                var tmp = Handlebars.compile(Templates[this.layouts[layout]]);
+                // $('#'+this.parentCont).attr("title", layout); 
+                var layout = tmp(data);
+                $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
+            } else {
+                console.log(this.layouts[layout], 'Does not exist' );
+            }
+
+            // if (typeof data.modal_title != 'undefined') {
+            //     $('.signin-modal__title').text(data.modal_title);
+            // }
+        };
+        Modal.prototype.renderPreLayout = function(html) {
+            $('#'+this.parentCont).find('#dialogContent').empty().append(html); 
+        };
+        Modal.prototype.events = function() 
+        {
+            var self = this;
+            $('#'+this.parentCont).on("click", function(e) {
+                self.handle(e);
+            });
+
+        };
+        Modal.prototype.rendered = function() {
+            return true;
+        };
+        Modal.prototype.handle = function(e) {
+            var $elem = $(e.target);
+            if ( !$elem.is('input') && !$elem.is('a') && !$elem.parent().is('a') ) {
+                e.preventDefault();
+            }
+            if ($elem.data('behaviour') == 'close') {
+                e.preventDefault();
+                this.closeWindow();
+            }
+            if ( $elem.is('button') ) {
+                if ($elem.text().toLowerCase() === "cancel" || $elem.data('role') == 'cancel') {
+                    this.dfd.fail();
+                    this.closeWindow();
+
+                } else if ($elem.text().toLowerCase() === "okay" || $elem.data('role') == 'okay') {
+                    this.dfd.resolve();
+                    this.closeWindow();
+                }
+            }
+            return $elem;
+        };
+        Modal.prototype.closeWindow = function() {
+            $('body').removeClass('u-noscroll');
+            $('html').removeClass('u-noscroll');
+            $('#'+this.parentCont).remove();
+        };
+
+
+export const ListMenu = function(config)
+    {
+   
+        this.defaultTemp = Handlebars.compile(
+            '<div id="{{ name }}" class="{{class}}"> \
+                <p class="Acme-pulldown__selected-item"></p> \
+                <span class="Acme-pulldown__span"></span> \
+                <ul class="Acme-pulldown__list" data-key="{{ key }}" class="articleExtendedData"></ul> \
+            </div>'
+        );
+        this.defaultItemTemp  = Handlebars.compile(
+            '<li data-clear="{{clear}}" data-value="{{value}}" style="text-align:left">{{label}}</li>'
+        );
+        this.divider          = "<hr>";
+        this.callback         = config.callback      || null,
+        this.menuParent       = config.parent        || {};
+        this.class            = config.class         || "";
+        this.template         = config.template      || this.defaultTemp;
+        this.itemTemp         = config.itemTemp      || this.defaultItemTemp;
+        this.list             = config.list          || [];
+        this.allowClear       = config.allowClear    || null;
+        this.defaultSelection = config.defaultSelect || null;
+        this.name             = config.name          || null;
+        this.key              = config.key           || null;
+        this.listContainer    = null;
+        this.defaultItem      = null;
+        return this;
+    };
+        ListMenu.prototype.init = function(prepend)
+        {
+            var prepend = prepend || 'append';
+            this.menuParent[prepend]( this.template({"name": this.name, "key":this.key, "class":this.class}) );
+            this.defaultItem   = $('#' + this.name+' p');
+            this.listContainer = $('#' + this.name+' ul');
+            this.events();
+            if (this.extendedEvents) this.extendedEvents();
+            return this;
+        };
+        ListMenu.prototype.render = function()
+        {
+            this.listContainer.empty();
+            if (this.defaultSelection != null) {
+                this.defaultItem.text(this.defaultSelection.label);
+            }
+            var html = this.createList();
+            this.listContainer.append( html );
+            this.listElements  = this.listContainer.find('li');
+            this.listItemEvents();
+            return this;
+        };
+        ListMenu.prototype.events = function()
+        {
+            var self = this;
+            this.defaultItem.parent().on('click', function(e) {
+                e.stopPropagation();
+                self.listContainer.toggle();
+            });
+        };
+        ListMenu.prototype.createList = function()
+        {
+            var itemTemp = this.itemTemp;
+            var html = '';
+            if (this.allowClear) {
+                html = itemTemp({
+                    'label'   :  'Any',
+                    'value'   :  '',
+                    'clear'   : true
+                });      
+            }
+
+            for (var i=0; i<this.list.length; i++) {
+                if (typeof this.list[i] === 'string') {
+                    var label = value = this.list[i];
+                } else {
+                    var label = this.list[i].label;
+                    var value = this.list[i].value;
+                }
+                html += itemTemp({
+                    'label'   :  label,
+                    'value'   :  value || ''
+                });
+            }
+            return html;
+        };
+        ListMenu.prototype.listItemEvents = function()
+        {
+            var self = this;
+            this.listContainer.unbind().on('click', function(e) {
+                $.each(self.listElements, function(i,e) {
+                    $(e).attr('checked', false);
+                });
+                var elem = $(e.target);
+                var value = elem.data('value');
+                var clear = elem.data('clear');
+                elem.attr('checked', true);
+                var data = {};
+                data[self.key || self.name] = value;
+
+                if (self.callback) {
+                    self.callback(data);
+                } else {
+                    Acme.PubSub.publish('update_state', data);
+                }
+                
+                if (clear) {
+                    self.reset();
+                } else {
+                    self.defaultItem.text(elem.text())
+                        .addClass('Acme-pulldown__selected-item--is-active');
+                }
+
+                $(self.listContainer).hide(100);
+            });
+        };
+        ListMenu.prototype.select = function(item)
+        {
+            var menuid = '#' + this.name + ' > p';
+            $(menuid).text(item);
+            return this;
+        };
+        ListMenu.prototype.reset = function()
+        {
+            this.defaultItem.text(this.defaultSelection.label)
+                  .removeClass('Acme-pulldown__selected-item--is-active');
+            return this;
+        };
+        ListMenu.prototype.remove = function()
+        {
+            $('#' + this.name).remove();
+            return this;
+        };
+        ListMenu.prototype.clear = function()
+        {
+            $('#' + this.name).html('');
+            return this;
+        };
+        ListMenu.prototype.empty = function()
+        {
+            this.listContainer.empty();
+            return this;
+        };
+        ListMenu.prototype.disable = function()
+        {
+            this.enabled = false;
+            $('#' + this.name).addClass("disabled");
+            return this;
+        };
+        ListMenu.prototype.enable = function()
+        {
+            this.enabled = true;
+            $('#' + this.name).removeClass("disabled");
+            return this;
         }
-        return $elem;
+
+        ListMenu.prototype.update = function(list)
+        {
+            this.list = list;
+            this.empty();
+            this.render();
+            return this;
+        };
+
+
+export const LightBox = function(template, parent, layouts) {
+    this.template = template;
+    this.parentCont = parent;
+    this.layouts = layouts;
+    this.parent = Acme.modal.prototype;
+};
+    LightBox.prototype = new Modal();
+    LightBox.constructor = LightBox;
+    LightBox.prototype.handle = function(e) {
+        var self = this;
+        var $elem = this.parent.handle.call(this, e);
     };
-    Modal.prototype.closeWindow = function() {
-        $('html').removeClass('u-noscroll');
-        $('body').removeClass('u-noscroll');
-        $('#'+this.parentCont).remove();
-    };
-
-
-
 
 // Acme.dialog = {
 //     type : '',

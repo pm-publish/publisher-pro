@@ -50,7 +50,6 @@ Card.prototype.render = function(options = {})
     card['imgClass'] = (this.data.lazyloadImage == false) ? '' : 'lazyload';
     
     card['readingTime'] = self.renderReadingTime(this.data.readingTime);
-    // console.log(card);
     var width = typeof options.imageWidth !== "undefined" ? options.imageWidth : 500;
     var height = typeof options.imageHeight !== "undefined" ? options.imageHeight : 350;
     var gravity = typeof options.imageGravity !== "undefined" ? options.imageGravity : null;
@@ -68,9 +67,8 @@ Card.prototype.render = function(options = {})
     card['draggable'] = "false";
 
 
-    const profileImage = this.data['createdBy']['media'];
+    // const profileImage = this.data['createdBy']['media'];
     const articleImage = this.data['featuredMedia'];
-
     const cld = new Cloudinary({
         cloud: {
           cloudName: articleImage.cloudName
@@ -80,13 +78,11 @@ Card.prototype.render = function(options = {})
     // Docs:
     // https://cloudinary.com/documentation/javascript2_image_transformations
     const articleImg = cld.image(articleImage.id);
-    const profileImg = cld.image(profileImage.id);
+    // const profileImg = cld.image(profileImage.id);
     articleImg.resize( fill().width(width).height(height).gravity( focusOn( faces() ) ) );
-    profileImg.resize( thumbnail().width(34).height(34).gravity( focusOn( faces() ) ) );
+    // profileImg.resize( thumbnail().width(34).height(34).gravity( focusOn( faces() ) ) );
 
-    // card['profileImg'] = Image({media:card['createdBy']['media'], mediaOptions:{width: 34 ,height:34, crop: 'thumb', gravity: 'face'} });
-    // card['imageUrl'] = Image({media:card['featuredMedia'], mediaOptions:{width: width ,height:height, crop: 'limit'} });
-    card['profileImg'] = profileImg.toURL();
+    // card['profileImg'] = profileImg.toURL();
     card['imageUrl'] = articleImg.toURL();
 
     card['label'] = this.data.label;
@@ -166,7 +162,85 @@ Card.prototype.bindDeleteHideArticle = function()
 };
 
 
+Card.prototype.bindLightbox = function()
+{
+    var isRequestSent = false;
+    var self = this;
+    $('article.lightbox').unbind().on('click', 'article.lightbox', function (e) {
+        e.preventDefault();
 
+        var csrfToken = $('meta[name="csrf-token"]').attr("content");
+        var isSocial = $(this).parent().data('social');
+        var action = 'POST';
+
+        Acme.LightBox = new Acme.lightBox('modal', 'lightbox-modal');
+        Acme.LightBox.render(null, null, '<div class="spinner" style="position:relative;height:70px;margin-top:30px;margin-bottom:30px"></div>' );
+
+
+        if (isSocial) {
+            var url = '/api/social/get-social-post';
+            var blogGuid = $(this).parent().data('blog-guid');
+            var postGuid = $(this).parent().data('guid');
+            var payload = {blog_guid: blogGuid, guid: postGuid, _csrf: csrfToken};
+
+        } else {
+            var url = '/api/article/get-article';
+            var articleId = $(this).parent().data('id');
+            var payload = {articleId: articleId, _csrf: csrfToken}
+            action = 'GET';
+        }
+        if (!isRequestSent) {
+
+            $.ajax({
+                type: action,
+                url: _appJsConfig.appHostName + url,
+                dataType: 'json',
+                data: payload,
+                success: function (data, textStatus, jqXHR) {
+
+                    data.social = isSocial;
+                    data.hasMediaVideo = false;
+                    if (data.media['type'] === 'video') {
+                        data.hasMediaVideo = true;
+                    }
+                    
+                    if (data.source == 'youtube') {
+                        var watch = data.media.videoUrl.split("=");
+                        data.media.videoUrl = "https://www.youtube.com/embed/" + watch[1];
+                    }
+
+                    data.templatePath = _appJsConfig.templatePath;
+
+                    var article = self.renderCard(data, {
+                        cardClass : "card-10-mobile card-10-tablet card-10-desktop card-10-desktop-lg"
+                    });
+
+                    Acme.LightBox.renderPreLayout(article);
+
+
+
+                    // var articleTemplate = Handlebars.compile(Acme.templates.socialPopup);
+                    // var article = articleTemplate(data);
+                    // $('.modal').html(article);
+
+                    // setTimeout(function () {
+                    //     $('.modal').modal('show');
+                    // }, 0);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(errorThrown, textStatus, jqXHR);
+                    isRequestSent = false;
+                },
+                beforeSend: function (jqXHR, settings) {
+                    isRequestSent = true;
+                },
+                complete: function (jqXHR, textStatus) {
+                    isRequestSent = false;
+                }
+            });
+        }
+    });
+};
 
 
 
@@ -174,7 +248,6 @@ Card.prototype.initDraggable = function()
 {
 
     if ( $.ui ) {
-        console.log('initing draggable');
         $('.swap').draggable({
             helper: 'clone',
             revert: true,
@@ -304,7 +377,7 @@ Card.prototype.initDroppable = function()
                     }
         
                     $(".j-truncate").dotdotdot();
-                    self.events();
+                    self.events_refresh();
 
                 }).fail((e) => {
                     General_ShowErrorMessage({message: e.responseText});
@@ -404,19 +477,24 @@ Card.prototype.dragndrop = function() {
 }
 
 
-
+Card.prototype.events_refresh = function() 
+{
+    if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
+        this.initDroppable();
+        this.initDraggable();        
+        this.bindPinUnpinArticle();
+        this.bindDeleteHideArticle();
+    }
+};
 
 Card.prototype.events = function() 
 {
     var self = this;
-
+    this.bindLightbox();
     if (_appJsConfig.isUserLoggedIn === 1 && _appJsConfig.userHasBlogAccess === 1) {
         self.initDroppable();
         self.initDraggable();        
         self.bindPinUnpinArticle();
         self.bindDeleteHideArticle();
-        // self.BindLightboxArticleBtn();
-
     }
-    // self.bindSocialPostPopup();
 };
