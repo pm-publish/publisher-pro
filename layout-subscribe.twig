@@ -133,23 +133,6 @@
                     <div class="row">
                         <div class="col-12 col-md-7 col-lg-8">
                             <div class="c-subscribeWrap-box">
-                                {% if config['subscribe-notice'] is defined %}
-                                {% set link = false %}
-                                {% if config['subscribe-notice']['link'] is defined %}
-                                {% set link = config['subscribe-notice']['link'] %}
-                                {% endif %}
-                                <div class="subscribe-multi-notice">
-                                    <img class="subscribe-multi-notice__img"
-                                        src="{{networkData.templatePath}}/static/icons/alert.svg" />
-                                    <p class="subscribe-multi-notice__p">Already a Farming Extra free subscriber? <br
-                                            class="d-block d-xl-none" /> Stop and
-                                        {% if link %}
-                                        <a class="subscribe-multi-notice__link" href="{{link}}">click here to add YPCT
-                                            to your account.</a>
-                                        {% endif %}
-                                </div>
-                                {% endif %}
-
 
                                 <h4 class="c-subscribeWrap__subhead">Your details</h4>
 
@@ -330,8 +313,8 @@
                                                         </div>
                                                 {% else %}
                                                         <div class="form-group" style="margin-top:30px;">
-                                                            <button type="submit" id="subscribe"
-                                                                class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
+                                                            <div id="card-errors" class="errorText" role="alert"></div>
+                                                            <button type="submit" id="subscribe" class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
                                                         </div>
                                                 {% endif %}
                                             {% endif %}
