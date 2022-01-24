@@ -601,18 +601,18 @@ UserProfileController.prototype.events = function ()
 
     $('.js-cus_acnt__showForm').on('click', function() {
         const $this = $(this);
-        $this.addClass('cus_acnt__hide');
-        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').addClass('cus_acnt__hide');
-        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').removeClass('cus_acnt__hide');
+        $this.addClass('u-hide');
+        $this.closest('.infoBox__area').find('.infoBox-dataGrid').addClass('u-hide');
+        $this.closest('.infoBox__area').find('.infoBox-form').removeClass('u-hide');
 
         self.stripeCardEvent();
     });
 
     $('.js-cus_acnt__HideForm').on('click', function() {
         const $this = $(this);
-        $('.js-cus_acnt__showForm').removeClass('cus_acnt__hide');
-        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-dataGrid').removeClass('cus_acnt__hide');
-        $this.closest('.cus_acnt__infoBox__area').find('.cus_acnt__infoBox-form').addClass('cus_acnt__hide');
+        $('.js-cus_acnt__showForm').removeClass('u-hide');
+        $this.closest('.infoBox__area').find('.infoBox-dataGrid').removeClass('u-hide');
+        $this.closest('.infoBox__area').find('.infoBox-form').addClass('u-hide');
     });
 
     $(".js-tableView tr .js-toggleTableRow").on("click", function(){

@@ -22,7 +22,7 @@
 
 
 <main>
-    <div id="stripekey" class="cus_acnt__hidden" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
+    <div id="stripekey" class="u-hide" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
     <div class="cus_acnt__headerBar">
         <div class="acme-container">
             <div class="acme-row">
@@ -44,7 +44,7 @@
                                         <div class="infoBox__head-label">My account</div>
                                         <a href="javascript:;" class="infoBox__head-link js-cus_acnt__showForm">Edit your details</a>
                                     </div>
-                                  <div class="infoBox-dataGrid">
+                                    <div class="infoBox-dataGrid">
                                         <ul>
                                             <li class="infoBox-dataGrid-item">
                                                 <span class="infoBox-dataGrid-item--label">First name</span>
@@ -75,48 +75,48 @@
 
 
 
-                                    <div class="infoBox-form cus_acnt__hide ">
+                                    <div class="infoBox-form u-hide ">
                                         <form id="profile-form" class="c-form" action="#" method="post" autocomplete="off">
                                             <input type="hidden" name="_csrf" value="{{_AppHelper.getCsrfToken()}}" />
                                             <input type="hidden" name="profileImage" id="userProfileImage" value="" />
 
                                             {# FIRST NAME #}
-                                            <div class="cus_acnt__form__group">
+                                            <div class="infoBox-form__group">
                                                 <label class="cus_acnt__form__label c-account-form__label" for="first-name">First name</label>
                                                 <input id="first-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="firstname" placeholder="Full Name" aria-required="true" type="text" value="{{user.firstname}}">
                                                 <div class="cus_acnt__form__help-block"></div>
                                             </div>
 
                                             {# LAST NAME #}
-                                            <div class="cus_acnt__form__group">
+                                            <div class="infoBox-form__group">
                                                 <label class="cus_acnt__form__label c-account-form__label" for="last-name">Last name</label>
                                                 <input id="last-name" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="lastname" placeholder="Last Name" aria-required="true" type="text" value="{{user.lastname}}">
                                                 <div class="cus_acnt__form__help-block"></div>
                                             </div>
 
                                             {# EMAIL #}
-                                            <div class="cus_acnt__form__group">
+                                            <div class="infoBox-form__group">
                                                 <label class="cus_acnt__form__label c-account-form__label" for="email">Email</label>
                                                 <input id="email" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="email" placeholder="email" aria-required="true" type="text" value="{{user.email}}">
                                                 <div class="cus_acnt__form__help-block"></div>
                                             </div>
 
                                             {# PASSWORD #}
-                                            <div class="cus_acnt__form__group">
+                                            <div class="infoBox-form__group">
                                                 <label class="cus_acnt__form__label c-account-form__label" for="password">Password</label>
                                                 <input id="password" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="password" placeholder="Password" aria-required="true" type="password">
                                                 <div class="cus_acnt__form__help-block"></div>
                                             </div>
 
                                             {# PASSWORD VERIFY #}
-                                            <div class="cus_acnt__form__group">
+                                            <div class="infoBox-form__group">
                                                 <label class="cus_acnt__form__label c-account-form__label" for="verifypassword">Verify password</label>
                                                 <input id="verifypassword" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="verifypassword" placeholder="Set new password" aria-required="true" type="password">
                                                 <div class="cus_acnt__form__help-block"></div>
                                             </div>
 
                                             {# ORGANISATION #}
-                                            <div class="cus_acnt__form__group">
+                                            <div class="infoBox-form__group">
                                                 <label class="cus_acnt__form__label c-account-form__label" for="organisation">Organisation</label>
                                                 <input id="organisation" class="cus_acnt__form__input cus_acnt__form__input--bordered c-account-form__input" name="abn_business_name"  value="{{user.business_name}}" aria-required="true" type="text">
                                                 <div class="cus_acnt__form__help-block"></div>
@@ -134,9 +134,9 @@
                                             
 
                                             {# SUBMIT #}
-                                            <div class="cus_acnt__form__group cus_acnt__form__btns">
-                                                <button type="submit" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="">Save changes</button>
-                                                <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>
+                                            <div class="infoBox-form__group infoBox-form__btns">
+                                                <button type="submit" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn--solid" name="">Save changes</button>
+                                                <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn--bordered" name="">Cancel</a>
                                             </div>
                                         </form>
                                     </div>
@@ -147,9 +147,9 @@
 
                                 {% if pwstats.userManager == true %}
                                     <div class="infoBox__area u-margin-top-40">
-                                        <div class="infoBox-head">
-                                            <div class="infoBox-head--label">Payment details</div>
-                                            <a href="javascript:;" class="cus_acnt__infoBox-head--link js-cus_acnt__showForm">Update credit card</a>
+                                        <div class="infoBox__head">
+                                            <div class="infoBox__head-label">Payment details</div>
+                                            <a href="javascript:;" class="infoBox__head-link js-cus_acnt__showForm">Update credit card</a>
                                         </div>
                                         <div class="infoBox-dataGrid">
                                             <ul>
@@ -160,7 +160,7 @@
                                             </ul>
                                         </div>
 
-                                        <div class="infoBox-form cus_acnt__hide">
+                                        <div class="infoBox-form u-hide">
                                             <form id="update-card-form" action="/update" method="post">
                                                 <div class="cus_acnt__form__group">
                                                     <label class="cus_acnt__form__label c-form__label" for="creditcarddetails">Credit card</label>
@@ -171,7 +171,7 @@
                                                         </div>
                                                 </div>
 
-                                                <div class="cus_acnt__form__group cus_acnt__form__btns">
+                                                <div class="infoBox-form__group cus_acnt__form__btns">
                                                     <div id="card-errors" class="profile-section__card-errors" role="alert"></div>
                                                     <button type="submit" id="btnContact" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="contact-button">Update details</button>
                                                     <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>

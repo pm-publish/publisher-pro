@@ -1,9 +1,9 @@
 .cus_acnt {
   $selfCusAcnt: &;
-  &__hide,
-  &__hidden {
-    display: none !important;
-  }
+//   &__hide,
+//   &__hidden {
+//     display: none !important;
+//   }
 
   &__headerBar {
     background: var(--main-color);
@@ -28,12 +28,12 @@
       margin-left: 12px;
     }
 
-    &__solid {
+    &--solid {
       background-color: $blue_sh5;
       color: $white;
     }
 
-    &__bordered {
+    &--bordered {
       border: 1px solid $blue_sh5;
       color: $blue_sh5;
     }
@@ -456,15 +456,6 @@
             }
           }
 
-          .cus_acnt__infoBox-form {
-            display: flex;
-            flex-wrap: wrap;
-
-            .cus_acnt__form__group {
-              flex: 1 0 100%;
-              margin-bottom: 20px;
-            }
-          }
         }
 
         &__allot-wrap {
