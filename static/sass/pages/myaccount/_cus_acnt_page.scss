@@ -62,6 +62,9 @@
     }
   }
 
+
+
+
   &__info {
     &-container {
       background: $grey3;
@@ -71,139 +74,9 @@
 
 
 
-  &__paymentBox {
-    &-box1 {
-      border-top: 12px solid $blue_sh5;
-      background-color: $white;
-      padding: 22px 28px;
-      @include flexbox;
+  
 
-      &__img {
-        width: 36px;
-      }
-
-      &__content {
-        margin-left: 20px;
-        .content-title {
-          color: #000;
-          @include font-size(14);
-          line-height: 1.14;
-          font-family: $primaryFont;
-          font-weight: $weightMedium;
-          margin-bottom: 4px;
-        }
-
-        .content-date {
-          color: #636567;
-          @include font-size(26);
-          line-height: 1.23;
-          font-family: $primaryFont;
-          font-weight: $weightBold;
-        }
-      }
-    }
-
-    &-box2 {
-      background-color: var(--main-color);
-      padding: 22px 0;
-    }
-  }
-
-  &__planInfo {
-    &-text {
-      color: $white;
-      @include font-size(26);
-      line-height: 1.23;
-      font-family: $primaryFont;
-      font-weight: $weightBold;
-      margin-bottom: 20px;
-      padding: 0 28px;
-    }
-
-    &-subInfo {
-      color: $white;
-      @include font-size(15.1);
-      line-height: 1.14;
-      font-family: $primaryFont;
-      font-weight: $weightBold;
-      text-transform: uppercase;
-      padding: 0 28px;
-    }
-
-    &-amount {
-      color: $white;
-      @include font-size(39.4);
-      line-height: 1.26;
-      font-family: $primaryFont;
-      font-weight: $weightBold;
-      margin: 5px 8px 5px 0;
-    }
-
-    &-month {
-      color: #c0c0c0;
-      @include font-size(17.4);
-      line-height: 1.14;
-      font-family: $primaryFont;
-      font-weight: $weightMedium;
-      text-transform: uppercase;
-      margin-bottom: 15px;
-    }
-
-    &__costWrap {
-      padding: 0 18px 0 28px;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: flex-end;
-    }
-
-    &-status {
-      margin: 0 28px;
-      @include flexbox;
-      border-bottom: 1px solid #c0c0c0;
-      padding: 12px 0;
-
-      &--text {
-        flex: 1;
-        color: #c0c0c0;
-        @include font-size(16);
-        line-height: 1.5;
-        font-family: $primaryFont;
-        font-weight: $weightRegular;
-      }
-      &--value {
-        flex: 0.6;
-        color: $white;
-        @include font-size(16);
-        line-height: 1.5;
-        font-family: $primaryFont;
-        font-weight: $weightMedium;
-      }
-
-      &.cancelled {
-        margin: 0;
-        background-color: $white;
-        padding: 12px 28px;
-
-        #{$selfCusAcnt} {
-          &__planInfo-status--value {
-            color: #c40000;
-            position: relative;
-
-            &:before {
-              content: "";
-              background-image: url("../icons/icons-warning.svg");
-              width: 17px;
-              height: 17px;
-              position: absolute;
-              left: -30px;
-              top: 3px;
-              display: block;
-            }
-          }
-        }
-      }
-    }
-  }
+  
 
   &__subInfo {
     .cancel-subBtn {
@@ -515,6 +388,219 @@
           }
         }
       }
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.paymentBox {
+
+}
+
+
+
+.infoBox-form {
+
+  display: flex;
+  flex-wrap: wrap;
+
+  &__container {
+      width:100%;
+  }
+
+
+  &__group {
+      display:flex;
+      flex: 1 0 100%;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+  }
+
+  &__btns {
+      flex-direction:row;
+      margin-top: 34px;
+  }
+
+  &__button {
+      flex:1;
+  }
+
+  &__label {
+      margin: 0 0 4px;
+      font-family: $primaryFont;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 1.5;
+      color: #636567;
+  }
+  &__input {
+      background:white;
+      padding:14px;
+      width:100%;
+  }
+}
+
+
+
+
+.planInfo {
+
+
+  &__top {
+    border-top: 12px solid $blue_sh5;
+    background-color: $white;
+    padding: 22px 28px;
+    @include flexbox;
+
+    &-img {
+      width: 36px;
+    }
+
+    &-content {
+      @include flexbox;
+      @include flex-direction(column, vertical);
+      margin-left: 20px;
+    }
+
+    &-content-title {
+      color: #000;
+      @include font-size(14);
+      line-height: 1.14;
+      font-family: $primaryFont;
+      font-weight: $weightMedium;
+      margin-bottom: 4px;
+    }
+  
+    &-content-date {
+      color: #636567;
+      @include font-size(26);
+      line-height: 1.23;
+      font-family: $primaryFont;
+      font-weight: $weightBold;
+    }
+
+  }
+
+  &__middle {
+    background-color: var(--main-color);
+    padding: 22px 0;
+  
+  
+  
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  &__plan-title {
+    color: $white;
+    @include font-size(26);
+    line-height: 1.23;
+    font-family: $primaryFont;
+    font-weight: $weightBold;
+    margin-bottom: 20px;
+    padding: 0 28px;
+  }
+
+  &__plan-name {
+    color: $white;
+    @include font-size(15.1);
+    line-height: 1.14;
+    font-family: $primaryFont;
+    font-weight: $weightBold;
+    text-transform: uppercase;
+    padding: 0 28px;
+  }
+
+  &__amount {
+    color: $white;
+    @include font-size(39.4);
+    line-height: 1.26;
+    font-family: $primaryFont;
+    font-weight: $weightBold;
+    margin: 5px 8px 5px 0;
+  }
+
+  &__month {
+    color: #c0c0c0;
+    @include font-size(17.4);
+    line-height: 1.14;
+    font-family: $primaryFont;
+    font-weight: $weightMedium;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+  }
+
+  &__costWrap {
+    padding: 0 18px 0 28px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  &__status {
+    margin: 0 28px;
+    @include flexbox;
+    border-bottom: 1px solid #c0c0c0;
+    padding: 12px 0;
+
+  &-text {
+      flex: 1;
+      color: #c0c0c0;
+      @include font-size(16);
+      line-height: 1.5;
+      font-family: $primaryFont;
+      font-weight: $weightRegular;
+    }
+    &-value {
+      flex: 0.6;
+      color: $white;
+      @include font-size(16);
+      line-height: 1.5;
+      font-family: $primaryFont;
+      font-weight: $weightMedium;
+    }
+
+    &.cancelled {
+      margin: 0;
+      background-color: $white;
+      padding: 12px 28px;
+
+        &__planInfo-status--value {
+          color: #c40000;
+          position: relative;
+
+          &:before {
+            content: "";
+            background-image: url("../icons/icons-warning.svg");
+            width: 17px;
+            height: 17px;
+            position: absolute;
+            left: -30px;
+            top: 3px;
+            display: block;
+          }
+        }
     }
   }
 }

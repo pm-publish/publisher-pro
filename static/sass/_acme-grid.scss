@@ -7,8 +7,9 @@ $acme-grid-breakpoints: (
   sm: 576px,
   md: 768px,
   lg: 992px,
-  xl: 1200px
-) !default;
+  xl: 1200px,
+  xxl: 1400px) 
+!default;
 
 
 $acme-grid-gutter-width: 30px !default;
@@ -16,7 +17,8 @@ $acme-container-max-widths: (
   sm: 540px,
   md: 720px,
   lg: 960px,
-  xl: 1300px
+  xl: 1140px,
+  xxl: 1320px
 ) !default;
 
 
