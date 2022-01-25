@@ -22,18 +22,18 @@
 
 <main>
     <div id="stripekey" class="u-hide" >{{_Network.getNetworkData()['stripe_publishable_key']}}</div>
-    <div class="cus_acnt__headerBar">
+    <div class="account-headerBar">
         <div class="acme-container">
             <div class="acme-row">
                 <div class="acme-col-12 mx-auto ">
-                    <p class="cus_acnt__helptext cus_acnt__helptext-xs">Need help with your account? <br class="d-md-none" /><a href="{{networkData.defaultBlogUrl}}/FAQ">Read our FAQs</a></p>
+                    <p class="account-headerBar__helptext account-headerBar__helptext-xs">Need help with your account? <br class="d-md-none" /><a href="{{networkData.defaultBlogUrl}}/FAQ">Read our FAQs</a></p>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="cus_acnt__info-container">
+    <div class="account__info-container">
         <div class="acme-container">
             <div class="acme-row">
                 <div class="acme-col-12 acme-col-lg-8 acme-col-xl-7 acme-col-xxl-5 acme-offset-xl-1 acme-offset-xxl-2">
@@ -136,8 +136,8 @@
 
                                     {# SUBMIT #}
                                     <div class="infoBox-form__group infoBox-form__btns">
-                                        <button type="submit" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn--solid infoBox-form__button" name="">Save changes</button>
-                                        <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn--bordered infoBox-form__button" name="">Cancel</a>
+                                        <button type="submit" id="" class="js-cus_acnt__HideForm account__btn account__btn--solid infoBox-form__button" name="">Save changes</button>
+                                        <a href="javascript:;" id="" class="js-cus_acnt__HideForm account__btn account__btn--bordered infoBox-form__button" name="">Cancel</a>
                                     </div>
                                 </form>
                             </div>
@@ -294,7 +294,7 @@
 
 
 
-                                <div class="cus_acnt__subInfo">
+                                <div class="planInfo__subInfo">
                                     {% if pwstats['status'] == 'cancelled' %}
                                         <a href="javascript:;" id='cancelAccount' class="cus_acnt__btn cus_acnt__btn__solid" name="">Restart subscription</a>
                                     {% else %}
@@ -477,7 +477,7 @@
                                                 {% endif %}
 
                                                 <div class="managed-users__addition-btn  ">
-                                                    <a id="addManagedUser" href="javascript:;" class="cus_acnt__btn cus_acnt__btn--bordered js-addUserButton {{addUserClass}}">Add user</a>
+                                                    <a id="addManagedUser" href="javascript:;" class="account__btn account__btn--bordered js-addUserButton {{addUserClass}}">Add user</a>
                                                 </div>
                                                 <div class="managed-users__allot-wrap">
                                                     <img src="{{networkData.templatePath}}/static/icons/user_icon.png" alt="user" class="img-fluid managed-users__allot-wrap--image" />

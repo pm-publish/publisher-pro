@@ -1,14 +1,33 @@
-.cus_acnt {
-    $selfCusAcnt: &;
-//   &__hide,
-//   &__hidden {
-//     display: none !important;
-//   }
+.account {
 
-    &__headerBar {
+    &-headerBar {
         background: var(--main-color);
         margin-top: 20px;
         padding: 8px 0;
+
+        &__helptext {
+            color: $white;
+            font-family: $secondaryFont;
+            line-height: 1.23;
+            font-size: 13px;
+            font-style: italic;
+    
+            a {
+                color: $white;
+            }
+    
+            @include responsive(xs) {
+                @include respond-to(sm) {
+                    display: flex;
+                    justify-content: flex-end;
+    
+                    a {
+                        margin-left: 7px;
+                    }
+                }
+            }
+        }
+
     }
 
     &__btn {
@@ -39,28 +58,7 @@
         }
     }
 
-    &__helptext {
-        color: $white;
-        font-family: $secondaryFont;
-        line-height: 1.23;
-        font-size: 13px;
-        font-style: italic;
 
-        a {
-            color: $white;
-        }
-
-        @include responsive(xs) {
-            @include respond-to(sm) {
-                display: flex;
-                justify-content: flex-end;
-
-                a {
-                    margin-left: 7px;
-                }
-            }
-        }
-    }
 
 
 
@@ -78,197 +76,165 @@
 
     
 
-    &__subInfo {
-        .cancel-subBtn {
-            color: #848486;
-            @include font-size(12);
-            line-height: 1.33;
-            font-family: $primaryFont;
-            font-weight: $weightBold;
-            display: inline-block;
-            margin: 54px 28px 0;
-        }
 
-        &__article-info {
-            font-size: 16px;
-            font-weight: $weightMedium;
-            font-family: $primaryFont;
-            line-height: 1.5;
-            color: $white;
-            padding: 13px 28px;
-            margin-top: 24px;
-            background-color: rgba($white, 0.2);
-
-            + .cancel-subBtn {
-                margin-top: 30px;
-            }
-        }
-
-        .cus_acnt__btn__solid {
-            margin: 24px 28px 0;
-            + .cancel-subBtn {
-                margin-top: 30px;
-            }
-        }
-    }
 
     //user section
-    &__user-container {
-        margin: 80px 0;
+    // &__user-container {
+    //     margin: 80px 0;
 
-        #{$selfCusAcnt} {
+    //     #{$selfCusAcnt} {
 
 
-            &-grid {
-                &__search,
-                form {
-                    display: flex;
-                    flex-direction: column;
+    //         &-grid {
+    //             &__search,
+    //             form {
+    //                 display: flex;
+    //                 flex-direction: column;
 
-                    &--field {
-                        flex: 1;
-                        margin-bottom: 20px;
-                        position: relative;
-                        display: flex;
+    //                 &--field {
+    //                     flex: 1;
+    //                     margin-bottom: 20px;
+    //                     position: relative;
+    //                     display: flex;
 
-                        span {
-                            position: absolute;
-                            left: 15px;
-                            top: 12px;
-                            width: 25px;
-                            height: 25px;
-                        }
+    //                     span {
+    //                         position: absolute;
+    //                         left: 15px;
+    //                         top: 12px;
+    //                         width: 25px;
+    //                         height: 25px;
+    //                     }
 
-                        input {
-                            background-color: $grey3;
-                            padding-left: 50px;
-                            flex: 1;
-                            height: 48px;
-                            outline: none;
-                            border: none;
-                        }
-                    }
+    //                     input {
+    //                         background-color: $grey3;
+    //                         padding-left: 50px;
+    //                         flex: 1;
+    //                         height: 48px;
+    //                         outline: none;
+    //                         border: none;
+    //                     }
+    //                 }
 
-                    &--btn {
-                        width: 100%;
+    //                 &--btn {
+    //                     width: 100%;
 
-                        .cus_acnt__btn {
-                            width: 100%;
-                        }
-                    }
-                }
+    //                     .cus_acnt__btn {
+    //                         width: 100%;
+    //                     }
+    //                 }
+    //             }
 
-                &__show-user {
-                    border-bottom: 1px solid $grey4;
-                    color: $grey5;
-                    font-size: 14px;
-                    font-style: italic;
-                    font-family: $primaryFont;
-                    padding: 10px 0;
-                    margin-top: 15px;
-                }
+    //             &__show-user {
+    //                 border-bottom: 1px solid $grey4;
+    //                 color: $grey5;
+    //                 font-size: 14px;
+    //                 font-style: italic;
+    //                 font-family: $primaryFont;
+    //                 padding: 10px 0;
+    //                 margin-top: 15px;
+    //             }
 
-                &__list {
-                    margin-top: 20px;
+    //             &__list {
+    //                 margin-top: 20px;
 
-                    li {
-                        border-bottom: 1px solid $grey4;
-                        margin-bottom: 20px;
-                        padding-bottom: 20px;
-                        &.no-data {
-                            color: $grey5;
-                            font-size: 18px;
-                            line-height: 1.78;
-                            font-weight: $weightRegular;
-                            border-bottom: none;
-                            padding-bottom: 0px;
-                        }
-                    }
+    //                 li {
+    //                     border-bottom: 1px solid $grey4;
+    //                     margin-bottom: 20px;
+    //                     padding-bottom: 20px;
+    //                     &.no-data {
+    //                         color: $grey5;
+    //                         font-size: 18px;
+    //                         line-height: 1.78;
+    //                         font-weight: $weightRegular;
+    //                         border-bottom: none;
+    //                         padding-bottom: 0px;
+    //                     }
+    //                 }
 
-                    .user-list--items {
-                        display: flex;
-                        flex-direction: column;
+    //                 .user-list--items {
+    //                     display: flex;
+    //                     flex-direction: column;
 
-                        &-name {
-                            font-size: 18px;
-                            color: $black;
-                            font-family: $primaryFont;
-                            font-weight: $weightBold;
-                            line-height: 1.78;
-                        }
+    //                     &-name {
+    //                         font-size: 18px;
+    //                         color: $black;
+    //                         font-family: $primaryFont;
+    //                         font-weight: $weightBold;
+    //                         line-height: 1.78;
+    //                     }
 
-                        &-email {
-                            font-size: 14px;
-                            color: $grey5;
-                            font-family: $primaryFont;
-                            font-weight: $weightRegular;
-                            line-height: 1.14;
-                        }
+    //                     &-email {
+    //                         font-size: 14px;
+    //                         color: $grey5;
+    //                         font-family: $primaryFont;
+    //                         font-weight: $weightRegular;
+    //                         line-height: 1.14;
+    //                     }
 
-                        &-remove {
-                            font-size: 14px;
-                            color: $grey4;
-                            font-family: $primaryFont;
-                            font-weight: $weightMedium;
-                            line-height: 1.33;
-                            text-decoration: none;
-                            margin-top: 15px;
-                            display: inline-block;
+    //                     &-remove {
+    //                         font-size: 14px;
+    //                         color: $grey4;
+    //                         font-family: $primaryFont;
+    //                         font-weight: $weightMedium;
+    //                         line-height: 1.33;
+    //                         text-decoration: none;
+    //                         margin-top: 15px;
+    //                         display: inline-block;
 
-                            &:hover {
-                                color: $blue_sh5;
-                            }
+    //                         &:hover {
+    //                             color: $blue_sh5;
+    //                         }
 
-                            .icon {
-                                margin-right: 8px;
-                            }
-                        }
-                    }
-                }
+    //                         .icon {
+    //                             margin-right: 8px;
+    //                         }
+    //                     }
+    //                 }
+    //             }
 
-                @include responsive(xs) {
-                    @include respond-to(md) {
-                        #{$selfCusAcnt} {
-                            &__user {
-                                &-grid {
-                                    &__search {
-                                        flex: 1;
-                                        flex-direction: row;
+    //             @include responsive(xs) {
+    //                 @include respond-to(md) {
+    //                     #{$selfCusAcnt} {
+    //                         &__user {
+    //                             &-grid {
+    //                                 &__search {
+    //                                     flex: 1;
+    //                                     flex-direction: row;
 
-                                        &--field {
-                                            flex: 1;
-                                            margin-right: 10px;
-                                            margin-bottom: 0px;
-                                        }
-                                        &--btn {
-                                            max-width: 170px;
-                                        }
-                                    }
+    //                                     &--field {
+    //                                         flex: 1;
+    //                                         margin-right: 10px;
+    //                                         margin-bottom: 0px;
+    //                                     }
+    //                                     &--btn {
+    //                                         max-width: 170px;
+    //                                     }
+    //                                 }
 
-                                    &__list {
-                                        .user-list--items {
-                                            flex-direction: row;
-                                            justify-content: space-between;
-                                            align-items: center;
+    //                                 &__list {
+    //                                     .user-list--items {
+    //                                         flex-direction: row;
+    //                                         justify-content: space-between;
+    //                                         align-items: center;
 
-                                            &-remove {
-                                                margin-top: 0px;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+    //                                         &-remove {
+    //                                             margin-top: 0px;
+    //                                         }
+    //                                     }
+    //                                 }
+    //                             }
+    //                         }
+    //                     }
 
-                        form {
-                            flex: 1;
-                            flex-direction: row;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //                     form {
+    //                         flex: 1;
+    //                         flex-direction: row;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
 
 }
@@ -281,6 +247,28 @@
     background-color: $grey3;
     margin-bottom: 25px;
     padding: 16px 0;
+
+    &__form-container {
+        @include flexbox;
+        @include flex-direction(column, vertical);
+    }
+
+    &__row-group {
+        @include flexbox;
+        @include flex-direction(row, horizontal);
+        flex: 1 0 100%;
+    }
+
+    &__form-group {
+        @include flexbox;
+        @include flex-direction(column, vertical);
+        flex: 1 0 50%;
+        margin-bottom: 20px;
+        display: flex;
+    }
+
+
+
 
     &__addition {
         display: flex;
@@ -737,6 +725,41 @@
                     top: 3px;
                     display: block;
                 }
+            }
+        }
+    }
+
+
+    &__subInfo {
+        .cancel-subBtn {
+            color: #848486;
+            @include font-size(12);
+            line-height: 1.33;
+            font-family: $primaryFont;
+            font-weight: $weightBold;
+            display: inline-block;
+            margin: 54px 28px 0;
+        }
+
+        &__article-info {
+            font-size: 16px;
+            font-weight: $weightMedium;
+            font-family: $primaryFont;
+            line-height: 1.5;
+            color: $white;
+            padding: 13px 28px;
+            margin-top: 24px;
+            background-color: rgba($white, 0.2);
+
+            + .cancel-subBtn {
+                margin-top: 30px;
+            }
+        }
+
+        .cus_acnt__btn__solid {
+            margin: 24px 28px 0;
+            + .cancel-subBtn {
+                margin-top: 30px;
             }
         }
     }

@@ -247,23 +247,29 @@ export const Templates = {
 
 
     create_user:
-        '<div class="cus_acnt__infoBox-form" style="height:100%; overflow:auto; position:relative"> \
-            <div class="cus_acnt__form__group"> \
-                <label class="cus_acnt__form__label c-account-form__label" for="newuserfirstname">First name</label>\
-                <input type="text" id="newuserfirstname" class="j-firstname cus_acnt__form__input" value="" placeholder="{{firstname}}"> \
-            </div> \
-            <div class="cus_acnt__form__group"> \
-                <label class="cus_acnt__form__label c-account-form__label" for="newuserlastname">Last name</label>\
-                <input type="text" id="newuserlastname" class="j-lastname cus_acnt__form__input" value="" placeholder="{{lastname}}"> \
-            </div> \
-            <div class="cus_acnt__form__group"> \
-                <label class="cus_acnt__form__label c-account-form__label" for="newuseruseremail">Email</label>\
-                <input type="text" id="newuseruseremail" class="j-email cus_acnt__form__input" value="" placeholder="{{useremail}}"> \
-                <p id="userError" class="user-editor__error"></p> \
-            </div> \
-            <div id="user-editor-buttons" class="cus_acnt__form__group cus_acnt__form__btns"> \
-                <a id="saveUser"       class="cus_acnt__btn cus_acnt__btn__solid">Add user</a> \
-                <a id="cancelUserCreate" class="cus_acnt__btn cus_acnt__btn__bordered">Cancel</a> \
+        '<div class="manaaged-users__form-container" style="height:100%; overflow:auto; position:relative"> \
+            \
+            <div class="managed-users__row-group"> \
+                <div class="managed-users__form-group"> \
+                    <label class="cus_acnt__form__label c-account-form__label" for="newuserfirstname">First name</label>\
+                    <input type="text" id="newuserfirstname" class="j-firstname cus_acnt__form__input" value="" placeholder="{{firstname}}"> \
+                </div> \
+                <div class="managed-users__form-group"> \
+                    <label class="cus_acnt__form__label c-account-form__label" for="newuserlastname">Last name</label>\
+                    <input type="text" id="newuserlastname" class="j-lastname cus_acnt__form__input" value="" placeholder="{{lastname}}"> \
+                </div> \
+            </div>\
+            <div class="managed-users__row-group"> \
+                <div class="managed-users__form-group"> \
+                    <label class="cus_acnt__form__label c-account-form__label" for="newuseruseremail">Email</label>\
+                    <input type="text" id="newuseruseremail" class="j-email cus_acnt__form__input" value="" placeholder="{{useremail}}"> \
+                    <p id="userError" class="user-editor__error"></p> \
+                </div> \
+                \
+                <div id="user-editor-buttons" class="managed-users__form-group"> \
+                    <a id="saveUser"       class="account__btn account__btn--solid">Add user</a> \
+                    <a id="cancelUserCreate" class="account__btn account__btn--bordered">Cancel</a> \
+                </div> \
             </div> \
             <div id="user-editor__spinner" class="user-editor__spinner"></div> \
         </div>',
