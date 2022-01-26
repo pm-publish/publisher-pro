@@ -163,19 +163,20 @@
 
                             <div class="infoBox-form u-hide">
                                 <form id="update-card-form" action="/update" method="post">
-                                    <div class="cus_acnt__form__group">
-                                        <label class="cus_acnt__form__label c-form__label" for="creditcarddetails">Credit card</label>
-                                            <div class="three-column">
-                                                <div id="card-element">
-                                                <!-- a Stripe Element will be inserted here. -->
-                                                </div>
+                                    <div class="form__group">
+                                        <label class="form__label c-form__label" for="creditcarddetails">Credit card</label>
+                                        <div class="three-column">
+                                            <div id="card-element">
+                                            <!-- a Stripe Element will be inserted here. -->
                                             </div>
+                                        </div>
                                     </div>
+                                    
+                                    <div id="card-errors" class="profile-section__card-errors" role="alert"></div>
 
-                                    <div class="infoBox-form__group cus_acnt__form__btns">
-                                        <div id="card-errors" class="profile-section__card-errors" role="alert"></div>
-                                        <button type="submit" id="btnContact" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__solid" name="contact-button">Update details</button>
-                                        <a href="javascript:;" id="" class="js-cus_acnt__HideForm cus_acnt__btn cus_acnt__btn__bordered" name="">Cancel</a>
+                                    <div class="infoBox-form__horizontal-group u-margin-top-10">
+                                        <button type="submit" id="" class="js-cus_acnt__HideForm infoBox-form__button account__btn account__btn--solid" name="contact-button">Update details</button>
+                                        <a href="javascript:;" id="" class="js-cus_acnt__HideForm infoBox-form__button account__btn account__btn--bordered" name="">Cancel</a>
                                     </div>
                                 </form>
                             </div>
@@ -296,7 +297,7 @@
 
                                 <div class="planInfo__subInfo">
                                     {% if pwstats['status'] == 'cancelled' %}
-                                        <a href="javascript:;" id='cancelAccount' class="cus_acnt__btn cus_acnt__btn__solid" name="">Restart subscription</a>
+                                        <a href="javascript:;" id='cancelAccount' class="account__btn account__btn--solid" name="">Restart subscription</a>
                                     {% else %}
                                         <a href="javascript:;" id='cancelAccount' class="cancel-subBtn">Cancel subscription</a>
                                     {% endif %}
@@ -323,246 +324,242 @@
     {# ---------------------------------- #}
 
     {% if pwstats.userManager == true %}
-        <div class="acme-container u-margin-top-80">
-            <div class="acme-row">
+    <div class="acme-container u-margin-top-80">
+        <div class="acme-row">
 
 
-                {# ---------------------------------- #}
-                {#           LIST OF PLANS            #}
-                {# ---------------------------------- #}
-                <div class="acme-col-12 acme-col-lg-12 acme-col-xl-10 acme-col-xxl-8 acme-offset-xl-1 acme-offset-xxl-2">
-                    <div class="plan-table__user-head">
-                        <div class="plan-table__user-head-label">Choose a plan</div>
-                        <div class="plan-table__user-head-sub-text">You will be asked to confirm before purchasing. </div>
-                    </div>
+            {# ---------------------------------- #}
+            {#           LIST OF PLANS            #}
+            {# ---------------------------------- #}
+            <div class="acme-col-12 acme-col-lg-12 acme-col-xl-10 acme-col-xxl-8 acme-offset-xl-1 acme-offset-xxl-2">
+                <div class="plan-table__user-head">
+                    <div class="plan-table__user-head-label">Choose a plan</div>
+                    <div class="plan-table__user-head-sub-text">You will be asked to confirm before purchasing. </div>
+                </div>
 
-                    <div class="plan-table js-tableView" id="currentPlanStats"
-                        data-cardsupplied="{{cardSupplied}}"
-                        data-currentPeriod="{{pwstats['period']}}"
-                        data-currentCost="{{pwstats['plan_value']}}"
-                        data-currentType="{{pwstats['type']}}"
-                        data-expiry="{{pwstats['expiry_date']}}"
-                        data-currentplanperiodcount="{{pwstats['period_count']}}">
+                <div class="plan-table js-tableView" id="currentPlanStats"
+                    data-cardsupplied="{{cardSupplied}}"
+                    data-currentPeriod="{{pwstats['period']}}"
+                    data-currentCost="{{pwstats['plan_value']}}"
+                    data-currentType="{{pwstats['type']}}"
+                    data-expiry="{{pwstats['expiry_date']}}"
+                    data-currentplanperiodcount="{{pwstats['period_count']}}">
 
-                        <table class="plan-table__table" cellspacing="0">
-                            <thead class="plan-table__header">
-                                <tr class="">
-                                    <th class="plan-table__header-labels">Plan name</th>
-                                    <th class="plan-table__header-labels" colspan="3">Cost</th>
-                                </tr>
-                            </thead>
+                    <table class="plan-table__table" cellspacing="0">
+                        <thead class="plan-table__header">
+                            <tr class="">
+                                <th class="plan-table__header-labels">Plan name</th>
+                                <th class="plan-table__header-labels" colspan="3">Cost</th>
+                            </tr>
+                        </thead>
 
 
-                            <tbody>
-                                {% for plan in plans %}
-                                    {% set description = plan.description | split("!*!") %}
+                        <tbody>
+                        {% for plan in plans %}
 
-                                    {% set data = _AppHelper.jsonDecode( description[0] ) %}
-                                    {% if data['showplan'] is defined and data['showplan'] == false %}
-                                        {% set continue = true %}
-                                    {% endif %}
+                            {% set description = plan.description | split("!*!") %}
+                            {% set data = {} %}
+                            {% if description | length > 1 %}
+                                {% set data = _AppHelper.jsonDecode( description[0] ) %}
+                                {% set description = description[1] %}
+                            {% else %}
+                                {% set description = description[0] %}
+                            {% endif %}
 
-                                    {% set userCount = plan.user_count %}
-                                    {% set planCost = plan.plan_value / 100 %}
-                                    {% if planCost == 19.89 %}
-                                        {% set planCost = 19.90 %}
-                                    {% endif %}
+                            {% if data['showplan'] is defined and data['showplan'] == false %}
+                                {% set continue = true %}
+                            {% endif %}
 
-                                    {% set planPeriod = plan.period %}
-                                    {% set planPeriodCount = "" %}
+                            {% set userCount = plan.user_count %}
+                            {% set planCost = plan.plan_value / 100 %}
+                            {% if planCost == 19.89 %}
+                                {% set planCost = 19.90 %}
+                            {% endif %}
 
-                                    {% if plan.period_count > 1 %}
-                                        {% set planPeriodCount = plan.period_count ~ " " %}
-                                        {% set planPeriod = plan.period ~ 's' %}
-                                    {% endif %}
+                            {% set planPeriod = plan.period %}
+                            {% set planPeriodCount = "" %}
 
-                                    <tr class="plan-table__row j-plan-details {% if plan.guid == pwstats['plan_guid'] %} active {% endif %} view"
-                                        data-planid          = "{{plan.guid}}"
-                                        data-planusercount   = "{{userCount}}"
-                                        data-plancost        = "{{plan.plan_value}}"
-                                        data-planperiod      = "{{plan.period}}"
-                                        data-trialstatus     = "{{plan['trial_status']}}"
-                                        data-planType        = "{{plan.type}}"
-                                        data-planPeriodCount = "{{plan.period_count}}">
-                                        <td class="plan-table__col">
-                                            <span class="plan-table__title">{{plan.plan_name}}</span>
-                                        </td>
-                                        {% if plan.type != 'signup' %}                                                            
-                                            <td class="plan-table__col">
-                                                <span class="plan-table__price">
-                                                {{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}
-                                                {% if plan.type != 'article' %}                
-                                                    /&nbsp;{{planPeriodCount}}{{planPeriod}}</span>
-                                                {% endif %}
-                                            </td>
-                                            {% else %}
-                                            <td class="plan-table__col">
-                                                <span class="plan-table__price">Free</span>
-                                            </td>
+                            {% if plan.period_count > 1 %}
+                                {% set planPeriodCount = plan.period_count ~ " " %}
+                                {% set planPeriod = plan.period ~ 's' %}
+                            {% endif %}
+
+                            <tr class="plan-table__row j-plan-details {% if plan.guid == pwstats['plan_guid'] %} active {% endif %} view"
+                                data-planid          = "{{plan.guid}}"
+                                data-planusercount   = "{{userCount}}"
+                                data-plancost        = "{{plan.plan_value}}"
+                                data-planperiod      = "{{plan.period}}"
+                                data-trialstatus     = "{{plan['trial_status']}}"
+                                data-planType        = "{{plan.type}}"
+                                data-planPeriodCount = "{{plan.period_count}}">
+                                <td class="plan-table__col">
+                                    <span class="plan-table__title">{{plan.plan_name}}</span>
+                                </td>
+                                {% if plan.type != 'signup' %}                                                            
+                                    <td class="plan-table__col">
+                                        <span class="plan-table__price">
+                                        {{plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"})}}{{planCost|number_format(2, '.', ',')}}
+                                        {% if plan.type != 'article' %}                
+                                            /&nbsp;{{planPeriodCount}}{{planPeriod}}</span>
                                         {% endif %}
-                                        
-                                        <td class="plan-table__col">
-                                            <span class="plan-table__feature js-toggleTableRow">View features</span>
-                                        </td>
-                                        <td class="plan-table__col">
-                                            {% if plan.guid != pwstats['plan_guid']  or pwstats.type == 'article' %}
-                                                <a href="javascript:;" class="plan-table__purchase j-setplan">Purchase</a>
-                                            {% else %}
-                                                <a href="javascript:;" class="plan-table__purchase">Your Plan</a>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr class="folded">
-                                        <td colspan="4">
-                                            <div class="plan-features">
-                                                <ul class="plan-features__row">
-                                                    <li class="plan-features__item">News, sport and local events</li>
-                                                    <li class="plan-features__item">Access to all articles online</li>
-                                                    <li class="plan-features__item">Save $15</li>
-                                                </ul>
-                                                <ul class="plan-features__row">
-                                                    <li class="plan-features__item">News, sport and local events</li>
-                                                    <li class="plan-features__item">Access to all articles online</li>
-                                                    <li class="plan-features__item">Save $15</li>
-                                                </ul>
-                                                <ul class="plan-features__row">
-                                                    <li class="plan-features__item">News, sport and local events</li>
-                                                    <li class="plan-features__item">Access to all articles online</li>
-                                                    <li class="plan-features__item">Save $15</li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-
-
-
-
-
-
-
-
-
-
-                        {# ---------------------------------- #}
-                        {#           LIST OF USERS            #}
-                        {# ---------------------------------- #}
-
-                        {% if pwstats['type'] == 'time' and totalPlanUserCount > 0 %}
-                            {# <div class="acme-container"> #}
-                                <div class="acme-row">
-                                    <div class="acme-col-12  ">
-                                        <div class="plan-table__user-head">
-                                            <div class="plan-table__user-head-label">My users</div>
-                                            <div class="plan-table__user-head-sub-text">You can add, search and remove users below.</div>
-                                        </div>
+                                    </td>
+                                    {% else %}
+                                    <td class="plan-table__col">
+                                        <span class="plan-table__price">Free</span>
+                                    </td>
+                                {% endif %}
+                                
+                                <td class="plan-table__col">
+                                    <span class="plan-table__feature js-toggleTableRow">View features</span>
+                                </td>
+                                <td class="plan-table__col">
+                                    {% if plan.guid != pwstats['plan_guid']  or pwstats.type == 'article' %}
+                                        <a href="javascript:;" class="plan-table__purchase j-setplan">Purchase</a>
+                                    {% else %}
+                                        <a href="javascript:;" class="plan-table__purchase">Your Plan</a>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr class="folded">
+                                <td colspan="4">
+                                    <div class="plan-features">
+                                        <ul class="plan-features__row">
+                                            {% for feature in description | split(";") %}
+                                                <li class="plan-features__item">{{ feature }}</li>
+                                            {% endfor %}
+                                        </ul>
                                     </div>
-                                </div>
-                            {# </div> #}
-
-                            <div class="managed-users">
-                                <div class="acme-container">
-                                    <div class="acme-row">
-                                        <div class="acme-col-12 ">
-                                            {% set usersLeft = totalPlanUserCount > 0 ? totalPlanUserCount -1 : totalPlanUserCount %}
-                                            <div class="managed-users__addition">
-
-                                                {% set addUserClass = "" %}
-                                                {% if managedUserCount >= totalPlanUserCount %}
-                                                    {% set addUserClass = "u-hide" %}
-                                                {% endif %}
-
-                                                <div class="managed-users__addition-btn  ">
-                                                    <a id="addManagedUser" href="javascript:;" class="account__btn account__btn--bordered js-addUserButton {{addUserClass}}">Add user</a>
-                                                </div>
-                                                <div class="managed-users__allot-wrap">
-                                                    <img src="{{networkData.templatePath}}/static/icons/user_icon.png" alt="user" class="img-fluid managed-users__allot-wrap--image" />
-                                                    <p class="managed-users__allot-wrap--text">Allocated users:</p>
-                                                    <p class="managed-users__allot-wrap--text strong js-usercount">{{managedUserCount}} of {{totalPlanUserCount}}</p>
-                                                </div>
-                                            </div>
-                                            <div class="managed-users__addSec">
-                                                <div id="createManagedUser"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <a id="createUserErrorMessage"></a>
-                            <div class="acme-container">
-                                <div class="acme-row">
-                                    <div class="acme-col-12 acme-col-lg-8 mx-auto">
-                                        <div class="cus_acnt__user-grid cus_acnt__user-grid-xs">
-                                            {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
-                                                <div id="menu-search" class="cus_acnt__user-grid__search">
-                                                    <form method="get" id="managed-user-search" action="">
-                                                        <div class="cus_acnt__user-grid__search--field">
-                                                            <span>
-                                                                <img src="{{networkData.templatePath}}/static/icons/icons-navigation-search.svg" />
-                                                            </span>
-                                                            <input id="managed-user-search-field" name="s" type="text" placeholder="Search users" class="cus_acnt__form__input" required="" />
-                                                        </div>
-                                                        <div class="cus_acnt__user-grid__search--btn">
-                                                            <button type="submit" class="cus_acnt__btn cus_acnt__btn__solid" type="submit" id="user-search-submit">Search</button>
-                                                            {# <button type="submit" class="cus_acnt__btn cus_acnt__btn__solid" type="submit" id="user-search-submit">Clear</button> #}
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="cus_acnt__user-grid__show-user">
-                                                    {% set resultString = managedUserScreenCount < 2 ? 'user' : 'users' %}
-                                                    Showing {{managedUserScreenCount}} {{resultString}}
-                                                </div>
-                                            {% endif %}
-                                            <div id="user_profile">
-                                                <ul id="mangedUsers" class="cus_acnt__user-grid__list">
-                                                    {% if managedUserCount == 0 %}
-                                                        <li id="nousers" class="no-data">No users found</li>
-                                                    {% else %}
-                                                    
-                                                        {% for user in managedUsers %}
-
-                                                            <li id="{{user.id}}" class="user-list--items">
-                                                                <aside>
-                                                                    <div class="user-list--items-name">{{user.firstname}} {{user.lastname}}</div>
-                                                                    <div class="user-list--items-email">{{user.email}}</div>
-                                                                </aside>
-                                                                <aside>
-                                                                    <a href="javascript:;" class="user-list--items-remove j-delete userdetails__button">
-                                                                        <span class="icon fa fa-trash"></span>
-                                                                        <span>Remove</span>
-                                                                    </a>
-                                                                </aside>
-                                                            </li>
-                                                        {% endfor %}
-
-                                                    {% endif %}
-
-                                                </ul>
+                                </td>
+                            </tr>
+                            
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
 
-                                                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
-                                                    {{ this.render('partials/ajaxarticles_new.twig', {
-                                                        name            : "user-load",
-                                                        buttonClass     : "managed-users__more",
-                                                        label           : "Load more"
-                                                    }) | raw }}
 
-                                                {% endif %}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        {% endif %}
+
+
+
+
+
+
+
+                {# ---------------------------------- #}
+                {#           LIST OF USERS            #}
+                {# ---------------------------------- #}
+
+                {% if pwstats['type'] == 'time' and totalPlanUserCount > 0 %}
+                <div class="acme-row">
+                    <div class="acme-col-12 ">
+                        <div class="plan-table__user-head">
+                            <div class="plan-table__user-head-label">My users</div>
+                            <div class="plan-table__user-head-sub-text">You can add, search and remove users below.</div>
+                        </div>
                     </div>
                 </div>
             </div>
-    {% endif %}
+        </div>
+    </div>
+
+    <div class="managed-users ">
+        <div class="acme-container">
+            <div class="acme-row">
+                <div class="col-12 acme-offset-xl-1 acme-offset-xxl-2 acme-col-xl-10 acme-col-xxl-8">
+
+                    {% set usersLeft = totalPlanUserCount > 0 ? totalPlanUserCount -1 : totalPlanUserCount %}
+                    <div class="managed-users__addition">
+
+                        {% set addUserClass = "" %}
+                        {% if managedUserCount >= totalPlanUserCount %}
+                            {% set addUserClass = "u-hide" %}
+                        {% endif %}
+
+                        <div class="managed-users__addition-btn  ">
+                            <a id="addManagedUser" href="javascript:;" class="account__btn account__btn--bordered js-addUserButton {{addUserClass}}">Add user</a>
+                            <p id="addUserLabel"  class="managed-users__label u-hide">Add user</a>
+                        </div>
+                        <div class="managed-users__allot-wrap">
+                            <img src="{{networkData.templatePath}}/static/icons/user_icon.png" alt="user" class="img-fluid managed-users__allot-wrap--image" />
+                            <p class="managed-users__allot-wrap--text">Allocated users:</p>
+                            <p class="managed-users__allot-wrap--text strong js-usercount">{{managedUserCount}} of {{totalPlanUserCount}}</p>
+                        </div>
+                    </div>
+                    <div class="managed-users__addSec">
+                        <div id="createManagedUser"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {# <a id="createUserErrorMessage"></a> #}
+
+    <div class="acme-container u-margin-bottom-80">
+        <div class="acme-row">
+            <div class="col-12 acme-offset-xl-1 acme-offset-xxl-2 acme-col-xl-10 acme-col-xxl-8">
+
+                {% if totalPlanUserCount > userLimit and managedUserCount >= userLimit %} 
+                <form method="get" id="managed-user-search" class="managed-users__search-form" action="">
+                    <div class="managed-users__search-field">
+                        <span>
+                            <img src="{{networkData.templatePath}}/static/icons/icons-navigation-search.svg" />
+                        </span>
+                        <input id="managed-user-search-field" name="s" type="text" placeholder="Search users" class="account__form__input" required="" />
+                    </div>
+
+                    <button type="submit" class="managed-users__search-btn account__btn account__btn--solid" type="submit" id="user-search-submit">Search</button>
+                    <button type="submit" class="managed-users__search-btn account__btn account__btn--solid u-hide" type="submit" id="user-search-clear">Clear</button>
+                </form>
+
+
+                {# <p class="managed-users__show-user">
+                    {% set resultString = managedUserScreenCount < 2 ? 'user' : 'users' %}
+                    Showing <span id="visible_user_count">{{managedUserScreenCount}}</span> {{resultString}}
+                </p> #}
+                {% endif %}
+
+
+
+                <ul id="mangedUsers" class="user-grid__list">
+                {% if managedUserCount == 0 %}
+                    <li id="nousers" class="no-data">No users found</li>
+                {% else %}
+                    
+                    {% for user in managedUsers %}
+                    <li id="{{user.id}}" class="managed-user__item">
+                        <div>
+                            <p class="managed-user__name">{{user.firstname}} {{user.lastname}}</p>
+                            <p class="managed-user__email">{{user.email}}</p>
+                        </div>
+                        <div style="margin-left:auto">
+                            <a href="javascript:;" class="managed-user__remove j-delete userdetails__button">
+                                <span class="icon fa fa-trash"></span>
+                                <span>Remove</span>
+                            </a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                {% endif %}
+                </ul>
+
+
+                {% if totalPlanUserCount > userLimit and managedUserScreenCount >= userLimit %} 
+                    {{ this.render('partials/ajaxarticles_new.twig', {
+                        name            : "user-load",
+                        buttonClass     : "managed-users__more",
+                        label           : "Load more"
+                    }) | raw }}
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {# if time users #}
+    {% endif %} 
+{# plan manager #}
+{% endif %}
     
 
 </main>

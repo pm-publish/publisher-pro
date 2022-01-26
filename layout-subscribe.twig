@@ -98,272 +98,280 @@
     <div class="container">
         {% if plan != false %}
 
-        {# The first payment is due on DD Month 20XX unless cancelled. #}
-        {% set val = plan.plan_value / 100 %}
-        {% if val == 19.89 %}
-        {% set val = 19.90 %}
-        {% endif %}
-        {% set planPrice = plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"}) ~
-        val|number_format(2, '.', ',') %}
-        {% if plan.type == 'signup' %}
-        {% set planPrice = 'Free' %}
-        {% endif %}
+            {# The first payment is due on DD Month 20XX unless cancelled. #}
+            {% set val = plan.plan_value / 100 %}
+            {% if val == 19.89 %}
+                {% set val = 19.90 %}
+            {% endif %}
+            {% set planPrice = plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"}) ~ val|number_format(2, '.', ',') %}
+            {% if plan.type == 'signup' %}
+                {% set planPrice = 'Free' %}
+            {% endif %}
 
-        {% set frequency = plan.period_count > 1 ? plan.period_count : "" %}
+            {% set frequency = plan.period_count > 1 ? plan.period_count : "" %}
 
-        {% set planPeriod = plan.period %}
-        {% if plan.period_count > 1 %}
-        {% set planPeriod = plan.period ~ 's' %}
-        {% endif %}
+            {% set planPeriod = plan.period %}
+            {% if plan.period_count > 1 %}
+                {% set planPeriod = plan.period ~ 's' %}
+            {% endif %}
 
-        {% set frequency = frequency ~ " " ~ planPeriod %}
-        <div class="row">
-            <div class="col-12 col-md-10 mx-auto">
-                <div class="c-subscribeWrap c-subscribeWrap-xs">
-                    <div class="c-subscribeWrap__headContainer">
-                        {% if trial %}
-                            <h2 class="c-subscribeWrap--heading">Start your {{trialPeriod}}-day free trial now</h2>
-                            <div class="c-subscribeWrap--text">
-                                The free trial requires registration with a valid credit card.
-                            </div>
-                        {% else %}
-                            <h2 class="c-subscribeWrap--heading">{{subscribeText}}</h2>
-                        {% endif %}
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-md-7 col-lg-8">
-                            <div class="c-subscribeWrap-box">
-
-                                <h4 class="c-subscribeWrap__subhead">Your details</h4>
-
-                                <form id="subscribeform" class="generic-form  " action="#"
-                                    method="post" autocomplete="off" data-planprice="{{planPrice}}"
-                                    data-planperiodcount="{{plan.period_count}}" data-planperiod="{{plan.period}}"
-                                    data-trialperiod="{{trialPeriod}}">
-                                    <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
-                                    <input type="hidden" class="" name="trial" id="trial" value="{{trial}}">
-                                    <input type="hidden" class="" name="signup" id="signup" value="{{signup}}">
-                                    <input type="hidden" class="" name="paypal" id="paypal" value="{{paypal}}">
-
-
-                                    <div class="form-group form-group-sm has-error u-margin-bottom-15">
-                                        <label for="email" class="input__label">Email address</label>
-                                        <input id="email" class="input__text" name="email" placeholder="Email address"
-                                            aria-required="true" type="email" />
-                                        <input id="email-confirm" class="input__text u-hide" name="email-confirm" placeholder="email-confirm" aria-required="true" type="email">
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <label for="firstname" class="input__label">First Name</label>
-                                        <input id="firstname" class="input__text" name="firstname" placeholder="First name"
-                                            aria-required="true" type="text" />
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <label for="lastname" class="input__label">Last Name</label>
-                                        <input id="lastname" class="input__text" name="lastname" placeholder="Last name"
-                                            aria-required="true" type="text" />
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <label for="password" class="input__label"
-                                            title="Passwords must be at least six characters and include upper case, lower case and digit.">
-                                            Password <span>(must be at least six characters and include upper case,
-                                                lower case and digit.)</span>
-                                        </label>
-                                        <input id="password" class="input__text" name="password" placeholder="******"
-                                            aria-required="true" type="password" value="" />
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <label for="verifypassword" class="input__label">Password verify</label>
-                                        <input id="verifypassword" class="input__text" name="verifypassword"
-                                            placeholder="******" aria-required="true" type="password" />
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    {% for field in subscribeFields %}
-                                    {% set required = field.required ? "true" : "false" %}
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <label for="{{field.name}}" class="input__label">{{field.label}}</label>
-                                        <input type="text" class="input__text articleExtendedData j-form-elem"
-                                            name="{{field.name}}" id="{{field.name}}" aria-required="{{required}}"
-                                            value="" placeholder="{{field.name}}">
-                                        <div class="help-block"></div>
-                                    </div>
-                                    {% endfor %}
-
-                                    {# {% if showAddress %}
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <label for="address1" class="input__label">Street Address</label>
-                                        <input type="text" class="input__text articleExtendedData j-form-elem"
-                                            name="address1" id="address1" aria-required="true" value="" placeholder="">
-                                        <div class="help-block"></div>
-                                    </div>
-
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <input type="text" class="input__text articleExtendedData j-form-elem"
-                                            name="address2" id="address2" value="" placeholder="">
-                                        <label for="address2" class="input__label">Street address line 2
-                                            (optional)</label>
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <input type="text" class="input__text articleExtendedData j-form-elem"
-                                            name="city" id="city" aria-required="true" value="" placeholder="">
-                                        <label for="city" class="input__label">City / Town</label>
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <input type="text" class="input__text articleExtendedData j-form-elem"
-                                            name="postcode" id="postcode" aria-required="true" value="" placeholder="">
-                                        <label for="postcode" class="input__label">Postcode</label>
-                                        <div class="help-block"></div>
-                                    </div>
-                                    {% endif %} #}
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-                                        <label for="organisation" class="input__label">Organisation (optional)</label>
-                                        <input id="organisation" class="input__text" name="organisation" placeholder=""
-                                            aria-required="true" type="text" />
-                                        <div class="help-block"></div>
-                                    </div>
-
-                                    <div class="form-group form-group-sm u-margin-bottom-15">
-
-                                        {% if trial %}
-                                        <div class="button-set c-checkbox u-margin-bottom-15">
-                                            <input id="changeterms" name="changeterms" type="checkbox"
-                                                class="c-checkbox__input validate[required]" />
-                                            <label class="c-checkbox__label" for="changeterms">
-                                                <span class="c-checkbox__button"></span>
-                                                I agree to my card being charged {{planPrice}} every {{frequency}} at
-                                                the end of the {{trialPeriod}}-day free trial period.
-                                            </Label>
-                                        </div>
-
-                                        <div class="button-set c-checkbox u-margin-bottom-15">
-                                            <input id="cancelterms" name="cancelterms" type="checkbox"
-                                                class="c-checkbox__input validate[required]" />
-                                            <label class="c-checkbox__label" for="cancelterms">
-                                                <span class="c-checkbox__button"></span>
-                                                I understand I can cancel for free before the end of the trial in My
-                                                Account page, and I will be emailed a payment reminder 7 days before the
-                                                end of the free trial period. I understand I can cancel my paid
-                                                subscription at any time in My Account page.
-                                            </label>
-                                        </div>
-                                        {% endif %}
-
-
-                                        <div class="button-set c-checkbox u-margin-bottom-15">
-                                            <input id="terms" name="terms" type="checkbox"
-                                                class="c-checkbox__input validate[required]" />
-                                            <label class="c-checkbox__label u-padding-top-3" for="terms">
-                                                <span class="c-checkbox__button"></span>
-                                                I agree to the <strong> <a
-                                                        href="{{networkData.defaultBlogUrl}}/privacy-policy"
-                                                        target="_blank">Terms of Service</a></strong>
-                                            </label>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="c-subscribeWrap__subscription" style="margin-top:30px;">
-                                        {% if signup == false %}
-                                            <h4 class="c-subscribeWrap__subhead">Payment details</h4>
-                                        {% endif %}
-                                        <div class="form-group fullwidth">
-
-                                            {% if code %}
-                                                <div class="form-row ">
-                                                    <label for="code-redeem">Gift code </label>
-                                                    <div id="card-errors" class="errorText" role="alert"></div>
-                                                    <input type="text" class="articleExtendedData" name="code-redeem"
-                                                        id="code-redeem" value="" placeholder="0a1b-2c3d-4e5f" />
-                                                </div>
-
-                                                <div class="form-group" style="margin-top:30px;">
-                                                    <button type="submit" id="subscribe"
-                                                        class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
-                                                </div>
-
-                                            {% else %}
-                                                {% if signup == false %}
-                                                        <div class="" style="min-width:100%">
-                                                            <div id="card-element">
-                                                                <!-- a Stripe Element will be inserted here. -->
-                                                            </div>
-                                                            <!-- Used to display form errors -->
-                                                            <div id="card-errors" class="errorText" role="alert"></div>
-                                                        </div>
-
-
-                                                        <div class="form-group" style="margin-top:30px;">
-                                                            <button type="submit" id="subscribe"
-                                                                class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
-                                                        </div>
-                                                {% else %}
-                                                        <div class="form-group" style="margin-top:30px;">
-                                                            <div id="card-errors" class="errorText" role="alert"></div>
-                                                            <button type="submit" id="subscribe" class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
-                                                        </div>
-                                                {% endif %}
-                                            {% endif %}
-
-                                        </div>
-                                    </div>
-
-
-
-
-                                </form>
-
-                                
-                            </div>
+            {% set frequency = frequency ~ " " ~ planPeriod %}
+            <div class="row">
+                <div class="col-12 col-md-10 mx-auto">
+                    <div class="c-subscribeWrap c-subscribeWrap-xs">
+                        <div class="c-subscribeWrap__headContainer">
+                            {% if trial %}
+                                <h2 class="c-subscribeWrap--heading">Start your {{trialPeriod}}-day free trial now</h2>
+                                <div class="c-subscribeWrap--text">
+                                    The free trial requires registration with a valid credit card.
+                                </div>
+                            {% else %}
+                                <h2 class="c-subscribeWrap--heading">{{subscribeText}}</h2>
+                            {% endif %}
                         </div>
-                        <div class="col-12 col-md-5 col-lg-4">
-                            <div class="c-subscribeWrap-sidebar">
-                                {% set uc = plan.user_count %}
+                        <div class="row">
+                            <div class="col-12 col-md-7 col-lg-8">
+                                <div class="c-subscribeWrap-box">
 
-                                <div class="c-orderSummary">
-                                    <div class="c-orderSummary__info">
-                                        <p class="c-orderSummary__name">{{plan.plan_name}}</p>
-                                        <picture class="c-subscribeWrap__Device">
-                                            {% if blogScreen %}
-                                                <img src="{{screenImg}}" srcset="{{screenImgMedium}} 1x, {{screenImg}} 2x" class="img-fluid">
-                                            {% else %}
-                                                <img src="{{networkData.templatePath}}/static/icons/laptop_3.png?ver=3" srcset="{{networkData.templatePath}}/static/icons/laptop_3.png?ver=3 1x, {{networkData.templatePath}}/static/icons/laptop_3@2x.png?ver=3 2x, {{networkData.templatePath}}/static/icons/laptop_3@3x.png?ver=3 3x" class="img-fluid">
+                                    <h4 class="c-subscribeWrap__subhead">Your details</h4>
+
+                                    <form id="subscribeform" class="generic-form  " action="#"
+                                        method="post" autocomplete="off" data-planprice="{{planPrice}}"
+                                        data-planperiodcount="{{plan.period_count}}" data-planperiod="{{plan.period}}"
+                                        data-trialperiod="{{trialPeriod}}">
+                                        <input type="hidden" class="" name="planid" id="planid" value="{{plan.guid}}">
+                                        <input type="hidden" class="" name="trial" id="trial" value="{{trial}}">
+                                        <input type="hidden" class="" name="signup" id="signup" value="{{signup}}">
+                                        <input type="hidden" class="" name="paypal" id="paypal" value="{{paypal}}">
+
+
+                                        <div class="form-group form-group-sm has-error u-margin-bottom-15">
+                                            <label for="email" class="input__label">Email address</label>
+                                            <input id="email" class="input__text" name="email" placeholder="Email address"
+                                                aria-required="true" type="email" />
+                                            <input id="email-confirm" class="input__text u-hide" name="email-confirm" placeholder="email-confirm" aria-required="true" type="email">
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <label for="firstname" class="input__label">First Name</label>
+                                            <input id="firstname" class="input__text" name="firstname" placeholder="First name"
+                                                aria-required="true" type="text" />
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <label for="lastname" class="input__label">Last Name</label>
+                                            <input id="lastname" class="input__text" name="lastname" placeholder="Last name"
+                                                aria-required="true" type="text" />
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <label for="password" class="input__label"
+                                                title="Passwords must be at least six characters and include upper case, lower case and digit.">
+                                                Password <span>(must be at least six characters and include upper case,
+                                                    lower case and digit.)</span>
+                                            </label>
+                                            <input id="password" class="input__text" name="password" placeholder="******"
+                                                aria-required="true" type="password" value="" />
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <label for="verifypassword" class="input__label">Password verify</label>
+                                            <input id="verifypassword" class="input__text" name="verifypassword"
+                                                placeholder="******" aria-required="true" type="password" />
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        {% for field in subscribeFields %}
+                                        {% set required = field.required ? "true" : "false" %}
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <label for="{{field.name}}" class="input__label">{{field.label}}</label>
+                                            <input type="text" class="input__text articleExtendedData j-form-elem"
+                                                name="{{field.name}}" id="{{field.name}}" aria-required="{{required}}"
+                                                value="" placeholder="{{field.name}}">
+                                            <div class="help-block"></div>
+                                        </div>
+                                        {% endfor %}
+
+                                        {# {% if showAddress %}
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <label for="address1" class="input__label">Street Address</label>
+                                            <input type="text" class="input__text articleExtendedData j-form-elem"
+                                                name="address1" id="address1" aria-required="true" value="" placeholder="">
+                                            <div class="help-block"></div>
+                                        </div>
+
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <input type="text" class="input__text articleExtendedData j-form-elem"
+                                                name="address2" id="address2" value="" placeholder="">
+                                            <label for="address2" class="input__label">Street address line 2
+                                                (optional)</label>
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <input type="text" class="input__text articleExtendedData j-form-elem"
+                                                name="city" id="city" aria-required="true" value="" placeholder="">
+                                            <label for="city" class="input__label">City / Town</label>
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <input type="text" class="input__text articleExtendedData j-form-elem"
+                                                name="postcode" id="postcode" aria-required="true" value="" placeholder="">
+                                            <label for="postcode" class="input__label">Postcode</label>
+                                            <div class="help-block"></div>
+                                        </div>
+                                        {% endif %} #}
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+                                            <label for="organisation" class="input__label">Organisation (optional)</label>
+                                            <input id="organisation" class="input__text" name="organisation" placeholder=""
+                                                aria-required="true" type="text" />
+                                            <div class="help-block"></div>
+                                        </div>
+
+                                        <div class="form-group form-group-sm u-margin-bottom-15">
+
+                                            {% if trial %}
+                                            <div class="button-set c-checkbox u-margin-bottom-15">
+                                                <input id="changeterms" name="changeterms" type="checkbox"
+                                                    class="c-checkbox__input validate[required]" />
+                                                <label class="c-checkbox__label" for="changeterms">
+                                                    <span class="c-checkbox__button"></span>
+                                                    I agree to my card being charged {{planPrice}} every {{frequency}} at
+                                                    the end of the {{trialPeriod}}-day free trial period.
+                                                </Label>
+                                            </div>
+
+                                            <div class="button-set c-checkbox u-margin-bottom-15">
+                                                <input id="cancelterms" name="cancelterms" type="checkbox"
+                                                    class="c-checkbox__input validate[required]" />
+                                                <label class="c-checkbox__label" for="cancelterms">
+                                                    <span class="c-checkbox__button"></span>
+                                                    I understand I can cancel for free before the end of the trial in My
+                                                    Account page, and I will be emailed a payment reminder 7 days before the
+                                                    end of the free trial period. I understand I can cancel my paid
+                                                    subscription at any time in My Account page.
+                                                </label>
+                                            </div>
                                             {% endif %}
-                                        </picture>
 
-                                        <div class="c-orderSummary__price">{{planPrice}}</div>
-                                        {% if plan.trial_status == "1" %}
-                                            <div class="c-orderSummary__info-trail">Includes free {{plan.trial_period}} day trial</div>
-                                        {% endif %}
-                                    </div>
+
+                                            <div class="button-set c-checkbox u-margin-bottom-15">
+                                                <input id="terms" name="terms" type="checkbox"
+                                                    class="c-checkbox__input validate[required]" />
+                                                <label class="c-checkbox__label u-padding-top-3" for="terms">
+                                                    <span class="c-checkbox__button"></span>
+                                                    I agree to the <strong> <a
+                                                            href="{{networkData.defaultBlogUrl}}/privacy-policy"
+                                                            target="_blank">Terms of Service</a></strong>
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="c-subscribeWrap__subscription" style="margin-top:30px;">
+                                            {% if signup == false %}
+                                                <h4 class="c-subscribeWrap__subhead">Payment details</h4>
+                                            {% endif %}
+                                            <div class="form-group fullwidth">
+
+                                                {% if code %}
+                                                    <div class="form-row ">
+                                                        <label for="code-redeem">Gift code </label>
+                                                        <div id="card-errors" class="errorText" role="alert"></div>
+                                                        <input type="text" class="articleExtendedData" name="code-redeem"
+                                                            id="code-redeem" value="" placeholder="0a1b-2c3d-4e5f" />
+                                                    </div>
+
+                                                    <div class="form-group" style="margin-top:30px;">
+                                                        <button type="submit" id="subscribe"
+                                                            class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
+                                                    </div>
+
+                                                {% else %}
+                                                    {% if signup == false %}
+                                                            <div class="" style="min-width:100%">
+                                                                <div id="card-element">
+                                                                    <!-- a Stripe Element will be inserted here. -->
+                                                                </div>
+                                                                <!-- Used to display form errors -->
+                                                                <div id="card-errors" class="errorText" role="alert"></div>
+                                                            </div>
+
+
+                                                            <div class="form-group" style="margin-top:30px;">
+                                                                <button type="submit" id="subscribe"
+                                                                    class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
+                                                            </div>
+                                                    {% else %}
+                                                            <div class="form-group" style="margin-top:30px;">
+                                                                <div id="card-errors" class="errorText" role="alert"></div>
+                                                                <button type="submit" id="subscribe" class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
+                                                            </div>
+                                                    {% endif %}
+                                                {% endif %}
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </form>
+
                                     
-                                    <div class="c-orderSummary__details">
-                                        <ul>
-                                            <li>{{(plan.description|replace({';': '</li><li>'}))|raw}}</li>
-                                        </ul>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-5 col-lg-4">
+                                <div class="c-subscribeWrap-sidebar">
+                                    {% set uc = plan.user_count %}
+
+                                    <div class="c-orderSummary">
+                                        <div class="c-orderSummary__info">
+                                            <p class="c-orderSummary__name">{{plan.plan_name}}</p>
+                                            <picture class="c-subscribeWrap__Device">
+                                                {% if blogScreen %}
+                                                    <img src="{{screenImg}}" srcset="{{screenImgMedium}} 1x, {{screenImg}} 2x" class="img-fluid">
+                                                {% else %}
+                                                    <img src="{{networkData.templatePath}}/static/icons/laptop_3.png?ver=3" srcset="{{networkData.templatePath}}/static/icons/laptop_3.png?ver=3 1x, {{networkData.templatePath}}/static/icons/laptop_3@2x.png?ver=3 2x, {{networkData.templatePath}}/static/icons/laptop_3@3x.png?ver=3 3x" class="img-fluid">
+                                                {% endif %}
+                                            </picture>
+
+                                            <div class="c-orderSummary__price">{{planPrice}}</div>
+                                            {% if plan.trial_status == "1" %}
+                                                <div class="c-orderSummary__info-trail">Includes free {{plan.trial_period}} day trial</div>
+                                            {% endif %}
+                                        </div>
+                                        
+                                        <div class="c-orderSummary__details">
+                                            {% set description = plan.description | split("!*!") %}
+                                            {% set data = {} %}
+                                            {% if description | length > 1 %}
+                                                {% set data = _AppHelper.jsonDecode( description[0] ) %}
+                                                {% set description = description[1] %}
+                                            {% else %}
+                                                {% set description = description[0] %}
+                                            {% endif %}
+
+                                            <ul>
+                                                <li>{{(description|replace({';': '</li><li>'}))|raw}}</li>
+                                            </ul>
+                                        </div>
+                                        <a href="{{networkData.defaultBlogUrl}}/subscriptions" class="btn-change">Change subscription</a>
                                     </div>
-                                    <a href="{{networkData.defaultBlogUrl}}/subscriptions" class="btn-change">Change subscription</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
         {% else %}
         <div class="row">

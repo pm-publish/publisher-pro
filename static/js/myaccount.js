@@ -100,7 +100,7 @@ UserProfileController.prototype.render = function(data)
             firstname: data[i].firstname, 
             lastname:  data[i].lastname, 
             username:  data[i].username, 
-            useremail: data[i].email,
+            email: data[i].email,
             id: data[i].id
         });
     }
@@ -301,7 +301,7 @@ UserProfileController.prototype.events = function ()
         });
         self.search(search);
         // $('#user-search-submit').hide();
-        // $('#user-search-clear').show();
+        $('#user-search-clear').removeClass('u-hide');
 
     });
 
@@ -310,7 +310,7 @@ UserProfileController.prototype.events = function ()
         self.fetchUsers();
         $('#managed-user-search-field').val('');
         $('#user-search-submit').show();
-        $('#user-search-clear').hide();
+        $('#user-search-clear').addClass('u-hide');
     });
 
 
@@ -325,12 +325,15 @@ UserProfileController.prototype.events = function ()
             useremail: "Email",
         };
 
-        var html = '<li id="newUser" class="user-editor user-editor__add"><p class="text-button">Add User</p>' + userTemp(data) + '</li>';
+        // var html = '<li id="newUser" class="user-editor user-editor__add"><p class="text-button">Add User</p>' + userTemp(data) + '</li>';
+        var html = userTemp(data);
 
         $('#createManagedUser').append(html);
         $('#newuserfirstname').focus();
-        $('#addManagedUser').addClass('hidden');
-        $('#nousers').addClass('hidden');
+        $('#addManagedUser').addClass('u-hide');
+        $('#addUserLabel').removeClass('u-hide');
+
+        $('#nousers').addClass('u-hide');
 
         $('#saveUser').on('click', function(e) {
             $('#userError').text("");
@@ -378,7 +381,8 @@ UserProfileController.prototype.events = function ()
 
         $('#cancelUserCreate').on('click', function(e) {
             $('#newUser').remove();
-            $('#addManagedUser').removeClass('hidden');
+            $('#addManagedUser').removeClass('u-hide');
+            $('#addUserLabel').addClass('u-hide');
             $('#createUserErrorMessage').text('');
         });
     });

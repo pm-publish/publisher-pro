@@ -1,39 +1,39 @@
 .plan-features {
-	display: flex;
 
-	&__row {
-		flex: 1;
-		+ul {
-			margin-left: 25px;
-		  }
-	
-	}
+    &__row {
+        // @include flexbox;
+        display:grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-column-gap: 30px;
+        // flex: 1;
+    
+    }
 
-	&__item {
-		display:flex;
-		position: relative;
-		padding-left: 34px;
-		padding-top: 5px;
-		margin-bottom: 20px;
-		// line-height: 1.38;
-		font-size: 13px;
-		color: black;
-		font-family: $primaryFont;
-		font-weight: $weightRegular;
-		
+    &__item {
+        display:flex;
+        position: relative;
+        padding-left: 34px;
+        padding-top: 5px;
+        margin-bottom: 20px;
+        // line-height: 1.38;
+        font-size: 13px;
+        color: black;
+        font-family: $primaryFont;
+        font-weight: $weightRegular;
+        
 
-		&:before {
-		  content: "";
-		  background-image: url('../icons/plan-tick.svg');
-		  background-repeat: no-repeat;
-		  background-size:cover;
-		  position: absolute;
-		  display: block;
-		  width:22px;
-		  height:22px;
-		  left: 0;
-		  top: 0;
-		}
-	}
+        &:before {
+          content: "";
+          background-image: url('../icons/plan-tick.svg');
+          background-repeat: no-repeat;
+          background-size:cover;
+          position: absolute;
+          display: block;
+          width:22px;
+          height:22px;
+          left: 0;
+          top: 0;
+        }
+    }
 
   }

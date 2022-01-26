@@ -314,15 +314,20 @@ export const Modal = function(template, name, layouts, data) {
         };
         Modal.prototype.renderLayout = function(layout, data) {
             var data = data || {};
-            var layoutTemplate = Templates[this.layouts[layout]];
-            if (layoutTemplate) {
+            var layoutTemplate = false;
+            if (this.layouts !== null && typeof this.layouts[layout] !== 'undefined') {
+                layoutTemplate = Templates[this.layouts[layout]];
+            } else {
+                layoutTemplate = Templates[layout];
+            }
 
-                var tmp = Handlebars.compile(Templates[this.layouts[layout]]);
+            if (layoutTemplate) {
+                var tmp = Handlebars.compile(layoutTemplate);
                 // $('#'+this.parentCont).attr("title", layout); 
                 var layout = tmp(data);
                 $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
             } else {
-                console.log(this.layouts[layout], 'Does not exist' );
+                console.log(layout, 'Does not exist' );
             }
 
             // if (typeof data.modal_title != 'undefined') {

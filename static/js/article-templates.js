@@ -247,28 +247,28 @@ export const Templates = {
 
 
     create_user:
-        '<div class="manaaged-users__form-container" style="height:100%; overflow:auto; position:relative"> \
+        '<div id="newUser" class="managed-users__form-container  u-margin-top-20" style="height:100%; overflow:auto; position:relative"> \
             \
             <div class="managed-users__row-group"> \
                 <div class="managed-users__form-group"> \
                     <label class="cus_acnt__form__label c-account-form__label" for="newuserfirstname">First name</label>\
-                    <input type="text" id="newuserfirstname" class="j-firstname cus_acnt__form__input" value="" placeholder="{{firstname}}"> \
+                    <input type="text" id="newuserfirstname" class="j-firstname managed-users__form-input" value="" placeholder=""> \
                 </div> \
+                \
                 <div class="managed-users__form-group"> \
                     <label class="cus_acnt__form__label c-account-form__label" for="newuserlastname">Last name</label>\
-                    <input type="text" id="newuserlastname" class="j-lastname cus_acnt__form__input" value="" placeholder="{{lastname}}"> \
+                    <input type="text" id="newuserlastname" class="j-lastname managed-users__form-input" value="" placeholder=""> \
                 </div> \
-            </div>\
-            <div class="managed-users__row-group"> \
+                \
                 <div class="managed-users__form-group"> \
                     <label class="cus_acnt__form__label c-account-form__label" for="newuseruseremail">Email</label>\
-                    <input type="text" id="newuseruseremail" class="j-email cus_acnt__form__input" value="" placeholder="{{useremail}}"> \
+                    <input type="text" id="newuseruseremail" class="j-email managed-users__form-input" value="" placeholder=""> \
                     <p id="userError" class="user-editor__error"></p> \
                 </div> \
                 \
-                <div id="user-editor-buttons" class="managed-users__form-group"> \
-                    <a id="saveUser"       class="account__btn account__btn--solid">Add user</a> \
-                    <a id="cancelUserCreate" class="account__btn account__btn--bordered">Cancel</a> \
+                <div id="user-editor-buttons" class="managed-users__buttons"> \
+                    <a id="saveUser"       class="account__btn account__btn--grow account__btn--solid">Add user</a> \
+                    <a id="cancelUserCreate" class="account__btn account__btn--grow account__btn--bordered">Cancel</a> \
                 </div> \
             </div> \
             <div id="user-editor__spinner" class="user-editor__spinner"></div> \
@@ -276,7 +276,7 @@ export const Templates = {
 
 
     edit_user:
-        '<div class="" style="height:100%; overflow:auto"> \
+        '<div class="user-editor" style="height:100%; overflow:auto"> \
             <div class="user-editor__input-container u-float-left"> \
                 <input type="text" id="newuserfirstname" class="j-firstname user-editor__input" value="{{firstname}}" placeholder="First name"> \
                 <input type="text" id="newuserusername" class="j-username user-editor__input" value="{{username}}" placeholder="Email address"> \
@@ -292,18 +292,18 @@ export const Templates = {
 
         
     managed_user:
-        '<li id="{{id}}" class="user-list--items"> \
-        <aside> \
-            <div class="user-list--items-name">{{firstname}} {{lastname}}</div> \
-            <div class="user-list--items-email">{{email}}</div> \
-        </aside> \
-        <aside> \
-            <a href="javascript:;" class="user-list--items-remove j-delete userdetails__button"> \
-                <span class="icon fa fa-trash"></span> \
-                <span>Remove</span> \
-            </a> \
-        </aside> \
-    </li>',
+        '<li id="{{id}}" class="managed-user__item"> \
+            <div> \
+                <p class="managed-user__name">{{firstname}} {{lastname}}</p> \
+                <p class="managed-user__email">{{email}}</p> \
+            </div> \
+            <div style="margin-left:auto"> \
+                <a href="javascript:;" class="managed-user__remove j-delete userdetails__button"> \
+                    <span class="icon fa fa-trash"></span> \
+                    <span>Remove</span> \
+                </a> \
+            </div> \
+        </li>',
 
 
 
