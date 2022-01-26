@@ -541,17 +541,6 @@
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     &__plan-title {
         color: $white;
         @include font-size(26);
@@ -626,7 +615,11 @@
             background-color: $white;
             padding: 12px 28px;
 
-            &__planInfo-status--value {
+            .planInfo__status-text {
+                color:black;
+            }
+
+            .planInfo__status-value {
                 color: #c40000;
                 position: relative;
 
@@ -646,6 +639,10 @@
 
 
     &__subInfo {
+        padding: 20px;
+        &-button {
+
+        }
         .cancel-subBtn {
             color: #848486;
             @include font-size(12);
@@ -653,7 +650,7 @@
             font-family: $primaryFont;
             font-weight: $weightBold;
             display: inline-block;
-            margin: 54px 28px 0;
+            margin: 54px 0 0;
         }
 
         &__article-info {
@@ -666,13 +663,6 @@
             margin-top: 24px;
             background-color: rgba($white, 0.2);
 
-            + .cancel-subBtn {
-                margin-top: 30px;
-            }
-        }
-
-        .cus_acnt__btn__solid {
-            margin: 24px 28px 0;
             + .cancel-subBtn {
                 margin-top: 30px;
             }
