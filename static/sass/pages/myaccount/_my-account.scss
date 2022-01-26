@@ -640,32 +640,26 @@
 
     &__subInfo {
         padding: 20px;
-        &-button {
+    }
 
-        }
-        .cancel-subBtn {
-            color: #848486;
-            @include font-size(12);
-            line-height: 1.33;
-            font-family: $primaryFont;
-            font-weight: $weightBold;
-            display: inline-block;
-            margin: 54px 0 0;
-        }
+    &.cancel-subBtn {
+        color: #848486;
+        @include font-size(12);
+        line-height: 1.33;
+        font-family: $primaryFont;
+        font-weight: $weightBold;
+        display: inline-block;
+        margin: 54px 0 0;
+    }
 
-        &__article-info {
-            font-size: 16px;
-            font-weight: $weightMedium;
-            font-family: $primaryFont;
-            line-height: 1.5;
-            color: $white;
-            padding: 13px 28px;
-            margin-top: 24px;
-            background-color: rgba($white, 0.2);
-
-            + .cancel-subBtn {
-                margin-top: 30px;
-            }
-        }
+    &__article-info {
+        font-size: 16px;
+        font-weight: $weightMedium;
+        font-family: $primaryFont;
+        line-height: 1.5;
+        color: $white;
+        padding: 13px 28px;
+        margin-top: 24px;
+        background-color: rgba($white, 0.2);
     }
 }
