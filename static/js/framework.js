@@ -271,16 +271,36 @@ export const PubSub = {
      
 export const Modal = function(template, name, layouts, data) {
         this.template = template || null;
+
+        // Templates (layouts) are imported at the top of this file, however if you wish
+        // to use a seperate set of templates, you store them here;
+        this.templates = false;
+        
         this.parentCont = name   || null;
         this.layouts = layouts   || null;
         this.data = data         || {};
         this.dfd = $.Deferred();
     }
         Modal.prototype = new Acme.listen();
-
+        Modal.prototype.setTemplates = function(templates) {
+            this.templates = templates;
+        };
+        Modal.prototype.loadTemplate = function(tmp) {
+            let template = false;
+            if (this.templates) {
+                template = this.templates[tmp] || false;
+            } 
+            if (typeof template === 'undefined' || template === false) {
+                template = Templates[tmp] || false;
+            }
+            
+            if (!template) {
+                console.log(tmp, 'template missing');
+            }
+            return template;
+        };
         Modal.prototype.render = function(layout, title, data) {
             var preRendered = false;
-
             if (typeof data === 'string') {
                 preRendered = true;
             } else {
@@ -293,7 +313,9 @@ export const Modal = function(template, name, layouts, data) {
 
 
             this.data['name'] = this.parentCont;
-            var tmp = Handlebars.compile(Templates[this.template]);
+
+            const template = this.loadTemplate(this.template);
+            var tmp = Handlebars.compile(template);
             var tmp = tmp(this.data);
 
             $('html').addClass('u-noscroll')
@@ -315,15 +337,15 @@ export const Modal = function(template, name, layouts, data) {
         Modal.prototype.renderLayout = function(layout, data) {
             var data = data || {};
             var layoutTemplate = false;
+
             if (this.layouts !== null && typeof this.layouts[layout] !== 'undefined') {
-                layoutTemplate = Templates[this.layouts[layout]];
+                layoutTemplate = this.loadTemplate(this.layouts[layout]);
             } else {
-                layoutTemplate = Templates[layout];
+                layoutTemplate = this.loadTemplate(layout);
             }
 
             if (layoutTemplate) {
                 var tmp = Handlebars.compile(layoutTemplate);
-                // $('#'+this.parentCont).attr("title", layout); 
                 var layout = tmp(data);
                 $('#'+this.parentCont).find('#dialogContent').empty().append(layout); 
             } else {

@@ -1,6 +1,7 @@
 import Handlebars from 'handlebars'
 import { Server, Modal } from './framework'
-import { Templates } from './article-templates'
+// import { Templates } from './article-templates'
+import { Templates } from './account-templates'
 import { SigninModal }  from './signinModal'
 import Card from './StripeCard'
 
@@ -9,7 +10,6 @@ export const UserProfileController = function(data)
 {
     this.currentUserCount = data.currentUserCount || 0;
     this.planUserCount = data.planUserCount || 0;
-
     this.modal = new SigninModal('modal', 'signin-modal', {
         "spinner"       : 'spinnerTmpl',
         "userPlan"      : 'userPlanMessage',
@@ -412,7 +412,7 @@ UserProfileController.prototype.events = function ()
         const modal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel'
         });
-
+        modal.setTemplates(Templates);
         modal.render("userPlanChange", title, {"message" : message, "okayLabel": buttonLabel, "cancelLabel": cancelLabel})
             .done(function(r) {
 
@@ -447,15 +447,15 @@ UserProfileController.prototype.events = function ()
 
     $('.j-setplan').on('click', function(e) {
         e.stopPropagation();
-
         let modalTitle = "You've chosen a new plan";
 
-        const modal = new Modal('modal', 'signin-modal', {
-            "spinner": "spinnerTmpl",
-            "userPlan" : 'userPlanMessage',
-            "userPlanChange" : 'userPlanOkCancel'
-        });
-
+        // const modal = new Modal('modal', 'signin-modal', {
+        //     "spinner": "spinnerTmpl",
+        //     "userPlan" : 'userPlanMessage',
+        //     "userPlanChange" : 'userPlanOkCancel'
+        // });
+        // console.log(Templates);
+        // modal.setTemplates(Templates);
 
         let elem = $(e.target);
         const newPlan = elem.parents('.j-plan-details');
@@ -573,10 +573,11 @@ UserProfileController.prototype.events = function ()
         const changeModal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel'
         });
+        changeModal.setTemplates(Templates);
+
         const spinner = new Modal('modal', 'swap-modal', {
             "spinner" : 'spinnerTmpl'
         });
-
         changeModal.render("userPlanChange",  modalTitle, {"message" : msg, "okayLabel": "Purchase now"})
             .done(function() {
                 $('#dialog').parent().remove();
