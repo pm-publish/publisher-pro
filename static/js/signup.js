@@ -10,7 +10,6 @@ function verifyCaptcha(token) {
 }
 
 export const SubscribeForm = function(id, user) {
-    
     this.botTimer = 0;
     this.id = id || null;
     this.parent = Form.prototype;
@@ -32,10 +31,11 @@ export const SubscribeForm = function(id, user) {
         "terms"             : ["isTrue"],    
     };
 
-    var trial = $('#trial').val();
+    this.trial = $('#trial').val();
+    this.signup = $('#signup').val();
     this.data['plantype'] = $('#plantype').val();
 
-    if (trial == "1" && this.data.plantype === 'time') {
+    if (this.trial == "1" && this.data.plantype === 'time') {
         this.data['trial'] = 'true';
         this.validateRules['changeterms'] = ["isTrue"];
     }
@@ -46,7 +46,10 @@ export const SubscribeForm = function(id, user) {
     }
 
     this.validateFields = Object.keys(this.validateRules);
-    this.stripeSetup();
+
+    if (!this.signup) {
+        this.stripeSetup();
+    }
     this.loadData();
     this.events();
 };
@@ -88,6 +91,7 @@ SubscribeForm.prototype.render = function(checkTerms)
 };
 SubscribeForm.prototype.submit = function(event) 
 {
+
     var self = this;
     event.preventDefault();
 
@@ -104,7 +108,6 @@ SubscribeForm.prototype.submit = function(event)
         window.location.href = location.origin + "/auth/thank-you";
     }
 
-    var signup = $('#signup').val();
     
     var submitResponse= function(r) {
         // console.log(r);
@@ -118,39 +121,38 @@ SubscribeForm.prototype.submit = function(event)
             for (var key in r.error) {
                 text = text + r.error[key] + " ";
             } 
-            // console.log(text);
             errorElement.textContent = text;
         }
-        self.signup.closeWindow();
+        self.signupModel.closeWindow();
     }
 
 
-    this.signup = new Modal('modal', 'spinner-modal', {"spinner": 'spinnerTmpl'});
+    this.signupModal = new Modal('modal', 'spinner-modal', {"spinner": 'spinnerTmpl'});
 
-    if (this.code || signup) {
+    if (this.code || this.signup) {
         self.data['planid'] = $('#planid').val();
         self.data['redirect'] = false;
-        if (signup == 1) {
+        if (this.signup == 1) {
             self.data['signuponly'] = 'true';
         }
         if (this.code) {
-            this.signup.render("spinner", "Authorising code");
+            this.signupModal.render("spinner", "Authorising code");
             self.data['giftcode'] = $('#code-redeem').val();
         }
 
         self.data['stripetoken'] = null;
         Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
-            self.signup.closeWindow();
+            self.signupModal.closeWindow();
         });
 
     } else {
 
         // modal.render("spinner", "Your request is being processed.");
-        this.signup.render("spinner", "Your request is being processed.");
+        this.signupModal.render("spinner", "Your request is being processed.");
         var stripeCall = this.stripe.createToken(self.card).then(function(result) {
 
             if (result.error) {
-                self.signup.closeWindow();
+                self.signupModal.closeWindow();
                 // Inform the user if there was an error
                 var errorElement = document.getElementById('card-errors');
                 errorElement.textContent = result.error;
@@ -161,10 +163,10 @@ SubscribeForm.prototype.submit = function(event)
                 self.data['planid'] = $('#planid').val();
                 self.data['redirect'] = false;
                 Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
-                    self.signup.closeWindow();
+                    self.signupModal.closeWindow();
                 });
             }
-        });   
+        });  
     }
 
         
