@@ -48,12 +48,17 @@ $info: #129eff;
 $white: #ffffff;
 $offwhite: #e7e7e7;
 $mainColor: #4a90e2;
+$blue_sh5: #5748f6;
 
 :root {
   --main-color: $blue;
+  --sec-color: #5748f6;
 }
 @if (var(--main-color) != #4a90e2) {
   $mainColor: var(--main-color);
+}
+@if (var(--sec-color) != #5748f6) {
+  $blue_sh5: var(--sec-color);
 }
 $border: $offwhite;
 $hoverColor: $mainColor;
@@ -80,7 +85,6 @@ $blue_sh1: #0a1630;
 $blue_sh2: #4772cc;
 $blue_sh3: #ebf4f8;
 $blue_sh4: #7197e2;
-$blue_sh5: #5748f6;
 $cusAcc_headBar: #0a1630;
 
 //Buttons
