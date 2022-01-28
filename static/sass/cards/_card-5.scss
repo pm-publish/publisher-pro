@@ -48,7 +48,7 @@
                         top: 50%;
                         @include translate(0, -50%);
                         @include size(4px);
-                        background-color: $blue_sh5;
+                        background-color: var(--sec-color);
                     }
                 }
             }
@@ -117,7 +117,7 @@
                         content: "\f04b";
                         display: block;
                         font-family: $iconfont;
-                        color: $blue_sh5;
+                        color: var(--sec-color);
                         @include size(auto);
                         @include font-size(9);
                         line-height: 1;

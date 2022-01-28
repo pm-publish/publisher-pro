@@ -13,7 +13,7 @@
             min-width: 30px;
 
             &-value {
-                color: $blue_sh5;
+                color: var(--sec-color);
                 @include font-size(20);
                 line-height: 1.2;
                 font-weight: $weightBold;

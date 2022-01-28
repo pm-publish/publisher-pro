@@ -14,7 +14,7 @@
             @include font-size(18);
             line-height: 1.75;
             font-weight: $weightBold;
-            color: $blue_sh5;
+            color: var(--sec-color);
             margin-bottom: 5px;
         }
         &__title {
@@ -36,7 +36,7 @@
             color: $grey5;
 
             a {
-                color: $blue_sh5;
+                color: var(--sec-color);
                 text-decoration: none;
             }
         }

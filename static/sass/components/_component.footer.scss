@@ -97,7 +97,7 @@
                 &__item {
                     @include transition(all 0.3s ease);
                     &:hover {
-                        color: $blue_sh5;
+                        color: var(--sec-color);
                     }
                 }
             }
@@ -152,7 +152,7 @@
     }
 
     &__top {
-        background-color: $blue_sh5;
+        background-color: var(--sec-color);
     }
 
     @include responsive(sm) {

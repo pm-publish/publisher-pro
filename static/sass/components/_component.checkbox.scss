@@ -26,7 +26,7 @@
             top:50%;
             left:50%;
             transform: translate(-47%, -52%);
-            background-color: $blue_sh5;
+            background-color: var(--sec-color);
             opacity:0;
             transition: opacity .2s;
         }
@@ -39,7 +39,7 @@
         padding-left:30px;
 
         a {
-            color: $blue_sh5;
+            color: var(--sec-color);
         }
     }
 
