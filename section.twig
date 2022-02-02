@@ -94,24 +94,11 @@
                                             }) | raw}}
                                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                                         </div>
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 306, height: 185},
-                                                containerClass: "card-2-mobile card-2-tablet card-4-desktop card-withoutImage"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-12">
-                                            {{this.render('partials/_single-article.twig', {
-                                                article: articles[articleCount], 
-                                                position: (articleCount+1),
-                                                imageSize: {width: 600, height: 300},
-                                                containerClass: "card-1-mobile card-1-tablet card-1-desktop"
-                                            }) | raw}}
-                                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                                        </div>
+                                        {% if config['inventory']['adSpace']['banner'][2] is defined %}
+                                            <div class="mt-4">
+                                                <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
