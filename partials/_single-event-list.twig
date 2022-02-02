@@ -114,11 +114,13 @@
                     <div class="c-eventcards-view__sec2">
                         {% if event.startDate != '' %}
                             <div class="c-eventcards-view__conditionalDate">
-                                <span class="c-eventcards-view__conditionalDate-value">{{ startDay }}th {% if event.endDate != '' %} - {{endDay}}th  {% endif %}</span>
+                                <span class="c-eventcards-view__conditionalDate-value">{{ startDay }}th {% if endDate != "" and endDate != startDate %} - {{endDay}}th  {% endif %}</span>
                                 <span class="c-eventcards-view__conditionalDate-label">{{startMonthFull}}</span>
                             </div>
                         {% endif %}
-                        <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+                        {% if endDate != "" and endDate != startDate %}
+                            <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+                        {% endif %}
                     </div>  
                 </div>
                 <div class="c-eventcards-view__author">
