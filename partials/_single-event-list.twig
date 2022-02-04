@@ -118,7 +118,7 @@
                                 <span class="c-eventcards-view__conditionalDate-label">{{startMonthFull}}</span>
                             </div>
                         {% endif %}
-                        {% if endDate != "" and endDate != startDate %}
+                        {% if endDate != "" and endDate == startDate %}
                             <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
                         {% endif %}
                     </div>  

@@ -1,23 +1,23 @@
 <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <defs>
-        <path id="a" d="M0 .443h32.4v32.4H0z"/>
-        <path d="M5.476 5.791v-1.5c0-.226.013-.403.04-.53a.986.986 0 0 1 .152-.36.648.648 0 0 1 .366-.248c.165-.05.39-.075.672-.075h1.518V.08h-2.44c-1.41 0-2.422.328-3.036.986-.615.658-.922 1.633-.922 2.922v1.803H0V8.79h1.826v8.73h3.65V8.79h2.44l.328-2.999H5.476z" id="c"/>
+        <path id="fb_a" d="M0 .443h32.4v32.4H0z"/>
+        <path d="M5.476 5.791v-1.5c0-.226.013-.403.04-.53a.986.986 0 0 1 .152-.36.648.648 0 0 1 .366-.248c.165-.05.39-.075.672-.075h1.518V.08h-2.44c-1.41 0-2.422.328-3.036.986-.615.658-.922 1.633-.922 2.922v1.803H0V8.79h1.826v8.73h3.65V8.79h2.44l.328-2.999H5.476z" id="fb_c"/>
     </defs>
     <g fill="none" fill-rule="evenodd">
         <g>
-            <mask id="b" fill="#fff">
-                <use xlink:href="#a"/>
+            <mask id="fb_b" fill="#fff">
+                <use xlink:href="#fb_a"/>
             </mask>
-            <use fill="#5748F6" xlink:href="#a"/>
-            <g mask="url(#b)" fill="#5748F6">
+            <use fill="#5748F6" xlink:href="#fb_a"/>
+            <g mask="url(#fb_b)" fill="#5748F6">
                 <rect width="108" height="108" rx="8.1" transform="translate(-11 -31)"/>
             </g>
         </g>
         <g transform="translate(11.4 7)">
-            <mask id="d" fill="#fff">
-                <use xlink:href="#c"/>
+            <mask id="fb_d" fill="#fff">
+                <use xlink:href="#fb_c"/>
             </mask>
-            <g mask="url(#d)" fill="#FFF">
+            <g mask="url(#fb_d)" fill="#FFF">
                 <rect y="1" width="87.998" height="87.998" rx="6.6" transform="translate(-44 -36)"/>
             </g>
         </g>
