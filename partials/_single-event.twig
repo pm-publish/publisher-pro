@@ -130,8 +130,9 @@
                                 {% set superscriptEndDay = 'rd' %}
                         {% endif %}
                         <div class="c-eventcards-view__day">{{startDay ~ superscriptStartDay}}    {{eventMonth}} {% if endDate != "" and endDate != startDate %} - {{endDay ~ superscriptEndDay}}  {{endMonth}}{%endif%}</div>
-                        <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
-            
+                        {% if endDate != "" and endDate == startDate %}
+                            <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+                        {% endif %}
                         <div class="c-eventcards-view__author">
                             <div class="c-eventcards-view__icon--pin">{{ this.render('icons.twig', {icon: 'dateCal'} ) | raw }}</div>
                         </div>
