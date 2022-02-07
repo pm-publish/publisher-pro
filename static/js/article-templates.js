@@ -95,11 +95,11 @@ export const Templates = {
     modal:
         // style="scrolling == unusable position:fixed element might be fixing login for ios safari
         // also margin-top:10px
+        //<h2 class="{{name}}__title">{{{title}}}</h2>
         '<div id="{{name}}" class="flex_col {{name}}"> \
             <div id="dialog" class="{{name}}__window"> \
-                <div class="{{name}}__container centerContent" style="scrolling == unusable position:fixed element"> \
+                <div class="{{name}}__container" style="scrolling == unusable position:fixed element"> \
                     <div class="{{name}}__header"> \
-                        <h2 class="{{name}}__title">{{{title}}}</h2> \
                         <a class="{{name}}__close" href="#" data-behaviour="close"></a> \
                     </div> \
                     <div class="{{name}}__content-window" id="dialogContent" style="scrolling == unusable position:fixed element"></div> \
