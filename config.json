@@ -1,5 +1,10 @@
 {
     "compressHtml": false,
+    "feed" : {
+        "imageParams" : {
+            "width" : 750
+        }
+    },
     "module": {
         "debug": {
             "enabled": true

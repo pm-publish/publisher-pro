@@ -33,9 +33,8 @@ Card.prototype.render = function(options = {})
 
     card['url'] = this.data.url;
     card['editUrl'] = this.data.editUrl;
-    
-    card['cardType'] = this.data.type || "";
-    card['lightbox'] = this.data.lightbox || "";
+    card['cardType'] = options.type || "";
+    card['lightbox'] = options.lightbox || "";
     card['position'] = this.data.position;
 
     card['isPinned'] =  this.data.isPinned;
