@@ -41,7 +41,7 @@
                     @include align-items(center);
 
                     svg {
-                        fill: $blue_sh5;
+                        fill: var(--sec-color);
                     }
                     .text {
                         margin-left: 5px;

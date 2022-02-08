@@ -88,15 +88,15 @@
             @include flexbox;
             @include align-items(center);
             @include justify-content(center);
-            border: 1px solid $blue_sh5;
+            border: 1px solid var(--sec-color);
             background-color: $white;
-            color: $blue_sh5;
+            color: var(--sec-color);
             @include font-size(16);
             line-height: 1;
             font-weight: $weightBold;
 
             &.signin {
-                background-color: $blue_sh5;
+                background-color: var(--sec-color);
                 color: $white;
             }
 

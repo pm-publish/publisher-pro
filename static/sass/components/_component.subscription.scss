@@ -62,7 +62,7 @@
                 height: 12px;
                 left: 0;
                 width: 100%;
-                background-color: $blue_sh5;
+                background-color: var(--sec-color);
                 border-radius: 2px;
                 box-shadow: 1px 1px 8px 2px rgba(192, 192, 192, 0.2);
             }
@@ -78,7 +78,7 @@
                 min-height: 160px;
 
                 &-name {
-                    color: $blue_sh5;
+                    color: var(--sec-color);
                     text-transform: uppercase;
                     @include font-size(16);
                     line-height: 1.25;
@@ -163,8 +163,8 @@
                 position: relative;
 
                 ._btn {
-                    color: $blue_sh5;
-                    border: 1px solid $blue_sh5;
+                    color: var(--sec-color);
+                    border: 1px solid var(--sec-color);
                     height: 48px;
                     width: 100%;
                     font-family: $primaryFont;
@@ -189,7 +189,7 @@
                 .plan-wrap__btn {
                     ._btn {
                         bottom: 20px;
-                        background: $blue_sh5;
+                        background: var(--sec-color);
                         color: $white;
                     }
                 }
@@ -223,7 +223,7 @@
                     text-align: center;
 
                     &__subs {
-                        color: $blue_sh5;
+                        color: var(--sec-color);
                         @include font-size(14);
                         line-height: 1.14;
                         font-family: $primaryFont;
@@ -242,8 +242,8 @@
 
                     &__link {
                         text-decoration: none;
-                        border-bottom: 2px solid $blue_sh5;
-                        color: $blue_sh5;
+                        border-bottom: 2px solid var(--sec-color);
+                        color: var(--sec-color);
                         @include font-size(12);
                         line-height: 1.33;
                         font-family: $primaryFont;
@@ -378,7 +378,7 @@
         #{$selfSubscribe} {
             &__head,
             &__subhead {
-                color: $blue_sh5;
+                color: var(--sec-color);
                 @include font-size(20);
                 line-height: 1.2;
                 font-family: $primaryFont;
@@ -407,7 +407,7 @@
 
         .c-orderSummary {
             padding: 32px;
-            border-bottom: 12px solid $blue_sh5;
+            border-bottom: 12px solid var(--sec-color);
             &__info {
                 @include flexbox;
                 @include flex-direction(column,vertical);

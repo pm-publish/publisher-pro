@@ -57,7 +57,7 @@
     }
 
     &__btn {
-      background: $blue_sh5;
+      background: var(--sec-color);
       height: 48px;
       width: 100%;
       color: $white;

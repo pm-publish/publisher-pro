@@ -223,7 +223,7 @@
                 display: block;
                 @include transition(all 0.3s ease);
                 &:hover {
-                    color: $blue_sh5;
+                    color: var(--sec-color);
                 }
             }
         }
@@ -250,7 +250,7 @@
                 display: block;
                 @include transition(all 0.3s ease);
                 &:hover {
-                    color: $blue_sh5;
+                    color: var(--sec-color);
                 }
             }
         }
@@ -312,11 +312,11 @@
                     }
 
                     &.subscribe {
-                        color: $blue_sh5;
+                        color: var(--sec-color);
                     }
 
                     &--borderred {
-                        border-bottom: 2px solid $blue_sh5;
+                        border-bottom: 2px solid var(--sec-color);
                         &:hover {
                             border-bottom-color: var(--main-color);
                         }

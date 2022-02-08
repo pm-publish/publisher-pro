@@ -1,5 +1,5 @@
 {% import "quotes.twig" as quotes %}
-
+{% set networkData = _Network.getNetworkData() %}
 {% set imageSuppress = imageSuppress is defined and imageSuppress == 'true' ? true : false  %}
 {% set swap = swap is defined and swap == 'false' ? '' : 'swap'  %}
 {% set lightbox = ''  %}
@@ -19,6 +19,11 @@
 {% if imageSize is defined %}
     {% set imgWidth = (imageSize.width is defined) ? imageSize.width : 0 %}
     {% set imgHeight = (imageSize.height is defined) ? imageSize.height : 0 %}
+{% endif %}
+
+{% set themeColor   = "#4A90E2" %}
+{% if networkData['styling']['colours']['primaryColor'] is defined %}
+    {% set themeColor = networkData['styling']['colours']['primaryColor'] %}
 {% endif %}
 
 
@@ -109,15 +114,19 @@
                     <div class="c-eventcards-view__sec2">
                         {% if event.startDate != '' %}
                             <div class="c-eventcards-view__conditionalDate">
-                                <span class="c-eventcards-view__conditionalDate-value">{{ startDay }}th {% if event.endDate != '' %} - {{endDay}}th  {% endif %}</span>
+                                <span class="c-eventcards-view__conditionalDate-value">{{ startDay }}th {% if endDate != "" and endDate != startDate %} - {{endDay}}th  {% endif %}</span>
                                 <span class="c-eventcards-view__conditionalDate-label">{{startMonthFull}}</span>
                             </div>
                         {% endif %}
-                        <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+                        {% if endDate != "" and endDate == startDate %}
+                            <div class="c-eventcards-view__time">{{ startDayName }}{{startTime}}{% if event.endDate != "" %} - {{endTime}}{% endif %}</div>
+                        {% endif %}
                     </div>  
                 </div>
                 <div class="c-eventcards-view__author">
-                    <div class="c-eventcards-view__icon--pin">{{ this.render('icons.twig', {icon: 'dateCal'} ) | raw }}</div>
+                    <div class="c-eventcards-view__icon--pin">
+                        <svg class='o-icons__main' width='23' height='15'><g><title>Layer 1</title> <rect id='svg_11' height='5' width='5' y='0.94253' x='1.05747' stroke-width='0' stroke='#000' fill={{themeColor}} /> <rect id='svg_9' height='5' width='5' y='9' x='1.11494' stroke-width='0' stroke='#000' fill={{themeColor}} /> <rect id='svg_12' height='5' width='5' y='1' x='9' stroke-width='0' stroke='#000' fill={{themeColor}} /> <rect id='svg_10' height='5' width='5' y='9' x='9.05747' stroke-width='0' stroke='#000' fill={{themeColor}} /> <rect id='svg_13' height='5' width='5' y='1.05747' x='17' stroke-width='0' stroke='#000' fill={{themeColor}} /> <rect id='svg_8' height='5' width='5' y='9' x='17' stroke-width='0' stroke='#000' fill={{themeColor}} /> </g> </svg>
+                    </div>
                 </div>
             </div>
         </article>

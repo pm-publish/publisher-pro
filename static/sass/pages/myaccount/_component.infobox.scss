@@ -14,7 +14,7 @@
       }
 
       &-link {
-        color: $blue_sh5;
+        color: var(--sec-color);
         line-height: 1.33;
         font-family: $primaryFont;
         font-weight: 700;

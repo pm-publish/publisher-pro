@@ -1,0 +1,28 @@
+/* Directory style added here */
+
+.directory-head {
+    background-color: var(--main-color);
+    padding: 30px 0 60px;
+    margin-top: 20px;
+
+    &_main {
+        text-align: center;
+    }
+    &_heading {
+        color: $white;
+        @include font-size(32);
+        line-height: 1.25;
+        font-family: $secondaryFont;
+        font-weight: $weightBold;
+    }
+    &_desc {
+        margin-top: 8px;
+        color: #c0c0c0;
+        @include font-size(18);
+        line-height: 1.33;
+    }
+
+    .c-filter--search {
+        margin-bottom: 0;
+    }
+}

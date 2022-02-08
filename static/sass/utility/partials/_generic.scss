@@ -76,7 +76,7 @@
 		text-decoration: none;
 		@include transition(all 0.3s ease);
 		&:hover {
-			color: $blue_sh5;
+			color: var(--sec-color);
 		}
 		+ .u-generic-socialIcons__item {
 			margin-left: 18px;

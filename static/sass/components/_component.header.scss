@@ -70,7 +70,7 @@
 
     &__subscribe {
         height: 50px;
-        background-color: $blue_sh5;
+        background-color: var(--sec-color);
         @include flexbox;
         @include align-items(center);
         @include justify-content(center);

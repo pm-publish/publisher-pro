@@ -14,7 +14,7 @@
         }
         &__category {
             @include font-size(12);
-            color: $blue_sh5;
+            color: var(--sec-color);
             font-weight: $weightMedium;
         }
 
@@ -30,7 +30,7 @@
             line-height: 1.33;
             font-weight: $weightMedium;
             padding: 2px 5px;
-            background-color: $blue_sh5;
+            background-color: var(--sec-color);
         }
 
         &__heading {
@@ -168,6 +168,7 @@
                 &__media {
                     width: 63%;
                     height: auto;
+                    max-height: 450px;
                 }
 
                 &__heading {

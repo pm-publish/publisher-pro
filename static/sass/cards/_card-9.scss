@@ -49,7 +49,7 @@
                     top: 50%;
                     @include translate(0, -50%);
                     @include size(4px);
-                    background-color: $blue_sh5;
+                    background-color: var(--sec-color);
                 }
             }
         }

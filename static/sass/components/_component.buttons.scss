@@ -65,15 +65,15 @@
     }
 
     &--lightBlue {
-        background-color: $blue_sh5;
-        border-color: $blue_sh5;
-        background-color: $blue_sh5;
-        border-color: $blue_sh5;
+        background-color: var(--sec-color);
+        border-color: var(--sec-color);
+        background-color: var(--sec-color);
+        border-color: var(--sec-color);
         color: $white;
 
         &-bordered {
-            border-color: $blue_sh5;
-            color: $blue_sh5;
+            border-color: var(--sec-color);
+            color: var(--sec-color);
         }
     }
 
@@ -157,8 +157,8 @@
     height: 48px;
     width: 182px;
     @include border-radius(6px);
-    border: 1px solid $blue_sh5;
-    color: $blue_sh5;
+    border: 1px solid var(--sec-color);
+    color: var(--sec-color);
     @include flexbox;
     @include align-items(center);
     @include justify-content(center);
@@ -168,7 +168,7 @@
 
     &.solid {
         color: $white;
-        background-color: $blue_sh5;
+        background-color: var(--sec-color);
     }
 }
 .generic-buttonSet {
