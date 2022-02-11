@@ -265,6 +265,8 @@
                                         </div>
                                     {% endif %}
 
+
+                                    {% if pwstats['type'] != 'signup' %}
                                     <div class="planInfo__status {% if pwstats['status'] == 'cancelled' %} cancelled {% endif %}">
                                         <p class="planInfo__status-text">Status</p>
                                         <p class="planInfo__status-value">
@@ -275,6 +277,7 @@
                                             {% endif %}
                                         </p>
                                     </div>
+                                    {% endif %}
 
 
                                     {% if pwstats.type == 'article' %}
