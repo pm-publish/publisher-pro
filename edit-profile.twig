@@ -231,7 +231,7 @@
                         <div class="">
                             
                                 <div class="planInfo__top">
-                                    {% if pwstats['status'] != 'free' and pwstats['type'] != 'signup' %}
+                                    {% if pwstats['status'] != 'free' and pwstats['type'] != 'signup' and pwstats['type'] != 'article' %}
                                     <div class="planInfo__top-container">
                                         <div class="planInfo__top-img">
                                             <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
