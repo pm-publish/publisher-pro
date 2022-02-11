@@ -1,12 +1,14 @@
-
-$blue_sh5: #5748f6;
-$grey3: #f6f5f5;
-$grey4: #c0c0c0;
-$grey5: #636567;
-$black: #000000;
-$white: #ffffff;
-
 .account {
+
+    $blue_sh5: #5748f6;
+    $grey3: #f6f5f5;
+    $grey4: #c0c0c0;
+    $grey5: #636567;
+    $black: #000000;
+    $white: #ffffff;
+    
+
+
     &-headerBar {
         background: var(--main-color);
         margin-top: 20px;
