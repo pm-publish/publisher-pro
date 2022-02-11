@@ -449,13 +449,12 @@ UserProfileController.prototype.events = function ()
         e.stopPropagation();
         let modalTitle = "You've chosen a new plan";
 
-        // const modal = new Modal('modal', 'signin-modal', {
-        //     "spinner": "spinnerTmpl",
-        //     "userPlan" : 'userPlanMessage',
-        //     "userPlanChange" : 'userPlanOkCancel'
-        // });
-        // console.log(Templates);
-        // modal.setTemplates(Templates);
+        const modal = new Modal('modal', 'signin-modal', {
+            "spinner": "spinnerTmpl",
+            "userPlan" : 'userPlanMessage',
+            "userPlanChange" : 'userPlanOkCancel'
+        });
+        modal.setTemplates(Templates);
 
         let elem = $(e.target);
         const newPlan = elem.parents('.j-plan-details');
