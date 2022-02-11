@@ -247,7 +247,12 @@
     }
 
 
-
+    &__more {
+        @include font-size(13);
+        text-align: center;
+        display: block;
+        text-decoration: underline;
+    }
 
     &__addition {
         display: flex;
