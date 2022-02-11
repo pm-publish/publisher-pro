@@ -186,12 +186,15 @@ UserProfileController.prototype.userEvents = function()
 
     $('.j-delete').unbind().on('click', function(e) {
 
+
         const modal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel',
             "spinner"       : 'spinnerTmpl',
-
         });
-        modal.render("userPlanChange", "Are you sure?", {"okayLabel" : "Yes, delete user"})
+        modal.setTemplates(Templates);
+
+
+        modal.render("userPlanChange", "Are you sure?", {message: "Are you sure?", "okayLabel" : "Yes, delete user"})
             .done(function() {
                 var spinner = new Modal('modal', 'swap-modal', {
                     "spinner"       : 'spinnerTmpl'
