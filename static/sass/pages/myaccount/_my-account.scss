@@ -510,10 +510,15 @@
 
 .planInfo {
     &__top {
+
+        &-container {
+            @include flexbox;
+            padding: 22px 28px;
+        }
+
         border-top: 12px solid $blue_sh5;
         background-color: $white;
-        padding: 22px 28px;
-        @include flexbox;
+       
 
         &-img {
             width: 36px;

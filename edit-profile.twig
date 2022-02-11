@@ -230,19 +230,21 @@
 
                         <div class="">
                             
-                            {% if pwstats['status'] != 'free' %}
                                 <div class="planInfo__top">
-                                    <div class="planInfo__top-img">
-                                        <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
+                                    {% if pwstats['status'] != 'free' and pwstats['type'] != 'signup' %}
+                                    <div class="planInfo__top-container">
+                                        <div class="planInfo__top-img">
+                                            <img src="{{networkData.templatePath}}/static/icons/pay_icon.png" alt="Icon" />
+                                        </div>
+                                        <div class="planInfo__top-content">
+                                            <div class="planInfo__top-content-title">Payment due</div>
+                                            <div class="planInfo__top-content-date">{{ pwstats['expiry_date'] | date('d-m-Y')}}</div>
+                                        </div>
                                     </div>
-                                    <div class="planInfo__top-content">
-                                        <div class="planInfo__top-content-title">Payment due</div>
-                                        <div class="planInfo__top-content-date">{{ pwstats['expiry_date'] | date('d-m-Y')}}</div>
-                                    </div>
+                                    {% endif %}
                                 </div>
 
 
-                            {% endif %}
 
 
                             <div class="planInfo__middle">
