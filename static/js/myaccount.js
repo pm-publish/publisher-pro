@@ -590,7 +590,12 @@ UserProfileController.prototype.events = function ()
                     } else {
                         $('#dialog').parent().remove();
                         spinner.closeWindow();
-                        self.modal.render("userPlan", data.error);
+                        const errorModal = new Modal('modal', 'signin-modal', {
+                            "userPlanChange" : 'userPlanOkCancel'
+                        });
+                        errorModal.setTemplates(Templates);   
+                        errorModal.render("userPlanMessage",  "Error", {"message" : data.error, "okayLabel": "poo"})
+    
                     }
 
                 }).fail((r) => {
