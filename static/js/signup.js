@@ -10,6 +10,7 @@ function verifyCaptcha(token) {
 }
 
 export const SubscribeForm = function(id, user) {
+    var self = this;
     this.botTimer = 0;
     this.id = id || null;
     this.parent = Form.prototype;
@@ -47,6 +48,12 @@ export const SubscribeForm = function(id, user) {
 
     this.validateFields = Object.keys(this.validateRules);
 
+
+    setInterval(function(){
+        self.botTimer = self.botTimer + 1;
+    }, 1000);
+
+
     if (!this.signup) {
         this.stripeSetup();
     }
@@ -65,9 +72,6 @@ SubscribeForm.prototype.stripeSetup = function () {
     const StripeCard = new Card();
     this.card = StripeCard.get(this.stripe);
 
-    setInterval(function(){
-        self.botTimer = self.botTimer + 1;
-    }, 1000);
 }
 SubscribeForm.prototype.random = function(length) {
     var result           = '';
@@ -106,10 +110,11 @@ SubscribeForm.prototype.submit = function(event)
 
     if (self.botTimer < 5 || $('#email-confirm').val() !== "") {
         window.location.href = location.origin + "/auth/thank-you";
+        return;
     }
 
     
-    var submitResponse= function(r) {
+    const submitResponse = function(r) {
         // console.log(r);
         if (r.success == 1) {
                 window.location.href = location.origin + '/auth/thank-you';
@@ -134,6 +139,8 @@ SubscribeForm.prototype.submit = function(event)
         self.data['redirect'] = false;
         if (this.signup == 1) {
             self.data['signuponly'] = 'true';
+            this.signupModal.render("spinner", "Signing up");
+
         }
         if (this.code) {
             this.signupModal.render("spinner", "Authorising code");
