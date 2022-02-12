@@ -556,7 +556,7 @@ UserProfileController.prototype.events = function ()
         }
 
         if (newPlanType === 'signup') {
-            msg = "The new plan will start on the next payment date shown on this page.";
+            msg = "Please confirm your plan change.";
         }
 
 
