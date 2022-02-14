@@ -93,10 +93,10 @@
 
     {% if config['inventory']['articleAd'] is defined %}
         {% set adPos = config['inventory']['articleAd'] %}
-
         {% set storySplit = ArticleContent | split('</p>') %}
 
-        {% if storySplit[(adPos['position'] * 2) - 1] %}
+        {% if storySplit[(adPos['position'] + 2) - 1] %}
+ 
             {% if adPos['slot'] is defined %}
                 {% set inarticleslot = adPos['slot'] %}
                 {% set ArticleContent = '' %}
@@ -117,7 +117,9 @@
 {% endif %}
 
 
+        {% set log = _AppHelper.log("and the content...") %}
 
+        {% set log = _AppHelper.log(ArticleContent) %}
 
 
 {% set watermark = false %}
