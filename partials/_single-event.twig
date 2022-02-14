@@ -69,6 +69,7 @@
 {% set fullStartTime    = _AppHelper.getDefaultTimezoneDateTime(event.startDate, 'g:ia M j') %}
 {% set fullEndTime      = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'g:ia M j') %}
 
+{% set networkData = _Network.getNetworkData() %}
 
 {% set venue            = event.venue %}
 
