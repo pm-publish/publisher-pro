@@ -1,9 +1,6 @@
 {% set defaultBlog = _Blog.getHomeBlogSettings() %}
 {% set logo = networkData.templatePath~'/static/icons/footer-logo.svg'%}
 {% set footerBottomFavicon = networkData.templatePath~'/static/icons/path.svg'%}
-{% if networkData.logoMedia | length > 0 %}
-{% set logo = _Media.getMediaUrl(networkData.secondaryLogoMedia, 650, 144, {'crop': 'fit'} )%}
-{% endif %}
 {% set footerMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer'}) %}
 {% set footerBottomMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer-bottom'}) %}
 {% set addresses = defaultBlog.contact %}
@@ -16,6 +13,31 @@
 {% set loggedin = _User.isGuest() ? false : true %}
 {% set user = loggedin ? _User.getUser() : null %}
 
+{% set logoWidth = 650 %}
+{% set logoHeight = 144 %}
+
+{% if networkData.logoMedia | length > 0 %}
+{% set logo = _Media.getMediaUrl(networkData.secondaryLogoMedia, logoWidth, logoHeight, {'crop': 'fit'} )%}
+{% endif %}
+
+{% if config['footer-logo'] is defined %}
+    {% if config['footer-logo']['width'] is defined %}
+        {% set logoWidth = config['footer-logo']['width'] %}
+
+        {% if config['footer-logo']['height'] is not defined %}
+            {% set logoHeight = 0 %}
+        {% endif %}
+    {% endif %}
+
+    {% if config['footer-logo']['height'] is defined %}
+        {% set logoHeight = config['footer-logo']['height'] %}
+
+        {% if config['footer-logo']['width'] is not defined %}
+            {% set logoWidth = 0 %}
+        {% endif %}
+
+    {% endif %}
+{% endif %}
 
 <div class="c-footer__top">
     <div class="container">
