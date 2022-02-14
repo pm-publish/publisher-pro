@@ -7,7 +7,7 @@
 
 
 
-{% set limit = 14 %}
+{% set limit = 15 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -81,7 +81,15 @@
                     {% endfor %}
                 </div>
 
-                <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
+                <section class="mt-4 text-center loadmore__section {{site}}" id="loadmore_section">
+                    {% if articles|length >= limit %}
+                        {{ this.render('/partials/load_more.twig', {
+                            name            : "section-load",
+                            label           : "Load more",
+                            buttonClass     : "u-loadmore-button",
+                        }) | raw }}
+                    {% endif %}
+                </section>
                 
                 {% if config['inventory']['adSpace']['banner'][2] is defined %}
                     <div class="my-5 overflow-hidden">
