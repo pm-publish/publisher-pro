@@ -94,14 +94,14 @@
     {% if config['inventory']['articleAd'] is defined %}
         {% set adPos = config['inventory']['articleAd'] %}
 
-        {% set storySplit = ArticleContent | split('<p>') %}
+        {% set storySplit = ArticleContent | split('</p>') %}
 
         {% if storySplit[(adPos['position'] * 2) - 1] %}
             {% if adPos['slot'] is defined %}
                 {% set inarticleslot = adPos['slot'] %}
-                {% set ArticleContent = '<p>' %}
+                {% set ArticleContent = '' %}
                 {% for para in storySplit %}
-                    {% set ArticleContent = ArticleContent ~ '<p>' ~ para %}
+                    {% set ArticleContent = ArticleContent ~ para ~ '</p>' %}
                     {% if loop.index == adPos['position'] %}
                         {% set ArticleContent = ArticleContent ~ '
                             <div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
