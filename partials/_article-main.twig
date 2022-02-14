@@ -5,6 +5,8 @@
     {% set imageSize = "Width: " ~ params.imgWidth ~ " Height: " ~ params.imgHeight %}
 {% endif %}
 
+{% set config = _Network.getThemeConfig() %}
+
 {% if params.hasMedia %}
     <figure class="{{params.cardType}}c-cards-view__media {{params.videoClass}}" title="{{imageSize}}">
         <picture>
@@ -32,9 +34,11 @@
     <div class="c-cards-view__container-topSection">
         <div class="c-cards-view__category-wrap">
             {% if params.category != params.blogTitle %}
-            <div class="c-cards-view__additional-category">{{params.category}}</div>
+                <div class="c-cards-view__additional-category">{{params.category}}</div>
             {% endif %}
-            <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
+            {% if config['card-label'] == true %}
+                <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
+            {% endif %}
         </div>        
         <h2 class="{{params.cardType}}c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{ params.title }}</h2>
         

@@ -168,9 +168,11 @@
                                                         {{article.label}}
                                                     </div>
                                                 {% endif %}
-                                                <div class="c-article__category">
-                                                    {{article.blog.title}}
-                                                </div>
+                                                {% if config['card-label'] == true %}
+                                                    <div class="c-article__category">
+                                                        {{article.blog.title}}
+                                                    </div>
+                                                {% endif %}
                                             </div>
                                             <div class="c-article__title">
                                                 {{ quotes.smarten(article.title) }}

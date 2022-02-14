@@ -6,6 +6,7 @@
 
 {% set networkData = _Network.getNetworkData() %}
 {% set site        = networkData.title | lower | split(" ")[0]%}
+{% set config = _Network.getThemeConfig() %}
 
 {% set businessDetails = _Blog.getHomeBlogSettings() %}
 
@@ -37,11 +38,13 @@
                     <div class="row">
                         <div class="col-12 col-md-10 mx-auto">
                             <div class="c-eventdetail__head-main">
-                                <a href="{{ networkData.defaultBlogUrl }}/events">
-                                    <div class="c-eventdetail__category">
-                                        Events
-                                    </div>
-                                </a>
+                                {% if config['card-label'] == true %}
+                                    <a href="{{ networkData.defaultBlogUrl }}/events">
+                                        <div class="c-eventdetail__category">
+                                            Events
+                                        </div>
+                                    </a>
+                                {% endif %}
                                 <div class="c-eventdetail__title">
                                     {{ quotes.smarten(event.title) }}  
                                 </div>

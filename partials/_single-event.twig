@@ -70,6 +70,7 @@
 {% set fullEndTime      = _AppHelper.getDefaultTimezoneDateTime(event.endDate, 'g:ia M j') %}
 
 {% set networkData = _Network.getNetworkData() %}
+{% set config = _Network.getThemeConfig() %}
 
 {% set venue            = event.venue %}
 
@@ -112,7 +113,9 @@
                         {% if event.additionalInfo.additional_label is defined and event.additionalInfo.additional_label is not empty %}
                             <div class="c-eventcards-view__additional-category">{{quotes.smarten(event.additionalInfo.additional_label) }}</div>
                         {% endif %}
-                        <div class="c-eventcards-view__category">Events</div>
+                        {% if config['card-label'] == true %}
+                            <div class="c-eventcards-view__category">Events</div>
+                        {% endif %}
                     </div>
                     <h2  class="c-eventcards-view__heading js-card-heading j-truncate {{figureClass}}">{{ quotes.smarten(event.title) }}</h2>
                     <p   class="c-eventcards-view__description j-truncate">{{ quotes.smarten(event.excerpt | raw) }}</p>

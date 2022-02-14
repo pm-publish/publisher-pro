@@ -13,7 +13,7 @@
     {% endif %}
 {% endif %}
 
-
+{% set config = _Network.getThemeConfig() %}
 {% set imgWidth = 0 %}
 {% set imgHeight = 0 %}
 {% if imageSize is defined %}
@@ -107,7 +107,9 @@
             <div class="c-eventcards-view__container">
                 <div class="c-eventcards-view__info">
                     <div class="c-eventcards-view__sec1">
-                        <div class="c-eventcards-view__category">Events</div>
+                        {% if config['card-label'] == true %}
+                            <div class="c-eventcards-view__category">Events</div>
+                        {% endif %}
                         <h2  class="c-eventcards-view__heading js-card-heading j-truncate {{figureClass}}">{{ quotes.smarten(event.title) }}</h2>
                     </div>
 
