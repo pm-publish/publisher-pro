@@ -1,0 +1,39 @@
+{% set articleCount = 0 %}
+{% set eventCount = 0 %}
+{% set cardIndex = 0 %}
+
+{% set colorInverse = '' %}
+{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop' %}
+{% if background is defined and background is not empty %}
+{% set colorInverse = 'inverse' %}
+{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop c-cards--inverse' %}
+{% endif %}
+<div class="row" data-section="01">
+    <div class="col-12">
+        <div class="u-generic-topBorder {{colorInverse}}">
+        </div>
+        <div class="c-page-head c-page-head-xs {{colorInverse}}">
+            <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
+            <a href="{{link}}" class="c-page-head__link">View all</a>
+        </div>
+    </div>
+
+    {% for i in 0..2 if articles[articleCount] %}
+
+    <div class="col-12 col-lg-3">
+        {{this.render('../_single-article.twig', {
+        article: articles[articleCount],
+        position: (articleCount+1),
+        imageSize: {width: 306, height: 185},
+        containerClass: inverseContainerClass,
+        timeSuppress: timeSuppress
+        }) | raw}}
+        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+    </div>
+    {% endfor %}
+    {% if adslots[0] is defined %}
+        <div class="col-12 col-lg-3">
+            <div class="j-adslot" id="{{adslots[0]}}" data-adshape="mrec"></div>
+        </div>
+    {% endif %}
+</div> <!-- row -->
