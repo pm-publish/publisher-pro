@@ -127,6 +127,40 @@
 
 
 
+
+
+
+
+{# ----------------------------------------
+                 COMMENTS
+---------------------------------------- #}
+{% set init = _Comment.twigInit() %}
+{% set commentCount = _Comment.getArticleCommentCount(article.id) %}
+
+{% set comment = null %}
+{% if commentCount > 0 %}
+    {% set comments = _Comment.getByArticle(article.id, {"limit":1, "orderBy" : {"created_at" : "ASC"}, "rootOnly" : true, "resultFormat" : 'array'}) %}
+    {% set comment = comments.comments[0] %}
+    {% set commenters = _Comment.getCommenters(article.id, {"resultFormat" :'array', "resultCount" : 'all', "limit":5}) %}
+
+    {% set commentersString = false %}
+
+    {% if commenters | length > 1 %}
+
+        {% set commentersString = ""%}
+        {% set commentersArr = [] %}
+        
+        {% for author in commenters[0:4] %}
+                {% set commentersArr = commentersArr | merge ([author.firstname ~ " " ~ author.lastname]) %}
+        {% endfor %}
+        {% set commentersString = commentersString ~ commentersArr | join(", ") %}
+        {% if commenters | length > 4 %}
+            {% set commentersString = commentersString ~ " & others" %}
+        {% endif %}
+
+    {% endif %}
+{% endif %}
+
 {% set commentSetting = false %}
 {% set allow_comments = false %}
 {% set show_comments = false %}
@@ -144,6 +178,17 @@
         {% set show_comments = true %}
     {% endif %}
 {% endif %}
+
+
+
+
+
+
+
+
+
+
+
 
 
 {% set articleImg = false %}
