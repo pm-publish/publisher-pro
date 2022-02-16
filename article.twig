@@ -505,10 +505,92 @@
                                                     </a>
                                                 </div>
                                             {% endif %}
+
+
+
+
+
+
+
+
+
+                                            <div id="comment-container" class="u-margin-top-80" data-env="{{env}}">
+
+                                                {# {% if commentCount == 0 and not show_comments %}
+                                                    <p class="comments__closed">Some Newsroom articles are open to comments, <a href="#">click here</a> to learn more. </p>
+                                                {% endif %} #}
+
+                                                {% if guestUser and show_comments %}
+
+                                                    <div class="comments__header">
+                                                        {% set plural = commentCount > 1 ? "s" : "" %}
+                                                        <h3 class="comments__title">{{commentCount}} comment{{plural}}</h3>
+                                                    </div>
+
+
+                                                    {% if comment %}
+                                                        
+                                                        {% if comment.profile_image %}
+                                                            {% set avatar = comment.profile_image | replace({'/upload/': '/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces:auto,q_auto,w_80,h_80/'}) %}
+                                                        {% else %}
+                                                            {% set avatar = networkData.templatePath ~ '/static/images/commenter.svg'  %}
+                                                        {% endif %}
+
+                                                        {% set commentDate = _AppHelper.getDefaultTimezoneDateTime(comment.publishedDateTime,'j F Y') %}
+
+                                                        <div class="comments__outerComment">
+                                                            <div class="comments__commentContainer">
+                                                                <div class="comments__Header">
+                                                                    <div class="comments__author">
+                                                                        <img class="comments__Avatar" src={{avatar}} alt="commenter avatar" />
+                                                                        <div class="comments__AuthorDetails">
+                                                                            <div class="comments__AuthorName">{{comment.firstname}} {{comment.lastname}}</div>
+                                                                            <div class="comments__Company">{{comment.organisation}}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="comments__Edits">
+                                                                        <div class="comments__CommentCountContainer">
+                                                                            <div class="comments__count">{{comment.thread_count}}</div>
+                                                                        </div>
+                                                                        <div class="comments__Time">
+                                                                            <div class="comments__EditTime">{{commentDate}}</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                {% if this.props.top_pick == 1 %}
+                                                                    <p class="comments__TopPick">Top comment</p>
+                                                                {% endif %}
+
+                                                                <div class="comments__body">{{comment.comment | raw}}</div>
+                                                                
+                                                            </div>
+                                                            <div class="comments__Fade"></div>
+                                                        </div>
+                                                    {% endif %}
+
+                                                    <div class="comment-subscribe">
+                                                        <h2 class="comment-subscribe__header">JOIN THE CONVERSATION</h2>
+                                                        <p class="comment-subscribe__p">Read and post comments with a <br class="d-sm-none" />Newsroom Pro subscription. </p>
+                                                        <p class="comment-subscribe__p comment-subscribe__p--bold">Subscribe now to start a free<br class="d-sm-none" /> 28-day trial. </p>
+                                                        <div class="comment-subscribe__buttons">
+                                                            <a href="/prosubscribe" class="_btn _btn--red comment-subscribe__button">SUBSCRIBE TO PRO</a>
+                                                            <button id="commentSigninBtn" class="_btn _btn--gray u-mobile-margin-top-10 comment-subscribe__button j-signin">SIGN IN TO PRO</button>
+                                                        </div>
+                                                        <a href="{{networkData.defaultBlogUrl}}/prosubscribe" class="comment-subscribe__link">View our subscription options</a>
+                                                    </div>
+
+                                                {% endif %}
+                                            </div>
+
+
+
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="col-12 col-lg-4 d-none d-lg-block">
                                 <div>
                                     <div class="u-heading__large u-heading__large-xs">Top Stories</div>
