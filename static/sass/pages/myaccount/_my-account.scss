@@ -449,7 +449,8 @@
         .cus_acnt__plan-table--feature {
             color: $blue_sh5 !important;
         }
-        .cus_acnt__plan-table--purchase {
+        .cus_acnt__plan-table--purchase,
+        .plan-table__purchase {
             background-color: transparent !important;
             color: $blue_sh5 !important;
             border: 1px solid $blue_sh5;
