@@ -127,6 +127,25 @@
 
 
 
+{% set commentSetting = false %}
+{% set allow_comments = false %}
+{% set show_comments = false %}
+{% if article.additionalInfo is defined and article.additionalInfo.comments is defined and article.additionalInfo.comments != null %} 
+    {% set commentSetting = article.additionalInfo.comments %}
+{% endif %}
+
+{% if commentSetting == "on" %}
+    {% set allow_comments = true %}
+    {% set show_comments = true %}
+{% endif %}
+
+{% if commentSetting == false or commentSetting == "off" %}
+    {% if commentCount > 0 %}
+        {% set show_comments = true %}
+    {% endif %}
+{% endif %}
+
+
 {% set articleImg = false %}
 {% set featured = false %}
 {% if article.media|length > 0 %}
@@ -548,6 +567,20 @@
             {% endif %}
         </div>
     </main>
+
+
+{% if not guestUser and show_comments %}
+    {{this.render('partials/_comments.twig', {
+        config: config,
+        networkData: networkData,
+        articleId: article.id,
+        articleGuid: article.guid,
+        commentCount:commentCount,
+        allowComments:allow_comments ? "true" : "false"
+    }) | raw}}
+{% endif %}
+
+
 
     <script>
         // main script is defered so event listener makes sure
