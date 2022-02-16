@@ -77,6 +77,12 @@
         }
     }
 
+    &--sitePrimaryClr {
+        color: $white;
+        border-color: var(--sec-color);
+        background-color: var(--sec-color);
+    }
+
     &--red {
         color: $white;
         border-color: $error;
