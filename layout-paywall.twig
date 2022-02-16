@@ -68,7 +68,7 @@
 
     <div class="c-subscriptions__plans">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 {% for plan in plans  %}
                     {% set val = plan.plan_value / 100 %}
                     {% set planPrice = plan.currency|replace({"AUD": "$", "NZD": "$", "GBP": "£", "USD": "$", "EUR": "€"}) ~ val|number_format(2, '.', ',') %}
