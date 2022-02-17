@@ -130,6 +130,10 @@
             font-weight: $weightBold;
             min-height: 60px;
             margin-bottom: 0;
+
+            @media #{$mobile} {
+                @include font-size(18);
+            }
         }
 
         &__description {
