@@ -15,8 +15,6 @@
         }
 
         &__heading {
-            @include font-size(14);
-            line-height: 1.43;
             margin-top: 3px;
             min-height: 36px;
         }
@@ -113,6 +111,13 @@
 @mixin card-9-tablet-base() {
     @include card-9-base();
     @include card-name("C9 tablet");
+
+    .c-cards-view {
+        &__heading {
+            @include font-size(14);
+            line-height: 1.43;
+        }
+    }
 
     // ****************************
     //          SOCIAL

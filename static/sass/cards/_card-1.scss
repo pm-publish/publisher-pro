@@ -23,8 +23,6 @@
         }
 
         &__heading {
-            @include font-size(14);
-            line-height: 1.43;
             margin-top: 3px;
         }
 
@@ -122,6 +120,13 @@
     @media #{$tablet} {
         @include card-1-tablet-base();
         @include card-name("C1 desktop");
+
+        .c-cards-view {
+            &__heading {
+                @include font-size(14);
+                line-height: 1.43;
+            }
+        }
     }
 }
 .card-1-desktop {

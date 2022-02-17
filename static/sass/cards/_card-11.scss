@@ -23,10 +23,8 @@
         }
 
         &__heading {
-            @include font-size(16);
             font-family: $secondaryFont;
             font-weight: $weightBold;
-            line-height: 1.5;
             margin-top: 8px;
         }
 
@@ -60,6 +58,13 @@
     @media #{$tablet} {
         @include card-11-tablet-base();
         @include card-name("C11 desktop");
+
+        .c-cards-view {
+            &__heading {
+                @include font-size(16);
+                line-height: 1.5;
+            }
+        }
     }
     &.card-11-highlighter {
         @media #{$tablet} {

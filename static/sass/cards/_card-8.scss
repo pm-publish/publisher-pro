@@ -32,8 +32,6 @@
         }
 
         &__heading {
-            @include font-size(14);
-            line-height: 1.43;
             margin-top: 3px;
         }
 
@@ -105,6 +103,13 @@
 @mixin card-8-tablet-base() {
     @include card-8-base();
     @include card-name("C8 tablet");
+
+    .c-cards-view {
+        &__heading {
+            @include font-size(14);
+            line-height: 1.43;
+        }
+    }
 
     // ****************************
     //          SOCIAL

@@ -8,8 +8,6 @@
         margin-bottom: 15px;
 
         &__heading {
-            @include font-size(14);
-            line-height: 1.43;
             margin-top: 5px;
             margin-bottom: 0;
             min-height: inherit;
@@ -40,6 +38,10 @@
     @media #{$tablet} {
         @include card-6-tablet-base();
         @include card-name("C6 desktop");
+        .c-cards-view {
+            @include font-size(14);
+            line-height: 1.43;
+        }
     }
 }
 

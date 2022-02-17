@@ -16,8 +16,6 @@
         }
 
         &__heading {
-            @include font-size(14);
-            line-height: 1.33;
             margin-top: 5px;
             height: 72px;
         }
