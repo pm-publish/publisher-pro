@@ -60,7 +60,7 @@
         @include card-name("C11 desktop");
 
         .c-cards-view {
-            &__heading {
+            &__heading  {
                 @include font-size(16);
                 line-height: 1.5;
             }
@@ -98,6 +98,11 @@
                 &__container {
                     flex: 1 0 calc(100% - 270px);
                     margin-left: 35px;
+                }
+                
+                &__heading  {
+                    @include font-size(16);
+                    line-height: 1.5;
                 }
             }
         }

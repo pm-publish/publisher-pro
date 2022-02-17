@@ -112,13 +112,6 @@
     @include card-9-base();
     @include card-name("C9 tablet");
 
-    .c-cards-view {
-        &__heading {
-            @include font-size(14);
-            line-height: 1.43;
-        }
-    }
-
     // ****************************
     //          SOCIAL
     // ****************************
@@ -146,11 +139,25 @@
     @media #{$tablet} {
         @include card-9-tablet-base();
         @include card-name("C9 desktop");
+
+        .c-cards-view {
+            &__heading {
+                @include font-size(14);
+                line-height: 1.43;
+            }
+        }
     }
 }
 .card-9-desktop {
     @media #{$desktop-up} {
         @include card-9-tablet-base();
         @include card-name("C9 desktop");
+
+        .c-cards-view {
+            &__heading {
+                @include font-size(14);
+                line-height: 1.43;
+            }
+        }
     }
 }
