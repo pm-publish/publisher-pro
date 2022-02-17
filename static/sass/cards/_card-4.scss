@@ -19,6 +19,11 @@
                 max-height: 185px;
                 min-height: 185px;
             }
+
+            &__heading {
+                @include font-size(14);
+                line-height: 1.33;
+            }
         }
     }
 }
