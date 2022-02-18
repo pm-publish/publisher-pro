@@ -56,13 +56,13 @@
         }
 
         &--solid {
-            background-color: $blue_sh5;
+            background-color: var(--sec-color);
             color: $white;
         }
 
         &--bordered {
-            border: 1px solid $blue_sh5;
-            color: $blue_sh5;
+            border: 1px solid var(--sec-color);
+            color: var(--sec-color);
         }
 
         &--grow {
@@ -424,7 +424,7 @@
         cursor: pointer;
 
         &:hover {
-            color: $blue_sh5;
+            color: var(--sec-color);
         }
     }
 
@@ -439,21 +439,21 @@
         font-weight: $weightBold;
         line-height: 1.5;
         text-decoration: none;
-        background-color: $blue_sh5;
+        background-color: var(--sec-color);
         color: $white;
         width: 100px;
     }
 
     .active {
-        background-color: #d5d1fd !important;
+        background-color: hsla(var(--sec-color-h), var(--sec-color-s), var(--sec-color-l), 0.2) !important;
         .cus_acnt__plan-table--feature {
-            color: $blue_sh5 !important;
+            color: var(--sec-color) !important;
         }
         .cus_acnt__plan-table--purchase,
         .plan-table__purchase {
             background-color: transparent !important;
-            color: $blue_sh5 !important;
-            border: 1px solid $blue_sh5;
+            color: var(--sec-color) !important;
+            border: 1px solid var(--sec-color);
         }
     }
 
@@ -571,7 +571,7 @@
             padding: 22px 28px;
         }
 
-        border-top: 12px solid $blue_sh5;
+        border-top: 12px solid var(--sec-color);
         background-color: $white;
        
 
@@ -762,7 +762,7 @@
       }
 
       &-link {
-        color: $blue_sh5;
+        color: var(--sec-color);
         line-height: 1.33;
         font-family: $primaryFont;
         font-weight: 700;
