@@ -33,7 +33,7 @@
 <div class="{{params.cardType}}c-cards-view__container">
     <div class="c-cards-view__container-topSection">
         <div class="c-cards-view__category-wrap">
-            {% if params.category != params.blogTitle %}
+            {% if params.category != params.blogTitle and config['additional-label'] == true %}
                 <div class="c-cards-view__additional-category">{{params.category}}</div>
             {% endif %}
             {% if config['card-label'] == true %}
