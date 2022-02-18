@@ -36,4 +36,10 @@
         }
     }
 
+    @media screen and (max-width: 567px) {
+      .plan-features__row {
+        @include flexbox;
+        @include flex-direction(column, vertical);
+      }
+    }
   }

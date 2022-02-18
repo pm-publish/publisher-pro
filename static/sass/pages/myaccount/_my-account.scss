@@ -468,6 +468,48 @@
             padding: 30px !important;
         }
     }
+
+    @media screen and (max-width: 567px) {
+        .plan-table {
+            &__table {
+                @include flexbox;
+                @include flex-direction(column, vertical);
+            }
+            &__header {
+                @include flexbox;
+                @include align-items(center);
+                &-labels {
+                    &:first-child {
+                        padding-left: 0;
+                        min-width: 120px;
+                    }
+                }
+            }
+
+            &__row {
+                @include flexbox;
+                @include flex-direction(row, horizontal);
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            &__col {
+                flex: 1 0 calc(100% / 3);
+                width: 100%;
+                height: auto;
+                margin-top: 15px;
+
+                &:last-child {
+                    flex: 1 0 100%;
+                }
+            }
+
+            &__purchase {
+                width: 100%;
+                margin: 10px 0 20px;
+            }
+        }
+    }
 }
 
 
