@@ -203,7 +203,11 @@
                                         <svg width="18" height="23" viewBox="0 0 18 23" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M12.343 9.456c0 1.834-1.497 3.322-3.343 3.322-1.846 0-3.343-1.488-3.343-3.322C5.657 7.62 7.154 6.133 9 6.133c1.846 0 3.343 1.488 3.343 3.323M9 14.31c-2.698 0-4.886-2.174-4.886-4.855C4.114 6.774 6.302 4.6 9 4.6s4.886 2.174 4.886 4.856c0 2.681-2.188 4.855-4.886 4.855M9 0C4.03 0 0 4.046 0 9.037c0 6.885 8.182 13.507 8.493 13.786a.816.816 0 0 0 1.014 0C9.86 22.543 18 15.922 18 9.037 18 4.047 13.97 0 9 0" fill="{{themeColor}}" fill-rule="evenodd"/>
                                         </svg>
-                                        <span class="c-eventdetail__info-text more_lineHeight">{{event.venue}}<br/>{{ event.address.address1 }},
+                                        <span class="c-eventdetail__info-text more_lineHeight">
+                                        {% if event.venue is defined and event.venue is not empty %}
+                                            {{event.venue}}<br/>
+                                        {% endif %}
+                                        {{ event.address.address1 }},
                                         {{ event.address.suburb }}</span>
                                     </div>
                                     {% if event.contactEmail is defined and event.contactEmail is not empty %}
@@ -220,10 +224,14 @@
                                             </g>
                                         </svg>
                                         <span class="c-eventdetail__info-text more_lineHeight">
-                                        {{event.contactName}} {{event.contactNumber}}<br/>
-                                        {{event.contactEmail}}<br/>
+                                        {% if event.contactName is defined and event.contactName is not empty %}
+                                            {{event.contactName}} {{event.contactNumber}}<br/>
+                                        {% endif %}
+                                        {% if event.contactEmail is defined and event.contactEmail is not empty %}
+                                            {{event.contactEmail}}<br/>
+                                        {% endif %}
                                         {% if event.websiteUrl is defined and event.websiteUrl is not empty %}
-                                            <a href="{{event.websiteUrl}}">{{event.websiteUrl}}</a>
+                                            <a href="{{event.websiteUrl}}" target="_blank">{{event.websiteUrl}}</a>
                                         {% endif %}
                                         </span>
                                     </div>
