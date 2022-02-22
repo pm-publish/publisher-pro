@@ -39,7 +39,7 @@
 
         &-item {
             @include flexbox;
-            @include align-items(center);
+            @include align-items(flex-start);
             margin-bottom: 12px;
 
             .o-icons__main {
@@ -60,6 +60,16 @@
             @include font-size(13);
             line-height: 1.23;
             margin-left: 24px;
+
+            a {
+                color: $black;
+                @include font-size(13);
+                line-height: 1.23;
+            }
+
+            &.more_lineHeight {
+                line-height: 1.5;
+            }
         }
     }
 

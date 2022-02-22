@@ -28,7 +28,7 @@
     {% set themeColor = networkData['styling']['colours']['primaryColor'] %}
 {% endif %}
 
-
+{{themeColor}}
 
 <div class="o-body-container o-body-container-md u-margin-top-60 mb-0 c-eventdetail">
     <div class="container">
@@ -196,18 +196,36 @@
                             <div class="c-eventdetail__container">
                                 <div class="c-eventdetail__info">
                                     <div class="c-eventdetail__info-item bold">
-                                        {{ this.render('partials/icons.twig', {icon: 'dateCal'} ) | raw }}
+                                        <svg class='o-icons__main' width='23' height='15'><g><title>Layer 1</title> <rect id='svg_11' height='5' width='5' y='0.94253' x='1.05747' stroke-width='0' stroke='#000' fill='{{themeColor}}' /> <rect id='svg_9' height='5' width='5' y='9' x='1.11494' stroke-width='0' stroke='#000' fill='{{themeColor}}'/> <rect id='svg_12' height='5' width='5' y='1' x='9' stroke-width='0' stroke='#000' fill='{{themeColor}}'/> <rect id='svg_10' height='5' width='5' y='9' x='9.05747' stroke-width='0' stroke='#000' fill='{{themeColor}}'/> <rect id='svg_13' height='5' width='5' y='1.05747' x='17' stroke-width='0' stroke='#000' fill='{{themeColor}}'/> <rect id='svg_8' height='5' width='5' y='9' x='17' stroke-width='0' stroke='#000' fill='{{themeColor}}'/> </g> </svg>
                                         <span class="c-eventdetail__info-text">{{ startDate }}{% if endDate != startDate and event.endDate != "" %} - {{endDate}}{% endif %}</span>
                                     </div>
                                     <div class="c-eventdetail__info-item">
-                                        {{ this.render('partials/icons.twig', {icon: 'location'} ) | raw }}
-                                        <span class="c-eventdetail__info-text">{{ event.address.address1 }},
+                                        <svg width="18" height="23" viewBox="0 0 18 23" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M12.343 9.456c0 1.834-1.497 3.322-3.343 3.322-1.846 0-3.343-1.488-3.343-3.322C5.657 7.62 7.154 6.133 9 6.133c1.846 0 3.343 1.488 3.343 3.323M9 14.31c-2.698 0-4.886-2.174-4.886-4.855C4.114 6.774 6.302 4.6 9 4.6s4.886 2.174 4.886 4.856c0 2.681-2.188 4.855-4.886 4.855M9 0C4.03 0 0 4.046 0 9.037c0 6.885 8.182 13.507 8.493 13.786a.816.816 0 0 0 1.014 0C9.86 22.543 18 15.922 18 9.037 18 4.047 13.97 0 9 0" fill="{{themeColor}}" fill-rule="evenodd"/>
+                                        </svg>
+                                        <span class="c-eventdetail__info-text more_lineHeight">{{event.venue}}<br/>{{ event.address.address1 }},
                                         {{ event.address.suburb }}</span>
                                     </div>
                                     {% if event.contactEmail is defined and event.contactEmail is not empty %}
                                     <div class="c-eventdetail__info-item">
-                                        {{ this.render('partials/icons.twig', {icon: 'email'} ) | raw }}
-                                        <span class="c-eventdetail__info-text">{{event.contactEmail}}</span>
+                                        <svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                                <g id="Event-contact-info-" transform="translate(-40.000000, -117.000000)">
+                                                    <g id="Group-2" transform="translate(40.000000, 117.000000)">
+                                                        <path d="M9,0 C6.61346319,0 4.32440545,0.948248358 2.63590185,2.63590185 C0.948229466,4.32431099 0,6.61346319 0,9 C0,11.3865368 0.948248358,13.6755946 2.63590185,15.3640982 C4.32431099,17.0517705 6.61346319,18 9,18 C11.3865368,18 13.6755946,17.0517516 15.3640982,15.3640982 C17.0517705,13.675689 18,11.3865368 18,9 C18,6.61346319 17.0517516,4.32440545 15.3640982,2.63590185 C13.675689,0.948229466 11.3865368,0 9,0 Z" id="Path" fill="{{themeColor}}"></path>
+                                                        <path d="M9,3.16277996 C9.31140404,3.16277996 9.61028316,3.28675406 9.83091455,3.50665813 C10.0515648,3.72730841 10.1755295,4.02616864 10.174796,4.33830944 C10.1755306,4.64971348 10.0515573,4.9485926 9.83091455,5.16922399 C9.61026427,5.38913751 9.31140404,5.51310216 9,5.51310216 C8.68859596,5.51310216 8.38971684,5.38912806 8.16908545,5.16922399 C7.94843517,4.94857371 7.82447052,4.64971348 7.825204,4.33830944 C7.82446939,4.02616864 7.94844273,3.72728952 8.16908545,3.50665813 C8.38973573,3.28674461 8.68859596,3.16277996 9,3.16277996 Z" id="Path" fill="#FFFFFF"></path>
+                                                        <path d="M9,6.98316576 C9.61838752,6.98316576 10.1157574,7.48053567 10.1157574,8.0989232 L10.1157574,13.7213493 C10.1157574,14.3397368 9.61838752,14.8371067 9,14.8371067 C8.38161248,14.8371067 7.88424256,14.3397368 7.88424256,13.7213493 L7.88424256,8.0989232 C7.88424256,7.48053567 8.38161248,6.98316576 9,6.98316576 Z" id="Path" fill="#FFFFFF"></path>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                        <span class="c-eventdetail__info-text more_lineHeight">
+                                        {{event.contactName}} {{event.contactNumber}}<br/>
+                                        {{event.contactEmail}}<br/>
+                                        {% if event.websiteUrl is defined and event.websiteUrl is not empty %}
+                                            <a href="{{event.websiteUrl}}">{{event.websiteUrl}}</a>
+                                        {% endif %}
+                                        </span>
                                     </div>
                                     {% endif %}
                                 </div>
