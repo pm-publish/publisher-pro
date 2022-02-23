@@ -132,7 +132,7 @@
                         {% set superscriptEndDay = 'th' %}
                         {% if endDay == '01' %}
                             {% set superscriptEndDay = 'st' %}
-                            {% elseif endDay == '02' %}
+                            {% elseif endDay == '02' or endDay == '22' %}
                                 {% set superscriptEndDay = 'nd' %}
                             {% elseif endDay == '03' %}
                                 {% set superscriptEndDay = 'rd' %}
