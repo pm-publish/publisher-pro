@@ -123,7 +123,7 @@
                         {% set superscriptStartDay = 'th' %}
                         {% if startDay == '01' %}
                             {% set superscriptStartDay = 'st' %}
-                            {% elseif startDay == '02' %}
+                            {% elseif startDay == '02' or startDay == '22' %}
                                 {% set superscriptStartDay = 'nd' %}
                             {% elseif startDay == '03' %}
                                 {% set superscriptStartDay = 'rd' %}
