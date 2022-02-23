@@ -113,10 +113,27 @@
                         <h2  class="c-eventcards-view__heading js-card-heading j-truncate {{figureClass}}">{{ quotes.smarten(event.title) }}</h2>
                     </div>
 
+                    {% set superscriptStartDay = 'th' %}
+                    {% if startDay == '01' %}
+                        {% set superscriptStartDay = 'st' %}
+                        {% elseif startDay == '02' or startDay == '22' %}
+                            {% set superscriptStartDay = 'nd' %}
+                        {% elseif startDay == '03' %}
+                            {% set superscriptStartDay = 'rd' %}
+                    {% endif %}
+
+                    {% set superscriptEndDay = 'th' %}
+                    {% if endDay == '01' %}
+                        {% set superscriptEndDay = 'st' %}
+                        {% elseif endDay == '02' or endDay == '22' %}
+                            {% set superscriptEndDay = 'nd' %}
+                        {% elseif endDay == '03' %}
+                            {% set superscriptEndDay = 'rd' %}
+                    {% endif %}
                     <div class="c-eventcards-view__sec2">
                         {% if event.startDate != '' %}
                             <div class="c-eventcards-view__conditionalDate">
-                                <span class="c-eventcards-view__conditionalDate-value">{{ startDay }}th {% if endDate != "" and endDate != startDate %} - {{endDay}}th  {% endif %}</span>
+                                <span class="c-eventcards-view__conditionalDate-value">{{ startDay ~ superscriptStartDay }} {% if endDate != "" and endDate != startDate %} - {{endDay ~ superscriptEndDay}}  {% endif %}</span>
                                 <span class="c-eventcards-view__conditionalDate-label">{{startMonthFull}}</span>
                             </div>
                         {% endif %}
