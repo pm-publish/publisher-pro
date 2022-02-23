@@ -59,7 +59,7 @@ export default class AdLoader {
             const keysString = keysArray.join(',');
             Server.fetch(_appJsConfig.appHostName + '/api/ad/get-all?keywords='+keysString).done((data) => {
                 
-                const k = 0;
+                let k = 0;
 
                 if (data.length < 1 ){
                     console.log('no ads found with those keywords', keysString)
