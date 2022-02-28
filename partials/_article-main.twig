@@ -36,6 +36,7 @@
             {% if params.category != params.blogTitle and config['additional-label'] == true %}
                 <div class="c-cards-view__additional-category">{{params.category}}</div>
             {% endif %}
+            <div class="d-none">{{_AppHelper.printArray(params)}}</div>
             {% if config['card-label'] == true %}
                 <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
             {% endif %}
