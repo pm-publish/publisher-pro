@@ -3,8 +3,8 @@
 {% set colorInverse = '' %}
 {% set inverseContainerClass = '' %}
 {% if background is defined and background is not empty %}
-{% set colorInverse = 'inverse' %}
-{% set inverseContainerClass = 'c-cards--inverse' %}
+    {% set colorInverse = 'inverse' %}
+    {% set inverseContainerClass = 'c-cards--inverse' %}
 {% endif %}
 
 <div class="row" data-section="05">
@@ -20,12 +20,12 @@
 <div class="row">
     <div class="col-12">
         {{this.render('../_single-article.twig', {
-        article: articles[articleCount],
-        position: (articleCount+1),
-        imageSize: {width: 633, height: 400},
-        containerClass: 'card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20 '~inverseContainerClass,
-        timeSuppress: timeSuppress
-        }) | raw}}
+            article: articles[articleCount],
+            position: (articleCount+1),
+            imageSize: {width: 633, height: 400},
+            containerClass: 'card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20 '~inverseContainerClass,
+            timeSuppress: timeSuppress
+            }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
     </div>
 
@@ -33,13 +33,13 @@
 
     <div class="col-12 col-lg-3 left-border">
         {{this.render('../_single-article.twig', {
-        article: articles[articleCount],
-        position: (articleCount+1),
-        imageSize: {width: 306, height: 185},
-        containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription "~inverseContainerClass,
-        timeSuppress: timeSuppress
-        }) | raw}}
-        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+            article: articles[articleCount],
+            position: (articleCount+1),
+            imageSize: {width: 306, height: 185},
+            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription "~inverseContainerClass,
+            timeSuppress: timeSuppress
+            }) | raw}}
+            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
     </div>
     {% endfor %}
 </div>

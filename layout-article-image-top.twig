@@ -81,8 +81,6 @@
     {% endfor %}
 
 {% else %}
-    {# Only grab these if article is not paywalled #}
-    {# {% set relatedArticles = _Article.getPopularArticles({ blogId: article.blog.id, limit: 3, excludeArticleIds : [article.id], interval: 168 }) %} #}
     {% set recentArticles = _Article.getRecentArticles({ limit: 5, excludeArticleIds : [article.id] }) %}
 {% endif %}
 

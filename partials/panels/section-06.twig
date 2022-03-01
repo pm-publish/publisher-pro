@@ -1,16 +1,25 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
-{% set popularArticles = _Article.getPopularArticles({ 
-    limit: 6, 
-    sortBy: 'VIEWS', 
-    scope: 'network',
-    interval: 168 
-
-     }) %}
 
 
-<div class="row">
+{% set cacheKey = "articlePopular_section6" %}
+{% set popular = getCache(cacheKey) %}
+{% if (popular is empty) %}
+    {% set popular = _Article.getPopularArticles({ 
+        limit: 6, 
+        sortBy: 'VIEWS', 
+        scope: 'network',
+        interval: 168,
+        includePrimaryBlog: true
+    }) %}
+    {% set cache = setCache(cacheKey, popular, 500) %} 
+{% endif %} 
+
+
+
+
+<div class="row" data-section="06">
     <div class="col-12">
         <div class="u-generic-topBorder "></div>
         <div class="c-page-head c-page-head-xs">
@@ -21,10 +30,10 @@
 
 <div class="c-cards-container c-cards-container-xs u-margin-bottom-50">
     <div class="row">
-        {% for i in 0..5 if popularArticles[i] %}
+        {% for i in 0..5 if popular[i] %}
                 <li class="col-12 col-lg-2 left-border">
                     {{this.render('../_single-article.twig', {
-                        article: popularArticles[i], 
+                        article: popular[i], 
                         imageSuppress: true,
                         containerClass: "card-6-mobile card-6-tablet card-6-desktop"
                     }) | raw}}
@@ -51,11 +60,11 @@
 
                 <div class="col-12 col-lg-3 left-border">
                     {{this.render('../_single-article.twig', {
-                    article: articles[articleCount],
-                    position: (articleCount+1),
-                    imageSize: {width: 79, height: 96},
-                    containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                    timeSuppress: timeSuppress
+                        article: articles[articleCount],
+                        position: (articleCount+1),
+                        imageSize: {width: 79, height: 96},
+                        containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                        timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 </div>
@@ -68,11 +77,11 @@
 
                 <div class="col-12 col-lg-3 left-border">
                     {{this.render('../_single-article.twig', {
-                    article: articles[articleCount],
-                    position: (articleCount+1),
-                    imageSize: {width: 79, height: 96},
-                    containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                    timeSuppress: timeSuppress
+                        article: articles[articleCount],
+                        position: (articleCount+1),
+                        imageSize: {width: 79, height: 96},
+                        containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                        timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                 </div>

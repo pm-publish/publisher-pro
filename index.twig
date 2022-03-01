@@ -16,6 +16,11 @@
 {% set panels = [] %}
 {% set breaking = {} %}
 
+{{ set(this, 'params', {
+    "config": config,
+    "networkData": networkData
+}) }}
+
 
 {# *******************************************************
 CONFIG OPTIONS SET IN PLATFORM
@@ -85,41 +90,39 @@ CONFIG OPTIONS SET IN PLATFORM
         ******************************************************* #}
         {% for key in blogFeeds | keys %}
 
-        {% set break = false %}
-        {% for blog in networkData.networkBlogs if not break %}
+            {% set break = false %}
+            {% for blog in networkData.networkBlogs if not break %}
 
 
-        {# FOR DEV #}
-        {% if dev %}
-        {% set blogFeeds = blogFeeds | merge({
-        (key) : {
-        'feed' : _Blog.getBlogFeed({'limit': 2, 'offset': 0}),
-        'link' : blog.link
-        }
-        }) %}
-        {% endif %}
+                {# FOR DEV #}
+                {% if dev %}
+                    {% set blogFeeds = blogFeeds | merge({
+                        (key) : {
+                        'feed' : _Blog.getBlogFeed({'limit': 2, 'offset': 0}),
+                        'link' : blog.link
+                        } }) %}
+                {% endif %}
 
 
-        {# FOR PRODUCTION #}
-        {% if not dev and blog.title | lower == key | lower %}
-        {# {% if blog.title | lower == key | lower %} #}
-        {% set feed = _Blog.getBlogFeed({
-        'offset' : 0,
-        'blogid' : blog.guid,
-        'limit' : blogFeeds[key]['limit']
-        })
-        %}
+                {# FOR PRODUCTION #}
+                {% if not dev and blog.title | lower == key | lower %}
+                    {% set feed = _Blog.getBlogFeed({
+                        'offset' : 0,
+                        'blogid' : blog.guid,
+                        'limit' : blogFeeds[key]['limit']
+                        })
+                    %}
 
-        {% set blogFeeds = blogFeeds | merge({
-        (key) : {
-        'feed' : feed,
-        'link' : blog.link
-        }
-        }) %}
-        {% set break = true %}
-        {% endif %}
+                    {% set blogFeeds = blogFeeds | merge({
+                        (key) : {
+                        'feed' : feed,
+                        'link' : blog.link
+                        }
+                    }) %}
+                    {% set break = true %}
+                {% endif %}
 
-        {% endfor %}
+            {% endfor %}
         {% endfor %}
 
 
@@ -132,32 +135,32 @@ CONFIG OPTIONS SET IN PLATFORM
         {% set bannerNo = 1 %}
         {% for pagesection in panels | keys %}
 
-        {% if panels[pagesection]['active'] is not defined or panels[pagesection]['active'] == true %}
+            {% if panels[pagesection]['active'] is not defined or panels[pagesection]['active'] == true %}
 
 
-        {% set params = {
-        'networkData' : networkData,
-        'blogFeeds' : blogFeeds,
-        'blogData' : blogData,
-        'config' : panels[pagesection],
-        'dev' : dev
-        } %}
+            {% set params = {
+                'networkData' : networkData,
+                'blogFeeds' : blogFeeds,
+                'blogData' : blogData,
+                'config' : panels[pagesection],
+                'dev' : dev
+            } %}
 
-        {% if breaking.partial is defined and "00" in panels[pagesection]['template'] %}
-        {% set params = params | merge({'config' : breaking.partial }) %}
-        {% endif %}
+            {% if breaking.partial is defined and "00" in panels[pagesection]['template'] %}
+                {% set params = params | merge({'config' : breaking.partial }) %}
+            {% endif %}
 
-        {{this.render('render.twig', params) | raw}}
+            {{this.render('render.twig', params) | raw}}
 
-        {% if loop.index in bannerSpots %}
-        {% if config['inventory']['adSpace']['banner'][bannerNo] is defined %}
-        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][bannerNo]}}" data-adshape="banner"></div>
-        {% endif %}
-        {% set bannerNo = bannerNo + 1 %}
-        {% endif %}
+            {% if loop.index in bannerSpots %}
+                {% if config['inventory']['adSpace']['banner'][bannerNo] is defined %}
+                    <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][bannerNo]}}" data-adshape="banner"></div>
+                {% endif %}
+                {% set bannerNo = bannerNo + 1 %}
+            {% endif %}
 
 
-        {% endif %}
+            {% endif %}
 
         {% endfor %}
 
