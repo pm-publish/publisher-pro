@@ -9,7 +9,21 @@
 {% set articles = articlesArr.articles %}
 {% set firstCount = articles | length %}
 
-{% set popularArticles = _Article.getPopularArticles({ limit: 5, sortBy: 'VIEWS', scope: 'blog' }) %}
+
+
+{% set cacheKey = "articlePopular_blog" %}
+{% set popularArticles = getCache(cacheKey) %}
+{% if (popularArticles is empty) %}
+    {% set popularArticles = _Article.getPopularArticles({ 
+        limit: 5, 
+        sortBy: 'VIEWS', 
+        scope: 'blog',
+    }) %}
+    {% set cache = setCache(cacheKey, popularArticles, 500) %} 
+{% endif %} 
+
+
+
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
