@@ -117,8 +117,35 @@
             {% endif %}
         {% endif %}
     {% endif %}
-    {% set recentArticles = _Article.getRecentArticles({ blogId: article.blog.id, limit: 4, excludeArticleIds : [article.id], interval: 168 }) %}
-    {% set popularArticles = _Article.getPopularArticles({  limit: 4,  sortBy: 'VIEWS', scope: 'network'  }) %}
+    
+    {% set cacheKey = "articleRecent_articlePage" %}
+    {% set recentArticles = getCache(cacheKey) %}
+    {% if (recentArticles is empty) %}
+        {% set recentArticles = _Article.getRecentArticles({ 
+            blogId: article.blog.id, 
+            limit: 4, 
+            excludeArticleIds : [article.id], 
+            interval: 168 
+        }) %}
+
+        {% set cache = setCache(cacheKey, recentArticles, 500) %} 
+    {% endif %}  
+
+
+
+    {% set cacheKey = "articlePopular_articlePage" %}
+    {% set popularArticles = getCache(cacheKey) %}
+    {% if (popularArticles is empty) %}
+        {% set popularArticles = _Article.getPopularArticles({ 
+            limit: 4, 
+            sortBy: 'VIEWS', 
+            scope: 'network',
+            includePrimaryBlog: true
+        }) %}
+        {% set cache = setCache(cacheKey, popularArticles, 500) %} 
+    {% endif %} 
+    
+    
 {% endif %}
 
 
