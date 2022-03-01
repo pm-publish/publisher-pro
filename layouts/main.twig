@@ -1,13 +1,22 @@
-{% set networkData = _Network.getNetworkData() %}
 {% set blogData = _Blog.getBlog() %}
 {% set addresses = blogData.settings['contact'] %}
 {% set pageClass = _Page.getBodyClass() %}
 {% set layout = _Page.getLayoutName() %}
 {% set blogName = blogData.title %}
 {% set url = _AppHelper.getParsedUrl() %}
-{% set config = _Network.getThemeConfig() %}
+
+{% if this.params.networkData is not defined %}
+    {% set networkData = _Network.getNetworkData() %}
+{% else %}
+    {% set networkData = this.params.networkData %}
+{% endif %}
 
 
+{% if this.params.config is not defined %}
+    {% set config = _Network.getThemeConfig() %}
+{% else %}
+    {% set config = this.params.config %}
+{% endif %}
 
 {% set showPaywall = false %}
 {% set paywallOn = blogData['showPaywall'] %}

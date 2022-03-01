@@ -2,10 +2,15 @@
 {{ set(this, 'title', article.title) }}
 {{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
 
-
 {% set networkData = _Network.getNetworkData() %}
 {% set blogInfo = _Blog.getBlog() %}
 {% set config = _Network.getThemeConfig() %}
+
+{{ set(this, 'params', {
+    "config": config,
+    "networkData": networkData
+}) }}
+
 
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['primaryColor'] is defined %}
