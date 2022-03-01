@@ -1,9 +1,18 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
-{% set networkData = _Network.getNetworkData() %}
-{% set site        = networkData.title | lower | split(" ")[0]%}
 {% set blogData     = _Blog.getBlog() %}
 
+{# {% cache 'section_1' 300 %} #}
+
+
+{% set networkData = _Network.getNetworkData() %}
+{% set site        = networkData.title | lower | split(" ")[0]%}
 {% set config       = _Network.getThemeConfig() %}
+
+
+{{ set(this, 'params', {
+    "config": config,
+    "networkData": networkData
+}) }}
 
 
 
@@ -201,3 +210,5 @@
         });
     });
 </script>
+
+{# {% endcache %} #}

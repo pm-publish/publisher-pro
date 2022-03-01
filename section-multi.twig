@@ -1,6 +1,6 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 
-{# {% cache 'indexCache_1' 300 %} #}
+{# {% cache 'section_multi_1' 300 %} #}
 
 {% set networkData  = _Network.getNetworkData() %}
 {% set layoutTitle  = _Page.getLayoutTitle() | lower | replace({' ': '_'}) %}
@@ -15,7 +15,10 @@
 {% set panels       = [] %}
 {% set bannerSlots = [] %}
 
-
+{{ set(this, 'params', {
+    "config": config,
+    "networkData": networkData
+}) }}
 
 {# *******************************************************
             CONFIG OPTIONS SET IN PLATFORM
