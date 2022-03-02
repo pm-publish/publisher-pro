@@ -85,9 +85,9 @@
 
 {% set subscribeText = 'Subscribe now to ' ~ networkData.title %}
 
-{% if config['subscriptions'] is defined %}
-    {% if config['subscriptions']['subscribe'] is defined and config['subscriptions']['subscribe'] != "" %}
-        {% set subscribeText = config['subscriptions']['subscribe'] %}
+{% if config['paywall']['subscriptions'] is defined %}
+    {% if config['paywall']['subscriptions']['subscribe'] is defined and config['paywall']['subscriptions']['subscribe'] != "" %}
+        {% set subscribeText = config['paywall']['subscriptions']['subscribe'] %}
     {% endif %}
 {% endif %}
 
