@@ -16,13 +16,17 @@
                                         </div>
                                         <div class="col-12 col-md-6 offset-md-1">
                                                 <div class="c-thankyouPage__content">
-                                                        {% if thankyou['maintext'] is defined and thankyou['maintext'] != '' %}
-                                                                <h2 class="c-thankyouPage__content-heading">{{thankyou['maintext']}}</h2>
+                                                        {% if thankyou['headingText'] is defined and thankyou['headingText'] != '' %}
+                                                                <h2 class="c-thankyouPage__content-heading">{{thankyou['headingText']}}</h2>
                                                         {% else %}
                                                                 <h2 class="c-thankyouPage__content-heading">Thank you for <br class="d-none d-md-block">subscribing.</h2>
                                                         {% endif %}
-                                                        <p class="c-thankyouPage__content-subText">Visit the <a href="{{networkData.defaultBlogUrl}}/user/edit-profile"><b>My Account</b></a> page to update your details.</p>
-                                                
+                                                        {% if thankyou['descriptionText'] is defined and thankyou['descriptionText'] != '' %}
+                                                                <p class="c-thankyouPage__content-subText">{{thankyou['descriptionText']}}</p>
+                                                        {% else %}
+                                                                <p class="c-thankyouPage__content-subText">Visit the <a href="{{networkData.defaultBlogUrl}}/user/edit-profile"><b>My Account</b></a> page to update your details.</p>
+                                                        {% endif %}
+
                                                         {% set buttonUrl = networkData.defaultBlogUrl %}
                                                         {% set buttonText = 'Start Reading' %}
                                                         {% if thankyou['button']['url'] is defined and thankyou['button']['url'] != '' %}
