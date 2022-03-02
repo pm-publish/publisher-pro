@@ -34,10 +34,20 @@
 {% endif %}
 
 {% set paywall = true %}
+{% set subscribeLabel = "Subscribe" %}
 
-{% if config['paywall'] is defined and config['paywall'] == false %}
-{% set paywall = false %}
+{% if config['paywall'] is defined %}
+    {% if config['paywall']['active'] is defined and config['paywall']['active'] == false %}
+        {% set paywall = false %}
+    {% endif %}
+    {% if config['paywall']['subscribe-label'] is defined  %}
+        {% set subscribeLabel = config['paywall']['subscribe-label'] %}   
+    {% endif %}
 {% endif %}
+
+
+
+
 
 {% if networkData.logoMedia | length > 0 %}
 {% set logo = _Media.getMediaUrl(networkData.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
@@ -51,25 +61,26 @@
                     <div class="c-header-top-bar__container">
                         <aside class="c-header-top-bar__date">{{date}}</aside>
                         {% if paywall %}
-                        {% if loggedin %}
-                        <div class="c-navigation-4 c-navigation-4-xs d-flex d-sm-none">
-                            <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
-                                account</a>
-                            <a href="{{_AppHelper.getLogoffUrl()}}"
-                                class="c-navigation__item c-navigation__item--borderred">Log out</a>
-                        </div>
-                        {% else %}
-                        <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-flex d-sm-none">
-                            <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
-                            <a href="{{networkData.defaultBlogUrl}}/subscriptions"
-                                class="c-navigation__item c-navigation__item--borderred subscribe">Subscribe</a>
-                        </div>
-                        {% endif %}
+                            {% if loggedin %}
+                                <div class="c-navigation-4 c-navigation-4-xs d-flex d-sm-none">
+                                    <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
+                                        account</a>
+                                    <a href="{{_AppHelper.getLogoffUrl()}}"
+                                        class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                                </div>
+                            {% else %}
+                                <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-flex d-sm-none">
+                                    <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
+                                    <a href="{{networkData.defaultBlogUrl}}/subscriptions"
+                                        class="c-navigation__item c-navigation__item--borderred subscribe">{{subscribeLabel}} 
+                                    </a>
+                                </div>
+                            {% endif %}
                         {% endif %}
                         <aside class="c-navigation-0 c-navigation-0-xs">
                             <ul class="c-navigation__grid">
                                 {{this.render('../_submenu_navigation.twig', {
-                                items: headerTopMenu
+                                    items: headerTopMenu
                                 }) | raw }}
                             </ul>
                         </aside>
@@ -106,11 +117,17 @@
                             <a href="{{_AppHelper.getLogoffUrl()}}"
                                 class="c-navigation__item c-navigation__item--borderred">Log out</a>
                         </div>
-                        {% else %}
+                       {% else %}
                         <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-none d-sm-flex">
                             <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
                             <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
-                                class="c-navigation__item c-navigation__item--borderred subscribe">Subscribe</a>
+                                class="c-navigation__item c-navigation__item--borderred subscribe">
+                                {% if config['subscribe-label'] is defined and config['subscribe-label'] is not empty %} 
+                                    {{config['subscribe-label']}} 
+                                {% else %} 
+                                    Subscribe 
+                                {% endif %} 
+                            </a>
                         </div>
                         {% endif %}
                         {% endif %}
@@ -145,7 +162,13 @@
 
 <div class="c-sidebarMenu">
     <a href="/subscriptions" class="c-sidebarMenu__subscribe">
-        <span>Subscribe today</span>
+        <span>
+        {% if config['subscribe-label'] is defined and config['subscribe-label'] is not empty %} 
+            {{config['subscribe-label']}} 
+        {% else %} 
+            Subscribe 
+        {% endif %} 
+         today</span>
         {#<span>
             <img src={{networkData.templatePath}}/static/icons/icons-navigation-arrow.svg />
         </span>#}
