@@ -121,12 +121,7 @@
                         <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-none d-sm-flex">
                             <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
                             <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
-                                class="c-navigation__item c-navigation__item--borderred subscribe">
-                                {% if config['subscribe-label'] is defined and config['subscribe-label'] is not empty %} 
-                                    {{config['subscribe-label']}} 
-                                {% else %} 
-                                    Subscribe 
-                                {% endif %} 
+                                class="c-navigation__item c-navigation__item--borderred subscribe">{{subscribeLabel}} 
                             </a>
                         </div>
                         {% endif %}
