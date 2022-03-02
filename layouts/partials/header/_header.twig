@@ -34,10 +34,20 @@
 {% endif %}
 
 {% set paywall = true %}
+{% set subscribeLabel = "Subscribe" %}
 
-{% if config['paywall'] is defined and config['paywall'] == false %}
-{% set paywall = false %}
+{% if config['paywall'] is defined %}
+    {% if config['paywall']['active'] is defined and config['paywall']['active'] == false %}
+        {% set paywall = false %}
+    {% endif %}
+    {% if config['paywall']['subscribe-label'] is defined  %}
+        {% set subscribeLabel = config['paywall']['subscribe-label'] %}   
+    {% endif %}
 {% endif %}
+
+
+
+
 
 {% if networkData.logoMedia | length > 0 %}
 {% set logo = _Media.getMediaUrl(networkData.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
@@ -51,31 +61,26 @@
                     <div class="c-header-top-bar__container">
                         <aside class="c-header-top-bar__date">{{date}}</aside>
                         {% if paywall %}
-                        {% if loggedin %}
-                        <div class="c-navigation-4 c-navigation-4-xs d-flex d-sm-none">
-                            <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
-                                account</a>
-                            <a href="{{_AppHelper.getLogoffUrl()}}"
-                                class="c-navigation__item c-navigation__item--borderred">Log out</a>
-                        </div>
-                        {% else %}
-                        <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-flex d-sm-none">
-                            <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
-                            <a href="{{networkData.defaultBlogUrl}}/subscriptions"
-                                class="c-navigation__item c-navigation__item--borderred subscribe">
-                                {% if config['subscribe-label'] is defined and config['subscribe-label'] is not empty %} 
-                                    {{config['subscribe-label']}} 
-                                {% else %} 
-                                    Subscribe 
-                                {% endif %}     
-                            </a>
-                        </div>
-                        {% endif %}
+                            {% if loggedin %}
+                                <div class="c-navigation-4 c-navigation-4-xs d-flex d-sm-none">
+                                    <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
+                                        account</a>
+                                    <a href="{{_AppHelper.getLogoffUrl()}}"
+                                        class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                                </div>
+                            {% else %}
+                                <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-flex d-sm-none">
+                                    <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
+                                    <a href="{{networkData.defaultBlogUrl}}/subscriptions"
+                                        class="c-navigation__item c-navigation__item--borderred subscribe">{{subscribeLabel}} 
+                                    </a>
+                                </div>
+                            {% endif %}
                         {% endif %}
                         <aside class="c-navigation-0 c-navigation-0-xs">
                             <ul class="c-navigation__grid">
                                 {{this.render('../_submenu_navigation.twig', {
-                                items: headerTopMenu
+                                    items: headerTopMenu
                                 }) | raw }}
                             </ul>
                         </aside>
