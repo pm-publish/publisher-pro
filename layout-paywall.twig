@@ -41,12 +41,12 @@
 {% set subscribeText = 'Subscribe now to ' ~ networkData.title %}
 {% set signupText = 'Sign up now for unlimited access to the latest local news, sport and special features.' %}
 
-{% if config['subscriptions'] is defined %}
-    {% if config['subscriptions']['subscribe'] is defined and config['subscriptions']['subscribe'] != "" %}
-        {% set subscribeText = config['subscriptions']['subscribe'] %}
+{% if config['paywall']['subscriptions'] is defined %}
+    {% if config['paywall']['subscriptions']['subscribe'] is defined and config['paywall']['subscriptions']['subscribe'] != "" %}
+        {% set subscribeText = config['paywall']['subscriptions']['subscribe'] %}
     {% endif %}
-    {% if config['subscriptions']['signup'] is defined and config['subscriptions']['signup'] != "" %}
-        {% set signupText = config['subscriptions']['signup'] %}
+    {% if config['paywall']['subscriptions']['signup'] is defined and config['paywall']['subscriptions']['signup'] != "" %}
+        {% set signupText = config['paywall']['subscriptions']['signup'] %}
     {% endif %}
 {% endif %}
 
