@@ -51,6 +51,15 @@
 {% endif %}
 
 
+{% set subscribeLabel = "Subscribe" %}
+
+{% if config['paywall'] is defined %}
+    {% if config['paywall']['subscribe-label'] is defined  %}
+        {% set subscribeLabel = config['paywall']['subscribe-label'] %}   
+    {% endif %}
+{% endif %}
+
+
 <div class="c-subscriptions c-subscriptions-xs">
     <div class="c-subscriptions__content">
         <div class="container">
@@ -101,9 +110,9 @@
                             </div>
                             <div class="plan-wrap__btn">
                                 {% if plan.trial_status == "1" %}
-                                        <a href="{{networkData.defaultBlogUrl}}/subscribe?plan={{plan.guid}}&amp;trial=true" class="_btn">Subscribe</a>
+                                        <a href="{{networkData.defaultBlogUrl}}/subscribe?plan={{plan.guid}}&amp;trial=true" class="_btn">{{subscribeLabel}}</a>
                                 {% else %}
-                                    <a href="{{networkData.defaultBlogUrl}}/subscribe?plan={{plan.guid}}" class="_btn">Subscribe</a>
+                                    <a href="{{networkData.defaultBlogUrl}}/subscribe?plan={{plan.guid}}" class="_btn">{{subscribeLabel}}</a>
                                 {% endif %}
                             </div>
                         </div>

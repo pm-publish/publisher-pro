@@ -5,9 +5,15 @@
 {% set footerBottomMenu = _Menu.get({'menuType': 'header', 'menuGroupName': 'footer-bottom'}) %}
 {% set addresses = defaultBlog.contact %}
 {% set paywall = true %}
+{% set subscribeLabel = "Subscribe" %}
 
-{% if config['paywall'] is defined and config['paywall'] == false %}
-{% set paywall = false %}
+{% if config['paywall'] is defined %}
+    {% if config['paywall']['active'] is defined and config['paywall']['active'] == false %}
+        {% set paywall = false %}
+    {% endif %}
+    {% if config['paywall']['subscribe-label'] is defined  %}
+        {% set subscribeLabel = config['paywall']['subscribe-label'] %}   
+    {% endif %}
 {% endif %}
 
 {% set loggedin = _User.isGuest() ? false : true %}
@@ -55,7 +61,7 @@
                     <div class="c-navigation-4 c-navigation-4-xs">
                     <a href="javascript:;" class="c-navigation__item">Log in</a>
                     <a href="javascript:;"
-                        class="c-navigation__item subscribe c-navigation__item--borderred">Subscribe</a>
+                        class="c-navigation__item subscribe c-navigation__item--borderred">{{subscribeLabel}}</a>
                     </div>
                 {% endif %}
                 {% endif %}

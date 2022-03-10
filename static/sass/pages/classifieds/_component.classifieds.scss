@@ -20,7 +20,7 @@
         display:none;
         top:50%;
         transform: rotate(90deg);
-        background-color: $mainColor;
+        background-color: var(--sec-color);
         color:white;
         font-weight: $weightBold;
         border-radius: 5px 5px 0 0;
