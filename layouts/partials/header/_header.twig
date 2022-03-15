@@ -114,23 +114,20 @@
                             </a>
                         </div>
 
-                        {% if paywall %}
-                        {% if loggedin %}
+                        
                         <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs d-none d-sm-flex">
-                            <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
-                                account</a>
-                            <a href="{{_AppHelper.getLogoffUrl()}}"
-                                class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                            {% if paywall %}
+                                {% if loggedin %}
+                                    <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My account</a>
+                                    <a href="{{_AppHelper.getLogoffUrl()}}" class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                                {% else %}
+                                    <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
+                                    <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
+                                        class="c-navigation__item c-navigation__item--borderred subscribe">{{subscribeLabel}} 
+                                    </a>
+                                {% endif %}  
+                            {% endif %}  
                         </div>
-                       {% else %}
-                        <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs  d-none d-sm-flex">
-                            <a id="signinBtn" href="javascript:;" class="c-navigation__item">Log in</a>
-                            <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions"
-                                class="c-navigation__item c-navigation__item--borderred subscribe">{{subscribeLabel}} 
-                            </a>
-                        </div>
-                        {% endif %}
-                        {% endif %}
                     </div>
                 </div>
             </div>
