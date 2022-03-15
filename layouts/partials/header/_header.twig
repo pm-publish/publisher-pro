@@ -52,6 +52,11 @@
 {% if networkData.logoMedia | length > 0 %}
 {% set logo = _Media.getMediaUrl(networkData.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
 {% endif %}
+
+
+<div id="pp-banner" class="d-print-none u-desktop-margin-bottom-20 u-desktop-padding-bottom-10 "></div>
+
+
 <div class="c-header c-header-xs">
     {# Begin header top bar #}
     <div class="c-header-top-bar">

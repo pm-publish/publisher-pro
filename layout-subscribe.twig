@@ -91,6 +91,14 @@
     {% endif %}
 {% endif %}
 
+{% set subscribeLabel = "Subscribe" %}
+
+{% if config['paywall'] is defined %}
+    {% if config['paywall']['subscribe-label'] is defined  %}
+        {% set subscribeLabel = config['paywall']['subscribe-label'] %}   
+    {% endif %}
+{% endif %}
+
 <main id="main" class="o-body-container o-body-container-md u-margin-top-50" role="main">
     <div id="stripekey" class="d-none">{{networkData['stripe_publishable_key']}}</div>
     <div id="paywallsubscribe" class="u-hide" ></div>
@@ -293,7 +301,7 @@
 
                                                     <div class="form-group" style="margin-top:30px;">
                                                         <button type="submit" id="subscribe"
-                                                            class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
+                                                            class="c-button c-button-block c-button--lightBlue c-button--radius">{{subscribeLabel}} now</button>
                                                     </div>
 
                                                 {% else %}
@@ -309,12 +317,12 @@
 
                                                             <div class="form-group" style="margin-top:30px;">
                                                                 <button type="submit" id="subscribe"
-                                                                    class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
+                                                                    class="c-button c-button-block c-button--lightBlue c-button--radius">{{subscribeLabel}} now</button>
                                                             </div>
                                                     {% else %}
                                                             <div class="form-group" style="margin-top:30px;">
                                                                 <div id="card-errors" class="errorText" role="alert"></div>
-                                                                <button type="submit" id="subscribe" class="c-button c-button-block c-button--lightBlue c-button--radius">Subscribe now</button>
+                                                                <button type="submit" id="subscribe" class="c-button c-button-block c-button--lightBlue c-button--radius">{{subscribeLabel}} now</button>
                                                             </div>
                                                     {% endif %}
                                                 {% endif %}

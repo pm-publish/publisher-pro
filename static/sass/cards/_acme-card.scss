@@ -74,7 +74,7 @@
         @include font-size(11);
         letter-spacing: 0.5px;
         line-height: 1.36;
-        color: $mainColor;
+        color: var(--sec-color);
         text-transform: uppercase;
     }
 
