@@ -75,6 +75,7 @@
         line-height: 1.23;
         text-decoration: underline;
         color: $black;
+        cursor: pointer;
     }
 
     .button-set {
@@ -96,7 +97,7 @@
             line-height: 1;
             font-weight: $weightBold;
 
-            &.signin {
+            &.signin, &.forgot {
                 background-color: var(--sec-color);
                 color: $white;
             }
