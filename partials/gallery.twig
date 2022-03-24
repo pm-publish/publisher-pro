@@ -137,14 +137,3 @@ with width taken up with borders on the side #}
         {% endfor %}
     </div>
     <div id="counter"></div>
-
-    {% if ( media | length > 1 ) %}
-    <div class="owl-thumbs" data-slider-id="1">
-        {% for image in media %}
-        {% set articleImg = _Media.getMediaUrl(image, imgWidth, imgHeight, cloudinaryParams ) %}
-        <button class="owl-thumb-item">
-            <img class="article-gallery__img" src="{{articleImg}}" />
-        </button>
-        {% endfor %}
-    </div>
-    {% endif %}

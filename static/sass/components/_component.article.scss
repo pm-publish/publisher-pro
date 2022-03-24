@@ -1,4 +1,42 @@
 .c-article {
+
+  &__price {
+    font-family: $primaryFont;
+    font-weight: $weightMedium;
+    @include font-size(16);
+    color: $black;
+  }
+
+  &__address {
+    font-family: $primaryFont;
+    font-weight: $weightRegular;
+    @include font-size(13);
+    color: $grey5;
+    margin-bottom: 25px;
+  }
+
+  &__features {
+    @include flexbox;
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 15px;
+
+    .c-article__feature {
+      @include flexbox;
+      @include align-items(center);
+      margin-right: 16px;
+
+      &-icon {
+        margin-right: 8px;
+
+        &--fill {
+          svg *{
+            fill: var(--sec-color) !important;
+          }
+        }
+      }
+    }
+  }
+
   //top bar
   &__top {
     border-bottom: 1px solid $grey4;
@@ -95,6 +133,7 @@
     @include font-size(12);
     line-height: 1.33;
     margin-bottom: 4px;
+    margin-right: 10px;
   }
   &__updated {
     border-left: 1px solid $grey5;
