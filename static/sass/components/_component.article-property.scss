@@ -7,6 +7,14 @@
             @include flexbox;
         }
 
+        &__image {
+            img {
+                @include size(82px);
+                @include border-radius(100%);
+                object-fit: cover;
+            }
+        }
+
         &__content {
             margin-left: 20px;
         }
