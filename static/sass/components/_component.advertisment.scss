@@ -14,6 +14,7 @@
     }
     &__banner{
         &-head,&-1,&-2,&-3,&-4{
+            margin-top: 30px;
             @media #{$desktop-up}{
                 min-width: 728px;
             }

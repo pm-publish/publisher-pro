@@ -37,14 +37,25 @@
     {% set pwstats = _User.getPaywallStats(false) %}
 {% endif %}
 
+{% set allowedReferrers = config['allowedReferrers'] %}
+{% set headers      = _AppHelper.getHttpHeaders() %}
 
-
-
+{% set bypassPaywall = false %}
+{% if headers['referer'][0] is defined and allowedReferrers is defined %}
+{% set referrrer = headers['referer'][0] | preg_replace('|http(s)*://(.+?)/.*$|', '$2') %}
+    {% for ar in allowedReferrers %}
+        {% if referrrer == ar %}
+            {% set bypassPaywall = true %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
 
 {% set paywallType = "" %}
-{% if not _User.isAdminUser() and article.showPaywall == true %}
 
-    {% set showPaywall = true %}
+{% if not _User.isAdminUser() and article.showPaywall == true %}
+    {% if bypassPaywall == false %} 
+        {% set showPaywall = true %}
+    {% endif %}
 
     {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
     {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
@@ -738,13 +749,3 @@
         allowComments:allow_comments ? "true" : "false"
     }) | raw}}
 {% endif %}
-
-
-
-    <script>
-        // main script is defered so event listener makes sure
-        // defered script is loaded before this runs
-        //document.addEventListener("DOMContentLoaded", function (event) {
-            //Acme.articleController = Acme.ArticleController();
-        //});
-    </script>

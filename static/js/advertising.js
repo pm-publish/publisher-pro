@@ -68,7 +68,8 @@ export default class AdLoader {
                 if (data.length > 1 ) {
                     // If more than one matching, randomly show 
                     // different ad on each page refresh
-                    k = Math.round(Math.random()*(data.length-1));
+                    // k = Math.round(Math.random()*(data.length-1));
+                    k = Math.floor(Math.random()*(data.length));
                 } 
 
                 const item = data[k];
