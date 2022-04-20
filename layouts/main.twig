@@ -49,8 +49,14 @@
     <meta http-equiv="Content-Security-Policy"
         content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://js.stripe.com">
     #}
-    <meta name="google-site-verification" content="LLgWSPAesUa9X77EPVG9LjdUZuZ89ba7BxxBWumHKOo" />
-
+    {% if config.metaTags is defined %}
+        {% for tag in config.metaTags %}
+            {% if tag.name is defined and tag.name != "" and tag.content is defined and tag.content != "" %}
+                <meta name="{{tag.name}}" content="{{tag.content}}" />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    
     <link rel="profile" href="https://gmpg.org/xfn/11">
     <title>{{ this.title }}</title>
     {{ Html.csrfMetaTags | raw }}
