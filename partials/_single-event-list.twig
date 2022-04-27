@@ -114,11 +114,11 @@
                     </div>
 
                     {% set superscriptStartDay = 'th' %}
-                    {% if startDay == '01' or startDate == '21' or startDate == '31' %}
+                    {% if startDay == '01' or startDay == '21' or startDay == '31' %}
                         {% set superscriptStartDay = 'st' %}
                         {% elseif startDay == '02' or startDay == '22' %}
                             {% set superscriptStartDay = 'nd' %}
-                        {% elseif startDay == '03' or startDate == '23' %}
+                        {% elseif startDay == '03' or startDay == '23' %}
                             {% set superscriptStartDay = 'rd' %}
                     {% endif %}
 
