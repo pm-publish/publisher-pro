@@ -55,7 +55,7 @@
                         <div class="col-12 col-lg-1">
                             <div class="u-generic-socialIcons u-generic-socialIcons--sticky u-generic-socialIcons-xs">
                                 <a class="u-generic-socialIcons__item"
-                                    href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
+                                    href="mailto:?subject=Check%20out%20this%20event&body={{event.url}}" target="_blank">
                                     <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <defs>
                                             <path id="a" d="M0 .443h32.4v32.4H0z"/>
@@ -85,7 +85,7 @@
 
                                 </a>
                                 <a class="u-generic-socialIcons__item"
-                                    href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                    href="https://www.facebook.com/sharer/sharer.php?u={{event.url}}&title={{ event.title|url_encode }}"
                                     target="_blank">
                                     <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <defs>
@@ -115,7 +115,7 @@
 
                                 </a>
                                 <a class="u-generic-socialIcons__item"
-                                    href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                    href="https://twitter.com/share?text={{ event.title|url_encode }}&url={{event.url}}"
                                     target="_blank">
                                     <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <defs>
@@ -145,7 +145,7 @@
 
 
                                 </a>
-                                <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ event.title|url_encode }}&url={{event.url}}"
                                     target="_blank">
                                     <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                         <defs>
@@ -245,7 +245,7 @@
                                 <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
                                                     <div class="u-generic-socialIcons-text">Share article</div>
                                                     <a class="u-generic-socialIcons__item"
-                                                        href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
+                                                        href="mailto:?subject=Check%20out%20this%20event&body={{event.url}}" target="_blank">
                                                         <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <defs>
                                                                 <path d="M.076 12.788 6.53 6.53.057.95 0 1.315v11.088c0 .077.025.205.076.385zM7.35 5.78l.86.693 1.698 1.405 1.7-1.405.858-.693L18.957.179a1.073 1.073 0 0 0-.343-.058H1.184A.817.817 0 0 0 .859.18L7.35 5.78zm-6.166 7.815h17.43a.91.91 0 0 0 .324-.058l-6.51-6.294-2.52 2.06-2.52-2.06-6.51 6.294a.858.858 0 0 0 .306.058zm18.556-.808c.038-.142.057-.27.057-.385V1.315c0-.129-.019-.25-.057-.366L13.287 6.53l6.453 6.257z" id="email_solid_a"/>
@@ -263,7 +263,7 @@
 
                                                     </a>
                                                     <a class="u-generic-socialIcons__item"
-                                                        href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                                        href="https://www.facebook.com/sharer/sharer.php?u={{event.url}}&title={{ event.title|url_encode }}"
                                                         target="_blank">
                                                         <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <defs>
@@ -280,7 +280,7 @@
                                                         </svg>
                                                     </a>
                                                     <a class="u-generic-socialIcons__item"
-                                                        href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                                        href="https://twitter.com/share?text={{ event.title|url_encode }}&url={{event.url}}"
                                                         target="_blank">
                                                         <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <defs>
@@ -296,7 +296,7 @@
                                                             </g>
                                                         </svg>
                                                     </a>
-                                                    <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                                    <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ event.title|url_encode }}&url={{event.url}}" target="_blank">
                                                         <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                                             <defs>
                                                                 <path d="M.677 17.5H4.58V5.755H.677V17.5zM2.655.093C1.319.093.445.969.445 2.122c0 1.127.848 2.03 2.158 2.03h.026c1.362 0 2.21-.903 2.21-2.03C4.811.969 3.99.092 2.654.092zM18.66 10.765V17.5h-3.904v-6.284c0-1.578-.565-2.656-1.978-2.656-1.079 0-1.72.726-2.003 1.429-.103.25-.13.6-.13.952V17.5H6.74s.053-10.643 0-11.745h3.906V7.42l-.026.037h.026V7.42c.519-.8 1.445-1.941 3.52-1.941 2.569 0 4.495 1.678 4.495 5.286z" id="link_solid_a"/>

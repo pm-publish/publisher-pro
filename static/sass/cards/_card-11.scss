@@ -83,6 +83,13 @@
     @media #{$desktop-up} {
         @include card-11-tablet-base();
         @include card-name("C11 desktop");
+
+        .c-cards-view {
+            &__heading  {
+                @include font-size(16);
+                line-height: 1.5;
+            }
+        }
     }
     &.card-11-highlighter {
         @media #{$desktop-up} {
@@ -98,11 +105,18 @@
                 &__container {
                     flex: 1 0 calc(100% - 270px);
                     margin-left: 35px;
+
+                    &-topSection {
+                        @include flexbox;
+                        @include justify-content(center);
+                        @include flex-direction(column, vertical);
+                    }
                 }
                 
                 &__heading  {
-                    @include font-size(16);
-                    line-height: 1.5;
+                    @include font-size(26);
+                    line-height: 1.4;
+                    color: $white;
                 }
             }
         }
@@ -122,11 +136,6 @@
         }
 
         &__category {
-            color: $white;
-        }
-        &__heading {
-            @include font-size(26);
-            line-height: 1.23;
             color: $white;
         }
     }
