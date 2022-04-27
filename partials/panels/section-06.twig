@@ -11,7 +11,8 @@
         sortBy: 'VIEWS', 
         scope: 'network',
         interval: 168,
-        includePrimaryBlog: true
+        includePrimaryBlog: true,
+        excludeArticleId : articleId
     }) %}
     {% set cache = setCache(cacheKey, popular, 500) %} 
 {% endif %} 
