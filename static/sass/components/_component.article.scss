@@ -343,6 +343,18 @@
       span {
         list-style-type: decimal !important;
       }
+
+      > ul {
+        margin-top: 20px;
+        margin-left: 20px;
+
+        li {
+          &:before {
+            background-color: var(--white);
+            border:1px solid var(--sec-color);
+          }
+        }
+      }
     }
 
     ol {
