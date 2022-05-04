@@ -141,9 +141,10 @@
             <div class="row">
                 <div class="col-12">
                     <div class="c-navigation-2 c-navigation-2-xs">
-                        <ul class="c-navigation__grid my-3">
+                        <ul class="c-navigation__grid">
                             {{this.render('../_submenu_navigation.twig', {
-                            items: headerSubMenu
+                            items: headerSubMenu,
+                            customClass: 'py-3'
                             }) | raw }}
                         </ul>
                     </div>
