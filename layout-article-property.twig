@@ -564,12 +564,17 @@
                                         <p class="c-propertyarticle-features__feature">{{feature}}</p>
                                     {% endfor %}
                                 </div>
-
                             {% endif %}
                         </div>
                     </div>
                 </div>  
             </div>
         </div>
+
+        {% if article.additionalInfo.map %}
+            <div class="c-propertyarticle__map">
+                {{article.additionalInfo.map|raw}}
+            </div>
+        {% endif %}
     </div>
 </main>
