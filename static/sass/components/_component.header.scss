@@ -7,6 +7,12 @@
         @include justify-content(space-between);
     }
 
+    &__menu, .c-navigation-4 {
+        @media (min-width: 767px) {
+            width: 140px;
+        }
+    }
+
     &__logo {
         &-item {
             margin: 0 20px;
