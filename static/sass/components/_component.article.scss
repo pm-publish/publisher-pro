@@ -12,7 +12,8 @@
     font-weight: $weightRegular;
     @include font-size(13);
     color: $grey5;
-    margin-bottom: 25px;
+    margin-top: 10px;
+    margin-bottom: 15px;
   }
 
   &__features {
@@ -342,6 +343,18 @@
 
       span {
         list-style-type: decimal !important;
+      }
+
+      > ul {
+        margin-top: 20px;
+        margin-left: 20px;
+
+        li {
+          &:before {
+            background-color: var(--white);
+            border:1px solid var(--sec-color);
+          }
+        }
       }
     }
 

@@ -76,7 +76,7 @@
 
 
 
-<main id="main" class="o-body-container o-body-container-md u-margin-top-60" role="main">
+<main id="main" class="o-body-container o-body-container-md u-margin-top-60 mb-0" role="main">
     <div class="c-article c-article-xs c-article__carousel">
         <div class="container">
             <div class="row">
@@ -564,12 +564,17 @@
                                         <p class="c-propertyarticle-features__feature">{{feature}}</p>
                                     {% endfor %}
                                 </div>
-
                             {% endif %}
                         </div>
                     </div>
                 </div>  
             </div>
         </div>
+
+        {% if article.additionalInfo.map %}
+            <div class="c-propertyarticle__map">
+                {{article.additionalInfo.map|raw}}
+            </div>
+        {% endif %}
     </div>
 </main>

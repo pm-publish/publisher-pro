@@ -212,6 +212,81 @@
                 padding-left: 0;
                 li {
                     margin: 0 16px;
+                    position: relative;
+
+                    .custom-menu, .sub-custom-menu {
+                        position: absolute;
+                        left: -10px;
+                        @include calc(top,'100% + 20px');
+                        padding: 0;
+                        box-shadow: 3px 6px 7px 1px rgba(99, 101, 103, 0.2);
+                        background-color: $white;
+                        @include transition(all 0.3s ease);
+                        z-index: 20;
+                        @include opacity(0);
+                        visibility: hidden;
+                        border-left: 2px solid var(--sec-color);
+                        li {
+                            margin: 0;
+                            padding: 0;
+                            @include transition(all 0.3s ease);
+                            a {
+                                color: $black;
+                                font-family: $primaryFont;
+                                @include font-size(14);
+                                padding: 19px 20px 20px;
+                                min-width: 180px;
+                                display: block;
+                            }
+                            + li {
+                                border-top: solid 1px #c0c0c0;
+                            }
+
+                            &:hover {
+                                background-color: var(--sec-color);
+                                >a {
+                                    color: $white;
+                                }
+                            }
+                        }
+                    }
+                    .sub-custom-menu {
+                        @include calc(left,'100% + 20px');
+                        top: 0;
+                    }
+                    .custom-menu{
+                        &:before {
+                            content: '';
+                            width: 2px;
+                            background-color: var(--sec-color);
+                            height: 50px;
+                            position: absolute;
+                            top: -50px;
+                            left: -2px;
+                        }
+                        li {
+                            &.sub-dropdown {
+                                &:hover {
+                                    .sub-custom-menu {
+                                        left: 100%;
+                                        top: 0;
+                                        @include opacity(1);
+                                        visibility: visible;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    &.dropdown {
+                        &:hover {
+                            .custom-menu {
+                                @include calc(top,'100% + 1px');
+                                @include opacity(1);
+                                visibility: visible;
+                            }
+                        }
+                    }
                 }
             }
             &__item {

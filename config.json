@@ -70,6 +70,11 @@
                     }
                 },
                 {
+                    "name": "address",
+                    "label": "Address",
+                    "type": "inputbox"
+                },
+                {
                     "name": "map",
                     "label": "Google Maps embed code",
                     "type": "inputbox"

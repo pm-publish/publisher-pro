@@ -16,6 +16,38 @@
                 }
             }
         }
+
+        &.simple_section {
+            overflow: hidden;
+
+            .simple_section {
+                &-cards {
+                    border-bottom: 1px solid $grey4;
+                    border-left: 1px solid $grey4;
+                    margin-bottom: 20px;
+                    padding-bottom: 20px;
+                    position: relative;
+
+                    &:after {
+                        content: '';
+                        background-color: $white;
+                        bottom: 0;
+                        height: 20px;
+                        left: -1px;
+                        width: 1px;
+                        position: absolute;
+                    }
+
+                    @media (max-width: 992px) {
+                         .c-cards-view {
+                            border-bottom: none;
+                            margin-bottom: 0px;
+                            padding-bottom: 0px;
+                        }
+                    }
+                }
+            }
+        }
     }
 
     &-view {

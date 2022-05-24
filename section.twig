@@ -103,9 +103,9 @@
                                             }) | raw}}
                                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                                         </div>
-                                        {% if config['inventory']['adSpace']['mrec'][1] is defined %}
+                                        {% if config['inventory']['adSpace']['mrec'][0] is defined %}
                                             <div class="mt-4">
-                                                <div class="j-adslot" id="{{config['inventory']['adSpace']['mrec'][1]}}" data-adshape="mrec"></div>
+                                                <div class="j-adslot" id="{{config['inventory']['adSpace']['mrec'][0]}}" data-adshape="mrec"></div>
                                             </div>
                                         {% endif %}
                                     </div>

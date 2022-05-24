@@ -114,20 +114,20 @@
                     </div>
 
                     {% set superscriptStartDay = 'th' %}
-                    {% if startDay == '01' %}
+                    {% if startDay == '01' or startDay == '21' or startDay == '31' %}
                         {% set superscriptStartDay = 'st' %}
                         {% elseif startDay == '02' or startDay == '22' %}
                             {% set superscriptStartDay = 'nd' %}
-                        {% elseif startDay == '03' %}
+                        {% elseif startDay == '03' or startDay == '23' %}
                             {% set superscriptStartDay = 'rd' %}
                     {% endif %}
 
                     {% set superscriptEndDay = 'th' %}
-                    {% if endDay == '01' %}
+                    {% if endDay == '01' or endDay == '21' or endDay == '31' %}
                         {% set superscriptEndDay = 'st' %}
                         {% elseif endDay == '02' or endDay == '22' %}
                             {% set superscriptEndDay = 'nd' %}
-                        {% elseif endDay == '03' %}
+                        {% elseif endDay == '03' or endDay == '23' %}
                             {% set superscriptEndDay = 'rd' %}
                     {% endif %}
                     <div class="c-eventcards-view__sec2">
