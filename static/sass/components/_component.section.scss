@@ -13,10 +13,17 @@
 .section-page {
     &-firstRow {
         .card-5-desktop {
+            height: 100%;
+
+            .card-infoo {
+                height: 100%;
+            }
             .c-cards-view {
-                height: 720px;
+                min-height: 720px;
+                height: 100%;
 
                 @media #{$mobile}, #{$tablet} {
+                    min-height: inherit;
                     height: inherit;
                 }
             }
