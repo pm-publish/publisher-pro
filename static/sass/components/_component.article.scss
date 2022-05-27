@@ -438,9 +438,10 @@
     figure {
       position: relative;
       @include inline-flex;
+      @include flex-direction(column,vertical);
       margin-bottom: 20px !important;
       figcaption {
-        position: absolute;
+        position: relative;
         left: 0;
         bottom: 0;
         width: 100%;
