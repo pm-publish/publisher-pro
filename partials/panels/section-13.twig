@@ -1,0 +1,37 @@
+{% set articleCount = 0 %}
+{% set eventCount = 0 %}
+{% set cardIndex = 0 %}
+
+{% set colorInverse = '' %}
+{% set inverseContainerClass = 'card-property-mobile card-property-tablet card-property-desktop' %}
+{% if background is defined and background is not empty %}
+{% set colorInverse = 'inverse' %}
+{% set inverseContainerClass = 'card-property-mobile card-property-tablet card-property-desktop c-cards--inverse' %}
+{% endif %}
+<div class="row" data-section="13">
+    <div class="col-12">
+        <div class="u-generic-topBorder {{colorInverse}}">
+        </div>
+        <div class="c-page-head c-page-head-xs {{colorInverse}}">
+            <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
+            {% if LinkShow is defined and LinkShow is not empty %}
+                <a href="{{link}}" class="c-page-head__link">View all</a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% for i in 0..3 if articles[articleCount] %}
+
+    <div class="col-12 col-lg-3">
+        {{this.render('../_single-article.twig', {
+        article: articles[articleCount],
+        position: (articleCount+1),
+        imageSize: {width: 306, height: 185},
+        swap : 'false',
+        containerClass: inverseContainerClass,
+        timeSuppress: timeSuppress
+        }) | raw}}
+        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+    </div>
+    {% endfor %}
+</div> <!-- row -->
