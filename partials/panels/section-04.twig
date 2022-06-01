@@ -7,7 +7,9 @@
         <div class="u-generic-topBorder "></div>
         <div class="c-page-head c-page-head-xs">
             <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
-            <a href="{{link}}" class="c-page-head__link">View all</a>
+            {% if LinkShow is defined and LinkShow is not empty %}
+                <a href="{{link}}" class="c-page-head__link">View all</a>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -21,6 +23,7 @@
                     article: articles[articleCount],
                     position: (articleCount+1),
                     imageSize: {width: 633, height: 400},
+                    swap : 'false',
                     containerClass: "card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20",
                     timeSuppress: timeSuppress
                     }) | raw}}
@@ -39,6 +42,7 @@
                             article: articles[articleCount],
                             position: (articleCount+1),
                             imageSize: {width: 79, height: 96},
+                            swap : 'false',
                             containerClass: "card-1-mobile card-1-tablet card-1-desktop u-margin-bottom-20",
                             timeSuppress: timeSuppress
                             }) | raw}}
@@ -56,6 +60,7 @@
                             article: articles[articleCount],
                             position: (articleCount+1),
                             imageSize: {width: 79, height: 96},
+                            swap : 'false',
                             containerClass: "card-1-mobile card-1-tablet card-1-desktop",
                             timeSuppress: timeSuppress
                             }) | raw}}

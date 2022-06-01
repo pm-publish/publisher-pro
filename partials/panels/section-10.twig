@@ -7,7 +7,9 @@
         <div class="u-generic-topBorder "></div>
         <div class="c-page-head c-page-head-xs">
             <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
-            <a href="{{link}}/event-calendar" class="c-page-head__link">See more events</a>
+            {% if LinkShow is defined and LinkShow is not empty %}
+                <a href="{{link}}/event-calendar" class="c-page-head__link">See more events</a>
+            {% endif %}
         </div>
     </div>
 </div>
@@ -21,6 +23,7 @@
                             {{this.render('../_single-event-list.twig', {
                                 event: events[i], 
                                 imageSuppress: 'true',
+                                swap : 'false',
                                 containerClass: "event-card-3-mobile event-card-3-tablet event-card-3-desktop"
                             }) | raw}}
                         </div>

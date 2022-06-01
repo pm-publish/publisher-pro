@@ -3,12 +3,12 @@
 {% set cardIndex = 0 %}
 
 {% set colorInverse = '' %}
-{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop' %}
+{% set inverseContainerClass = 'card-property-mobile card-property-tablet card-property-desktop' %}
 {% if background is defined and background is not empty %}
 {% set colorInverse = 'inverse' %}
-{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop c-cards--inverse' %}
+{% set inverseContainerClass = 'card-property-mobile card-property-tablet card-property-desktop c-cards--inverse' %}
 {% endif %}
-<div class="row" data-section="01">
+<div class="row" data-section="13">
     <div class="col-12">
         <div class="u-generic-topBorder {{colorInverse}}">
         </div>
@@ -29,6 +29,7 @@
         imageSize: {width: 306, height: 185},
         swap : 'false',
         containerClass: inverseContainerClass,
+        template: 'property',
         timeSuppress: timeSuppress
         }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
