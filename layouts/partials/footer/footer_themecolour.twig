@@ -59,8 +59,8 @@
                 </div>
                 {% else %}
                     <div class="c-navigation-4 c-navigation-4-xs">
-                    <a href="javascript:;" class="c-navigation__item">Log in</a>
-                    <a href="javascript:;"
+                    <a href="javascript:;" id="signinBtn" class="c-navigation__item">Log in</a>
+                    <a href="{{networkData.defaultBlogUrl}}/subscriptions"
                         class="c-navigation__item subscribe c-navigation__item--borderred">{{subscribeLabel}}</a>
                     </div>
                 {% endif %}
