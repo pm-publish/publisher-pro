@@ -43,7 +43,7 @@
         articles        : feedArr,
         link            : config.link is defined ? config.link : blogLink,
         title           : config.title is defined ? config.title : '',
-        LinkShow        : config.LinkShow is defined ? config.LinkShow : '',
+        LinkHide        : config.LinkHide is defined ? config.LinkHide : '',
         dev             : dev,
         site            : site,
         networkData     : networkData,
@@ -52,6 +52,8 @@
         adslots         : config.adslots is defined ? config.adslots : [],
         timeSuppress    : config.timeSuppress is defined ? config.timeSuppress : false
     } %}
+
+    {{_AppHelper.printArray(LinkHide)}}
 
     {% if config.template_params is defined and config.template_params | length > 0  %}
         {% set params = params | merge(config.template_params) %}

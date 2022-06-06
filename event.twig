@@ -53,7 +53,7 @@
                 <div class="row c-eventdetail__content-container">
                     <div class="row">
                         <div class="col-12 col-lg-1">
-                            {% if config.displayShareIcons is defined and config.displayShareIcons is not empty %}
+                            {% if config.hideShareIcons != 'true' %}
                                 <div class="u-generic-socialIcons u-generic-socialIcons--sticky u-generic-socialIcons-xs">
                                     <a class="u-generic-socialIcons__item"
                                         href="mailto:?subject=Check%20out%20this%20event&body={{event.url}}" target="_blank">
@@ -243,7 +243,7 @@
                                 </div>
 
                                 <hr />
-                                {% if config.displayShareIcons is defined and config.displayShareIcons is not empty %}
+                                {% if config.hideShareIcons != 'true' %}
                                     <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
                                         <div class="u-generic-socialIcons-text">Share article</div>
                                         <a class="u-generic-socialIcons__item"
