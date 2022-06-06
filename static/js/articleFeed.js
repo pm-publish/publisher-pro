@@ -1,4 +1,5 @@
 import { Templates } from './article-templates'
+import { Templates as UserTemplates} from './account-templates'
 import { Server } from './framework'
 import Handlebars from 'handlebars'
 
@@ -280,15 +281,17 @@ export const UserFeed = function(options)
     this.options = options;
     this.feedModel = options.model;
     this.controller = options.controller || null;
-    this.offset    = parseInt(options.offset) || 0;
-    this.limit     = parseInt(options.limit) || 10;
     this.infinite  = options.infinite || false;
     this.template = options.template || null;
     this.card_class = options.card_class || null;
     this.waypoint  = false;
-    
+ 
     this.elem      = $('.managed-users__more');
     this.failText  = options.failText || null;
+
+    this.options['offset'] = parseInt(options.offset) || 0;
+    this.options['limit']  = parseInt(options.limit);
+
     this.events();
 };
 
@@ -345,7 +348,7 @@ export const UserCard = function(){};
 UserCard.prototype.render = function(user, cardClass, template, type)
 {
     user['cardClass'] = cardClass;
-    var template = (template) ? Templates[template] : Templates.systemCardTemplate;
+    var template = (template) ? UserTemplates[template] : Templates.systemCardTemplate;
     const userTemplate = Handlebars.compile(template);
     return userTemplate(user);
 }
