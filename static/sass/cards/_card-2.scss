@@ -100,7 +100,7 @@
     @media #{$desktop-up} {
         @include card-2-tablet-base();
         @include card-name("C2 desktop");
-        height: 100%;
+        /* height: 100%; */
         .card-infoo {
             height: 100%;
         }
