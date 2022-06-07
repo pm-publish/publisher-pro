@@ -71,7 +71,7 @@
 
             &-categorisedInfo {
                 .c-cards-view__media {
-                    display: none;
+                    display: none !important;
                 }
             }
         }
