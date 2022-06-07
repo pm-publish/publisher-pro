@@ -10,9 +10,9 @@
 
         &__container {
             &-categorisedInfo {
-                display: flex !important;
+                @include flexbox;
                 .c-cards-view__media {
-                    @include flexbox;
+                    display: flex !important;
                     @include size(79px);
                     @include flex(1 0 79px);
                     margin-right: 15px;
