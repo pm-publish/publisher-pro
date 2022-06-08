@@ -37,8 +37,8 @@
 <div class="social-icon"></div>
 
 <div class="{{params.cardType}}c-cards-view__container">
-    <div class="c-cards-view__container-topSection">
-        <div class="c-cards-view__container-categorisedInfo">
+    <div class="{{params.cardType}}c-cards-view__container-topSection">
+        <div class="{{params.cardType}}c-cards-view__container-categorisedInfo">
             {% if params.hasMedia %}
                 <figure class="{{params.cardType}}c-cards-view__media {{params.videoClass}}" title="{{imageSize}}">
                     <picture>
@@ -59,10 +59,10 @@
                 
 
             {% endif %}
-            <div class="c-cards-view__container-categorisedInfo__box">
-                <div class="c-cards-view__category-wrap">
+            <div class="{{params.cardType}}c-cards-view__container-categorisedInfo__box">
+                <div class="{{params.cardType}}c-cards-view__category-wrap">
                     {% if params.category != params.blogTitle and additionalLabel == true %}
-                        <div class="c-cards-view__additional-category">{{params.category}}</div>
+                        <div class="{{params.cardType}}c-cards-view__additional-category">{{params.category}}</div>
                     {% endif %}
                     {% if label == true %}
                         <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
