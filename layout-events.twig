@@ -33,7 +33,7 @@
                     {{this.render('partials/_single-event.twig', {
                         event: events[eventCount], 
                         position: eventCount + 1, 
-                        imageSize: {width:300},
+                        imageSize: {width:750, height:450},
                         containerClass: 'event-card-1__desktop event-card-1__tablet event-card-1__mobile fullWidth',
                     }) | raw}}
                     {% set eventCount = (dev) ? eventCount : eventCount + 1 %}

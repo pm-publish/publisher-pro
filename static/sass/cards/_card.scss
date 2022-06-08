@@ -68,6 +68,12 @@
                 margin-bottom: 15px;
                 flex: 1;
             }
+
+            &-categorisedInfo {
+                .c-cards-view__media {
+                    display: none !important;
+                }
+            }
         }
         &__media {
             position: relative;

@@ -81,7 +81,9 @@
                     {% endfor %}
                 </div>
 
-                <section class="mt-4 text-center loadmore__section {{site}}" id="loadmore_section">
+                <section class="row mt-4" id="loadmore_section"></section>
+
+                <section class="mt-4 text-center loadmore__section {{site}}">
                     {% if articles|length >= limit %}
                         {{ this.render('/partials/load_more.twig', {
                             name            : "section-load",
@@ -90,7 +92,6 @@
                         }) | raw }}
                     {% endif %}
                 </section>
-                
                 {% if config['inventory']['adSpace']['banner'][2] is defined %}
                     <div class="my-5 overflow-hidden">
                         <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>

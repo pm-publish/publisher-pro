@@ -133,7 +133,7 @@
                     @include flex-direction(column, vertical);
 
                     li {
-                        @include font-size(13);
+                        @include font-size(15);
                         line-height: 1.38;
                         font-family: $primaryFont;
                         font-weight: $weightRegular;
