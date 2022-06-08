@@ -67,9 +67,10 @@
 
     &__container {
         height: 100%;
-
         &-categorisedInfo {
-            display:none;
+            .acme-c-cards-view__media {
+                display:none;
+            }
         }
     }
 
