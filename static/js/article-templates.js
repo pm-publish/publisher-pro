@@ -67,7 +67,7 @@ const cardTemplateTop =
         data-article-text="{{title}}" \
         title="{{titleString}}"> \
     \
-        <article class="{{cardType}}c-cards-view {{hasMediaClass}} {{articleStatus}}">';
+        <article class="{{cardType}}c-cards-view {{hasMediaClass}} {{articleStatus}} {{lightbox}}">';
 
 const cardTemplateBottom =
     '</article>' +
@@ -353,19 +353,19 @@ export const Templates = {
         {{/if}} \
         \
         <div class="{{cardType}}c-cards-view__container">\
-            <div class="c-cards-view__container-topSection">\
-                <div class="c-cards-view__category-wrap">\
-                    <div class="c-cards-view__category">{{label}}</div>\
+            <div class="{{cardType}}c-cards-view__container-topSection">\
+                <div class="{{cardType}}c-cards-view__category-wrap">\
+                    <div class="{{cardType}}c-cards-view__category">{{label}}</div>\
                 </div>\
-                <h2 class="c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{{ title }}}</h2>\
-                <p class="c-cards-view__description js-c-cards-view-description j-truncate j-excerpt">{{{ excerpt }}}</p>\
+                <h2 class="{{cardType}}c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{{ title }}}</h2>\
+                <p class="{{cardType}}c-cards-view__description js-c-cards-view-description j-truncate j-excerpt">{{{ excerpt }}}</p>\
                 {{#if hasContent}}\
-                    <div class="acme-c-cards-view__articleContent">{{{ content }}}</div>\
+                    <div class="{{cardType}}c-cards-view__articleContent">{{{ content }}}</div>\
                 {{/if}}\
             </div>\
-            <div class="c-cards-view__author">\
-                <div class="c-cards-view__author-name">{{ author }}</div>\
-                <div class="c-cards-view__time">{{date}}</div>\
+            <div class="{{cardType}}c-cards-view__author">\
+                <div class="{{cardType}}c-cards-view__author-name">{{ author }}</div>\
+                <div class="{{cardType}}c-cards-view__time">{{date}}</div>\
             </div>' +
         cardTemplateBottom
 };
