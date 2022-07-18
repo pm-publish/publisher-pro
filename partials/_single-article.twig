@@ -176,9 +176,8 @@
     {% set videoClass = forceVideo ? 'c-cards-view__media--video' : videoClass %}
     
     
-    {% set blogguid = article.primaryBlog is defined ? article.primaryBlog.guid : article.blog.guid %}
-    {% set blogTitle = article.primaryBlog is defined ? article.primaryBlog.title : article.blog.title %}
-
+    {% set blogguid = article.primaryBlog is defined and article.primaryBlog.guid != "" ? article.primaryBlog.guid : article.blog.guid %}
+    {% set blogTitle = article.primaryBlog is defined and article.primaryBlog.title != "" ? article.primaryBlog.title  : article.blog.title %}
 
 
 
