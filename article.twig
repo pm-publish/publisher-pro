@@ -2,11 +2,8 @@
 {{ set(this, 'title', article.title) }}
 {{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
 
-{% set log = _AppHelper.log('theme 1') %}
 {% set networkData = _Network.getNetworkData() %}
-{% set log = _AppHelper.log('theme 2') %}
 {% set blogInfo = _Blog.getBlog() %}
-{% set log = _AppHelper.log('theme 3') %}
 {% set config = _Network.getThemeConfig() %}
 
 {{ set(this, 'params', {
@@ -22,9 +19,7 @@
 {% set relatedArticles = [] %}
 {% set articleBlog = article.blog.title | lower %}
 
-{% set log = _AppHelper.log('theme 4') %}
 {% set articleBlogInfo = _Blog.getBlog({'guid':article.blog['guid']}) %}
-{% set log = _AppHelper.log('theme 5') %}
 
 
 {% set cropped = true %}
@@ -92,7 +87,6 @@
 
 
 
-{% set log = _AppHelper.log('theme 6') %}
 
 {% set trialToggle = false %}
 
@@ -134,7 +128,6 @@
         {% endif %}
     {% endif %}
     
-{% set log = _AppHelper.log('theme 7') %}
     {% set cacheKey = "articleRecent_articlePage" %}
     {% set recentArticles = getCache(cacheKey) %}
     {% if (recentArticles is empty) %}
@@ -150,7 +143,6 @@
 
 
 
-{% set log = _AppHelper.log('theme 8') %}
     {% set cacheKey = "articlePopular_articlePage" %}
     {% set popularArticles = getCache(cacheKey) %}
     {% if (popularArticles is empty) %}
@@ -167,7 +159,6 @@
 {% endif %}
 
 
-{% set log = _AppHelper.log('theme 9') %}
 
 
 {% set watermark = false %}
