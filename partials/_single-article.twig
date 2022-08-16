@@ -288,10 +288,11 @@
         </article>
 
         {# Article admin buttons to delete/edit/pin #}
-        {% if article.userHasBlogAccess == '1' and swap != '' and amp != true %}
+        {% if article.userHasBlogAccess == '1' and amp != true %}
             {{ this.render('_article_admin.twig', {
                 article  : article, 
                 position : position, 
+                swap: swap,
                 type     : params.social == 0 ? "article" : "social"
             } ) | raw }}
         {% endif %}

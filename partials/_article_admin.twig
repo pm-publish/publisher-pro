@@ -58,15 +58,17 @@
 
 
     {# PIN BUTTON #}
-    <button data-position   = "{{position}}" 
-            data-social     = "{{type}}" 
-            data-id         = "{{id}}" 
-            title           = "{{pinTitle}}" 
-            class           = "btnhide social-tooltip PinArticleBtn {{pinClass}}" 
-            type            = "button" 
-            data-status     = "{{isPinned}}">
-        <i class            = "fa fa-thumb-tack"></i><span class="u-display-none">{{pinTxt}}</span>
-    </button>
+    {% if swap != '' %}
+        <button data-position   = "{{position}}" 
+                data-social     = "{{type}}" 
+                data-id         = "{{id}}" 
+                title           = "{{pinTitle}}" 
+                class           = "btnhide social-tooltip PinArticleBtn {{pinClass}}" 
+                type            = "button" 
+                data-status     = "{{isPinned}}">
+            <i class            = "fa fa-thumb-tack"></i><span class="u-display-none">{{pinTxt}}</span>
+        </button>
+    {% endif %}
 
 
     {# Live BUTTON #}
