@@ -233,7 +233,7 @@
                                     imageSize: {width: 285, height: 192},
                                     cardType: "acme-",
                                     contentType: contentType,
-                                    containerClass: "acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop"
+                                    containerClass: "{{cardClasses}}"
                                 }) | raw}}
                                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                             </div>
