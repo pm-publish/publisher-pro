@@ -125,12 +125,6 @@
     {% set allowSearch = false %}
 {% endif %}
 
-{% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
-
-{% if config['classifieds']['newCardStyle'] is defined and config['classifieds']['newCardStyle'] == true %}
-    {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
-{% endif %}
-
 
 <main id="main" class="site-main u-margin-top-60 u-margin-bottom-60" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
     <div class="acme-container">
@@ -233,7 +227,7 @@
                                     imageSize: {width: 285, height: 192},
                                     cardType: "acme-",
                                     contentType: contentType,
-                                    containerClass: {{cardClasses}}
+                                    containerClass: "acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop"
                                 }) | raw}}
                                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                             </div>
@@ -607,7 +601,7 @@
                 cardType        : "acme-",
                 lightbox        : "{{contentType}}",
                 name            : 'section-load', //name of the search button
-                card_class      : ' col-12 acme-col-lg-4',
+                card_class      : 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop col-12 acme-col-lg-4',
                 non_pinned      : {{articleCount}}
             };
 
