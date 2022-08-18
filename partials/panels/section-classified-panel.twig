@@ -6,7 +6,7 @@
 {% if blogData.count != "" %}
     {% set countTerm = "listings" %}
 {% endif %}
-
+{% set config       = _Network.getThemeConfig() %}
 {% if blogData.count == 1 %}
     {% set countTerm = "listing" %}
 {% endif %}
@@ -15,7 +15,11 @@
     {% set limit = featurelisting %}
 {% endif %}
 
+{% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
 
+{% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
+    {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
+{% endif %}
 
 <div class="acme-row c-section-head">
     <div class="acme-col-12">
@@ -35,7 +39,7 @@
                 cardType: "acme-",
                 imageSize: {width: 285, height: 192},
                 contentType: contentType,
-                containerClass: "acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop"
+                containerClass: cardClasses
             }) | raw}}
             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
         </div>
@@ -50,7 +54,7 @@
         blogId: blogData['guid'],
         imageSize: {width: 285, height: 192},
         contentType: contentType,
-        cardClass: "acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop acme-col-12 acme-col-md-12 acme-col-lg-4",
+        cardClass: cardClasses ~ " acme-col-12 acme-col-md-12 acme-col-lg-4",
         cardCount: articleCount,
         cardType: "acme-"
     }) | raw}}
