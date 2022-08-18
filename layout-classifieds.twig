@@ -62,6 +62,12 @@
     {% set featurePanel = true %}
 {% endif %}
 
+{% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
+
+{% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
+    {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
+{% endif %}
+
 
 {# Get the blog feed for the section(s)  #}
 {% for panel in panels %}
