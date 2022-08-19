@@ -1,0 +1,23 @@
+@mixin acme-card-2-base() {
+    background: $white;
+
+    .acme-c-cards-view {
+
+    }
+
+}
+
+.acme-card-2-tablet {
+    @media #{$tablet} {
+        @include card-name("acme 2 tablet");
+        @include acme-card-2-base();
+
+    }
+}
+
+.acme-card-2-desktop {
+    @media #{$desktop-up} {
+        @include card-name("acme 2 desktop");
+        @include acme-card-2-base();
+    }
+}
