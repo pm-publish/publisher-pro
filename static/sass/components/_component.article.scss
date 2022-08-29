@@ -331,13 +331,14 @@
     ul li {
       list-style-type: none !important;
       position: relative;
+      padding-left: 25px;
       &:before {
         content: "";
         @include size(8px);
         background-color: var(--sec-color);
         position: absolute;
         display: block;
-        left: -28px;
+        left: 0px;
         top: 8px;
       }
 
@@ -361,6 +362,7 @@
     ol {
       li {
         list-style-type: auto !important;
+        list-style-position: inside;
       }
     }
 

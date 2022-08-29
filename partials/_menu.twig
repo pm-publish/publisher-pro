@@ -5,9 +5,9 @@
 
 
         <li class="{% if children %}dropdown js-sideBarList {% endif %}">
-            <div class="dropdown-listMenu {% if children %}js-sideBarItem{% endif %}">
+            <div class="dropdown-listMenu">
                 {% if children %}
-                    <div class="menu-icon"></div>
+                    <div class="menu-icon js-sideBarItem"></div>
                 {% endif %}
                 <a  class="{{activeClass}} {{externalClass}}"
                     href="{{parentItem.link | raw}}"
@@ -34,8 +34,8 @@
                         {% set subChildren = childItem.children is defined and childItem.children | length > 0 %}
 
                         <li class="{% if subChildren %} sub-dropdown js-sideBarList {% endif %}">
-                            <div class="sub-dropdown-item {% if subChildren %}js-sideBarItem{% endif %}">
-                                <div class="menu-icon"></div>
+                            <div class="sub-dropdown-item">
+                                <div class="menu-icon {% if subChildren %}js-sideBarItem{% endif %}"></div>
                                 <a class="{{activeClass}} {{externalClass}} two" href="{{childItem.link |raw}}" {% if childItem.target != "" %}target="{{childItem.target}}"{% endif %}>
                                     {{ ((childItem.label is empty) ? ((childItem.pageTitle is empty) ? childItem.blogTitle : childItem.pageTitle) : childItem.label)}}
                                 </a>

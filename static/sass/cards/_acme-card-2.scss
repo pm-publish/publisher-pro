@@ -1,0 +1,65 @@
+@mixin acme-card-2-base() {
+    background: $white;
+
+    .acme-c-cards-view {
+        @include box-shadow(0 2px 10px 6px rgba(0, 0, 0, 0.2));
+
+        &__media {
+            @include size(100px);
+
+            img {
+                @include size(100%);
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        &__description {
+            display: none;
+        }
+
+        &__category {
+            color: $greyish;
+            margin-bottom: 8px;
+        }
+
+        &__heading {
+            font-size: 17px;
+            line-height: 1.40;
+            max-height: 50px;
+        }
+
+        &__container {
+            @include calc(width,'100% - 100px');
+            padding: 10px 30px;
+            min-height: 100px;
+        }
+        &__author {
+            display: none;
+        }
+
+        &.without-image {
+            .acme-c-cards-view {
+                &__container {
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+}
+
+.acme-card-2-tablet {
+    @media #{$tablet} {
+        @include card-name("acme 2 tablet");
+        @include acme-card-2-base();
+
+    }
+}
+
+.acme-card-2-desktop {
+    @media #{$desktop-up} {
+        @include card-name("acme 2 desktop");
+        @include acme-card-2-base();
+    }
+}

@@ -52,6 +52,18 @@
     @include flex-direction(column, vertical);
     margin: 20px 0;
 
+    &.vertical {
+        @include flex-direction(column,vertical);
+    
+        .sub-heading {
+            @include font-size(18);
+            line-height: 32px;
+            margin-top: 15px;
+            max-width: 500px;
+            text-align: center;
+        }
+    }
+
     &__link {
         color: $grey5;
         @include font-size(12);
@@ -103,3 +115,17 @@
 }
 
 /* Begin utility view style */
+
+.auth_wrapper {
+    .c-page-head {
+        border-bottom: none;
+        margin: 0 0 20px 0;
+  
+        .u-heading__large--d2 {
+            @include font-size(28);
+            font-weight: $weightBold;
+            color: $black;
+            width: 100%;
+        }
+    }
+  }

@@ -9,32 +9,41 @@
         }, false) 
     %} 
 {% endif %} #}
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 
 
-
-<section class="container u-margin-top-100 u-margin-bottom-100">
+<section class="container u-margin-top-100 u-margin-bottom-100 auth_wrapper">
     <div class="row u-flex-center">
-        <div class="col-6">
-            <h1 class="u-margin-bottom-10"> Sign in</h1>
-            <form name="loginForm" id="loginForm" class="login-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> 
-                <input id="loginName" class="" type="text" name="username" placeholder="Email address" value="" /> 
-                <input id="loginPass" class="" type="password" name="password" placeholder="Password" value="" /> 
-                <div class="remember"> 
-                    <p class="layout u-hide" data-layout="forgot" class="">Forgot password</p> 
-                </div> 
-                
-                <div class="js-login-error active u-hide"> 
-                    <div class="login-form__error_text">Invalid Email or Password</div> 
-                </div> 
-                
-                <button id="signinTwig" type="submit" class="c-button c-button--rounded c-button--blue signin">SIGN IN</button> 
-                
-                <p class="u-no-margin u-margin-top-15 login-form-faq u-hide">Trouble signing in? <a class="login-form-faq__link" href="'+_appJsConfig.appHostName +'/faq" target="_blank">Read our FAQ</a></p> 
-                <div class="reset"> 
-                    <p class="layout u-hide" data-layout="forgot" class="">Set my password</p> 
-                </div> 
-                
-            </form>
+        <div class="col-12">
+            <div class="c-page-head c-page-head-xs">
+                <div class="u-heading__large--d2 text-center">Sign in</div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 mx-auto">
+                    <form name="loginForm" id="loginForm" class="login-form active" action="javascript:void(0);" method="post" accept-charset="UTF-8" autocomplete="off"> 
+                        
+                        <div class="signin-modal__form-group">
+                            <div class="signin-modal__form-group__label">
+                                <label class="signin-modal__form-group__label-text">Email address</label>
+                            </div>
+                            <input id="loginName" class="login-form__input" type="text" name="username" placeholder="Email" value="" /> 
+                        </div>
+
+                        <div class="signin-modal__form-group">
+                            <div class="signin-modal__form-group__label">
+                                <label class="signin-modal__form-group__label-text">Password</label>
+                            </div>
+                            <input id="loginPass" class="login-form__input" type="password" name="password" placeholder="Password" value="" /> 
+                        </div>
+                        <div class="js-login-error login-form__error message active u-hide"> 
+                            <div class="login-form__error_text">Invalid Email or Password</div> 
+                        </div> 
+                        <div class="button-set mt-4">
+                            <button id="signinTwig" type="submit" class="c-button c-button--inline  c-button--lightBlue w-100 signin">SIGN IN</button> 
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -50,6 +59,31 @@
             var redirect = "/" + articleUrl.substring(5);
         }
 
+        $('#signinGoogle').on('click', function(e) {
+            console.log('signing in google');
+            function init() {
+                gapi.load('auth2', function() {
+                    gapi.auth2.init({client_id: 'CLIENT_ID.apps.googleusercontent.com'});
+
+                    /* Ready. Make a call to gapi.auth2.init or some other API */
+                });
+            }
+
+            
+            {# Acme.server.create('/auth/auth', {"type" : "google"}).done(function(r) {
+                if (r.success === 1) {
+                    window.location.replace(_appJsConfig.appHostName + redirect); 
+                } else {
+                    $elem.text("Sign in")
+                        .removeClass('spinner');
+                    $('.message').removeClass('hide');
+                    $('.js-login-error').removeClass('u-hide');
+                }
+            }).fail(function(r) { console.log(r);}); #}
+        });
+
+
+
         $('#signinTwig').on('click', function(e) {
 
             var $elem = $(e.target);
@@ -58,7 +92,7 @@
                 $elem.text('').addClass('spinner');
                 e.preventDefault();
                 var formData = {};
-
+                console.log('signing in');
                 $.each($('#loginForm').serializeArray(), function () {
                     formData[this.name] = this.value.trim();
                 });
