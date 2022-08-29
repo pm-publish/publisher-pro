@@ -44,6 +44,17 @@
             position: (articleCount+1),
             containerClass: "card-8-mobile card-8-tablet card-8-desktop",
             imageSize: {width: 95, height: 130},
+            imageSizes: {
+                "mobile": {
+                    width: 95, height: 130
+                },
+                "mobileLrg": {
+                    width: 95, height: 130
+                },
+                "tablet": {
+                    width: 95, height: 130
+                }
+            },
             swap : 'false',
             template: 'feature',
             url: altUrls[1] is defined ? networkData.defaultBlogUrl ~ altUrls[1] : ''
