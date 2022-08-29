@@ -66,12 +66,12 @@
 {% endif %}
 
 {% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
-{% set cardClassesLoading = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop acme-col-lg-4' %}
+{% set cardClassesLoading = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop acme-col-lg-4 acme-col-12 acme-col-md-12' %}
 {% set cardClassesContainer = 'acme-col-12 acme-col-md-12 acme-col-lg-4' %}
 
 {% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
     {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
-    {% set cardClassesLoading = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop acme-col-lg-2' %}
+    {% set cardClassesLoading = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop acme-col-lg-2 acme-col-12 acme-col-md-12' %}
     {% set cardClassesContainer = 'acme-col-12 acme-col-md-12 acme-col-lg-6' %}
 {% endif %}
 
@@ -437,7 +437,7 @@
             failText        : '<h2 style="font-size:24px;margin-top:25px;color:#0e215d;font-weight:400;">Sorry, we couldn\'t find what you\'re looking for.</h2>',
             after           : '</div>',
             cardType        : "acme-",
-            card_class      : cardClassesLoading ~ ' acme-col-12 acme-col-md-12',
+            card_class      : "{{cardClassesLoading}}",
             lightbox        : "{{contentType}}"
         }); 
 
@@ -614,7 +614,7 @@
                 cardType        : "acme-",
                 lightbox        : "{{contentType}}",
                 name            : 'section-load', //name of the search button
-                card_class      : cardClassesLoading ~ ' acme-col-12 acme-col-md-12',
+                card_class      : "{{cardClassesLoading}}",
                 non_pinned      : {{articleCount}}
             };
 
