@@ -16,7 +16,7 @@
 
         &__description {
             display: none;
-        }
+        } 
 
         &__category {
             color: $greyish;
@@ -62,4 +62,8 @@
         @include card-name("acme 2 desktop");
         @include acme-card-2-base();
     }
+}
+
+.test_dataaa {
+    overflow: hidden;
 }
