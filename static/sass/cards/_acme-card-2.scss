@@ -2,7 +2,49 @@
     background: $white;
 
     .acme-c-cards-view {
+        @include box-shadow(0 2px 10px 6px rgba(0, 0, 0, 0.2));
 
+        &__media {
+            @include size(100px);
+
+            img {
+                @include size(100%);
+                object-fit: cover;
+                object-position: center;
+            }
+        }
+
+        &__description {
+            display: none;
+        }
+
+        &__category {
+            color: $greyish;
+            margin-bottom: 8px;
+        }
+
+        &__heading {
+            font-size: 17px;
+            line-height: 1.40;
+            max-height: 50px;
+        }
+
+        &__container {
+            @include calc(width,'100% - 100px');
+            padding: 10px 30px;
+            min-height: 100px;
+        }
+        &__author {
+            display: none;
+        }
+
+        &.without-image {
+            .acme-c-cards-view {
+                &__container {
+                    width: 100%;
+                }
+            }
+        }
     }
 
 }
