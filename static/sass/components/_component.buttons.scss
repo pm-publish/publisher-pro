@@ -190,3 +190,40 @@
     }
 }
 /* End header style */
+
+.c-buttonSet {
+    @include flexbox;
+    width: 100%;
+    @include align-items(center);
+
+    .c-button {
+        width: 50%;
+        + .c-button {
+            margin-left: 10px;
+        }
+    }
+}
+
+.c-button--secTheme {
+    background-color: var(--sec-color);
+    border-color: var(--sec-color);
+    color: #fff;
+
+    &-bordered {
+        border-color: var(--sec-color);
+        color: var(--sec-color);
+        background-color: transparent;
+    }
+}
+
+.c-button--mainTheme {
+    background-color: $mainColor;
+    border-color: $mainColor;
+    color: #fff;
+
+    &-bordered {
+        border-color: $mainColor;
+        color: $mainColor;
+        background-color: transparent;
+    }
+}
