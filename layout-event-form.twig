@@ -1,15 +1,25 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 
+
+{% if _User.isGuest() %}
+    {% set redir = _Page.setHttpRedirects(
+        { '|^/.*|': networkData.defaultBlogUrl ~ '/subscriptions', }, false) 
+    %} 
+{% endif %}
+
+
 {% set networkData = _Network.getNetworkData() %}
 {% set blogData    = _Blog.getBlog() %}
 {% set eventBlogId  = blogData.additionalInfo['publishto'] %}
-
 {% set limit = 10 %}
 
 {% set user = false %}
 
 {{this.registerJsFile("https://maps.googleapis.com/maps/api/js?key=AIzaSyCRILYoQMiSjf_1Q_DhL199ha5w410AOLU")}}
 
+<!-- Tempus Dominus JavaScript -->
+{# <script src="https://cdn.jsdelivr.net/gh/Eonasdan/tempus-dominus@v6-alpha14/dist/js/tempus-dominus.js" crossorigin="anonymous"></script> #}
+<!-- Tempus Dominus Styles -->
 
 {% set userScript = "" %}
 {% if not _User.isGuest %} 
@@ -17,134 +27,160 @@
     {% set userScript = "window.Acme.currentUser = '" ~ user.guid ~ "';" %}
 {% endif %} 
 
-{% set userArticlesArr = [] %}
+{% set user_name = user.firstname ~ " " ~ user.lastname %}
+{% set user_email = user.email %}
 
+{% set userArticlesArr = [] %}
 
 <!-- used to index each article as we loop over throughout the template -->
 {% set articleCount = 0 %}
 {% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? true : false %}
+{% set config = _Network.getThemeConfig() %}
 
-
-
-<main id="main" class="o-body-container o-body-container-md u-margin-top-60" role="main">
-        
-    <div class="c-submitevent">
+<main id="main" class="o-body-container o-body-container-md " role="main">
+    <div id="event-container" class="">
         <div class="container">
             <div class="row">
-                <div class="col-12 col-lg-7 j-article-container">
-                <div class="c-submitevent-container">
-                    <div class="c-page-info">
-                    <div class="c-page-info__title">Submit an event</div>
-                    <div class="c-page-info__discription">
-                        <p>Optio ipidus imillenda perferum quas simoluptur. Nam etus aut laborate ventior am ad qui sam exceped minum quis imperumque parum, 
-                    si cusandam audigni hillaut re nihillo riasit eum neuarum si cusandam audigctat. </p>
+                <div class="col-12 col-md-11 offset-md-1">
+                    <div class="c-page-head c-page-head-xs">
+                        <div class="u-heading__large--d2 u-bg-white u-margin-top-60">Submit an event</div>
                     </div>
-                </div>
 
-
-
-                <div class="c-event-form">
-                    <div class="">
-                        <form action="#" method="post" autocomplete="off">
-                            <div class="row">
-
-                                {# NAME #}
-                                <div class="col-12 c-form__group u-margin-bottom-15">
-                                    <input id="event-name" class="c-form__input c-form__input--bordered articleExtendedData" name="event-name" placeholder="Name of event*" aria-required="true" type="text">
-                                    <div class="c-form__help-block"></div>
-                                </div>
-
-                                {# START DATE #}
-                                <div class="col-12 c-form__group u-margin-bottom-15 col-md-split col-lg-split">
-                                    <input type="text" class="c-form__input c-form__input--bordered articleExtendedData" name="start_date" id="start_date" value="" placeholder="Start date*">
-                                    <div class="c-form__help-block"></div>
-                                </div>
-
-                                {# END DATE #}
-                                <div class="col-12 c-form__group u-margin-bottom-15 col-md-split col-lg-split">
-                                    <input type="text" class="c-form__input c-form__input--bordered articleExtendedData" name="end_date" id="end_date" value="" placeholder="End date">
-                                    <div class="c-form__help-block"></div>
-                                </div>
-
-
-                                {# ADDRESS #}
-                                <div class="col-12 c-form__group u-margin-bottom-15">
-                                    <input id="address" class="c-form__input c-form__input--bordered articleExtendedData" name="address" placeholder="Address*" aria-required="true" type="text">
-                                    <div class="c-form__help-block"></div>
-                                </div>
-                                
-
-                                {# SUBURB #}
-                                <div class="col-12 col-md-split col-lg-split c-form__group u-margin-bottom-15">
-                                    <input id="suburb" class="c-form__input c-form__input--bordered " name="suburb" placeholder="Suburb" aria-required="true" type="text">
-                                    <div class="c-form__help-block"></div>
-                                </div>
-
-                                {# STATE #}
-                                <div class="col-12 col-md-split col-lg-split c-form__group u-margin-bottom-15">
-                                    <input id="state" class="c-form__input c-form__input--bordered articleExtendedData" name="state" placeholder="State*" aria-required="true" type="text">
-                                    <div class="c-form__help-block"></div>
-                                </div>
-
-
-                                {# CONTACT #}
-                                <div class="col-12 c-form__group u-margin-bottom-15">
-                                    <input id="contact-name" class="c-form__input c-form__input--bordered articleExtendedData" name="contactname" placeholder="Contact name" aria-required="true" type="text">
-                                    <div class="c-form__help-block"></div>
-                                </div>
-
-                                {# DESCRIPTION #}
-                                <div class="col-12 c-form__group u-margin-bottom-15">
-                                    <textarea id="description"  name="description" class="c-form__input c-form__input--bordered c-event-form_description articleExtendedData" placeholder="Event description*" aria-required="true" type="text"></textarea>
-                                    <div class="c-form__help-block"></div>
-                                </div>
-
-
-                                {# UPLOAD PHOTO #}
-                                <div class="col-12 c-form__group u-margin-bottom-15">
-                                    <div id="uploadFileBtn" data-imgcls="images" data-id="imageArray" class="c-upload-image u-margin-bottom-50">
-                                        <p class="c-upload-image__label" >Upload image </p>
-                                        <p class="c-upload-image__restrictions" >JPEG Maximum 5MB </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 col-md-3 col-lg-2 c-form__group u-margin-bottom-15">
-                                    <button type="submit" id="" class="c-button c-button--inline c-button--rounded c-button--blue-bordered" name="">Cancel</button>
-                                </div>
-
-                                <div class="col-12 col-md-3 col-lg-2 c-form__group u-margin-bottom-15">
-                                    <button type="submit" id="" class="c-button c-button--inline  c-button--rounded c-button--blue" name="">Submit</button>
-                                </div>
-                                
+                    <div class="row">
+                        <div class="col-12 col-md-7">
+                        {% if config['submit-event']['intro-text'] %}
+                            <div class="c-page-info__discription">
+                                <p>{{config['submit-event']['intro-text']}}</p>
                             </div>
-                        </form>
+                        {% endif %}
+
+                            <div class="c-event-form">
+                                <div class="">
+                                    <form id="listingForm" action="#" method="post" autocomplete="off">
+                                        <div class="row">
+
+
+
+                                            {# NAME #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15">
+                                                <label class="c-form__label">Event name*</label>
+                                                <input id="title" class="c-form__input c-form__input--bordered " name="title" placeholder="" aria-required="true" type="text">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# START DATE #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15 col-md-split col-lg-split">
+                                                <label class="c-form__label">Start time*</label>
+                                                <input id="start_date" class="c-form__input c-form__input--bordered c-form__input--pointer" name="start_date" placeholder="" aria-required="true" type="text">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# END DATE #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15 col-md-split col-lg-split">
+                                                <label class="c-form__label">End time</label>
+                                                <input id="end_date" class="c-form__input c-form__input--bordered c-form__input--pointer " name="end_date" placeholder="" type="text">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# CONTACT NAME #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15">
+                                                <label class="c-form__label">Contact name*</label>
+                                                <input id="contact_name" class="c-form__input c-form__input--bordered " name="contact_name" placeholder="" aria-required="true" type="text" value="{{user_name}}">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# Contact number #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15 col-md-split col-lg-split">
+                                                <label class="c-form__label">Contact number</label>
+                                                <input id="contact_number" class="c-form__input c-form__input--bordered " name="contact_number" placeholder="" aria-required="true" type="text">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# Email address #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15 col-md-split col-lg-split">
+                                                <label class="c-form__label">Email address*</label>
+                                                <input id="contact_email" class="c-form__input c-form__input--bordered " name="contact_email" placeholder="" aria-required="true" type="email" value="{{user_email}}">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# Venue name #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15">
+                                                <label class="c-form__label">Venue name</label>
+                                                <input id="venue" class="c-form__input c-form__input--bordered " name="venue" placeholder="" aria-required="true" type="text">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# Venue address #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15">
+                                                <label class="c-form__label">Venue address (include full street address and postcode)</label>
+                                                <input id="address1" class="c-form__input c-form__input--bordered " name="address1" placeholder="Example: 328 Swanston St, Melbourne, VIC 3000" aria-required="true" type="text">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# Website link #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15">
+                                                <label class="c-form__label">Website link</label>
+                                                <input id="website_url" class="c-form__input c-form__input--bordered " name="website_url" placeholder="" aria-required="true" type="text">
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# Event Description #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15">
+                                                <label class="c-form__label">Event Description*</label>
+                                                <textarea id="content" class="c-form__textarea" name="content" placeholder="" aria-required="true" type="text"></textarea>
+                                                <div class="c-form__help-block"></div>
+                                            </div>
+
+                                            {# UPLOAD PHOTO #}
+                                            <div class="col-12 c-form__group u-margin-bottom-15">
+                                                <div data-imgcls="images" data-id="imageArray" class="c-upload-image">
+                                                    <div id="file-picker"  class="c-upload-image__label " >Upload image </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 u-margin-top-15">
+                                                <div id="imageArray" data-media="" class="carousel-tray"></div>
+                                            </div>
+
+
+                                            <div class="col-12">
+                                                <div id="formError" class="c-form__error"></div>
+                                            </div>
+
+
+
+                                             <div class="col-12 u-margin-top-40">
+                                                <div class="c-buttonSet">
+                                                    <button type="submit" id="" class="c-button c-button--inline  c-button--secTheme" name="">Submit event</button>
+                                                    <button type="reset" id="listingFormClear" class="c-button c-button--inline c-button--secTheme-bordered" name="">Cancel</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-12 offset-lg-1 col-lg-4">
-            <div class="o-body-container__right-layout j-article-sidebar">
-                {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
-                    <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
-                {% endif %}
-            </div>
-        </div>
-
     </div>
-
-    <div class="j-keyword-cont" data-keywords="{{blogData.keywords}}"></div>
-</main><!-- .site-main -->
+</main>
 
 
-{# {{this.registerJs("Acme.eventMap = new Acme.GoogleMap();")}} #}
+<script defer src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+<script defer type="text/javascript" src="{{networkData.templatePath}}/static/js/vendor/tempusdominus.js?ver=02"></script>
+<script defer type="text/javascript" src="{{networkData.templatePath}}/static/js/vendor/filestack_picker_v3.js?ver=00"></script>
+
+
 
 <script>
     // main script is defered so event listener makes sure
     // defered script is loaded before this runs
     document.addEventListener("DOMContentLoaded", function(event) {
         Acme.cards = new Card();
-        Acme.eventForm = new Acme.EventForm([{{eventBlogId}}]);
+        Acme.eventForm = new Acme.EventForm('listingForm', [{{eventBlogId}}]);
+        Acme.eventForm.thankYouText = "{{config['submit-event']['thankyou-text']}}";
        {{userScript | raw}}
     });
 </script>
