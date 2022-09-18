@@ -663,6 +663,7 @@ UserProfileController.prototype.stripeCardEvent = function () {
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
+                    console.log('updating credit card');
                     const formdata = {"stripetoken":result.token.id}
                     Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
                         if (r.success === 1) {
