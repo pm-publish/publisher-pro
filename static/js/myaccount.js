@@ -21,7 +21,7 @@ export const UserProfileController = function(data)
     this.stripe = Stripe(this.stripekey);
     const StripeCard = new Card();
     this.card = StripeCard.get(this.stripe);
-
+    this.stripeEventEnabled = false;
     this.events();
     this.userEvents();
     // this.listingEvents();
@@ -213,6 +213,7 @@ UserProfileController.prototype.userEvents = function()
 UserProfileController.prototype.events = function () 
 {
     var self = this;
+    self.stripeCardEvent();
 
     $('#portal-session').on('click', function(e) {
         const button = $(this);
@@ -617,7 +618,6 @@ UserProfileController.prototype.events = function ()
         $this.closest('.infoBox__area').find('.infoBox-dataGrid').addClass('u-hide');
         $this.closest('.infoBox__area').find('.infoBox-form').removeClass('u-hide');
 
-        self.stripeCardEvent();
     });
 
     $('.js-cus_acnt__HideForm').on('click', function() {
@@ -645,20 +645,19 @@ UserProfileController.prototype.stripeCardEvent = function () {
     var udform = document.getElementById('update-card-form');
 
     if (udform != null) {
-
-        udform.addEventListener('submit', function(event) {
+        var submitFunction = function(event) {
             event.preventDefault();
-
+    
             self.modal.render("spinner", "Updating card...", {'class':'u-relative'});
-
+    
             const errorElement = document.getElementById('card-errors');
-
+    
             errorElement.textContent = '';
             // const stripe = Stripe(self.stripekey);
             self.stripe.createToken(self.card).then(function(result) {
                 if (result.error) {
                     self.modal.closeWindow();
-
+    
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
                     errorElement.textContent = result.error.message;
@@ -667,17 +666,23 @@ UserProfileController.prototype.stripeCardEvent = function () {
                     const formdata = {"stripetoken":result.token.id}
                     Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
                         if (r.success === 1) {
-
                             self.modal.renderLayout('message', {message: "Success"});
-
                             location.reload();
                         } else {
                             self.modal.closeWindow();
                             self.showError(r.error);
                         }
                     });
+                    self.modal.closeWindow();
                 }
             });
-        });
+        }
+
+
+        udform.removeEventListener('submit', submitFunction);
+        if (self.stripeEventEnabled === false) {
+            udform.addEventListener('submit', submitFunction);
+            self.stripeEventEnabled = true;
+        }
     }
 }
