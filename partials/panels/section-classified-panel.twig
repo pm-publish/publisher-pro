@@ -12,21 +12,26 @@
 {% endif %}
 {% set limit = 3 %}
 {% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
-{% set limit = 2 %}
+    {% set limit = 2 %}
 {% endif %}
 {% if featurelisting is defined and featurelisting > 0 %}
     {% set limit = featurelisting %}
 {% endif %}
 
 {% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
-{% set cardClassesLoading = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop acme-col-lg-4' %}
-{% set cardClassesContainer = 'acme-col-12 acme-col-md-12 acme-col-lg-4' %}
+
+{% set acmeClasses = 'acme-col-12 acme-col-md-6 acme-col-lg-4' %}
+
+{% if blogLayout == 'user' %}
+    {% set acmeClasses = 'acme-col-12 acme-col-md-6 acme-col-lg-3' %}
+    {% set cardClasses = 'acme-card-3-mobile acme-card-3-tablet acme-card-3-desktop' %}
+{% endif %}
 
 {% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
-    {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
-    {% set cardClassesLoading = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop acme-col-lg-6' %}
-    {% set cardClassesContainer = 'acme-col-12 acme-col-md-12 acme-col-lg-6' %}
+    {% set cardClasses = 'acme-card-3-mobile acme-card-3-tablet acme-card-3-desktop' %}
+    {% set acmeClasses = 'acme-col-12 acme-col-md-12 acme-col-lg-6' %}
 {% endif %}
+
 
 <div class="acme-row c-section-head">
     <div class="acme-col-12">
@@ -39,7 +44,7 @@
 </div>
 <div class="acme-row">
     {% for i in 0..(limit - 1) if articles[i] %}
-        <div class="{{cardClassesContainer}}">
+        <div class="{{acmeClasses}}">
             {{this.render('../_single-article.twig', {
                 article: articles[articleCount], 
                 position: (articleCount+1),
@@ -61,7 +66,7 @@
         blogId: blogData['guid'],
         imageSize: {width: 285, height: 192},
         contentType: contentType,
-        cardClass: cardClassesLoading ~ " acme-col-12 acme-col-md-12",
+        cardClass: cardClasses ~ ' ' ~ acmeClasses,
         cardCount: articleCount,
         cardType: "acme-"
     }) | raw}}
