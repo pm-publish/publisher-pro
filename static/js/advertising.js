@@ -75,14 +75,16 @@ export default class AdLoader {
                 const item = data[k];
                 const keys = item.keywords.split(',');
                 const adElem = document.getElementById(keys[0]);
-
+                let target = "";
+                if (item.button.target === "_blank") {
+                    target = ' target="_blank" rel="noopener noreferrer"'
+                }
                 if (item.media.path){
                     const html ='<div id="advertisment__' + keys[0] + '" class="advertisment advertisment__' + keys[0] + ' advertisment__' + keys[1] + '"> \
-                                    <a href="' + item.button.url + '"> \
+                                    <a href="' + item.button.url + '"' + target + '> \
                                         <img src="' + item.media.path + '"> \
                                     </a> \
                                 </div>';
-
                     adElem.innerHTML = html;
                     return;
                 }

@@ -13,7 +13,14 @@
     {% set additionalLabel = config.cardOptions['additional-label'] is defined ? config.cardOptions['additional-label'] : additionalLabel %}
 {% endif %}
 
-{% if params.hasMedia %}
+{% set blogLayout = false %}
+
+{% if blogData.layout == 'user' %}
+    {% set blogLayout = true %}
+{% endif %}
+
+
+{% if params.hasMedia == 'True' %}
     <figure class="{{params.cardType}}c-cards-view__media {{params.videoClass}}" title="{{imageSize}}">
         <picture>
             <source media="(max-width: 767px) and (min-width: 501px)" srcset="{{params.imageMobileLarge}}">
@@ -29,8 +36,7 @@
             <div class="video-icon"></div>
 
         </picture>
-    </figure>
-    
+    </figure>    
 
 {% endif %}
 
@@ -39,7 +45,7 @@
 <div class="{{params.cardType}}c-cards-view__container">
     <div class="{{params.cardType}}c-cards-view__container-topSection">
         <div class="{{params.cardType}}c-cards-view__container-categorisedInfo">
-            {% if params.hasMedia %}
+            {% if params.hasMedia == 'True' %}
                 <figure class="{{params.cardType}}c-cards-view__media {{params.videoClass}}" title="{{imageSize}}">
                     <picture>
                         <source media="(max-width: 767px) and (min-width: 501px)" srcset="{{params.imageMobileLarge}}">
@@ -56,6 +62,24 @@
 
                     </picture>
                 </figure>
+
+                {% else %}
+                    {% if blogLayout == true %}
+                        <picture class="classified_img">
+                        <div class="classified_img_bg">
+                            <svg width="105" height="121" viewBox="0 0 105 121" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <mask id="mask0_638_1212" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="105" height="121">
+                                <rect width="105" height="121" fill="#FF1515"/>
+                                </mask>
+                                <g mask="url(#mask0_638_1212)">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5107 89.5512C11.796 90.7268 8.25015 91.9041 5.54854 93.0831C-6.60871 98.9695 -4.9202 117.132 -4.9202 117.973C-4.75135 119.655 -3.2317 121 -1.54319 121H106.521C108.21 121 109.729 119.655 109.898 117.973C109.898 117.132 111.756 98.9695 99.5984 93.0831C96.8968 91.7376 93.3509 90.7268 89.6362 89.5512C81.1936 86.8586 70.7249 83.6647 68.8675 77.4419C69.0364 76.4311 69.3741 73.4038 71.738 71.2191C76.297 66.6765 81.1936 54.0626 81.1936 41.6187V41.4488C81.1936 40.7777 79.8428 23.2866 69.8807 15.8865C68.5298 14.5393 62.9578 10 52.489 10H52.3202C42.0203 10 36.4482 14.5393 35.0974 15.7183C24.9664 23.1184 23.7844 40.6079 23.7844 41.2823V41.4488C23.7844 53.8961 28.6811 66.5099 33.2401 71.0509C35.604 73.4038 35.9417 76.4311 36.1105 77.2721C34.422 83.6647 23.9533 86.8586 15.5107 89.5512Z" fill="#C7C7C7"/>
+                                </g>
+                            </svg>
+                        </div>
+                            
+
+                        </picture>
+                    {% endif %}
                 
 
             {% endif %}
@@ -69,10 +93,25 @@
                     {% endif %}
                 </div>        
                 <h2 class="{{params.cardType}}c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{ params.title }}</h2>
+                <div class="classified_category">
+                    <div class="{{params.cardType}}c-cards-view__category-wrap">
+                        {% if params.category != params.blogTitle and additionalLabel == true %}
+                            <div class="{{params.cardType}}c-cards-view__additional-category">{{params.category}}</div>
+                        {% endif %}
+                        {% if label == true %}
+                            <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
+                        {% endif %}
+                    </div>
+                </div> 
             </div>
         </div>
         
         <p class="{{params.cardType}}c-cards-view__description js-c-cards-view-description j-truncate j-excerpt">{{ quotes.smarten(params.content | raw) }}</p>
+        {% if params.additionalInfo.contactemail is defined and params.additionalInfo.contactemail is not empty %}
+            <div class="classified_category">
+                <div class="classified_contactInfo">{{params.additionalInfo.contactemail}}</div>
+            </div>
+        {% endif %}
     </div>
     <div class="{{params.cardType}}c-cards-view__author {{params.videoClass}}">
         <div class="{{params.cardType}}c-cards-view__author-name">{{ params.author }}</div>

@@ -1,0 +1,129 @@
+@mixin acme-card-3-base() {
+    background: $white;
+
+    .acme-c-cards-view {
+        @include flexbox;
+        @include flex-direction(column,vertical);
+        box-shadow: none;
+
+        &__media {
+            @include size(130px);
+            overflow: hidden;
+            @include border-radius(100%);
+
+            img {
+                @include size(100%);
+                object-fit: cover;
+            }
+        }
+
+        &__heading {
+            font-size: 20px;
+            color: $black;
+            margin-top: 15px;
+        }
+
+        &__description {
+            margin-top: 15px;
+            font-size: 13px;
+            line-height: 20px;
+            font-weight: $weightRegular;
+            color: $grey5;
+        }
+
+        &__author,
+        &__category-wrap {
+            display: none
+        }
+
+        .classified_category {
+            .acme-c-cards-view {
+                &__category-wrap {
+                    display: block
+                }
+
+                &__category {
+                    color: var(--sec-color);
+                    font-size: 12px;
+                    font-weight: $weightBold;
+                    margin-top: 10px;
+                }
+            }
+
+            .classified_contactInfo {
+                display: inline-flex;
+                color: var(--sec-color);
+                padding-bottom: 4px;
+                border-bottom: 2px solid var(--sec-color);
+                font-size: 12px;
+                font-weight: $weightBold;
+                margin-top: 10px;
+            }
+        }
+        .classified_img {
+            @include inline-flex;
+
+            &_bg {
+                @include inline-flex;
+                background-color: #D8D8D8;
+                @include size(130px);
+                overflow: hidden;
+                position: relative;
+                @include justify-content(center);
+                @include border-radius(50%);
+
+                svg {
+                    position: absolute;
+                    bottom: 0
+                }
+            }
+        }
+    }
+}
+
+.acme-card-3-mobile {
+    @media #{$mobile} {
+        @include acme-card-3-base();
+        @include card-name("acme 1 mobile");
+    }
+}
+
+.acme-card-3-tablet {
+    @media #{$tablet} {
+        @include card-name("acme 1 tablet");
+        @include acme-card-3-base();
+    }
+}
+
+.acme-card-3-desktop {
+    @media #{$desktop-up} {
+        @include card-name("acme 1 desktop");
+        @include acme-card-3-base();
+
+    }
+}
+
+.acme-row {
+    @media (min-width:991px) {
+        .acme-col-lg-3 {
+            margin-bottom: 20px;
+            &:not(:nth-child(4n+1)) {
+                border-left: 1px solid $grey4;
+            }
+        }
+    }
+    @media (max-width:991px) {
+        .acme-col-md-6 {
+            margin-bottom: 20px;
+            &:not(:nth-child(2n+1)) {
+                border-left: 1px solid $grey4 !important;
+            }
+        }
+    }
+    @media (max-width:767px) {
+        .acme-col-12 {
+            border: none !important;
+        }
+    }
+    
+}
