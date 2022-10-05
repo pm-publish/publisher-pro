@@ -644,6 +644,16 @@ UserProfileController.prototype.stripeCardEvent = function () {
     var self = this;
     var udform = document.getElementById('update-card-form');
 
+    var random = function(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    };
+
     if (udform != null) {
         var submitFunction = function(event) {
             event.preventDefault();
@@ -663,7 +673,7 @@ UserProfileController.prototype.stripeCardEvent = function () {
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
-                    const formdata = {"stripetoken":result.token.id}
+                    const formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
                     Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
                         if (r.success === 1) {
                             self.modal.renderLayout('message', {message: "Success"});
