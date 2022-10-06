@@ -11,7 +11,7 @@
 
 {% set networkData = _Network.getNetworkData() %}
 {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
-{% set blogData		= _Blog.getBlog() %}
+{% set blogData     = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {% set config = _Network.getThemeConfig() %}
 
 

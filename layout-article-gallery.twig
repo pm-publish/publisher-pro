@@ -4,7 +4,7 @@
 
 
 {% set networkData = _Network.getNetworkData() %}
-{% set blogInfo = _Blog.getBlog() %}
+
 {% set config = _Network.getThemeConfig() %}
 
 {% set themeColor = "#4A90E2" %}
@@ -15,8 +15,7 @@
 {% set relatedArticles = [] %}
 {% set articleBlog = article.blog.title | lower %}
 
-{% set articleBlogInfo = _Blog.getBlog({'guid':article.blog['guid']}) %}
-
+{% set articleBlogInfo = _Blog.getBlog({'guid':article.blog['guid']}, {'excludeMenus' : true}) %}
 
 {% set cropped = true %}
 {% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and article.additionalInfo.image_crop == 'full' %}
@@ -43,7 +42,7 @@
 
     {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
     {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
-    {# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
+        {# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
 
         {% if not _User.isGuest() %}
             {% set showPaywall = false %}
@@ -52,7 +51,7 @@
         {% endif %}
 
 
-        {% else %}
+    {% else %}
         {# DETERMINE WHICH PAYWALL TO SHOW #}
         {% if not _User.isGuest() %}
 
@@ -80,31 +79,31 @@
     {% set storySplit = ArticleContent | split('</p>') %}
     {% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
     {% set ArticleContent = [storySplit[0], para2] | join('</p>') %}
-
     {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
+    
     {% for plan in plans %}
         {% if plan.trial_status == "1" %}
             {% set trialToggle = true %}
         {% endif %}
     {% endfor %}
 
-    {% else %}
-        {% if config['inventory']['articleAd'] is defined %}
-            {% set adPos = config['inventory']['articleAd'] %}
+{% else %}
+    {% if config['inventory']['articleAd'] is defined %}
+        {% set adPos = config['inventory']['articleAd'] %}
 
-            {% set storySplit = ArticleContent | split('<p>') %}
+        {% set storySplit = ArticleContent | split('<p>') %}
 
-            {% if storySplit[(adPos['position'] * 2) - 1] %}
-                {% if adPos['slot'] is defined %}
+        {% if storySplit[(adPos['position'] * 2) - 1] %}
+            {% if adPos['slot'] is defined %}
                 {% set inarticleslot = adPos['slot'] %}
                 {% set ArticleContent = ' <p>' %}
                 {% for para in storySplit %}
                     {% set ArticleContent = ArticleContent ~ ' <p>' ~ para %}
                     {% if loop.index == adPos['position'] %}
                         {% set ArticleContent = ArticleContent ~ '
-                            <div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
-                                <div class="j-adslot" id="' ~ inarticleslot ~ '" data-adshape="banner"></div>
-                            </div>' %}
+                        <div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
+                            <div class="j-adslot" id="' ~ inarticleslot ~ '" data-adshape="banner"></div>
+                        </div>' %}
                     {% endif %}
                 {% endfor %}
             {% endif %}
@@ -145,7 +144,7 @@
 {% if article.publishedDateTime != article.updatedDateTime %}
     {% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
     {% if updatedAgo < 86400 %} 
-            {% set updateDate = _AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} 
+        {% set updateDate = _AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} 
     {% endif %} 
     {% set updated = true %} 
 {% endif %} 
@@ -219,6 +218,5 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </main>

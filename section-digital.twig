@@ -1,8 +1,7 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData = _Network.getNetworkData() %}
 {% set site        = networkData.title | lower | split(" ")[0]%}
-{% set blogData     = _Blog.getBlog() %}
-
+{% set blogData     = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {% set config       = _Network.getThemeConfig() %}
 
 

@@ -1,6 +1,6 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData  = _Network.getNetworkData() %}
-{% set blogData     = _Blog.getBlog() %}
+{% set blogData     = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {% set config       = _Network.getThemeConfig() %}
 {% set currentPage  = _Blog.getBlogTitle() %}
 {% set mainClassifiedsPage  = currentPage %}
