@@ -19,8 +19,6 @@
 {% set forceVideo = false %}
 {% set params = url['query'] %}
 
-{% set blogData     = _Blog.getBlog() %}
-
 {#remove all images if url param set#}
 
 {% set premiumSuppress = false %}
@@ -285,8 +283,7 @@
         <article class="{{cardType}}c-cards-view {{params.social == 0 ? "" : "social"}} {{params.category}} {{params.hasMediaClass}} {{lightbox}} {{contentType}} {{params.status}}">
             {{ this.render('_article-' ~ template ~ '.twig', {
                 params:params, 
-                networkData: networkData,
-                blogData: blogData
+                networkData: networkData
             } ) | raw }}
         </article>
 

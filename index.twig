@@ -2,10 +2,9 @@
 
 {% cache 'indexCache_1' 300 %}
 
-
 {% set networkData = _Network.getNetworkData() %}
 {% set layoutTitle = _Page.getLayoutTitle() | lower | replace({' ': '_'}) %}
-{% set blogData = _Blog.getBlog() %}
+{% set blogData = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {% set homeBlog = blogData['title'] | lower %}
 {% set config = _Network.getThemeConfig() %}
 {% set layout = blogData.layout %}

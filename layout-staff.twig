@@ -1,16 +1,16 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
 {% set networkData  = _Network.getNetworkData() %}
-{% set blogData     = _Blog.getBlog() %}
+{% set blogData     = _Blog.getBlog(null, {'excludeMenus' : true}) %}
+
 {% set config       = _Network.getThemeConfig() %}
 {% set currentPage  = _Blog.getBlogTitle() %}
 {% set mainClassifiedsPage  = currentPage %}
-
 {% set sideMenu = _Menu.get({'menuType': 'header', "menuGroupName": currentPage, 'include_article_count': true }) %}
 {% set panels = _Menu.get({'menuType': 'header', "menuGroupName":  currentPage ~ " panels"}) %}
 {% set url = _AppHelper.getParsedUrl() %}
 {% set articleCount = 0 %}
 
-{% set contentType = "article" %}
+{% set contentType = "staff" %}
 
 {% if blogData['additionalInfo']['contenttype'] is defined %}
     {% set contentType = blogData['additionalInfo']['contenttype'] %}
@@ -58,11 +58,14 @@
         {% endfor %}
     {% endif %}
 {% endif %}
-{% set featurePanel = false %}
+
+
+
+{# {% set featurePanel = false %}
 {% if config['classifieds']['feature-panel'] is defined and config['classifieds']['feature-panel'] == true %}
     {% set featurePanel = true %}
 {% endif %}
-
+ #}
 
 {# Get the blog feed for the section(s)  #}
 {% for panel in panels %}
@@ -180,7 +183,7 @@
                                     position: (articleCount+1),
                                     imageSize: {width: 285, height: 192},
                                     cardType: "acme-",
-                                    contentType: 'article',
+                                    contentType: 'staff',
                                     containerClass: "acme-card-3-mobile acme-card-3-tablet acme-card-3-desktop"
                                 }) | raw}}
                                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -224,7 +227,7 @@
                                 'dev'         : dev,
                                 'config'      : {
                                     blogs: [pagesection],
-                                    template: "partials/panels/section-classified-panel",
+                                    template: "partials/panels/section-staff-panel",
                                     title: pagesection,
                                     nomargin: true,
                                     wrapper: false,

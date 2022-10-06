@@ -3,7 +3,7 @@
 {{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
 
 {% set networkData = _Network.getNetworkData() %}
-{% set blogInfo = _Blog.getBlog() %}
+{% set blogInfo = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {% set config = _Network.getThemeConfig() %}
 
 {{ set(this, 'params', {
@@ -20,7 +20,7 @@
 {% set relatedArticles = [] %}
 {% set articleBlog = article.blog.title | lower %}
 
-{% set articleBlogInfo = _Blog.getBlog({'guid':article.blog['guid']}) %}
+{% set articleBlogInfo = _Blog.getBlog({'guid':article.blog['guid']}, {'excludeMenus' : true}) %}
 
 
 {% set cropped = true %}

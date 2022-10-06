@@ -1,4 +1,4 @@
-{% set blogData = _Blog.getBlog() %}
+{% set blogData = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {% set addresses = blogData.settings['contact'] %}
 {% set pageClass = _Page.getBodyClass() %}
 {% set layout = _Page.getLayoutName() %}

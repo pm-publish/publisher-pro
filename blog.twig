@@ -1,4 +1,4 @@
-{% set blogInfo = _Blog.getBlog() %}
+{% set blogInfo = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {% set networkData = _Network.getNetworkData() %}
 
 {{ set(this, 'title', blogInfo.title) }}

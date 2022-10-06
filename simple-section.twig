@@ -1,6 +1,5 @@
 {{ set(this, 'title', _Blog.getBlogTitle()) }}
-{% set blogData     = _Blog.getBlog() %}
-
+{% set blogData     = _Blog.getBlog(null, {'excludeMenus' : true}) %}
 {# {% cache 'section_1' 300 %} #}
 
 
