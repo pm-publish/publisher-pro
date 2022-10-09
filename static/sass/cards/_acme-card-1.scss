@@ -5,6 +5,11 @@
         @include flex-direction(row, horizontal);
         @include flex-height(162px);
         
+        .classified_category {
+            display: none;
+        }
+
+
         &__media {
             @include flex-width(143px);
             overflow: hidden;
@@ -14,7 +19,7 @@
             }
         }   
 
-
+        
         &__container {
             @include flexbox();
             @include flex-direction(column, vertical);
