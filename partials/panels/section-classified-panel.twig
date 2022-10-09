@@ -19,13 +19,8 @@
 {% endif %}
 
 {% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
+{% set acmeClasses = 'acme-col-12 acme-col-md-12 acme-col-lg-4' %}
 
-{% set acmeClasses = 'acme-col-12 acme-col-md-6 acme-col-lg-4' %}
-
-{% if blogLayout == 'user' %}
-    {% set acmeClasses = 'acme-col-12 acme-col-md-6 acme-col-lg-3' %}
-    {% set cardClasses = 'acme-card-3-mobile acme-card-3-tablet acme-card-3-desktop' %}
-{% endif %}
 
 {% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
     {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
