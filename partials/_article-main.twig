@@ -69,16 +69,6 @@
                     {% endif %}
                 </div>        
                 <h2 class="{{params.cardType}}c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{ params.title }}</h2>
-                <div class="classified_category">
-                    <div class="{{params.cardType}}c-cards-view__category-wrap">
-                        {% if params.category != params.blogTitle and additionalLabel == true %}
-                            <div class="{{params.cardType}}c-cards-view__additional-category">{{params.category}}</div>
-                        {% endif %}
-                        {% if label == true %}
-                            <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
-                        {% endif %}
-                    </div>
-                </div> 
             </div>
         </div>
         
