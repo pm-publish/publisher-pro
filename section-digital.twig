@@ -42,17 +42,17 @@
                     article: articles[articleCount], 
                     position: (articleCount+1),
                     imageSize: {width: 600, height: 900},
-                        imageSizes: {
-                            "mobile": {
-                                width: 235, height: 319
-                            },
-                            "mobileLarge": {
-                                width: 235, height: 319
-                            },
-                            "tablet": {
-                                width: 235, height: 319
-                            }
+                    imageSizes: {
+                        "mobile": {
+                            width: 235, height: 319
                         },
+                        "mobileLrg": {
+                            width: 235, height: 319
+                        },
+                        "tablet": {
+                            width: 235, height: 319
+                        }
+                    },
                     containerClass: "card-11-mobile card-11-tablet card-11-desktop card-11-highlighter"
                 }) | raw}}
                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -67,7 +67,7 @@
                             "mobile": {
                                 width: 235, height: 319
                             },
-                            "mobileLarge": {
+                            "mobileLrg": {
                                 width: 235, height: 319
                             },
                             "tablet": {
@@ -99,7 +99,7 @@
                                     "mobile": {
                                         width: 235, height: 319
                                     },
-                                    "mobileLarge": {
+                                    "mobileLrg": {
                                         width: 235, height: 319
                                     },
                                     "tablet": {
