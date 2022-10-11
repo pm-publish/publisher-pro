@@ -72,6 +72,8 @@
     "desktop" : imageSizes is defined and imageSizes.desktop is defined ? imageSizes.desktop : {width:imgWidth, height:imgHeight},
 } %}
 
+
+<div class="d-none">{{_AppHelper.printArray(article)}}</div>
 {% set displayMedia = ((article.hasMedia or article.hasPreviewMedia) and imageSuppress != true) ? true : false %}
 
 
