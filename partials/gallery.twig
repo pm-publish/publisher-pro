@@ -50,7 +50,6 @@ with width taken up with borders on the side #}
     data-slider-id="1" data-default="{{default}}"> #}
     <div id="{{owl}}" class="article-gallery owl-gallery-{{type}} {{owlClass}}" data-slider-id="1" data-default="{{default}}">
         {% for image in media %}
-            {% set log = _AppHelper.log(image) %}
             {% if watermark is defined and watermark != false %}
                 {% set wmHeight = (image.width * (watermark.height / 100))|number_format(0,'','') %}
                 {% set wmWidth = (image.width * (watermark.width / 100))|number_format(0,'','') %}
