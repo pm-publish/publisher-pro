@@ -1,8 +1,6 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
-{% set limit = 3 %}
-
 {% set acmeClasses = 'acme-col-12 acme-col-md-6 acme-col-lg-3' %}
 {% set cardClasses = 'acme-card-3-mobile acme-card-3-tablet acme-card-3-desktop' %}
 
@@ -11,13 +9,13 @@
 <div class="acme-row c-section-head">
     <div class="acme-col-12">
         <a href="{{link}}">
-            <div id="section-{{loadmore_id}}" class="c-section-head__title">{{title}}</div>
+            <div class="c-section-head__title">{{title}}</div>
         </a> 
         <div class="c-section-head__rule"></div>
     </div>
 </div>
 <div class="acme-row">
-    {% for i in 0..(limit - 1) if articles[i] %}
+    {% for i in 0..(articles | length - 1) if articles[i] %}
         <div class="{{acmeClasses}}">
             {{this.render('../_single-article.twig', {
                 article: articles[articleCount], 
@@ -32,20 +30,5 @@
         </div>
     {% endfor %}
 </div>
-
-
-{% if articles | length >= 3 %}
-    {{this.render('/partials/_section-loadmore.twig', {
-        sectionNumber: loadmore_id, 
-        limit: 6,
-        blogId: blogData['guid'],
-        imageSize: {width: 285, height: 192},
-        contentType: contentType,
-        cardClass: cardClasses ~ ' ' ~ acmeClasses,
-        cardCount: articleCount,
-        cardType: "acme-"
-    }) | raw}}
-
-{% endif %}
 
 <div class="u-margin-bottom-60"></div>

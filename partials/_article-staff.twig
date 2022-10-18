@@ -46,12 +46,24 @@
 <div class="{{params.cardType}}c-cards-view__container">
     <div class="{{params.cardType}}c-cards-view__container-topSection">
         <div class="{{params.cardType}}c-cards-view__container-categorisedInfo">
-        	
             <div class="{{params.cardType}}c-cards-view__container-categorisedInfo__box">
                 <h2 class="{{params.cardType}}c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{ params.title }}</h2>
             </div>
+            <div class="{{params.cardType}}c-cards-view__category-wrap">
+                <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
+            </div> 
         </div>
-        
+
         <p class="{{params.cardType}}c-cards-view__description js-c-cards-view-description j-truncate j-excerpt">{{ quotes.smarten(params.content | raw) }}</p>
+        {% if params.additionalInfo.contactemail is defined and params.additionalInfo.contactemail is not empty %}
+            <div class="classified_category">
+                <div class="classified_contactInfo">{{params.additionalInfo.contactemail}}</div>
+            </div>
+        {% endif %}
+        {% if params.additionalInfo.contactphone is defined and params.additionalInfo.contactphone is not empty %}
+            <div class="classified_category">
+                <div class="classified_contactInfo">{{params.additionalInfo.contactphone}}</div>
+            </div>
+        {% endif %}
     </div>
 </div>
