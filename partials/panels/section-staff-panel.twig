@@ -1,7 +1,7 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
-{% set acmeClasses = 'acme-col-12 acme-col-md-6 acme-col-lg-3' %}
+{% set acmeClasses = 'acme-col-12 acme-col-sm-6 acme-col-md-6 acme-col-lg-3' %}
 {% set cardClasses = 'acme-card-3-mobile acme-card-3-tablet acme-card-3-desktop' %}
 
 
@@ -14,10 +14,11 @@
         <div class="c-section-head__rule"></div>
     </div>
 </div>
+
 <div class="acme-row">
     {% for i in 0..(articles | length - 1) if articles[i] %}
         <div class="{{acmeClasses}}">
-            {{this.render('../_single-article.twig', {
+            {{this.render('../_single-card.twig', {
                 article: articles[articleCount], 
                 position: (articleCount+1),
                 cardType: "acme-",

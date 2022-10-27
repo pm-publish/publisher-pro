@@ -1,0 +1,234 @@
+{% import "quotes.twig" as quotes %}
+
+{% set url = _AppHelper.getParsedUrl %}
+
+{% set imageSuppress = imageSuppress is defined and imageSuppress == true   ? true      : false   %}
+{% set lazyload      =      lazyload is defined and lazyload == false       ? false     : false    %}
+{% set template      =      template is defined and template != ''          ? template  : 'main'  %}
+{% set swap          =          swap is defined and swap == 'false'         ? ''        : 'swap'  %}
+{% set dev           =           dev is defined and dev == true             ? true      : false   %}
+{% set inline        =        inline is defined and inline != ''            ? inline    : ''      %}
+{% set amp           =           amp is defined and amp == true             ? true      : false   %}
+
+{# This can add a prefix to the card class to segregate its styles #}
+{% set cardType      = cardType      is defined and cardType != ''          ? cardType  : ''      %}
+
+{#change the image source to either article or author#}
+{% set imageSource   = imageSource   is defined and imageSource != ''       ? imageSource : 'article'  %}
+
+{% set forceVideo = false %}
+{% set params = url['query'] %}
+
+{#remove all images if url param set#}
+
+{% set premiumSuppress = false %}
+{% set forcePremium = false %}
+
+{% for k, p in params %}
+    {% if k == 'images' %}
+        {% if p == 'false' %}
+            {% set imageSuppress = true %}
+        {% endif %}
+        {% if p == 'video' %}
+            {% set forceVideo = true %}
+        {% endif %}
+    {% endif %}
+    {% if k == 'premium' %}
+        {% if p == 'false' %}
+            {% set premiumSuppress = true %}
+        {% endif %}
+
+        {% if p == 'true' %}
+            {% set forcePremium = true %}
+        {% endif %}
+
+    {% endif %}
+
+{% endfor %}
+
+{% set lightbox   = '' %}
+{% set articleImg = '' %}
+
+{% if behaviour is defined %} 
+    {% if behaviour == 'noclick' %}
+        {% set article = article | merge({'url' : 'javascript: void(0)'}) %}
+    {% elseif behaviour == 'lightbox' %}
+        {% set lightbox = behaviour %}
+    {% endif %}
+{% endif %}
+
+
+{% set imgWidth = 0 %}
+{% set imgHeight = 0 %}
+{% if imageSize is defined %}
+    {% set imgWidth = (imageSize.width is defined) ? imageSize.width : 0 %}
+    {% set imgHeight = (imageSize.height is defined) ? imageSize.height : imgWidth %}
+{% endif %}
+
+{% set imgSizes = {
+    "mobile"  : imageSizes is defined and imageSizes.mobile is defined  ? imageSizes.mobile  : {width:306, height:185},
+    "mobileLrg" : imageSizes is defined and imageSizes.mobileLrg is defined  ? imageSizes.mobileLrg  : {width:306, height:185},
+    "tablet"  : imageSizes is defined and imageSizes.tablet is defined  ? imageSizes.tablet  : {width:500, height:768},
+    "desktop" : imageSizes is defined and imageSizes.desktop is defined ? imageSizes.desktop : {width:imgWidth, height:imgHeight},
+} %}
+
+
+{% set displayMedia = ((article.hasMedia or article.hasPreviewMedia) and imageSuppress != true) ? true : false %}
+
+{% set isArticle = (article.articleId > 0 or (isArticle is defined and isArticle == 'true')) ? 0 : 1 %}
+
+
+{% if isArticle == 0 %}
+
+
+    {% set profileImg = false %}
+    {% if authorImg is defined and authorImg == true %}
+        {% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 34, 34, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) %}
+    {% endif %}
+
+
+    {% set publishDate = (article.publishDate is defined) ? article.publishDate : article.publishedDate %}
+    {% set publishDateTime = (article.publishDateTime is defined) ? article.publishDateTime : article.publishedDateTime %}
+    {% set publishDate  = _AppHelper.getDefaultTimezoneDateTime(publishDate, 'd M Y') %}
+    {% set publishedAgo = _AppHelper.getSecondsSincePublished(publishDateTime) %}
+    
+    {% if publishedAgo < 86400 %}
+        {% set publishDate = _AppHelper.getRelativeTime(publishDateTime) ~ " ago" %}
+    {% elseif template == 'property' and publishedAgo < 259200  %}
+        {% set publishDate = "NEW LISTING" %}
+    {% endif %}
+    {% if timeSuppress is defined and timeSuppress == true %}
+        {% set publishDate = "" %}
+    {% endif %}
+
+
+
+    
+    {% set articleTitle = quotes.smarten(article.title)  %}
+    {% if article.titlePreview is defined and article.titlePreview != "" %}
+        {% set articleTitle = quotes.smarten(article.titlePreview) %}
+    {% endif %}
+
+    {% if watermark is defined and watermark != 'FALSE' %}
+        {% set imageparams = {'crop': 'fill', 'gravity': 'faces:auto', 'watermark': watermark } %}
+    {% else %}
+        {% set imageparams = {'crop': 'fill', 'gravity': 'faces:auto'} %}
+    {% endif %}
+
+    {% set imageSource = imageSource == 'article' ? article.featuredMedia : article.createdBy['media'] %}
+    {% set imageSmall       = _Media.getMediaUrl(imageSource,imgSizes.mobile.width, imgSizes.mobile.height,         imageparams ) %}
+    {% set imageMobileLarge = _Media.getMediaUrl(imageSource,imgSizes.mobileLrg.width, imgSizes.mobileLrg.height,   imageparams ) %}
+    {% set imageMedium      = _Media.getMediaUrl(imageSource,imgSizes.tablet.width, imgSizes.tablet.height,         imageparams ) %}
+    {% set imageLarge       = _Media.getMediaUrl(imageSource,imgSizes.desktop.width,imgSizes.desktop.height,        imageparams ) %}
+
+
+    {% set newWindow = false %}
+    {% set redirUrl = article.url %}
+    {% if article.externalUrl != null %}
+        {% set redirUrl = article.externalUrl %}
+        {% set newWindow = true %}
+    {% endif %}
+
+    {% if url is defined and url != '' %}
+        {% set redirUrl = url %}
+        {% set newWindow = false %}
+    {% endif %}
+
+    {% if url.path == '/real-estate' %}
+        {% set newWindow = false %}
+    {% endif %}
+
+    {% if amp == true %}
+        {% set redirUrl = redirUrl ~ '?amp=1' %}
+    {% endif %}
+
+    {% set videoClass = article.featuredMedia['type'] == 'video' ? 'c-cards-view__media--video' : '' %}
+    {% set videoClass = forceVideo ? 'c-cards-view__media--video' : videoClass %}
+    
+    
+    {% set blogguid = article.primaryBlog is defined and article.primaryBlog.guid != "" ? article.primaryBlog.guid : article.blog.guid %}
+    {% set blogTitle = article.primaryBlog is defined and article.primaryBlog.title != "" ? article.primaryBlog.title  : article.blog.title %}
+
+
+
+    {% set params = {
+        imageSuppress   : imageSuppress,
+        hasMediaClass   : (displayMedia) ? 'withImage__content': 'without-image',
+        placeholder     : "https://place-hold.it/1",
+        imgHeight       : imgHeight,
+        imgWidth        : imgWidth,
+        image           : imageLarge,
+        imageMedium     : imageMedium,
+        imageMobileLarge: imageMobileLarge,
+        imageSmall      : imageSmall,
+        publishDate     : publishDate,
+        videoClass      : videoClass,
+        profileImg      : profileImg,
+        hasMedia        : (displayMedia) ? 'True' : 'False',
+        blogguid        : blogguid,
+        blogTitle       : blogTitle,
+        category        : article.label,
+        cardType        : cardType, 
+        lazyload        : lazyload,
+        content         : article.excerpt,
+        author          : article.createdBy['displayName'],
+        status          : article.status,
+        social          : isArticle,
+        title           : articleTitle,
+        articleImg      : _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, imageparams ),
+        guid            : article.guid,
+        url             : redirUrl,
+        id              : article.articleId,
+        target          : (newWindow) ? "_blank" : "_self",
+        additionalInfo  : article.additionalInfo
+    } %}
+    {% set totalstring = "" %}
+    {% set totals = (article.total is defined) ? article.total : false %}
+    {% if totals and _User.isAdminUser() %}
+        {% set totalstring = "Viewed " ~ totals.view ~ " times" %}
+        {% set totalstring = totalstring ~ " Published " ~ params.publishDate %}
+    {% endif %}
+
+{% endif %}
+
+
+
+<div class="{{containerClass}}" data-title="{{ params.title | raw }}" {{inline}}>
+    
+
+    <div
+        class               = "{{swap}} card-infoo" 
+        data-id             = "{{params.id}}" 
+        data-guid           = "{{params.guid}}" 
+        data-position       = "{{position}}" 
+        data-social         = "{{params.social}}"
+        data-blog-guid      = "{{params.blogguid}}"
+        data-blog-title     = "{{params.blogTitle}}"
+        data-article-image  = "{{params.articleImg}}" 
+        data-article-text   = "{{Helper.htmlToText(params.title, -1) | raw | escape('html')}}"
+        target              = "{{params.target}}"
+        title               = "{{totalstring}}">
+
+        {% if dev %}
+            <div class="article_number">{{position}}</div>
+        {% endif %}
+        
+        {# Article content including image #}
+        <article class="{{cardType}}c-cards-view {{params.category}} {{params.hasMediaClass}} {{contentType}} {{params.status}}">
+            {{ this.render('_article-' ~ template ~ '.twig', {
+                params:params, 
+                networkData: networkData
+            } ) | raw }}
+        </article>
+
+        {# Article admin buttons to delete/edit/pin #}
+        {% if article.userHasBlogAccess == '1' and amp != true %}
+            {{ this.render('_article_admin.twig', {
+                article  : article, 
+                position : position, 
+                swap: swap,
+                type     : params.social == 0 ? "article" : "social"
+            } ) | raw }}
+        {% endif %}
+    </div>
+</div>

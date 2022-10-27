@@ -159,18 +159,20 @@
 {# Begin sidebar navigation #}
 
 <div class="c-sidebarMenu">
-    <a href="/subscriptions" class="c-sidebarMenu__subscribe">
-        <span>
-        {% if config['subscribe-label'] is defined and config['subscribe-label'] is not empty %} 
-            {{config['subscribe-label']}} 
-        {% else %} 
-            Subscribe 
-        {% endif %} 
-         today</span>
-        {#<span>
-            <img src={{networkData.templatePath}}/static/icons/icons-navigation-arrow.svg />
-        </span>#}
-    </a>
+    {% if config['paywall']['active'] == true %}
+        <a href="/subscriptions" class="c-sidebarMenu__subscribe">
+            <span>
+            {% if config['subscribe-label'] is defined and config['subscribe-label'] is not empty %} 
+                {{config['subscribe-label']}} 
+            {% else %} 
+                Subscribe 
+            {% endif %} 
+            today</span>
+            {#<span>
+                <img src={{networkData.templatePath}}/static/icons/icons-navigation-arrow.svg />
+            </span>#}
+        </a>
+    {% endif %}
     <div class="c-sidebarMenu__closeInfo">
         <button class="js-closeMenu">
             <span>
