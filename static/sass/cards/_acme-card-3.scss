@@ -18,9 +18,10 @@
         }
 
         &__heading {
-            font-size: 20px;
+            font-size: 18px;
             color: $black;
-            margin-top: 15px;
+            margin-top: 20px;
+            line-height: 1.3;
         }
 
         &__description {
@@ -31,8 +32,14 @@
             color: $grey5;
         }
 
-        &__author,
-        &__category-wrap {
+        &__category {
+            font-size: 18px;
+            color: $grey5;
+            margin-top: 5px;
+            text-transform: capitalize;
+        }
+
+        &__author{
             display: none
         }
 

@@ -15,6 +15,10 @@
         .card-5-desktop {
             height: 100%;
 
+            @media #{$mobile}, #{$tablet} {
+                height: inherit;
+            }
+
             .card-infoo {
                 height: 100%;
             }

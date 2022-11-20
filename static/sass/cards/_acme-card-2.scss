@@ -49,6 +49,14 @@
 
 }
 
+.acme-card-2-mobile {
+    @media #{$mobile} {
+        @include card-name("acme 2 mobile");
+        @include acme-card-2-base();
+
+    }
+}
+
 .acme-card-2-tablet {
     @media #{$tablet} {
         @include card-name("acme 2 tablet");

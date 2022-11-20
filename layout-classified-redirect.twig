@@ -1,0 +1,8 @@
+{# {{ set(this, 'title', _Blog.getBlogTitle()) }} #}
+{# {% set networkData  = _Network.getNetworkData() %}
+{% set blogData     = _Blog.getBlog(null, {'excludeMenus' : true}) %} #}
+
+
+{% set redir = _Page.setHttpRedirects(
+    { '|^/.*|': networkData.defaultBlogUrl ~ '/classifieds', }, false) 
+%} 

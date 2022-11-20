@@ -75,37 +75,6 @@
 
 {% set displayMedia = ((article.hasMedia or article.hasPreviewMedia) and imageSuppress != true) ? true : false %}
 
-
-{# // used for dev to turn an article into a social card for testing ui #}
-{# {% if dev %} #}
-    {# {% set article = article | merge({
-        articleId: -1
-    }) %} #}
-
-
-    {# {% set article = article | merge( {
-        'social': {
-            'url' : article.url,
-            'blog' : {
-                'guid': article.blog.guid
-            },
-            'guid' : article.guid,
-            'media' : {
-                'path' : article.featuredMedia.media.url,
-                'type' : article.featuredMedia.type,
-            },
-            'hasMedia': 'TRUE',
-            'content' : article.excerpt,
-            'source': 'twitter',
-            'user' : {
-                'name' : 'Lee'
-            }
-        } 
-    }) %} #}
-{# {% endif %} #}
-
-
-
 {% set isArticle = (article.articleId > 0 or (isArticle is defined and isArticle == 'true')) ? 0 : 1 %}
 
 
@@ -220,42 +189,6 @@
         {% set totalstring = totalstring ~ " Published " ~ params.publishDate %}
     {% endif %}
 
-{% else %}
-
-    {% set lightbox = "lightbox" %}
-
-    {% set params = {
-        placeholder     : "https://place-hold.it/1",
-        hasMedia        : article.social.hasMedia,
-        hasMediaClass   : (article.social.hasMedia) ? 'withImage__content': 'without-image',
-        hasContentClass : (article.social.content) ? '' : 'without__content',
-        videoClass      : article.social.media['type'] == 'video' ? 'c-cards-view__media--video' : '',
-        imageSmall      : article.social.media['path'],
-        imageMedium     : article.social.media['path'],
-        image           : article.social.media['path'],
-        publishDate     : _AppHelper.getDateTimeBasedOnTimezone(article.social.publishDate, 'd M Y'),
-        blogguid        : article.social.blog.guid,
-        blogTitle       : article.social.blog.title,
-        title           : "",
-        content         : article.social.content,
-        category        : article.social.source,
-        author          : ( social.source == _Article.socialArticleSourceTwitter() ) ? '@' : '' ~ article.social.user['name'] | lower,
-        profileImg      : '',
-        imageSuppress   : imageSuppress,
-        cardType        : cardType, 
-        lazyload        : lazyload,
-        imgWidth        : imgWidth,
-        imgHeight       : imgHeight,
-        status          : '',
-        url             : article.social.url,
-        id              : article.socialId,
-        guid            : article.socialGuid,
-        social          : isArticle,
-        target          : "_self",
-    } %}
-
-
-
 {% endif %}
 
 
@@ -263,7 +196,7 @@
 <div class="{{containerClass}}" data-title="{{ params.title | raw }}" {{inline}}>
     
 
-    <a  href                = "{{article.url}}" 
+    <div
         class               = "{{swap}} card-infoo" 
         data-id             = "{{params.id}}" 
         data-guid           = "{{params.guid}}" 
@@ -281,7 +214,7 @@
         {% endif %}
         
         {# Article content including image #}
-        <article class="{{cardType}}c-cards-view {{params.social == 0 ? "" : "social"}} {{params.category}} {{params.hasMediaClass}} {{lightbox}} {{contentType}} {{params.status}}">
+        <article class="{{cardType}}c-cards-view {{params.category}} {{params.hasMediaClass}} {{contentType}} {{params.status}}">
             {{ this.render('_article-' ~ template ~ '.twig', {
                 params:params, 
                 networkData: networkData
@@ -297,5 +230,5 @@
                 type     : params.social == 0 ? "article" : "social"
             } ) | raw }}
         {% endif %}
-    </a>
+    </div>
 </div>
