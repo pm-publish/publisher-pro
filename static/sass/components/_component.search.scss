@@ -36,3 +36,53 @@
     padding-bottom: 2px;
 }
 /* End page head style */
+
+
+.c-searchWrapper {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    @include flexbox;
+    @include align-items(center);
+
+    &_label {
+        @include flexbox;
+        @include align-items(center);
+        cursor: pointer;
+
+        &_icon {
+            width: 20px;
+        }
+
+        &_text {
+            margin-left: 6px;
+        }
+    }
+
+    &_box {
+        display: none;
+    }
+    &_input {
+        @include font-size(14);
+        padding: 0 10px;
+        outline: none;
+        border: none;
+    }
+
+    &_icon {
+        width: 20px;
+    }
+    
+    &.active {
+        .c-searchWrapper {
+            &_label {
+                display: none;
+            }
+
+            &_box {
+                @include flexbox;
+            }
+        }
+    }
+}
