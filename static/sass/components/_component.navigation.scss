@@ -205,6 +205,8 @@
     }
 
     &-2 {
+        position: relative;
+        min-height: 50px;
         #{$selfNav} {
             &__grid {
                 @include flexbox;
