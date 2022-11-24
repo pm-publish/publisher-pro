@@ -595,7 +595,6 @@ function searchBox(containerCls, closeCls) {
     let mainSearchClose = document.querySelector(`.${closeCls}`);
     let mainSearchInput = document.querySelector('.c-searchWrapper_input');
     mainSearchCont.addEventListener('click', function() {
-        console.log(this.parentElement.classList);
         this.parentElement.classList.contains('active') ? this.parentElement.classList.remove('active') : this.parentElement.classList.add('active');
     });
 
