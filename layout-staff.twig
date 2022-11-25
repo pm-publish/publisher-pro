@@ -5,7 +5,6 @@
 {% set config       = _Network.getThemeConfig() %}
 {% set currentPage  = _Blog.getBlogTitle() %}
 {% set panels = _Menu.get({'menuType': 'header', "menuGroupName":  currentPage ~ " panels"}) %}
-{% set url = _AppHelper.getParsedUrl() %}
 {% set articleCount = 0 %}
 
 {% set contentType = "staff" %}
