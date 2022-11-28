@@ -57,6 +57,8 @@
 
         &_text {
             margin-left: 6px;
+            font-weight: $weightMedium;
+            @include font-size(16);
         }
     }
 
@@ -64,12 +66,16 @@
         display: none;
     }
     &_input {
-        @include font-size(14);
+        @include font-size(16);
         padding: 0 10px;
         outline: none;
         border: none;
         min-width: 220px;
         border-left: 1px solid #C0C0C0;
+
+        @include placeholder {
+            color: #C0C0C0;
+        }
     }
 
     &_icon {
