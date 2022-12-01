@@ -147,6 +147,20 @@
                             customClass: 'py-3'
                             }) | raw }}
                         </ul>
+                        <div class="c-searchWrapper">
+                            <div class="c-searchWrapper_label js_mainSearchBox">
+                                <div class="c-searchWrapper_label_icon">
+                                    <img src={{networkData.templatePath}}/static/icons/search-grey.svg />
+                                </div>
+                                <div class="c-searchWrapper_label_text">Search</div>
+                            </div>
+                            <form class="c-searchWrapper_box" method="get" id="searchform" action="{{networkData.defaultBlogUrl}}/search">
+                                <input class="c-searchWrapper_input" type="text" name="s" placeholder="Search" />
+                                <button class="c-searchWrapper_icon js_closeSearchBox" type="button">
+                                    <img src={{networkData.templatePath}}/static/icons/cross.svg />
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <div class="u-generic-topBorder"></div>
                 </div>
