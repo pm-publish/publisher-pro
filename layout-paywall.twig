@@ -60,6 +60,11 @@
     {% endif %}
 {% endif %}
 
+{% set themeColor = "#4A90E2" %}
+{% if networkData['styling']['colours']['primaryColor'] is defined %}
+    {% set themeColor = networkData['styling']['colours']['primaryColor'] %}
+{% endif %}
+
 
 <div class="c-subscriptions c-subscriptions-xs">
     <div class="c-subscriptions__content">
