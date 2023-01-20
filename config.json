@@ -80,6 +80,11 @@
                     "type": "inputbox"
                 },
                 {
+                    "name": "jobtitle",
+                    "label": "Job Title",
+                    "type": "inputbox"
+                },
+                {
                     "name": "contactcompany",
                     "label": "Company",
                     "type": "inputbox"
