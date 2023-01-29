@@ -10,7 +10,7 @@
 {% set layout       = blogData.layout %}
 {% set dev          = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
-{% set bannerSpots  = [3,5] %}
+{% set bannerSpots  = [1,2] %}
 {% set blogFeeds    = {} %}
 {% set panels       = [] %}
 {% set bannerSlots = [] %}
@@ -46,13 +46,17 @@
 {# <div class="clearfix"></div> #}
 
 
-<main id="main" class="site-main" role="main" data-layout="{{layoutTitle}}">
+<main id="main" class="site-main u-margin-top-60 u-margin-bottom-60 multi-section" role="main" data-layout="{{layoutTitle}}">
 
-<div class="u-section-header u-margin-top-25">
     <div class="container">
-        <h2 class="u-section-header__title">{{_Blog.getBlogTitle()}}</h2>
+        <div class="row">
+            <div class="col-12">
+                <div class="c-page-head c-page-head-xs">
+                    <div class="u-heading__large u-heading__large-xs u-pr--6">{{_Blog.getBlogTitle()}}</div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>  
 
 {# *******************************************************
                 Fetch all needed feeds
