@@ -142,15 +142,14 @@
                         position: relative;
                         padding-left: 30px;
 
-                        &:before {
-                            content: "\f05d";
-                            font-family: $iconfont;
-                            color: $grey4;
-                            @include font-size(22);
-                            line-height: 1;
+                        .icon {
                             position: absolute;
                             left: 0;
                             top: -2px;
+
+                            svg, svg path, svg path * {
+                                fill: var(--sec-color);
+                            }
                         }
                     }
                 }

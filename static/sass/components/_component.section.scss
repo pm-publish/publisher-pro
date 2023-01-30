@@ -158,4 +158,21 @@
     }
 }
 
+.multi-section {
+    >.container {
+        + .container {
+            margin-top: 10px;
+        }
+    }
+    .panel-1 {
+        .col-lg-3 {
+            border-right: 1px solid #C0C0C0;
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+}
+
 /* End section page  style */
