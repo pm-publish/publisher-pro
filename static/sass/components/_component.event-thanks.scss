@@ -1,0 +1,31 @@
+/* Begin page head style */
+.c-thanks {
+    background-color: $grey11;
+
+    &__main {
+        text-align: center;
+        padding: 100px 0;
+        max-width: 500px;
+        margin: 0 auto;
+
+        &-heading {
+            @include font-size(32);
+            font-family: $secondaryFont;
+            font-weight: $weightBold;
+            line-height: 1.25;
+            color: $black;
+            margin-bottom: 16px;
+        }
+
+        &-desTest {
+            @include font-size(18);
+            font-family: $secondaryFont;
+            font-weight: $weightRegular;
+            line-height: 1.78;
+            color: $black;
+            margin-bottom: 40px;
+        }
+    }
+}
+
+/* End page head style */
