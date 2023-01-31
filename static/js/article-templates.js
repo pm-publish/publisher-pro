@@ -245,7 +245,11 @@ export const Templates = {
             <ul class="Acme-pulldown__list" data-key="{{ key }}"></ul> \
         </div>',
 
-
+    carousel_item:
+        '<li class="carousel-tray__item {{swap}}"> \
+            <span data-id="{{imageid}}" class="carousel-tray__delete"></span> \
+            <img class="carousel-tray__img" src="{{imagePath}}" /> \
+        </li>',
 
     eventThankYou: 
         '<div class="c-thanks"> \
