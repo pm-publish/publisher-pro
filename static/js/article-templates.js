@@ -247,7 +247,24 @@ export const Templates = {
 
 
 
-
+    eventThankYou: 
+        '<div class="c-thanks"> \
+            <div class="container"> \
+                <div class="row"> \
+                    <div class="col-12"> \
+                        <div class="c-thanks__main"> \
+                        <h2 class="c-thanks__main-heading">Thanks for submitting an event!</h2> \
+                        \
+                        <p class="c-thanks__main-desTest">{{thankYouText}}</p>\
+                        \
+                        <div class="buttons-container"> \
+                            <a href="{{events_link}}" class="c-button c-button--sitePrimaryClr">Event listings</a> \
+                            <a href="{{home_link}}/" class="c-button c-button--sitePrimaryClr-bordered">Home</a> \
+                        </div> \
+                    </div> \
+                </div> \
+            </div> \
+        </div>',
 
 
     signinFormTmpl:
