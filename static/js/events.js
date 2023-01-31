@@ -144,9 +144,9 @@ ListingForm.constructor = ListingForm;
             'media_ids': ''
         };
     };
-    ListingForm.prototype.submit = function()
+    ListingForm.prototype.submit = function(e)
     {
-
+        e.preventDefault();
         var self = this;
         var validated = this.validate();
         if (!validated) {
