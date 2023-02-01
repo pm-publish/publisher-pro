@@ -250,6 +250,17 @@ export const Templates = {
             <span data-id="{{imageid}}" class="carousel-tray__delete"></span> \
             <img class="carousel-tray__img" src="{{imagePath}}" /> \
         </li>',
+    
+    listingSavedTmpl :  '<p>Thank you, your listing will be published in the next 24 hours</p><div><form><button class="_btn _btn--red">Okay</button></form></div>',
+    
+    listingDeleteTmpl :  
+                '<p>{{msg}}</p> \
+                <div class="u-margin-top-30"> \
+                    <form> \
+                        <button class="c-button c-button--inline  c-button--secTheme" data-role="{{role}}">DELETE</button> \
+                        <button class="c-button c-button--inline c-button--secTheme-bordered">CANCEL</button> \
+                    </form> \
+                </div>',
 
     eventThankYou: 
         '<div class="c-thanks"> \
