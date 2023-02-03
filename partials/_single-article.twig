@@ -160,12 +160,8 @@
         {% set newWindow = true %}
     {% endif %}
 
-    {% if url is defined and url != '' %}
-        {% set redirUrl = url %}
-        {% set newWindow = false %}
-    {% endif %}
 
-    {% if url.path == '/real-estate' %}
+    {% if url is defined and url.path is defined and url.path == '/real-estate' %}
         {% set newWindow = false %}
     {% endif %}
 
