@@ -41,16 +41,16 @@
                 {{this.render('partials/_single-article.twig', {
                     article: articles[articleCount], 
                     position: (articleCount+1),
-                    imageSize: {height: 900},
+                    imageSize: {width: 600, height: 900},
                     imageSizes: {
                         "mobile": {
-                            height: 319
+                            width: 235, height: 319
                         },
                         "mobileLrg": {
-                            height: 319
+                            width: 235, height: 319
                         },
                         "tablet": {
-                            height: 319
+                            width: 235, height: 319
                         }
                     },
                     containerClass: "card-11-mobile card-11-tablet card-11-desktop card-11-highlighter"
