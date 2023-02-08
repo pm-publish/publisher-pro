@@ -13,7 +13,7 @@
             margin-bottom: 10px;
 
             img {
-                width: 194px;
+                width: inherit;
                 height: 263px;
             }
         }
@@ -130,7 +130,7 @@
         &__media {
             background-color: transparent;
             img {
-                width: 235px;
+                width: inherit;
                 height: 319px;
             }
         }
