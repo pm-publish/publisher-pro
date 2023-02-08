@@ -1377,10 +1377,27 @@ hr.divide {
         color: $black;
         z-index: 11;
 
+        &--d2 {
+            @include font-size(32);
+            color: $black;
+            font-family: var(--sec-font);
+            font-weight: 400;
+        }
+
         @include responsive(xs) {
             @include font-size(28);
         }
     }
+}
+
+.c-page-info__discription {
+     p {
+        @include font-size(16);
+        color: $black;
+        font-family: var(--sec-font);
+        font-weight: 400;
+        margin-bottom: 20px;
+     }
 }
 
 .u-bg {
