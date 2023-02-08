@@ -1391,12 +1391,13 @@ hr.divide {
 }
 
 .c-page-info__discription {
+    margin-bottom: 40px;
      p {
         @include font-size(16);
         color: $black;
         font-family: var(--sec-font);
         font-weight: 400;
-        margin-bottom: 20px;
+        line-height: 1.5;
      }
 }
 
