@@ -65,21 +65,20 @@
     }
 
     &__link {
-        color: $grey5;
-        @include font-size(12);
-        font-weight: $weightMedium;
+        color: var(--sec-color);
+        @include font-size(16);
+        font-weight: $weightBold;
         line-height: 1.33;
         text-decoration: none;
         @include flexbox;
         @include align-items(center);
+        border: 1px solid var(--sec-color);
+        padding: 10px 20px;
+        @include transition(all 0.3s ease);
 
-        &:after {
-            content: "";
-            background-image: url("../icons/icons-navigation-arrow.svg");
-            width: 24px;
-            height: 34px;
-            display: block;
-            margin-left: 10px;
+        &:hover {
+            background-color: var(--sec-color);
+            color: var(--white);
         }
     }
 
