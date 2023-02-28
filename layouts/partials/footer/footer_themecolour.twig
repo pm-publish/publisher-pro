@@ -94,6 +94,13 @@
 
                     <div class="c-footer__social">
                         <div class="u-generic-socialIcons justify-content-center justify-content-md-start">
+                            {% if config.social.youtube is defined and config.social.youtube is not empty %}
+                                <a href="{{config.social.youtube}}" class="u-generic-socialIcons__item" target="_blank">
+                                    <span class="icon_youtube">
+                                        <img src="{{networkData.templatePath}}/static/icons/youtube_white.svg" alt="youtube icon" class="img-fluid" />
+                                    </span>
+                                </a>
+                            {% endif %}
                             {% if config.social.facebook is defined and config.social.facebook is not empty %}
                                 <a href="{{config.social.facebook}}" class="u-generic-socialIcons__item" target="_blank">
                                     <span class="fa fa-facebook"></span>
@@ -162,6 +169,13 @@
 
                 <div class="c-footer__social">
                     <div class="u-generic-socialIcons">
+                        {% if config.social.youtube is defined and config.social.youtube is not empty %}
+                            <a href="{{config.social.youtube}}" class="u-generic-socialIcons__item" target="_blank">
+                                <span class="icon_youtube">
+                                    <img src="{{networkData.templatePath}}/static/icons/youtube_white.svg" alt="youtube icon" class="img-fluid" />
+                                </span>
+                            </a>
+                        {% endif %}
                         {% if config.social.facebook is defined and config.social.facebook is not empty %}
                             <a href="{{config.social.facebook}}" class="u-generic-socialIcons__item" target="_blank">
                                 <span class="fa fa-facebook"></span>

@@ -195,3 +195,17 @@
         }
     }
 }
+
+
+.maincards--v2 {
+    margin-top: 30px;
+
+    .event-card-1__mobile + .event-card-1__mobile {
+        margin-top: 0;
+    }
+    .event-card-1__mobile {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #C0C0C0;
+        padding-bottom: 15px;
+    }
+}
