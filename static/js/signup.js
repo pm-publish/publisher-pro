@@ -116,19 +116,29 @@ SubscribeForm.prototype.submit = function(event)
     
     const submitResponse = function(r) {
         // console.log(r);
+
         if (r.success == 1) {
                 window.location.href = location.origin + '/auth/thank-you';
 
         } else {
 
             var errorElement = document.getElementById('card-errors');
-            var text = '';
-            for (var key in r.error) {
-                text = text + r.error[key] + " ";
-            } 
+            var text = r.error;
+            if (Array.isArray(r.error)) {
+                text = '';
+                for (var key in r.error) {
+                    text = text + r.error[key] + " ";
+                } 
+            } else if (typeof r.error === 'object') {
+                text = '';
+                for (var key in r.error) {
+                    text = text + r.error[key] + " ";
+                } 
+            }
+
             errorElement.textContent = text;
         }
-        self.signupModel.closeWindow();
+        self.signupModal.closeWindow();
     }
 
 
