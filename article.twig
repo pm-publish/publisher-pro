@@ -11,6 +11,18 @@
     "networkData": networkData
 }) }}
 
+
+{# PIJF used in Google Tag Manager for NZ On Air to capture published data #}
+{% set pijf_code = null %}
+{% if article.additionalInfo is defined and article.additionalInfo.pijf is defined and article.additionalInfo.pijf != null %}
+    {% set pijf_code = article.additionalInfo.pijf %}
+{% endif %}
+
+{% if pijf_code %}
+    {% set register = _AppHelper.registerMetaTag({"name": "nzoa", "content": pijf_code}) %}
+{% endif %}
+
+
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['primaryColor'] is defined %}
     {% set themeColor = networkData['styling']['colours']['primaryColor'] %}
