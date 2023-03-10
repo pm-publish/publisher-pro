@@ -95,7 +95,16 @@ with width taken up with borders on the side #}
                     {% else %}
 
                         {% if image.source == 'youtube' %}
-                            {% set mediaUrl = "//www.youtube.com/embed/" ~ image.videoId ~ '?enablejsapi=1&version=3&playerapiid=ytplayer' %}
+                            {# 
+                                youtube ids could be stored with query param pointing to timestamp of video
+                                eg: 0zqOgHtIDAE&t=62s
+                                We have to remove the timestamp for embed to work or reformat it to: 0zqOgHtIDAE?start=62
+                                www.youtube.com/embed/0zqOgHtIDAE?start=62&enablejsapi=1&version=3&playerapiid=ytplayer 
+                            #}
+
+                            {# for now just remove it #}
+                            {% set videoId = image.videoId|split('&')[0] %} 
+                            {% set mediaUrl = "//www.youtube.com/embed/" ~ videoId ~ '?enablejsapi=1&version=3&playerapiid=ytplayer' %}
 
                         {% elseif image.source == 'vimeo' %}
                             {% set mediaUrl = "//player.vimeo.com/video/" ~ image.videoId %}
