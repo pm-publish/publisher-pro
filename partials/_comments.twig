@@ -1,5 +1,5 @@
 {# react build files must be coppied to Newsroom theme #}
-{% set commentVersion = '105' %}
+{% set commentVersion = '111' %}
 
 
 {# {% set env = 'prod' %} #}
@@ -28,6 +28,8 @@
     window.commentCount = "{{commentCount}}";
     window.allowComments = "{{allowComments}}";
     window.faqLink      = "{{faqLink}}";
+    window.threadLevel  = 1;
+    window.allow_signedin_users_to_comment = true;
 </script>
 <div id="modal"></div>
 
@@ -38,10 +40,11 @@
 {% if env == 'prod' or env == 'uat' %}
     {# <link rel="stylesheet" href="https://d3pbdxdl8c65wb.cloudfront.net/themes/{{themeId}}/static/css/main.css?ver={{commentVersion}}" type="text/css" media="all">
     <script type="text/javascript" src='https://d3pbdxdl8c65wb.cloudfront.net/themes/{{themeId}}/static/js/main.js?ver="{{commentVersion}}'></script> #}
-    <link rel="stylesheet"        href="{{networkData.templatePath}}/static/comments/main.css?ver={{commentVersion}}" type="text/css" media="all">
-    <script type="text/javascript" src="{{networkData.templatePath}}/static/comments/main.js?v={{commentVersion}}"></script>
+    <link rel="stylesheet"        href="{{networkData.templatePath}}/static/comments/index.css?ver={{commentVersion}}" type="text/css" media="all">
+    <script type="text/javascript" src="{{networkData.templatePath}}/static/comments/index.js?v={{commentVersion}}"></script>
 
 {% endif %}
+
 
 
 
