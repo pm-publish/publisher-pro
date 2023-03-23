@@ -62,7 +62,7 @@
             <div class="{{params.cardType}}c-cards-view__container-categorisedInfo__box">
                 <div class="{{params.cardType}}c-cards-view__category-wrap">
                     {% if params.category != params.blogTitle and additionalLabel == true %}
-                        <div class="{{params.cardType}}c-cards-view__additional-category">{{params.category}}</div>
+                        <div class="{{params.cardType}}c-cards-view__additional-category" {% if params.category | lower == 'breaking news' %} style="background-color: #D0312D" {% endif %}>{{params.category}}</div>
                     {% endif %}
                     {% if label == true %}
                         <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
