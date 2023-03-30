@@ -132,6 +132,14 @@
             </div>
         </div>
     </div>
+
+    {% set theKeywords = '' %}
+    {% if blogData.keywords is defined and blogData.keywords != '' %}
+        {% set theKeywords = blogData.keywords %}
+    {% endif %}
+
+
+    <div id ="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
 </main>
 
 

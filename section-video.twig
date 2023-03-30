@@ -27,125 +27,133 @@
 
 
 <main id="main" class="site-main u-margin-top-20" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
-<div class="c-section-panel__background c-section-secondWrap  mt-0">
+    <div class="c-section-panel__background c-section-secondWrap  mt-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="c-page-head c-page-head--withBorder c-page-head-xs inverse">
+                        <div class="u-heading__large u-heading__large-xs u-pr--6">{{blogData.title}}</div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-11 ">
+                    {{this.render('partials/_single-article.twig', {
+                        article: articles[articleCount], 
+                        position: (articleCount+1),
+                        imageSize: {width: 600, height: 300},
+                        containerClass: "card-2-mobile card-2-tablet card-7-desktop c-cards--inverse u-margin-bottom-30"
+                    }) | raw}}
+                    {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                </div>
+                <div class="c-cards-container c-cards-container-xs section-page-genricTabView">
+                    <div class="row">
+                        {% for i in 1..4 if articles[articleCount] %}
+                            <div class="col-12 col-md-6 col-lg-3">
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[articleCount], 
+                                    position: (articleCount+1),
+                                    imageSize: {width: 600, height: 300},
+                                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription c-cards--inverse"
+                                }) | raw}}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <div class="c-page-head c-page-head--withBorder c-page-head-xs inverse">
-                    <div class="u-heading__large u-heading__large-xs u-pr--6">{{blogData.title}}</div>
-                </div>
+                {% if config['inventory']['adSpace']['banner'][1] is defined %}
+                    <div class="my-5 overflow-hidden">
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
+                    </div>
+                {% endif %}
             </div>
-            <div class="col-12 col-lg-11 ">
-                {{this.render('partials/_single-article.twig', {
-                    article: articles[articleCount], 
-                    position: (articleCount+1),
-                    imageSize: {width: 600, height: 300},
-                    containerClass: "card-2-mobile card-2-tablet card-7-desktop c-cards--inverse u-margin-bottom-30"
-                }) | raw}}
-                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-            </div>
-            <div class="c-cards-container c-cards-container-xs section-page-genricTabView">
-                <div class="row">
-                    {% for i in 1..4 if articles[articleCount] %}
-                        <div class="col-12 col-md-6 col-lg-3">
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                position: (articleCount+1),
-                                imageSize: {width: 600, height: 300},
-                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription c-cards--inverse"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        </div>
-                    {% endfor %}
+            {% if articles | length > 5 %}
+                <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
+                    <div class="row">
+                        {% for i in 5..8 if articles[articleCount] %}
+                            <div class="col-12  col-md-6 col-lg-3 left-border">
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[articleCount], 
+                                    position: (articleCount+1),
+                                    imageSize: {width: 600, height: 300},
+                                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                                }) | raw}}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                            </div>
+                        {% endfor %}
+                    </div>
                 </div>
+            {% endif %}
+
+            {% if articles | length > 9 %}
+                <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
+                    <div class="row">
+                        {% for i in 9..12 if articles[articleCount] %}
+                            <div class="col-12  col-md-6 col-lg-3 left-border">
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[articleCount], 
+                                    position: (articleCount+1),
+                                    imageSize: {width: 600, height: 300},
+                                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                                }) | raw}}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if articles | length > 13 %}
+                <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
+                    <div class="row">
+                        {% for i in 13..16 if articles[articleCount] %}
+                            <div class="col-12 col-md-6 col-lg-3 left-border">
+                                {{this.render('partials/_single-article.twig', {
+                                    article: articles[articleCount], 
+                                    position: (articleCount+1),
+                                    imageSize: {width: 600, height: 300},
+                                    containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
+                                }) | raw}}
+                                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
+                </div>
+            {% endif %}
+
+            <section class="loadmore__section my-5 text-center {{site}}">
+                {% if articles|length >= limit %}
+                    {{ this.render('/partials/load_more.twig', {
+                        name            : "section-load",
+                        label           : "Load more",
+                        buttonClass     : "u-loadmore-button",
+                    }) | raw }}
+                {% endif %}
+            </section>
+
+            <div class="col-12">
+                {% if config['inventory']['adSpace']['banner'][2] is defined %}
+                    <div class="my-5 overflow-hidden">
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>
-</div>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            {% if config['inventory']['adSpace']['banner'][1] is defined %}
-                <div class="my-5 overflow-hidden">
-                    <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
-                </div>
-            {% endif %}
-        </div>
-        {% if articles | length > 5 %}
-            <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
-                <div class="row">
-                    {% for i in 5..8 if articles[articleCount] %}
-                        <div class="col-12  col-md-6 col-lg-3 left-border">
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                position: (articleCount+1),
-                                imageSize: {width: 600, height: 300},
-                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
+    {% set theKeywords = '' %}
+    {% if blogData.keywords is defined and blogData.keywords != '' %}
+        {% set theKeywords = blogData.keywords %}
+    {% endif %}
 
-        {% if articles | length > 9 %}
-            <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
-                <div class="row">
-                    {% for i in 9..12 if articles[articleCount] %}
-                        <div class="col-12  col-md-6 col-lg-3 left-border">
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                position: (articleCount+1),
-                                imageSize: {width: 600, height: 300},
-                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
 
-        {% if articles | length > 13 %}
-            <div class="c-cards-container c-cards-container-xs bottom-border section-page-genricTabView">
-                <div class="row">
-                    {% for i in 13..16 if articles[articleCount] %}
-                        <div class="col-12 col-md-6 col-lg-3 left-border">
-                            {{this.render('partials/_single-article.twig', {
-                                article: articles[articleCount], 
-                                position: (articleCount+1),
-                                imageSize: {width: 600, height: 300},
-                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
-                            }) | raw}}
-                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                        </div>
-                    {% endfor %}
-                </div>
-                <section class="row mt-4" id="loadmore_section" class="loadmore__section {{site}}"></section>
-            </div>
-        {% endif %}
-
-        <section class="loadmore__section my-5 text-center {{site}}">
-            {% if articles|length >= limit %}
-                {{ this.render('/partials/load_more.twig', {
-                    name            : "section-load",
-                    label           : "Load more",
-                    buttonClass     : "u-loadmore-button",
-                }) | raw }}
-            {% endif %}
-        </section>
-
-        <div class="col-12">
-            {% if config['inventory']['adSpace']['banner'][2] is defined %}
-                <div class="my-5 overflow-hidden">
-                    <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
-                </div>
-            {% endif %}
-        </div>
-    </div>
-</div>
+    <div id ="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
 
 </main>
 
