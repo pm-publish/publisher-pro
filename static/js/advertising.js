@@ -62,7 +62,7 @@ export default class AdLoader {
                 let k = 0;
 
                 if (data.length < 1 ){
-                    console.log('no ads found with those keywords', keysString)
+                    // console.log('no ads found with those keywords', keysString)
                     return;
                 }
                 if (data.length > 1 ) {
