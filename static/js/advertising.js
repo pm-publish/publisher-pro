@@ -187,7 +187,9 @@ export default class AdLoader {
                     .setTargeting('tag', [pageTag]);
             googletag.pubads().collapseEmptyDivs();
             googletag.enableServices();
-
+            console.log("i", invSlot);
+            console.log("s", sizes);
+            console.log("sid", slotId);
             googletag.defineSlot(invSlot, sizes, slotId)
                 .setTargeting('POS', [pos])
                 .defineSizeMapping(mapping)
@@ -195,7 +197,10 @@ export default class AdLoader {
 
                 
             
-            googletag.cmd.push(function() { googletag.display(slotId); });
+            googletag.cmd.push(function() { 
+                console.log('publishing', slotId);
+                googletag.display(slotId); 
+            });
         });
     }
 
