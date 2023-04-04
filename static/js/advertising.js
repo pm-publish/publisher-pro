@@ -131,6 +131,7 @@ export default class AdLoader {
 
         googletag.cmd.push(function() {
             //declare mapping variables
+            // addSize([viewportSize], [[multiple, ad, sizes]]]);
             const mappingBanner = googletag.sizeMapping()
                             .addSize([1000, 200], [[970, 250], [970, 90], [728, 250],[728, 90]])
                             .addSize([768, 200], [[728, 250],[728, 90]])
@@ -153,7 +154,8 @@ export default class AdLoader {
                             .build();         
             //cycle through the ad slots on the page and define the associated google slot
             
-            const slotId = 'div-gpt-ad-'+slot;
+            // const slotId = 'div-gpt-ad-'+slot;
+            const slotId = slot;
             //find the ad shape
             const theSlot = document.getElementById(slot);
             const slotType = theSlot.dataset.adshape;
@@ -187,9 +189,6 @@ export default class AdLoader {
                     .setTargeting('tag', [pageTag]);
             googletag.pubads().collapseEmptyDivs();
             googletag.enableServices();
-            console.log("i", invSlot);
-            console.log("s", sizes);
-            console.log("sid", slotId);
             googletag.defineSlot(invSlot, sizes, slotId)
                 .setTargeting('POS', [pos])
                 .defineSizeMapping(mapping)
