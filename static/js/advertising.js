@@ -160,10 +160,8 @@ export default class AdLoader {
             const inventory =  document.getElementById(slotId);
             
             invSlot = self.AccountNumber + adsection;
-            
-            if (adsection == ''){
+            if (adsection == '' && inventory) {
                 invSlot = self.AccountNumber + inventory.dataset.inventory;
-                
             } 
 
             //set the POS

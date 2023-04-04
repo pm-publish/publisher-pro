@@ -305,7 +305,7 @@ export const Templates = {
         </div> \
         \
         <div class="button-set"> \
-            <button type="submit" class="login-form__button cancel">Cancel</button> \
+            <button type="button" class="login-form__button cancel">Cancel</button> \
             <button data-elem="signin" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button _btn _btn--red signin">Sign in</button> \
         </div> \
         \

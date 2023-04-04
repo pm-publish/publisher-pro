@@ -292,16 +292,14 @@
                                     <div class='col-12 col-lg-8'>
                                         <div class="c-article__top-container">
                                             <div class="c-article__category-wrap">
-                                                {% if article.label != article.blog.title and config['additional-label'] == true %}
+                                                {% if article.label != article.blog.title %}
                                                     <div class="c-article__additional-category">
                                                         {{article.label}}
                                                     </div>
                                                 {% endif %}
-                                                {% if config['card-label'] == true %}
-                                                    <div class="c-article__category">
-                                                        {{article.blog.title}}
-                                                    </div>
-                                                {% endif %}
+                                                <div class="c-article__category">
+                                                    {{article.blog.title}}
+                                                </div>
                                             </div>
                                             <div class="c-article__title">
                                                 {{ quotes.smarten(article.title) }}
