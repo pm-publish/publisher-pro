@@ -197,7 +197,6 @@ export default class AdLoader {
                 
             
             googletag.cmd.push(function() { 
-                console.log('publishing', slotId);
                 googletag.display(slotId); 
             });
         });
