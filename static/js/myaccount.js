@@ -464,7 +464,6 @@ UserProfileController.prototype.events = function ()
         const newPlan = elem.parents('.j-plan-details');
         const currentPlan      = $('#currentPlanStats');
         const cardSupplied     = currentPlan.data("cardsupplied");
-
         const currentUserCount = +self.currentUserCount;
         const oldcost          = +currentPlan.data('currentcost');
         const oldPlanPeriod    = +currentPlan.data('currentplanperiodcount');
@@ -560,10 +559,11 @@ UserProfileController.prototype.events = function ()
             msg = "Please confirm your plan change.";
         }
 
+        
 
         if (cardSupplied === 'f' ) {
             msg = msg + "It looks like your payment details are missing. Please add a payment method, click Update, then choose a new plan";
-            self.modal.render("userPlan", "Oops...", {message: msg});
+            modal.render("userPlan", "Oops...", {message: msg});
             return;
         }
 

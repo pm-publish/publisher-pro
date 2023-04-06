@@ -62,7 +62,7 @@ export default class AdLoader {
                 let k = 0;
 
                 if (data.length < 1 ){
-                    console.log('no ads found with those keywords', keysString)
+                    // console.log('no ads found with those keywords', keysString)
                     return;
                 }
                 if (data.length > 1 ) {
@@ -131,6 +131,7 @@ export default class AdLoader {
 
         googletag.cmd.push(function() {
             //declare mapping variables
+            // addSize([viewportSize], [[multiple, ad, sizes]]]);
             const mappingBanner = googletag.sizeMapping()
                             .addSize([1000, 200], [[970, 250], [970, 90], [728, 250],[728, 90]])
                             .addSize([768, 200], [[728, 250],[728, 90]])
@@ -153,7 +154,8 @@ export default class AdLoader {
                             .build();         
             //cycle through the ad slots on the page and define the associated google slot
             
-            const slotId = 'div-gpt-ad-'+slot;
+            // const slotId = 'div-gpt-ad-'+slot;
+            const slotId = slot;
             //find the ad shape
             const theSlot = document.getElementById(slot);
             const slotType = theSlot.dataset.adshape;
@@ -187,7 +189,6 @@ export default class AdLoader {
                     .setTargeting('tag', [pageTag]);
             googletag.pubads().collapseEmptyDivs();
             googletag.enableServices();
-
             googletag.defineSlot(invSlot, sizes, slotId)
                 .setTargeting('POS', [pos])
                 .defineSizeMapping(mapping)
@@ -195,7 +196,10 @@ export default class AdLoader {
 
                 
             
-            googletag.cmd.push(function() { googletag.display(slotId); });
+            googletag.cmd.push(function() { 
+                console.log('publishing', slotId);
+                googletag.display(slotId); 
+            });
         });
     }
 
