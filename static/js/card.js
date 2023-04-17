@@ -91,6 +91,9 @@ Card.prototype.render = function(options = {})
     card['imageUrl'] = articleImg.toURL();
 
     card['label'] = this.data.label;
+    card['blogTitle'] = this.data.blogTitle;
+    card['hasBlogTitle'] = (this.data.label != this.data.blogTitle) ? true : false;
+    card['hasCheckBlogTitle'] = (this.data.blogTitle.toLowerCase() == 'breaking news') ? true : false;
     card['excerpt'] = this.data.excerpt;
     card['title'] = this.data.title;
     card['hasContent'] = showArticleContent;
