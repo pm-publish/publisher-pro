@@ -457,6 +457,13 @@
         font-weight: 500;
         line-height: 1.33;
         padding: 10px;
+
+        p {
+          color: $white !important;
+          font-size: 12px !important;
+          font-weight: 500 !important;
+          line-height: 1.33 !important;
+        }
       }
     }
 
