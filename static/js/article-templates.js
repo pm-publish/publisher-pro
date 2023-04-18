@@ -388,9 +388,9 @@ export const Templates = {
             <div class="{{cardType}}c-cards-view__container-topSection">\
                 <div class="{{cardType}}c-cards-view__category-wrap">\
                 {{#if hasBlogTitle}}\
-                    <div class="{{cardType}}c-cards-view__additional-category" {{#if hasCheckBlogTitle }} style="background-color: #D0312D" {{/if}}>{{blogTitle}}</div>\
+                    <div class="{{cardType}}c-cards-view__additional-category" {{#if hasCheckBlogTitle }} style="background-color: #D0312D" {{/if}}>{{label}}</div>\
                 {{/if}} \
-                    <div class="{{cardType}}c-cards-view__category">{{label}}</div>\
+                    <div class="{{cardType}}c-cards-view__category">{{blogTitle}}</div>\
                 </div>\
                 <h2 class="{{cardType}}c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{{ title }}}</h2>\
                 <p class="{{cardType}}c-cards-view__description js-c-cards-view-description j-truncate j-excerpt">{{{ excerpt }}}</p>\

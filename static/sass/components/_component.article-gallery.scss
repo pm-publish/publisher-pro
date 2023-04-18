@@ -2,6 +2,9 @@
     .gallery-container {
         margin-bottom: 20px;
         .article-gallery {
+            &__img {
+                display: block;
+            }
             &__caption {
                 /* position: absolute;
                 left: 0;
