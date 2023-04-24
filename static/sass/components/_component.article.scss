@@ -365,8 +365,8 @@
 
     ol {
       li {
-        list-style-type: auto !important;
-        list-style-position: inside;
+        list-style-type:  decimal !important;
+        list-style-position: outside;
       }
     }
 
@@ -446,6 +446,8 @@
       @include inline-flex;
       @include flex-direction(column,vertical);
       margin-bottom: 20px !important;
+      overflow: hidden;
+      
       figcaption {
         position: relative;
         left: 0;
