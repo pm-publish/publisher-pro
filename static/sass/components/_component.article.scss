@@ -367,6 +367,7 @@
       li {
         list-style-type:  decimal !important;
         list-style-position: outside;
+        margin-left: 20px;
       }
     }
 
@@ -447,7 +448,7 @@
       @include flex-direction(column,vertical);
       margin-bottom: 20px !important;
       overflow: hidden;
-      
+
       figcaption {
         position: relative;
         left: 0;
