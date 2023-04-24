@@ -21,7 +21,7 @@
                     <div class="c-events__main">
                         <div class="c-page-head c-page-head-xs">
                             <div class="u-heading__large u-heading__large-xs u-pr--6">{{this.title}}</div>
-                            {% if not _User.isGuest() %}
+                            {% if not _User.isGuest() and config.hideEventButton == false %}
                                 <a href="{{networkData.defaultBlogUrl}}/event-form" class="c-page-head__link event_btn d-none d-md-flex">Submit an event</a>
                             {% endif %}
                         </div>

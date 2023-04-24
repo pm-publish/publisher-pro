@@ -11,7 +11,7 @@
 }) }}
 
 
-{% set limit = 15 %}
+{% set limit = 1 %}
 
 {% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
 {% set articles = articlesArr.articles %}
@@ -157,7 +157,7 @@
             container       : 'loadmore_section',
             offset          : {{limit}},
             infinite        : true,
-            limit           : 12,
+            limit           : 1,
             imageWidth      : 650,
             imageHeight     : 900,
             label           : "Load more",

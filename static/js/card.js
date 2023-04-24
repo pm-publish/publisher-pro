@@ -38,7 +38,7 @@ Card.prototype.render = function(options = {})
     card['cardType'] = options.type || "";
     card['lightbox'] = options.lightbox || "";
     card['position'] = this.data.position;
-
+    console.log(this.data);
     card['isPinned'] =  this.data.isPinned;
     card['pinTitle'] = (this.data.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText']  = (this.data.isPinned == 1) ? 'Un-Pin' : 'Pin';
