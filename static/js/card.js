@@ -86,13 +86,14 @@ Card.prototype.render = function(options = {})
     articleImg.resize( fill().width(width).height(height).gravity( focusOn( faces() ) ) );
     // profileImg.resize( thumbnail().width(34).height(34).gravity( focusOn( faces() ) ) );
 
+    const blogTitle = typeof this.data.blogTitle !== 'undefined' ? this.data.blogTitle : '';
     // card['profileImg'] = profileImg.toURL();
     card['imageUrl'] = articleImg.toURL();
 
     card['label'] = this.data.label;
     card['blogTitle'] = this.data.blogTitle;
     card['hasBlogTitle'] = (this.data.label != this.data.blogTitle) ? true : false;
-    card['hasCheckBlogTitle'] = (this.data.blogTitle.toLowerCase() == 'breaking news') ? true : false;
+    card['hasCheckBlogTitle'] = (blogTitle.toLowerCase() == 'breaking news') ? true : false;
     card['excerpt'] = this.data.excerpt;
     card['title'] = this.data.title;
     card['hasContent'] = showArticleContent;
