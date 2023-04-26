@@ -5,6 +5,11 @@
 {% set config       = _Network.getThemeConfig() %}
 
 
+{{ set(this, 'params', {
+    "config": config,
+    "networkData": networkData
+}) }}
+
 
 {% set limit = 15 %}
 

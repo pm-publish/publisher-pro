@@ -38,7 +38,6 @@ Card.prototype.render = function(options = {})
     card['cardType'] = options.type || "";
     card['lightbox'] = options.lightbox || "";
     card['position'] = this.data.position;
-
     card['isPinned'] =  this.data.isPinned;
     card['pinTitle'] = (this.data.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText']  = (this.data.isPinned == 1) ? 'Un-Pin' : 'Pin';
@@ -87,10 +86,14 @@ Card.prototype.render = function(options = {})
     articleImg.resize( fill().width(width).height(height).gravity( focusOn( faces() ) ) );
     // profileImg.resize( thumbnail().width(34).height(34).gravity( focusOn( faces() ) ) );
 
+    const blogTitle = typeof this.data.blogTitle !== 'undefined' ? this.data.blogTitle : '';
     // card['profileImg'] = profileImg.toURL();
     card['imageUrl'] = articleImg.toURL();
 
     card['label'] = this.data.label;
+    card['blogTitle'] = this.data.blogTitle;
+    card['hasBlogTitle'] = (this.data.label != this.data.blogTitle) ? true : false;
+    card['hasCheckBlogTitle'] = (blogTitle.toLowerCase() == 'breaking news') ? true : false;
     card['excerpt'] = this.data.excerpt;
     card['title'] = this.data.title;
     card['hasContent'] = showArticleContent;

@@ -2,10 +2,13 @@
     .gallery-container {
         margin-bottom: 20px;
         .article-gallery {
+            &__img {
+                display: block;
+            }
             &__caption {
-                position: absolute;
+                /* position: absolute;
                 left: 0;
-                bottom: 0;
+                bottom: 0; */
                 background-color: $black;
                 width: 100%;
 

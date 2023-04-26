@@ -5,6 +5,14 @@
     {% set imageSize = "Width: " ~ params.imgWidth ~ " Height: " ~ params.imgHeight %}
 {% endif %}
 
+{% set config = this.params.config %}
+{% set label = true %}
+{% set additionalLabel = false %}
+{% if config.cardOptions is defined %}
+    {% set label = config.cardOptions.label is defined ? config.cardOptions.label : label %}
+    {% set additionalLabel = config.cardOptions['additional-label'] is defined ? config.cardOptions['additional-label'] : additionalLabel %}
+{% endif %}
+
 {% if params.hasMedia %}
     <figure class="{{params.cardType}}c-cards-view__media {{params.videoClass}}" title="{{imageSize}}">
         <picture>
@@ -31,10 +39,12 @@
 <div class="{{params.cardType}}c-cards-view__container">
     <div class="c-cards-view__container-topSection">
         <div class="c-cards-view__category-wrap">
-            {% if params.category != params.blogTitle and config['additional-label'] == true %}
-            <div class="c-cards-view__additional-category">{{params.category}}</div>
+            {% if params.category != params.blogTitle and additionalLabel == true %}
+                        <div class="{{params.cardType}}c-cards-view__additional-category" {% if params.category | lower == 'breaking news' %} style="background-color: #D0312D" {% endif %}>{{params.category}}</div>
             {% endif %}
-            <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
+            {% if label == true %}
+                <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
+            {% endif %}
         </div>
         {% if params.publisherName is defined and params.publisherName is not empty %}
             <div class="c-cards-view__publisher-name">{{params.publisherName}}</div>

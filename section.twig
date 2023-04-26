@@ -162,6 +162,8 @@
 
                 {% endif %}
 
+                <section class="row mt-4" id="loadmore_section"></section>
+
                 <section class="loadmore__section my-5 text-center {{site}}">
                     {% if articles|length >= limit %}
                         {{ this.render('/partials/load_more.twig', {
@@ -172,11 +174,11 @@
                     {% endif %}
                 </section>
                 
-                {% if config['inventory']['adSpace']['banner'][1] is defined %}
+                {# {% if config['inventory']['adSpace']['banner'][1] is defined %}
                     <div class="my-5 overflow-hidden">
                         <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
                     </div>
-                {% endif %}
+                {% endif %} #}
             </div>
         </div>
     </div>

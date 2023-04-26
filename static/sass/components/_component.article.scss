@@ -365,8 +365,9 @@
 
     ol {
       li {
-        list-style-type: auto !important;
-        list-style-position: inside;
+        list-style-type:  decimal !important;
+        list-style-position: outside;
+        margin-left: 20px;
       }
     }
 
@@ -446,6 +447,8 @@
       @include inline-flex;
       @include flex-direction(column,vertical);
       margin-bottom: 20px !important;
+      overflow: hidden;
+
       figcaption {
         position: relative;
         left: 0;
@@ -457,6 +460,13 @@
         font-weight: 500;
         line-height: 1.33;
         padding: 10px;
+
+        p {
+          color: $white !important;
+          font-size: 12px !important;
+          font-weight: 500 !important;
+          line-height: 1.33 !important;
+        }
       }
     }
 
