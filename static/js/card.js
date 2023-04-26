@@ -31,8 +31,6 @@ Card.prototype.render = function(options = {})
     }
 
     
-
-
     card['url'] = this.data.url;
     card['editUrl'] = this.data.editUrl;
     card['cardType'] = options.type || "";
@@ -42,8 +40,8 @@ Card.prototype.render = function(options = {})
     card['pinTitle'] = (this.data.isPinned == 1) ? 'Un-Pin Article' : 'Pin Article';
     card['pinText']  = (this.data.isPinned == 1) ? 'Un-Pin' : 'Pin';
     card['promotedClass'] = (this.data.isPromoted == 1)? 'ad_icon' : '';
-    card['hasMediaClass'] = (this.data.hasMedia == 1)? 'withImage__content' : 'without__image';
-    card['hasMedia'] = (this.data.hasMedia == 1)? true : false;
+    card['hasMediaClass'] = (this.data.hasMedia == 1 || this.data.hasPreviewMedia)? 'withImage__content' : 'without__image';
+    card['hasMedia'] = (this.data.hasMedia == 1 || this.data.hasPreviewMedia)? true : false;
     card['userHasBlogAccess']  = _appJsConfig.userHasBlogAccess;
     card['imgBackgroundStyle'] = (this.lazyloadImage == false) ? '' : 'style="background-image:url(https://placeholdit.imgix.net/~text?txtsize=33&txt=Loading&w=450&h=250)"';
     // mainly for screen to turn off lazyload and loading background img
