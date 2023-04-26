@@ -106,7 +106,17 @@
 {% if showPaywall == true %}
 
     {% set storySplit = ArticleContent | split('</p>') %}
-    {% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
+
+
+    {# When embeds or images appear at the top of an article it can 
+    create broken html and cause rendering issues on the page. #}
+    {% if storySplit[1] | trim matches '/^<p/' %}
+        {% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
+    {% else %}
+        {% set para2 = '<p></p>' %}
+    {% endif %}    
+
+
     {% set ArticleContent = [storySplit[0], para2] | join('</p>') %}
 
     {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
