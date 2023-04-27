@@ -7,14 +7,12 @@
         @include flex-direction(column, vertical);
         box-shadow: none;
 
-
         &__media {
             // @include flex-width(100px);
             img {
-                max-height:100%;
+                max-height: 100%;
             }
-        }   
-
+        }
 
         &__container {
             @include flexbox();
@@ -26,7 +24,7 @@
             @include font-size(11);
             margin-bottom: 5px;
             order: 1;
-            flex-grow:0;
+            flex-grow: 0;
         }
 
         &__heading {
@@ -40,63 +38,207 @@
             // @include flex-height(40px);
         }
         &__articleContent {
-            order:5;
+            order: 5;
 
-            p,
-            span,
-            b,
-            u,
+            // p,
+            // span,
+            // b,
+            // u,
+            // a {
+            //     color: $greyish;
+            //     font-family: $primaryFont !important;
+            //     @include font-size(16);
+
+            //     // font-size: 17px !important;
+            //     line-height: 1.59 !important;
+            //     margin-bottom: 10px !important;
+            //     word-wrap: break-word;
+
+            //     * {
+            //         line-height: 1.5 !important;
+            //         font-family: $primaryFont !important;
+            //         word-wrap: break-word;
+            //         margin-bottom: 0px !important;
+            //     }
+            // }
+            // figure {
+            //     position: relative;
+            //     @include inline-flex;
+            //     margin-bottom: 10px !important;
+            //     figcaption {
+            //       position: absolute;
+            //       left: 0;
+            //       bottom: 0;
+            //       width: 100%;
+            //       background-color: $black;
+            //       color: $white;
+            //       font-size: 12px;
+            //       font-weight: 500;
+            //       line-height: 1.33;
+            //       padding: 10px;
+            //     }
+            //   }
+            // a {
+            //     border-bottom: 1px solid $blue;
+            //     @include transition(all 0.3s ease);
+            //     font-family: $primaryFont !important;
+            //     color: $blue;
+
+            //     &:hover,
+            //     &:focus {
+            //         border-color: $transparent;
+            //     }
+            // }
+
+            .pdf-link {
+                color: #8a8b93;
+                font-family: $font-family-sans-serif;
+                font-size: rem(14);
+                letter-spacing: 0.4px;
+                font-weight: 700;
+            }
             a {
-                color: $greyish;
-                font-family: $primaryFont !important;
-                @include font-size(16);
-
-                // font-size: 17px !important;
-                line-height: 1.59 !important;
-                margin-bottom: 10px !important;
-                word-wrap: break-word;
-    
-                * {
-                    line-height: 1.5 !important;
-                    font-family: $primaryFont !important;
+                color: #f08b56;
+                font-family: $font-family-sans-serif;
+                @media screen and (max-width: $screen-xs) {
                     word-wrap: break-word;
-                    margin-bottom: 0px !important;
                 }
             }
+
             figure {
-                position: relative;
-                @include inline-flex;
-                margin-bottom: 10px !important;
-                figcaption {
-                  position: absolute;
-                  left: 0;
-                  bottom: 0;
-                  width: 100%;
-                  background-color: $black;
-                  color: $white;
-                  font-size: 12px;
-                  font-weight: 500;
-                  line-height: 1.33;
-                  padding: 10px;
+                margin-bottom: 40px;
+                padding-right: 20px;
+
+                &:after {
+                    content: "";
+                    display: table;
+                    clear: both;
                 }
-              }
-            a {
-                border-bottom: 1px solid $blue;
-                @include transition(all 0.3s ease);
-                font-family: $primaryFont !important;
-                color: $blue;
-    
-                &:hover,
-                &:focus {
-                    border-color: $transparent;
+
+                img {
+                    float: left;
+                    width: 100%;
+                    margin-right: 17px;
+                    object-fit: cover;
+                    @media screen and (max-width: $screen-xs) {
+                        margin-bottom: 8px;
+                    }
+                }
+
+                figcaption {
+                    margin: 0;
+                    width: 100%;
+                    font-family: $font-family-serif;
+                    font-size: rem(12);
+                    font-weight: normal;
+                    font-style: italic;
+                    line-height: 1.47;
+                    color: #6c6c6c;
+                    clear: both;
+                    padding-top: 10px;
+
+                    @media screen and (max-width: $screen-xs) {
+                        font-size: rem(11);
+                        width: 100%;
+                        float: none;
+                        line-height: 1.36;
+                    }
                 }
             }
 
+            p {
+                font-size: rem(17);
+                font-weight: 300;
+                font-family: $font-family-sans-serif;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.8;
+                letter-spacing: normal;
+                color: color(darkgrey);
+                padding-right: 10px;
+                clear: none;
+                margin-bottom: 20px;
+                @media screen and (max-width: $screen-xs) {
+                    // font-size: rem(14);
+                    line-height: 1.62;
+                    margin-bottom: 0;
+                    font-size: rem(17.5);
+                }
 
+                &:first-child {
+                    font-weight: bold;
+                }
+            }
+
+            li {
+                font-size: rem(14);
+                font-weight: 300;
+                font-family: $font-family-sans-serif;
+                font-style: normal;
+                font-stretch: normal;
+                line-height: 1.8;
+                letter-spacing: normal;
+                color: #1c2a38;
+                padding-right: 10px;
+                clear: both;
+                margin-bottom: 20px;
+                margin-top: 10px;
+                list-style-type: disc;
+            }
+
+            blockquote {
+                margin: 48px 0;
+                padding: 0;
+                font-size: rem(26);
+                font-weight: bold;
+                font-family: $base-font-family;
+                border: 0;
+                line-height: 1.54;
+
+                &:after {
+                    content: "";
+                    margin-top: 18px;
+                    width: 62px;
+                    height: 5px;
+                    display: block;
+                }
+
+                > p {
+                    font-size: rem(26);
+                    line-height: 1.54;
+                    font-weight: 700;
+                    text-transform: uppercase;
+                    @media screen and (max-width: $screen-xs) {
+                        font-size: rem(22);
+                    }
+                }
+            }
+            h2 {
+                font-size: rem(20);
+                margin-top: 19px;
+                font-weight: 700;
+            }
+            h3 {
+                font-size: rem(16);
+                font-weight: 700;
+                letter-spacing: normal;
+            }
+            h4 {
+                font-size: rem(14);
+                font-style: italic;
+                font-weight: 700;
+                line-height: 1.57;
+                letter-spacing: normal;
+            }
+            hr {
+                border-top: solid 1px #d9d9d6;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
         }
 
         &__author {
-            display:none;
+            display: none;
             // order: 2;
             // margin-bottom: 20px;
         }
@@ -119,7 +261,7 @@
                 }
 
                 &__category {
-                    margin-bottom:8px;
+                    margin-bottom: 8px;
                 }
 
                 &__description {
@@ -131,15 +273,15 @@
                 }
 
                 &__author {
-                    display:none;
-                }    
-
+                    display: none;
+                }
             }
         }
     }
 
     .c-cards-view {
-        &__author,&__description {
+        &__author,
+        &__description {
             display: none;
         }
     }
@@ -152,19 +294,15 @@
     }
 }
 
-
 .acme-card-10-tablet {
     @media #{$tablet} {
         @include card-name("acme 1 tablet");
         @include acme-card-10-base();
 
         .acme-c-cards-view {
-
             &__media {
-
-            }   
+            }
         }
-
     }
 }
 
@@ -173,53 +311,37 @@
         @include card-name("acme 1 desktop");
         @include acme-card-10-base();
 
-        
         .acme-c-cards-view {
-
             &__container {
             }
- 
- 
+
             &__media {
-                min-height:320px;
-                min-width:none;
-                text-align:center;
+                min-height: 320px;
+                min-width: none;
+                text-align: center;
 
                 img {
-                    min-width:none !important;
-                    width:auto !important;
+                    min-width: none !important;
+                    width: auto !important;
                     // object-fit:none;
                 }
-            }   
-
-            
-            &__author {
-                display:none;
             }
 
+            &__author {
+                display: none;
+            }
 
             &.without-image {
                 .acme-c-cards-view {
-
                     &__heading {
-                        margin-top:70px;
+                        margin-top: 70px;
                     }
-        
 
                     &__description {
-                        display:block;
+                        display: block;
                     }
-       
-        
                 }
             }
-    
-
         }
-
     }
 }
-
-
-
-
