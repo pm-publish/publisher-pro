@@ -167,7 +167,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="c-article__top">
+                        <div class="c-article__top {% if showPaywall == true %} border-bottom-0 {% endif %}">
                             <div class="col-12 col-lg-10 mx-auto">
                                 <div class="row relative">
                                     <div class="col-12 col-lg-4">
@@ -221,17 +221,19 @@
                                 </div>
                             {% endif %}
 
-                            <div class="{% if showPaywall == true %} c-article__main__paywall-container {% endif %}"> 
-                                <div class="row">
-                                    <div class="col-12">
-                                        <div class="c-article__main-content mt-5">
-                                            <div class="c-article__container">
-                                                {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                            {% if showPaywall != true %}
+                                <div> 
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="c-article__main-content mt-5">
+                                                <div class="c-article__container">
+                                                    {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
