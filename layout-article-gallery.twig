@@ -160,14 +160,14 @@
     {% set updated = true %} 
 {% endif %} 
 
-<main id="main" class="o-body-container o-body-container-md u-margin-top-60"
-    role="main" data-paywall-type="{{paywallType}}">
+
+<main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}">
         
         <div class="c-article c-article-xs c-article__galleryView">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="c-article__top">
+                        <div class="c-article__top {% if showPaywall == true %} border-bottom-0 {% endif %}">
                             <div class="col-12 col-lg-10 mx-auto">
                                 <div class="row relative">
                                     <div class="col-12 col-lg-4">
@@ -220,14 +220,27 @@
                                     <div class="j-adslot" id="{{config['inventory']['adSpace']['articleAd'][0]}}" data-adshape="articleAd"></div>
                                 </div>
                             {% endif %}
-                            <div class="c-article__main-content mt-5">
-                                <div class="c-article__container">
-                                    {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+
+                            {% if showPaywall != true %}
+                                <div> 
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="c-article__main-content mt-5">
+                                                <div class="c-article__container">
+                                                    {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
+
+            {% if showPaywall == true %}
+                {{this.render('partials/article/paywall_article_notice.twig', {networkData:networkData, paywallType:paywallType}) | raw}}
+            {% endif %}
         </div>
     </main>
