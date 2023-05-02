@@ -26,12 +26,12 @@
 
 {% if config['active'] is not defined or config['active'] == true %}
 
-    {% if config['page']['multisection']['sections'] is defined %}
-        {% set panels = config['page']['multisection']['sections'] %}
+    {% if config['page']['multisection2']['sections'] is defined %}
+        {% set panels = config['page']['multisection2']['sections'] %}
     {% endif %}
 
-    {% if config['page']['multisection']['blogFeeds'] is defined %}
-        {% set blogFeeds = config['page']['multisection']['blogFeeds'] %}
+    {% if config['page']['multisection2']['blogFeeds'] is defined %}
+        {% set blogFeeds = config['page']['multisection2']['blogFeeds'] %}
     {% endif %}
 
     {% if config['inventory'][blogData.title]['bannerSpots'] is defined %}
