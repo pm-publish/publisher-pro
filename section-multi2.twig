@@ -25,13 +25,19 @@
 ******************************************************* #}
 
 {% if config['active'] is not defined or config['active'] == true %}
+    {% if config['page']['multipleSections'] is defined %}
+        {% for multipleSection in config['page']['multipleSections'] %}
+            {% if homeBlog == multipleSection['blogTitle'] | lower %}
+                {% if multipleSection['sections'] is defined %}
+                    {% set panels = multipleSection['sections'] %}
+                {% endif %}
 
-    {% if config['page']['multisection2']['sections'] is defined %}
-        {% set panels = config['page']['multisection2']['sections'] %}
-    {% endif %}
-
-    {% if config['page']['multisection2']['blogFeeds'] is defined %}
-        {% set blogFeeds = config['page']['multisection2']['blogFeeds'] %}
+                {% if multipleSection['blogFeeds'] is defined %}
+                    {% set blogFeeds = multipleSection['blogFeeds'] %}
+                {% endif %}
+            {% endif %}
+            
+        {% endfor %}
     {% endif %}
 
     {% if config['inventory'][blogData.title]['bannerSpots'] is defined %}
