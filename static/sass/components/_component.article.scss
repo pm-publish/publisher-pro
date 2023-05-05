@@ -405,6 +405,42 @@
         font-weight: $weightBold !important;
         margin-bottom: 0px !important;
         line-height: 1.45;
+
+        strong,span,b {
+          color: $black;
+          font-family: $primaryFont !important;
+          font-size: 22px !important;
+          font-weight: $weightBold !important;
+          margin-bottom: 0px !important;
+          line-height: 1.45;
+        }
+  
+        a {
+          color: var(--sec-color);
+          font-family: $primaryFont !important;
+          font-size: 22px !important;
+          font-weight: $weightBold !important;
+          margin-bottom: 0px !important;
+          line-height: 1.45;
+        }
+      }
+
+      strong,span,bold {
+        color: $black;
+        font-family: $primaryFont !important;
+        font-size: 22px !important;
+        font-weight: $weightBold !important;
+        margin-bottom: 0px !important;
+        line-height: 1.45;
+      }
+
+      a {
+        color: var(--sec-color);
+        font-family: $primaryFont !important;
+        font-size: 22px !important;
+        font-weight: $weightBold !important;
+        margin-bottom: 0px !important;
+        line-height: 1.45;
       }
     }
 
@@ -519,5 +555,10 @@
         margin-top: 40px;
       }
     }
+  }
+
+  .ads-sticky {
+    top: 20px;
+    position: sticky;
   }
 }

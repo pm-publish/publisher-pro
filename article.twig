@@ -705,7 +705,7 @@
                             </div>
 
                             <div class="col-12 col-lg-4 d-none d-lg-block">
-                                <div>
+                                <div class="h-100">
                                     <div class="u-heading__large u-heading__large-xs">Top Stories</div>
 
                                     <div class="col-12 u-margin-top-30 c-cards__top-stories">
@@ -725,7 +725,7 @@
                                     </div>
                                     {% if showPaywall != true %}
                                         {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
-                                            <div class="mt-4">
+                                            <div class="mt-4 ads-sticky">
                                                 <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
                                             </div>
                                         {% endif %}
