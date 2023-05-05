@@ -27,6 +27,16 @@
             flex-grow: 0;
         }
 
+        &__additional-category {
+            color: var(--sec-color);
+            @include font-size(11);
+            line-height: 1.33;
+            font-weight: $weightRegular;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-family: var(--main-font);
+        }
+
         &__heading {
             @include font-size(22);
             order: 3;
