@@ -1,4 +1,4 @@
-{% set limit = 1 %}
+{% set limit = 6 %}
 {% set articles = _Search.searchArticles({'limit': limit, 'offset': 0, 'search': search, 'sortBy': 'published'}) %}
 {% set config = _Network.getThemeConfig() %}
 
