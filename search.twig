@@ -19,7 +19,7 @@
                 <div class="col-12 col-lg-10 mx-auto">
                     <div class="c-search__head">
                         {% set resultString = firstCount < 2 ? 'result' : 'results' %} 
-                        <div class="c-search__head-text">Showing {{firstCount}} {{resultString}} for:</div>
+                        <div class="c-search__head-text">Showing results for:</div>
                         <div class="c-search__head-title">{{search | raw}}</div>
                     </div>
                 </div>
@@ -78,6 +78,7 @@
             container       : 'results',
             infinite        : true,
             limit           : {{limit}},
+            offset          : {{limit}},
             loadtype        : 'api/search',
             searchterm      : "{{search}}",
             name            : 'search-load', //name of the search button

@@ -1,5 +1,19 @@
-{# react build files must be coppied to Newsroom theme #}
-{% set commentVersion = '113' %}
+
+{# This templates loads in a react application that exists in a seperate
+git repository (https://github.com/pm-publish/comments.git)
+
+The react application is built using vite (https://vitejs.dev/)
+
+Developing for comments requires running the react application seperately, 
+Then copying the build files into this theme in the static/comments folder.
+
+To build the app run 'npm run build'.  This will create a dist folder with the build files
+and remove the hash that usually gets added to the file names (see package.json).  Simply copy
+index.js and index.css into the static/comments folder in this theme, then update the
+commentVersion variable below to cache bust. #}
+
+
+{% set commentVersion = '114' %}
 
 
 {# {% set env = 'prod' %} #}
@@ -47,10 +61,8 @@
 
 
 
-
+{# When working in dev you can update the paths below to reflect your folder structure #}
 {% if env == 'dev'%}
-    {# <link rel="stylesheet" href="{{networkData.templatePath}}/../comments/build/static/css/main.css?v={{commentVersion}}" type="text/css" media="all"> #}
-    {# <script  type="text/javascript" src="{{networkData.templatePath}}/../comments/build/static/js/main.js?v={{commentVersion}}"></script> #}
     <link rel="stylesheet" href="{{networkData.templatePath}}/../comments_vite/dist/assets/index.css?v={{commentVersion}}" type="text/css" media="all">
     <script  type="text/javascript" src="{{networkData.templatePath}}/../comments_vite/dist/assets/index.js?v={{commentVersion}}"></script>
 {% endif %}
