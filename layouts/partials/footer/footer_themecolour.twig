@@ -206,6 +206,13 @@
                                 <span class="fa fa-rss"></span>
                             </a>
                         {% endif %}
+                        {% if config.social.tiktok is defined and config.social.tiktok is not empty %}
+                            <a href="{{config.social.tiktok}}" class="u-generic-socialIcons__item" target="_blank">
+                                <span class="icon_tiktok">
+                                    <img src="{{networkData.templatePath}}/static/icons/tiktok_white.svg" alt="tiktok icon" class="img-fluid" />
+                                </span>
+                            </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
