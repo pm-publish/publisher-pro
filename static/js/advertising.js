@@ -92,8 +92,6 @@ export default class AdLoader {
                 if (item.description) {
                     const html ='<div id="advertisment__' + keys[0] + '" class="advertisment advertisment__' + keys[0] + ' advertisment__' + keys[1] + '">' + item.description + '</div>';
                     adElem.innerHTML = html;
-                }else {
-                    return;
                 }
 
                 try {
