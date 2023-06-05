@@ -1,0 +1,69 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set networkData = _Network.getNetworkData() %}
+
+{% set limit = 50 %}
+{% set date = date() %}
+{% set events = _Event.getEvents({"limit": limit, "showOnGoingOnly": 1}) %}
+{% set config       = _Network.getThemeConfig() %}
+
+
+{% set firstCount = events | length %}
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set eventCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+
+
+<main id="main" class="site-main" role="main">
+    <div class="container u-margin-top-60 u-margin-bottom-60">
+        <section class="row">
+            <div class="col-12">
+                <div class="c-events__main">
+                    <div class="c-page-head c-page-head-xs">
+                        <div class="u-heading__large u-heading__large-xs u-pr--6">{{this.title}}</div>
+                        {% if not _User.isGuest() %}
+                            <a href="{{networkData.defaultBlogUrl}}/event-form" class="c-page-head__link event_btn d-none d-md-flex">Submit an event</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="row">
+            <div class="col-12 col-lg-11">
+                {{this.render('partials/_single-event.twig', {
+                    event: events[eventCount], 
+                    position: eventCount + 1, 
+                    imageSize: {width:750, height:450},
+                    containerClass: 'event-card-1__desktop event-card-1__tablet event-card-1__mobile fullWidth',
+                }) | raw}}
+                {% set eventCount = (dev) ? eventCount : eventCount + 1 %}
+            </div>
+        </section>
+        
+        {% set monthDivider = '' %}
+
+        <section class="middle">
+            <div class="row row-space maincards maincards--v2">
+                <div class="col-12 col-lg-7">
+                    {% for i in 0..49 if events[eventCount] %}
+                        {{this.render('partials/_single-event.twig', {
+                            event: events[eventCount], 
+                            position: eventCount + 1, 
+                            imageSize: {width:300},
+                            containerClass: 'event-card-1__desktop event-card-1__tablet event-card-1__mobile',
+                        }) | raw}}
+                        {% set eventCount = (dev) ? eventCount : eventCount + 1 %}
+                    {% endfor %}
+                </div>
+
+
+                <div class="col-12 offset-lg-1 col-lg-4 d-md-none d-lg-block">
+                    {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
