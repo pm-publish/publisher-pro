@@ -137,7 +137,11 @@
     <!-- Google AD Code here -->
     <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
     {# <meta id="g-ad-id" data-accno="/268436641/"> #}
-    <meta id="g-ad-id" data-accno="/21719263119/">
+    {% set adsId = 21719263119 %}
+    {% if config['adsId'] is defined and config['adsId'] is not empty %}
+        {% set adsId = config['adsId'] %}
+    {% endif %}
+    <meta id="g-ad-id" data-accno="/{{adsId}}/">
     <!-- Google AD Code end -->
 
     {% if googleAnalyitcsId is defined and googleAnalyitcsId is not empty%}
