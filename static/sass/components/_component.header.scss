@@ -171,3 +171,26 @@
         }
     }
 }
+
+
+.c-header {
+    @include transition(all .5s ease);
+    &.scroll-down {
+        top: -100%;
+    }
+    &.scroll-up {
+        top: 0%;
+    }
+
+    &--sticky {
+        background-color: white;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 9999;
+
+        .c-header-top-bar {
+            display: none;
+        }
+    }
+}

@@ -46,9 +46,6 @@
 {% endif %}
 
 
-
-
-
 {% if networkData.logoMedia | length > 0 %}
 {% set logo = _Media.getMediaUrl(networkData.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
 {% endif %}
@@ -57,7 +54,7 @@
 <div id="pp-banner" class="d-print-none"></div>
 
 
-<div class="c-header c-header-xs">
+<div class='c-header c-header-xs {{ config['headerSticky'] is defined and config['headerSticky'] != false ? 'js_header' : '' }}'>
     {# Begin header top bar #}
     <div class="c-header-top-bar">
         <div class="container">
