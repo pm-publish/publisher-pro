@@ -50,8 +50,7 @@
                 <div class="row row-space maincards">
                     <div class="col-12 col-lg-7">
                         {% for i in 0..49 if events[eventCount] %}
-
-                            {% set eventMonth = _AppHelper.getDateTimeBasedOnTimezone(events[eventCount].startDate, 'F Y') %}
+                            {% set eventMonth = _AppHelper.getDefaultTimezoneDateTime(events[eventCount].startDate, 'F Y') %}
                             {% if monthDivider != eventMonth %}
                                 <div class="u-generic-topBorder u-margin-top-20 u-margin-bottom-20 clearfix"></div>
                                 <p class="c-events__head c-events__head-xs">{{ eventMonth }}</p>

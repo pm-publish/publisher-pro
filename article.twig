@@ -184,7 +184,8 @@
             limit: 4, 
             sortBy: 'VIEWS', 
             scope: 'network',
-            includePrimaryBlog: true
+            includePrimaryBlog: true,
+            interval: 336 
         }) %}
         {% set cache = setCache(cacheKey, popularArticles, 500) %} 
     {% endif %} 

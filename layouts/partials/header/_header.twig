@@ -46,9 +46,6 @@
 {% endif %}
 
 
-
-
-
 {% if networkData.logoMedia | length > 0 %}
 {% set logo = _Media.getMediaUrl(networkData.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
 {% endif %}
@@ -57,7 +54,7 @@
 <div id="pp-banner" class="d-print-none"></div>
 
 
-<div class="c-header c-header-xs">
+<div class='c-header c-header-xs {{ config['headerSticky'] is defined and config['headerSticky'] != false ? 'js_header' : '' }}'>
     {# Begin header top bar #}
     <div class="c-header-top-bar">
         <div class="container">
@@ -230,6 +227,13 @@
             {% if config.social.rss is defined and config.social.rss is not empty %}
                 <a href="{{config.social.rss}}" class="u-generic-socialIcons__item" target="_blank">
                     <span class="fa fa-rss"></span>
+                </a>
+            {% endif %}
+            {% if config.social.tiktok is defined and config.social.tiktok is not empty %}
+                <a href="{{config.social.tiktok}}" class="u-generic-socialIcons__item" target="_blank">
+                    <span class="icon_tiktok d-flex">
+                        <img src="{{networkData.templatePath}}/static/icons/tiktok_white.svg?v1" alt="tiktok icon" class="img-fluid" />
+                    </span>
                 </a>
             {% endif %}
         </div>

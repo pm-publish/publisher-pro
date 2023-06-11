@@ -130,12 +130,12 @@
             model           : Acme.Card,
             container       : 'loadmore_section',
             offset          : {{limit}},
-            limit           : 12,
+            infinite        : true,
+            limit           : {{limit}},
             label           : "Load more",
             name            : 'section-load',
-            blogid          : "{{ blogData['guid'] }}",
-            card_class      : 'card-2-mobile card-2-tablet card-2-desktop card-2--noDescription col-12 col-md-6 col-lg-4 left-border mb-4',
-            non_pinned      : "{{ articlesArr.existingNonPinnedCount }}"
+            loadtype        : 'user_articles',
+            card_class      : 'card-2-mobile card-2-tablet card-2-desktop card-2--noDescription col-12 col-md-6 col-lg-4 left-border mb-4'
         });
     });
 </script>
