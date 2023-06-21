@@ -142,7 +142,7 @@
     {% if config['gptAccountId'] is defined and config['gptAccountId'] is not empty %}
         {% set adId = config['gptAccountId'] %}
     {% endif %}
-    {% if config['gptDisableAdPush'] is defined and config['gptDisableAdPush'] is not empty %}
+    {% if config['gptDisableAdPush'] is defined and config['gptDisableAdPush'] != false %}
         {% set disableAdPush = true %}
     {% endif %}
     <meta id="g-ad-id" data-accno="/{{adId}}/" data-disableadpush="{{disableAdPush}}">

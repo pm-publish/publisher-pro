@@ -19,7 +19,8 @@ export default class AdLoader {
     if (gaAccount && typeof gaAccount.dataset.accno !== "undefined") {
       this.AccountNumber = gaAccount.dataset.accno;
     }
-    if (gaAccount && typeof gaAccount.dataset.disableadpush == "true") {
+    
+    if (gaAccount && typeof gaAccount.dataset.disableadpush !== "undefined" && gaAccount.dataset.disableadpush == '1') {
       this.DisableAdPush = true;
     }
     this.adSlots = [];
