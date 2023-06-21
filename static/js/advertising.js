@@ -124,9 +124,7 @@ export default class AdLoader {
         }
 
         try {
-          if (!this.DisableAdPush) {
             self.adPush(keys[0]);
-          }
         } catch (err) {
           console.log("no ad found to push at advertisment__" + keys[0], err);
         }
@@ -274,20 +272,23 @@ export default class AdLoader {
         ];
         mapping = mappingHpage;
       }
-      googletag.pubads().enableSingleRequest();
-      googletag
-        .pubads()
-        .setTargeting("section", [pageName])
-        .setTargeting("keyword", [keyword])
-        .setTargeting("page-type", [pageType])
-        .setTargeting("tag", [pageTag]);
-      googletag.pubads().collapseEmptyDivs();
-      googletag.enableServices();
-      googletag
-        .defineSlot(invSlot, sizes, slotId)
-        .setTargeting("POS", [pos])
-        .defineSizeMapping(mapping)
-        .addService(googletag.pubads());
+
+      if (!self.DisableAdPush) {
+        googletag.pubads().enableSingleRequest();
+        googletag
+          .pubads()
+          .setTargeting("section", [pageName])
+          .setTargeting("keyword", [keyword])
+          .setTargeting("page-type", [pageType])
+          .setTargeting("tag", [pageTag]);
+        googletag.pubads().collapseEmptyDivs();
+        googletag.enableServices();
+        googletag
+          .defineSlot(invSlot, sizes, slotId)
+          .setTargeting("POS", [pos])
+          .defineSizeMapping(mapping)
+          .addService(googletag.pubads());
+      }
 
       googletag.cmd.push(function () {
         googletag.display(slotId);
