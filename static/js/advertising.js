@@ -121,6 +121,26 @@ export default class AdLoader {
             item.description +
             "</div>";
           adElem.innerHTML = html;
+
+          if (self.DisableAdPush) {
+            const adInnerElement = document.getElementById('advertisment__' + keys[0]);
+            const elements = adInnerElement.getElementsByTagName("div");
+            if(!elements || !elements[0]) {
+              return;
+            }
+            
+            const slotId = elements[0].getAttribute("id");
+
+            if(!slotId) {
+              return;
+            }
+
+            googletag.cmd.push(function () {
+              googletag.display(slotId);
+            });
+
+            return;
+          }
         }
 
         try {
@@ -273,7 +293,6 @@ export default class AdLoader {
         mapping = mappingHpage;
       }
 
-      if (!self.DisableAdPush) {
         googletag.pubads().enableSingleRequest();
         googletag
           .pubads()
@@ -288,7 +307,6 @@ export default class AdLoader {
           .setTargeting("POS", [pos])
           .defineSizeMapping(mapping)
           .addService(googletag.pubads());
-      }
 
       googletag.cmd.push(function () {
         googletag.display(slotId);
