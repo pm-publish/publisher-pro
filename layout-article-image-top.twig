@@ -121,6 +121,10 @@
 
 
 
+{% set articleImageSize = 600 %}
+{% if config['defaultSettings']['articleResizeImage'] is defined and config['defaultSettings']['articleResizeImage'] is not empty %}
+    {% set articleImageSize = config['defaultSettings']['articleResizeImage']  %}
+{% endif %}
 
 
 <main id="main" class="o-body-container o-body-container-md u-margin-top-60" role="main">
@@ -224,7 +228,7 @@
 
 
                         <div class="c-article__container c-article__container-sm">
-                                {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
                         </div>
 
 
