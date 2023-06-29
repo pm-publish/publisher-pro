@@ -157,6 +157,11 @@ SubscribeForm.prototype.submit = function(event)
             self.data['giftcode'] = $('#code-redeem').val();
         }
 
+        const dateObj = new Date();
+        const time = dateObj.getTime();
+
+        self.data['idempotency_key'] = this.random(19)+""+time;
+        
         self.data['stripetoken'] = null;
         Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
             self.signupModal.closeWindow();
