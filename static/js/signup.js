@@ -160,7 +160,7 @@ SubscribeForm.prototype.submit = function(event)
         const dateObj = new Date();
         const time = dateObj.getTime();
 
-        self.data['idempotency_key'] = this.random(19)+""+time;
+        self.data['idempotency_key'] = this.random(19)+""+time; // Duplicate Request Prevent
         
         self.data['stripetoken'] = null;
         Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
