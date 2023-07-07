@@ -91,7 +91,7 @@
 
 
         {# FOR PRODUCTION #}
-        {% if not dev and blog.title | lower == key | lower %}
+        {% if not dev and ( blog.title | lower == key | lower or blog.slug | lower == key | lower ) %}
 
             {% set feed = _Blog.getBlogFeed({
                 'offset' : 0, 
