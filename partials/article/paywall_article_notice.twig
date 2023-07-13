@@ -5,7 +5,7 @@
     <div class="c-article__paywalled-view">
         <div class="o-paywalled">
             <div class="o-paywalled__head">
-                To read the full story, subscribe to {% if config['network.alias'] is defined %} {{config['network.alias']}} {% else %} {{networkData.title}} {% endif %}.
+                To read the full story, subscribe to {% if config['networkName'] is defined %} {{config['networkName']}} {% else %} {{networkData.title}} {% endif %}.
             </div>
             <div class="o-paywalled__period">
                 <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions" class="o-paywalled__text">Click here</a>
