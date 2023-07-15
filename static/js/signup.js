@@ -157,6 +157,12 @@ SubscribeForm.prototype.submit = function(event)
             self.data['giftcode'] = $('#code-redeem').val();
         }
 
+        var idempotency_key = $('#idempotency_key').html();
+        if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+            self.data['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+        }
+
+        
         self.data['stripetoken'] = null;
         Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
             self.signupModal.closeWindow();
@@ -179,8 +185,14 @@ SubscribeForm.prototype.submit = function(event)
                 self.data['stripetoken'] = result.token.id;
                 self.data['planid'] = $('#planid').val();
                 self.data['redirect'] = false;
+
+                var idempotency_key = $('#idempotency_key').html();
+                if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+                    self.data['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+                }
+                
                 Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
-                    self.signupModal.closeWindow();
+                    self.signupModal.closeWindow();   
                 });
             }
         });  

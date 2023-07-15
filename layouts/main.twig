@@ -90,7 +90,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=11bf79ef" type="text/css" smedia="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=5ee5916b" type="text/css" smedia="all">
 
     {% else %}
 
@@ -184,6 +184,7 @@
 <body class="body {{ layout }} {{ pageClass }} {% if this.params['customClass'] is defined %}{{this.params['customClass'] }}{% endif %}" data-class="{{ pageClass | split(' ')[0] }}" data-networkid="{{networkData['id']}}" data-v="27">
 
     {{ this.beginBody() }}
+    <div id="idempotency_key" class="u-hide" >{{_AppHelper.getStripeIdempotencyKey()}}</div>
 
     {# {% if config['inventory']['adSpace']['banner'][0] is defined and (config['inventory']['Under header'] != 1 ) %}
     <div class="j-adslot advertisment__head u-margin-bottom-25" id="{{config['inventory']['adSpace']['banner'][0]}}"
