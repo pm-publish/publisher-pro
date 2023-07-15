@@ -157,11 +157,11 @@ SubscribeForm.prototype.submit = function(event)
             self.data['giftcode'] = $('#code-redeem').val();
         }
 
-        const dateObj = new Date();
-        const time = dateObj.getTime();
+        var idempotency_key = $('#idempotency_key').html();
+        if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+            self.data['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+        }
 
-        self.data['idempotency_key'] = this.random(19)+""+time; // Duplicate Request Prevent
- 
         
         self.data['stripetoken'] = null;
         Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
@@ -182,13 +182,14 @@ SubscribeForm.prototype.submit = function(event)
             } else {
                 // Send the token to your server
 
-                const dateObj = new Date();
-                const time = dateObj.getTime();
-
                 self.data['stripetoken'] = result.token.id;
                 self.data['planid'] = $('#planid').val();
                 self.data['redirect'] = false;
-                self.data['idempotency_key'] = this.random(19)+""+time; // Duplicate Request Prevent 
+
+                var idempotency_key = $('#idempotency_key').html();
+                if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+                    self.data['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+                }
                 
                 Server.create('/auth/paywall-signup', self.data).done(submitResponse).fail(function(r) {
                     self.signupModal.closeWindow();   
