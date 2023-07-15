@@ -90,7 +90,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=a2621109" type="text/css" smedia="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=11bf79ef" type="text/css" smedia="all">
 
     {% else %}
 
@@ -138,10 +138,14 @@
     <script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
     {# <meta id="g-ad-id" data-accno="/268436641/"> #}
     {% set adId = 21719263119 %}
+    {% set disableAdPush = false %}
     {% if config['gptAccountId'] is defined and config['gptAccountId'] is not empty %}
         {% set adId = config['gptAccountId'] %}
     {% endif %}
-    <meta id="g-ad-id" data-accno="/{{adId}}/">
+    {% if config['gptDisableAdPush'] is defined and config['gptDisableAdPush'] != false %}
+        {% set disableAdPush = true %}
+    {% endif %}
+    <meta id="g-ad-id" data-accno="/{{adId}}/" data-disableadpush="{{disableAdPush}}">
     <!-- Google AD Code end -->
 
     {% if googleAnalyitcsId is defined and googleAnalyitcsId is not empty%}

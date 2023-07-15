@@ -1,9 +1,11 @@
+
+{% set config = _Network.getThemeConfig() %}
 {% if paywallType == "subscribe" or paywallType == "renew" %}
 
     <div class="c-article__paywalled-view">
         <div class="o-paywalled">
             <div class="o-paywalled__head">
-                To read the full story, subscribe to {{networkData.title}}.
+                To read the full story, subscribe to {% if config['networkName'] is defined %} {{config['networkName']}} {% else %} {{networkData.title}} {% endif %}.
             </div>
             <div class="o-paywalled__period">
                 <a href="{{networkData.defaultBlogUrl}}/subscriptions#subscriptions" class="o-paywalled__text">Click here</a>

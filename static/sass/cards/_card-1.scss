@@ -87,6 +87,21 @@
     @media #{$mobile} {
         @include card-1-base();
     }
+
+    &.card-1--with-description {
+        .c-cards-view {
+            &__heading{
+                min-height: 40px;
+            } 
+            &__description {
+                display: block;
+                margin-top: 8px;
+            }
+            &__author {
+                display: none
+            }
+        } 
+    }
 }
 
 @mixin card-1-tablet-base() {

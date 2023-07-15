@@ -280,6 +280,10 @@
     {% set updated = true %} 
 {% endif %} 
 
+{% set articleImageSize = 600 %}
+{% if config['defaultSettings']['articleResizeImage'] is defined and config['defaultSettings']['articleResizeImage'] is not empty %}
+    {% set articleImageSize = config['defaultSettings']['articleResizeImage']  %}
+{% endif %}
 
     <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}">
         <div class="c-article c-article-xs c-article__carousel">
@@ -301,9 +305,9 @@
                                                     {{article.blog.title}}
                                                 </div>
                                             </div>
-                                            <div class="c-article__title">
+                                            <h1 class="c-article__title">
                                                 {{ quotes.smarten(article.title) }}
-                                            </div>
+                                            </h1>
                                             <div class="c-article__additionalInfo">
                                                 <div class="c-article__posted-on">
                                                     <time class="c-article__published">{{article.publishedDate}}</time>
@@ -539,7 +543,7 @@
                                         <div class="col-12">
                                             <div class="c-article__main-content">
                                                 <div class="c-article__container">
-                                                    {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                                    {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
                                                 </div>
                                             </div>
                                             <hr />
@@ -784,7 +788,7 @@
         {% endif %}
 
 
-        <div id="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
+        <div id="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}" data-pageName="" data-pageType="article" data-pageTag="" data-adsection=""></div>
     </main>
 
 

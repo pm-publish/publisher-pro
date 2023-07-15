@@ -10,7 +10,7 @@
 {% set layout       = blogData.layout %}
 {% set dev          = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
 
-{% set bannerSpots = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] %}
+{% set bannerSpots  = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20] %}
 {% set blogFeeds    = {} %}
 {% set panels       = [] %}
 {% set bannerSlots = [] %}
@@ -24,12 +24,18 @@
             CONFIG OPTIONS SET IN PLATFORM
 ******************************************************* #}
 
+{% set sectionTitle = _Blog.getBlogTitle() %}
+
 {% if config['active'] is not defined or config['active'] == true %}
     {% if config['page']['multipleSections'] is defined %}
         {% for multipleSection in config['page']['multipleSections'] %}
             {% if homeBlog == multipleSection['blogTitle'] | lower %}
                 {% if multipleSection['sections'] is defined %}
                     {% set panels = multipleSection['sections'] %}
+                {% endif %}
+
+                {% if multipleSection['title'] is defined and multipleSection['title'] != '' %}
+                    {% set sectionTitle = multipleSection['title'] %}
                 {% endif %}
 
                 {% if multipleSection['blogFeeds'] is defined %}
@@ -58,7 +64,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="c-page-head c-page-head-xs">
-                    <div class="u-heading__large u-heading__large-xs u-pr--6">{{_Blog.getBlogTitle()}}</div>
+                    <h1 class="u-heading__large u-heading__large-xs u-pr--6">{{sectionTitle}}</h1>
                 </div>
             </div>
         </div>
@@ -85,7 +91,7 @@
 
 
         {# FOR PRODUCTION #}
-        {% if not dev and blog.title | lower == key | lower %}
+        {% if not dev and ( blog.title | lower == key | lower or blog.slug | lower == key | lower ) %}
 
             {% set feed = _Blog.getBlogFeed({
                 'offset' : 0, 
@@ -148,7 +154,7 @@
     {% endif %}
 
 
-    <div id ="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
+    <div id="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}" data-pageName="" data-pageType="section" data-pageTags="" data-adsection=""></div>
 </main><!-- .site-main -->
 
 

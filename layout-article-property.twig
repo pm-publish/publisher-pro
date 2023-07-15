@@ -72,6 +72,10 @@
 {% set testCount = 0 %}
 
 
+{% set articleImageSize = 600 %}
+{% if config['defaultSettings']['articleResizeImage'] is defined and config['defaultSettings']['articleResizeImage'] is not empty %}
+    {% set articleImageSize = config['defaultSettings']['articleResizeImage']  %}
+{% endif %}
 
 <main id="main" class="o-body-container o-body-container-md u-margin-top-60 mb-0" role="main">
     <div class="c-article c-article-xs c-article__carousel">
@@ -89,9 +93,9 @@
                                                     {{article.label}}
                                                 </div>
                                             {% endif %}
-                                            <div class="c-article__category">
+                                            <h1 class="c-article__category">
                                                 {{article.blog.title}}
-                                            </div>
+                                            </h1>
                                         </div>
                                         <div class="c-article__title">
                                             {{ quotes.smarten(article.title) }}
@@ -354,7 +358,7 @@
                                                 {% endif %}
                                             </div>
                                             <div class="c-article__container">
-                                                {{ ArticleContent | _resizeImages({'width': 600}) | raw }}
+                                                {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
                                             </div>
                                         </div>
                                         <hr />
