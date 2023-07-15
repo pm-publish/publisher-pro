@@ -8,7 +8,7 @@
         <div class="c-page-head c-page-head-xs">
             <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
             {% if linkShow %}
-                <a href="{{link}}/event-calendar" class="c-page-head__link" data-count="{{events | length }}">See more events</a>
+                <a href="{{link}}/event-calendar" class="c-page-head__link" data-count="{{events | length }}"  data-date="{{date() | date('Y-m-d') }}">>See more events</a>
             {% endif %}
         </div>
     </div>
