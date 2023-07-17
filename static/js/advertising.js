@@ -19,8 +19,12 @@ export default class AdLoader {
     if (gaAccount && typeof gaAccount.dataset.accno !== "undefined") {
       this.AccountNumber = gaAccount.dataset.accno;
     }
-    
-    if (gaAccount && typeof gaAccount.dataset.disableadpush !== "undefined" && gaAccount.dataset.disableadpush == '1') {
+
+    if (
+      gaAccount &&
+      typeof gaAccount.dataset.disableadpush !== "undefined" &&
+      gaAccount.dataset.disableadpush == "1"
+    ) {
       this.DisableAdPush = true;
     }
     this.adSlots = [];
@@ -47,7 +51,7 @@ export default class AdLoader {
       elem.classList.remove("j-adslot");
       elem.classList.add("j-adslot-filled");
 
-      const keysArray = [elem.id];
+      let keysArray = [elem.id];
 
       if (
         (!elem.dataset.responsive || elem.dataset.responsive == "0") &&
@@ -123,15 +127,17 @@ export default class AdLoader {
           adElem.innerHTML = html;
 
           if (self.DisableAdPush) {
-            const adInnerElement = document.getElementById('advertisment__' + keys[0]);
+            const adInnerElement = document.getElementById(
+              "advertisment__" + keys[0]
+            );
             const elements = adInnerElement.getElementsByTagName("div");
-            if(!elements || !elements[0]) {
+            if (!elements || !elements[0]) {
               return;
             }
-            
+
             const slotId = elements[0].getAttribute("id");
 
-            if(!slotId) {
+            if (!slotId) {
               return;
             }
 
@@ -144,7 +150,7 @@ export default class AdLoader {
         }
 
         try {
-            self.adPush(keys[0]);
+          self.adPush(keys[0]);
         } catch (err) {
           console.log("no ad found to push at advertisment__" + keys[0], err);
         }
@@ -293,20 +299,20 @@ export default class AdLoader {
         mapping = mappingHpage;
       }
 
-        googletag.pubads().enableSingleRequest();
-        googletag
-          .pubads()
-          .setTargeting("section", [pageName])
-          .setTargeting("keyword", [keyword])
-          .setTargeting("page-type", [pageType])
-          .setTargeting("tag", [pageTag]);
-        googletag.pubads().collapseEmptyDivs();
-        googletag.enableServices();
-        googletag
-          .defineSlot(invSlot, sizes, slotId)
-          .setTargeting("POS", [pos])
-          .defineSizeMapping(mapping)
-          .addService(googletag.pubads());
+      googletag.pubads().enableSingleRequest();
+      googletag
+        .pubads()
+        .setTargeting("section", [pageName])
+        .setTargeting("keyword", [keyword])
+        .setTargeting("page-type", [pageType])
+        .setTargeting("tag", [pageTag]);
+      googletag.pubads().collapseEmptyDivs();
+      googletag.enableServices();
+      googletag
+        .defineSlot(invSlot, sizes, slotId)
+        .setTargeting("POS", [pos])
+        .defineSizeMapping(mapping)
+        .addService(googletag.pubads());
 
       googletag.cmd.push(function () {
         googletag.display(slotId);
