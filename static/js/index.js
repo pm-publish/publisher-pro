@@ -619,31 +619,33 @@ const nav = document.querySelector(".js_header");
 const scrollUp = "scroll-up";
 const scrollDown = "scroll-down";
 let lastScroll = 0;
+if(nav !== null) {
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll >= 20) {
+            nav.classList.add("c-header--sticky");
+        } else {
+            nav.classList.remove("c-header--sticky");
+        }
+        if (currentScroll <= 0) {
+            nav.classList.remove(scrollUp);
+            return;
+        }
+    
+        if (currentScroll > lastScroll && !nav.classList.contains(scrollDown)) {
+            // down
+            nav.classList.remove(scrollUp);
+            nav.classList.add(scrollDown);
+        } else if (
+            currentScroll < lastScroll &&
+            nav.classList.contains(scrollDown)
+        ) {
+            // up
+            nav.classList.remove(scrollDown);
+            nav.classList.add(scrollUp);
+        }
+        lastScroll = currentScroll;
+    });
+}
 
-window.addEventListener("scroll", () => {
-    const currentScroll = window.pageYOffset;
-    if (currentScroll >= 20) {
-        nav.classList.add("c-header--sticky");
-    } else {
-        nav.classList.remove("c-header--sticky");
-    }
-    if (currentScroll <= 0) {
-        nav.classList.remove(scrollUp);
-        return;
-    }
-
-    if (currentScroll > lastScroll && !nav.classList.contains(scrollDown)) {
-        // down
-        nav.classList.remove(scrollUp);
-        nav.classList.add(scrollDown);
-    } else if (
-        currentScroll < lastScroll &&
-        nav.classList.contains(scrollDown)
-    ) {
-        // up
-        nav.classList.remove(scrollDown);
-        nav.classList.add(scrollUp);
-    }
-    lastScroll = currentScroll;
-});
 
