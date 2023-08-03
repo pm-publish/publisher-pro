@@ -75,19 +75,13 @@ export default class AdLoader {
         
   
         if (data.length < 1) {
-          // console.log('no ads found with those keywords', keysString)
           return;
         }
-        // if (data.length > 1) {
-        //   // If more than one matching, randomly show
-        //   // different ad on each page refresh
-        //   // k = Math.round(Math.random()*(data.length-1));
-        //   k = Math.floor(Math.random() * data.length);
-        // }
 
         let k = 0;
         for(k; k < data.length; k++) {
           let item = data[k];
+      
           let keys = item.keywords.split(",");
           let adElem = document.getElementById(keys[0]);
           let target = "";
@@ -96,62 +90,33 @@ export default class AdLoader {
           }
 
           if (item.media.path) {
-            const html =
-              '<div id="advertisment__' +
-              keys[0] +
-              '" class="advertisment advertisment__' +
-              keys[0] +
-              " advertisment__" +
-              keys[1] +
-              '"> \
-                                      <a href="' +
-              item.button.url +
-              '"' +
-              target +
-              '> \
-                                          <img src="' +
-              item.media.path +
-              '"> \
-                                      </a> \
-                                  </div>';
+            const html ='<div id="advertisment__' +keys[0] +'" class="advertisment advertisment__' + keys[0] +" advertisment__" +keys[1] +'"><a href="' +item.button.url +'"' + target +'><img src="' + item.media.path +'"></a></div>';
             adElem.innerHTML = html;
-            return;
+            continue;
           }
 
           if (item.description) {
-            let html =
-              '<div id="advertisment__' +
-              keys[0] +
-              '" class="advertisment advertisment__' +
-              keys[0] +
-              " advertisment__" +
-              keys[1] +
-              '">' +
-              item.description +
-              "</div>";
+            let html = '<div id="advertisment__' +keys[0] +'" class="advertisment advertisment__' +keys[0] +" advertisment__" +keys[1] +'">' +item.description +"</div>";
+            
             adElem.innerHTML = html;
-    
             if (self.DisableAdPush) {
               let adInnerElement = document.getElementById('advertisment__' + keys[0]);
               let elements = adInnerElement.getElementsByTagName("div");
               if(!elements || !elements[0]) {
-                return;
+                continue;
               }
               
               let slotId = elements[0].getAttribute("id");
-    
               if(!slotId) {
-                return;
+                continue;
               }
     
               googletag.cmd.push(function () {
                 googletag.display(slotId);
               });
-    
-              return;
             }
           }
-
+          
           try {
             self.adPush(keys[0]);
           } catch (err) {
@@ -162,8 +127,6 @@ export default class AdLoader {
         
       });
     }
-
-   
   }
 
   adPush(slot) {
