@@ -40,7 +40,6 @@ export default class AdLoader {
       return;
     }
 
-    var allAdsKeywords = []
     for (let i = 0; i < this.adslots.length; i++) {
       const elem = this.adslots[i];
       if (!elem.id) continue;
@@ -64,106 +63,93 @@ export default class AdLoader {
       }
 
       const keysString = keysArray.join(",");
-      allAdsKeywords.push(keysString)
-     
-    }
+      Server.fetch(
+        _appJsConfig.appHostName + "/api/ad/get-all?keywords=" + keysString
+      ).done((data) => {
+        let k = 0;
 
-
-    if(allAdsKeywords.length > 0) {
-      Server.create(
-        _appJsConfig.appHostName + "/api/ad/get-all", {'multiKeywords': allAdsKeywords}).done((data) => {
-        
-  
         if (data.length < 1) {
           // console.log('no ads found with those keywords', keysString)
           return;
         }
-        // if (data.length > 1) {
-        //   // If more than one matching, randomly show
-        //   // different ad on each page refresh
-        //   // k = Math.round(Math.random()*(data.length-1));
-        //   k = Math.floor(Math.random() * data.length);
-        // }
+        if (data.length > 1) {
+          // If more than one matching, randomly show
+          // different ad on each page refresh
+          // k = Math.round(Math.random()*(data.length-1));
+          k = Math.floor(Math.random() * data.length);
+        }
 
-        let k = 0;
-        for(k; k < data.length; k++) {
-          let item = data[k];
-          let keys = item.keywords.split(",");
-          let adElem = document.getElementById(keys[0]);
-          let target = "";
-          if (item.button.target === "_blank") {
-            target = ' target="_blank" rel="noopener noreferrer"';
-          }
+        const item = data[k];
+        const keys = item.keywords.split(",");
+        const adElem = document.getElementById(keys[0]);
+        let target = "";
+        if (item.button.target === "_blank") {
+          target = ' target="_blank" rel="noopener noreferrer"';
+        }
+        if (item.media.path) {
+          const html =
+            '<div id="advertisment__' +
+            keys[0] +
+            '" class="advertisment advertisment__' +
+            keys[0] +
+            " advertisment__" +
+            keys[1] +
+            '"> \
+                                    <a href="' +
+            item.button.url +
+            '"' +
+            target +
+            '> \
+                                        <img src="' +
+            item.media.path +
+            '"> \
+                                    </a> \
+                                </div>';
+          adElem.innerHTML = html;
+          return;
+        }
 
-          if (item.media.path) {
-            const html =
-              '<div id="advertisment__' +
-              keys[0] +
-              '" class="advertisment advertisment__' +
-              keys[0] +
-              " advertisment__" +
-              keys[1] +
-              '"> \
-                                      <a href="' +
-              item.button.url +
-              '"' +
-              target +
-              '> \
-                                          <img src="' +
-              item.media.path +
-              '"> \
-                                      </a> \
-                                  </div>';
-            adElem.innerHTML = html;
-            return;
-          }
+        if (item.description) {
+          const html =
+            '<div id="advertisment__' +
+            keys[0] +
+            '" class="advertisment advertisment__' +
+            keys[0] +
+            " advertisment__" +
+            keys[1] +
+            '">' +
+            item.description +
+            "</div>";
+          adElem.innerHTML = html;
 
-          if (item.description) {
-            let html =
-              '<div id="advertisment__' +
-              keys[0] +
-              '" class="advertisment advertisment__' +
-              keys[0] +
-              " advertisment__" +
-              keys[1] +
-              '">' +
-              item.description +
-              "</div>";
-            adElem.innerHTML = html;
-    
-            if (self.DisableAdPush) {
-              let adInnerElement = document.getElementById('advertisment__' + keys[0]);
-              let elements = adInnerElement.getElementsByTagName("div");
-              if(!elements || !elements[0]) {
-                return;
-              }
-              
-              let slotId = elements[0].getAttribute("id");
-    
-              if(!slotId) {
-                return;
-              }
-    
-              googletag.cmd.push(function () {
-                googletag.display(slotId);
-              });
-    
+          if (self.DisableAdPush) {
+            const adInnerElement = document.getElementById('advertisment__' + keys[0]);
+            const elements = adInnerElement.getElementsByTagName("div");
+            if(!elements || !elements[0]) {
               return;
             }
-          }
+            
+            const slotId = elements[0].getAttribute("id");
 
-          try {
-            self.adPush(keys[0]);
-          } catch (err) {
-            console.log("no ad found to push at advertisment__" + keys[0], err);
-          }
+            if(!slotId) {
+              return;
+            }
 
+            googletag.cmd.push(function () {
+              googletag.display(slotId);
+            });
+
+            return;
+          }
         }
-        
+
+        try {
+            self.adPush(keys[0]);
+        } catch (err) {
+          console.log("no ad found to push at advertisment__" + keys[0], err);
+        }
       });
     }
-
-   
   }
 
   adPush(slot) {
