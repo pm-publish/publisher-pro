@@ -67,8 +67,7 @@ export default class AdLoader {
       allAdsKeywords.push(keysString)
 
     }
-
-
+    // All Keywords
     if (allAdsKeywords.length > 0) {
       Server.create(
         _appJsConfig.appHostName + "/api/ad/get-all", { 'multiKeywords': allAdsKeywords }).done((data) => {
