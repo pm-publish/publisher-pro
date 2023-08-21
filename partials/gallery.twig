@@ -48,7 +48,7 @@ with width taken up with borders on the side #}
 {# <div id="{{owl}}"
     class="o-media js-media o-media-sm article-gallery owl-gallery-{{type}} {{owlClass}} {{defaultClass}}"
     data-slider-id="1" data-default="{{default}}"> #}
-    <div id="{{owl}}" class="article-gallery owl-gallery-{{type}} {{owlClass}}" data-slider-id="1" data-default="{{default}}">
+    <div id="{{owl}}" class="article-gallery owl-gallery-{{type}} {{owlClass}}" data-slider-id="1" data-default="{{default}}" itemprop="image" itemscope itemtype="https://schema.org/ImageObject" >
         {% for image in media %}
             {% if watermark is defined and watermark != false %}
                 {% set wmHeight = (image.width * (watermark.height / 100))|number_format(0,'','') %}
@@ -59,8 +59,14 @@ with width taken up with borders on the side #}
             {% set articleImgSmall = _Media.getMediaUrl(image, 0, 250, cloudinaryParams ) %}
             {% set articleImgMedium = _Media.getMediaUrl(image, 0, 500, cloudinaryParams ) %}
             {% set articleImg = _Media.getMediaUrl(image, imgWidth, imgHeight, cloudinaryParams ) %}
+            
+            {% if image.type != 'video' %}
+                <meta itemprop="url" content="{{articleImg}}">
+                <meta itemprop="height" content="{{imgHeight}}">
+                <meta itemprop="width" content="{{imgWidth}}">
+            {% endif %}
 
-
+            
             <figure class="article-gallery__image article-gallery__image-{{galleryStyle}}" data-hash="{{loop.index}}">
 
                 {% if image.type == 'image' or image.type == 'doc'%}
