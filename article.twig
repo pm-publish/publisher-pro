@@ -344,8 +344,9 @@
                                                         <p class="c-article__author-name" itemprop="name">{{
                                                             article.createdBy['displayName'] }}</p>
                                                         {% else %}
+                                                            <meta itemprop="name" content="{{article.createdBy['displayName']}}"/>
                                                         <a class="c-article__author-name"
-                                                            href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts" itemprop="name">{{
+                                                            href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts" >{{
                                                             article.createdBy['displayName'] }}</a>
                                                         {% endif %}
                                                     </div>
@@ -551,6 +552,13 @@
 
 
                                     {% if article.media|length > 0 %}
+
+                                     {% if article.media[0]['type'] != 'video' %}
+                                        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" >
+                                            <meta itemprop="url" content="{{ _Media.getMediaUrl(article.media[0], 0, 0, {'crop': 'fill', 'gravity': 'auto'} )}}">
+                                        </div>
+                                    {% endif %}
+
                                    
                                         {% set imageFeature = featured == 'image' ? true : false %}
                                         {{this.render('partials/gallery.twig', {
