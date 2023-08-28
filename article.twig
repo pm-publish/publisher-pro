@@ -339,13 +339,15 @@
                                                         {{ updateDate | capitalize }}</time>
                                                     {% endif %}
 
-                                                    <div class="c-article__author" itemprop="author">
+                                                    <div class="c-article__author" itemscope itemprop="author" itemtype="https://schema.org/Person">
+                                                        <meta itemprop="name" content="{{article.createdBy['displayName']}}">
                                                         {% if config['hide-author'] is defined and config['hide-author'] %}
+                                                        
                                                         <p class="c-article__author-name" itemprop="name">{{
                                                             article.createdBy['displayName'] }}</p>
                                                         {% else %}
-                                                            <meta itemprop="name" content="{{article.createdBy['displayName']}}"/>
-                                                        <a class="c-article__author-name"
+                                                           
+                                                            <a itemprop="url"  class="c-article__author-name"
                                                             href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts" >{{
                                                             article.createdBy['displayName'] }}</a>
                                                         {% endif %}
