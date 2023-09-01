@@ -153,7 +153,7 @@ CONFIG OPTIONS SET IN PLATFORM
 
             {% if loop.index in bannerSpots %}
                 {% if config['inventory']['adSpace']['banner'][bannerNo] is defined %}
-                    <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][bannerNo]}}" data-adshape="banner" style="text-align:center;"></div>
+                    <div class="advertisment j-adslot" id="{{config['inventory']['adSpace']['banner'][bannerNo]}}" data-adshape="banner" style="text-align:center;"></div>
                 {% endif %}
                 {% set bannerNo = bannerNo + 1 %}
             {% endif %}
