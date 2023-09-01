@@ -209,7 +209,7 @@
 
 
     {% if config['inventory']['adSpace']['banner'][0] is defined and (config['inventory']['Under header'] is defined and config['inventory']['Under header'] == 1 ) %}
-        <div class="j-adslot advertisment__head" id="{{config['inventory']['adSpace']['banner'][0]}}" data-adshape="banner"></div>
+        <div class="j-adslot advertisment__head advertisment" id="{{config['inventory']['adSpace']['banner'][0]}}" data-adshape="banner"></div>
     {% endif %}
 
 
@@ -255,7 +255,7 @@
 
 
     {% for i in 0..(config['inventory']['adSpace']['tag']|length) if config['inventory']['adSpace']['tag'][i] is defined %}
-        <div class="j-adslot" id="{{config['inventory']['adSpace']['tag'][i]}}" data-adshape="tag"></div>
+        <div class="advertisment j-adslot" id="{{config['inventory']['adSpace']['tag'][i]}}" data-adshape="tag"></div>
     {% endfor %}
 
 
