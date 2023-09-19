@@ -191,6 +191,35 @@
                                                 {{ quotes.smarten(article.title) }}
                                             </div>
                                             <time class="c-article__published">{{article.publishedDate}}</time>
+                                            {# --------------- Autor ---------------- #}
+                                            <div class="c-article__author" itemscope itemprop="author" itemtype="https://schema.org/Person">
+                                                <meta itemprop="name" content="{{article.createdBy['displayName']}}">
+                                                {% if config['hide-author'] is defined and config['hide-author'] %}
+                                                
+                                                <p class="c-article__author-name" itemprop="name">{{
+                                                    article.createdBy['displayName'] }}</p>
+                                                {% else %}
+                                                    
+                                                    <a itemprop="url"  class="c-article__author-name"
+                                                    href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts" >{{
+                                                    article.createdBy['displayName'] }}</a>
+                                                {% endif %}
+                                            </div>
+                                            {% if article['createdBy']['coauthors'] %}
+                                                {% for author in article['createdBy']['coauthors'] %}
+                                                    <div class="c-article__author">
+                                                        <div class="c-article__avatar" style="background-image: url({{ _Media.getMediaUrl(author['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }});"></div>
+                                                        {% if config['hide-author'] is defined and config['hide-author'] %}
+                                                            <p class="c-article__author-name">{{ author['displayName'] }}</p>
+                                                        {% else %}
+                                                            <a class="c-article__author-name" href="{{_AppHelper.getUserProfileUrl(author['username'])}}/posts">{{ author['displayName'] }}</a>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endfor %}
+                                            {% endif %}
+                                            {#--------------- END AUTHOR -------------#}
+
+
                                             {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
                                                 <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link" data-access="{{article.userHasEditArticleAccess}}">Edit article</a>
                                             {% endif %}
