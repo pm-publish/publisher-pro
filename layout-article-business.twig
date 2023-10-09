@@ -1,0 +1,773 @@
+{% import "partials/quotes.twig" as quotes %}
+{{ set(this, 'title', article.title) }}
+{{ this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'}) }}
+
+{% set networkData = _Network.getNetworkData() %}
+{% set blogInfo = _Blog.getBlog(null, {'excludeMenus' : true}) %}
+{% set config = _Network.getThemeConfig() %}
+
+{{ set(this, 'params', {
+    "config": config,
+    "networkData": networkData
+}) }}
+
+
+{% set themeColor = "#4A90E2" %}
+{% if networkData['styling']['colours']['primaryColor'] is defined %}
+    {% set themeColor = networkData['styling']['colours']['primaryColor'] %}
+{% endif %}
+
+
+{# PIJF used in Google Tag Manager for NZ On Air to capture published data #}
+{% set pijf_code = null %}
+{% if article.additionalInfo is defined and article.additionalInfo.pijf is defined and article.additionalInfo.pijf != null %}
+    {% set pijf_code = article.additionalInfo.pijf %}
+{% endif %}
+
+{% if pijf_code %}
+    {% set register = _AppHelper.registerMetaTag({"name": "nzoa", "content": pijf_code}) %}
+{% endif %}
+
+
+{% set relatedArticles = [] %}
+{% set articleBlog = article.blog.title | lower %}
+
+{% set articleBlogInfo = _Blog.getBlog({'guid':article.blog['guid']}, {'excludeMenus' : true}) %}
+
+
+{% set cropped = true %}
+    {% if article.additionalInfo is defined and article.additionalInfo.image_crop is defined and article.additionalInfo.image_crop == 'full' %}
+    {% set cropped = false %}
+{% endif %}
+
+
+{% set showPaywall = false %}
+{% set ArticleContent = article.content %}
+
+{% set pwstats = {} %}
+{% if not _User.isGuest() %}
+    {% set pwstats = _User.getPaywallStats(false) %}
+{% endif %}
+
+{% set allowedReferrers = config['allowedReferrers'] %}
+{% set headers      = _AppHelper.getHttpHeaders() %}
+
+{% set bypassPaywall = false %}
+{% if headers['referer'][0] is defined and allowedReferrers is defined %}
+{% set referrrer = headers['referer'][0] | preg_replace('|http(s)*://(.+?)/.*$|', '$2') %}
+    {% for ar in allowedReferrers %}
+        {% if referrrer == ar %}
+            {% set bypassPaywall = true %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% set paywallType = "" %}
+
+{% if not _User.isAdminUser() and article.showPaywall == true %}
+    {% if bypassPaywall == false %} 
+        {% set showPaywall = true %}
+    {% endif %}
+
+    {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
+    {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
+    {# TURN FREE PAYWALL OFF FOR LOGGED IN USERS AND SET FREE PAYWALL TO SHOW #}
+
+        {% if not _User.isGuest() %}
+            {% set showPaywall = false %}
+        {% else %}
+            {% set paywallType = "signup" %}
+        {% endif %}
+
+
+    {% else %}
+        {# DETERMINE WHICH PAYWALL TO SHOW #}
+        {% if not _User.isGuest() %}
+
+            {% if pwstats['type'] == 'article' %}
+                {% set paywallType = "topup" %}
+            {% elseif pwstats['type'] == 'time' %}
+                {% set paywallType = "renew" %}
+            {% else %}
+                {% set paywallType = "upgrade" %}
+            {% endif %}
+
+        {% else %}
+            {% set paywallType = "subscribe" %}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+
+
+
+{% set trialToggle = false %}
+
+{% if showPaywall == true %}
+
+    {% set storySplit = ArticleContent | split('</p>') %}
+
+
+    {# When embeds or images appear at the top of an article it can 
+    create broken html and cause rendering issues on the page. #}
+    {% if storySplit[1] | trim matches '/^<p/' %}
+        {% set para2 = storySplit[1] | slice(0, 80) ~ '</p>' %}
+    {% else %}
+        {% set para2 = '<p></p>' %}
+    {% endif %}    
+
+
+    {% set ArticleContent = [storySplit[0], para2] | join('</p>') %}
+
+    {% set plans = _Paywall.getActiveNetworkPaywallPlans() %}
+    {% for plan in plans %}
+        {% if plan.trial_status == "1" %}
+            {% set trialToggle = true %}
+        {% endif %}
+    {% endfor %}
+
+{% else %}
+{# Only grab these if article is not paywalled #}
+
+    {% if config['inventory']['articleAd'] is defined %}
+        {% set adPos = config['inventory']['articleAd'] %}
+        {% set storySplit = ArticleContent | split('</p>') %}
+
+        {% if storySplit[(adPos['position'] + 2) - 1] %}
+ 
+            {% if adPos['slot'] is defined %}
+                {% set inarticleslot = adPos['slot'] %}
+                {% set ArticleContent = '' %}
+                {% for para in storySplit %}
+                    {% set ArticleContent = ArticleContent ~ para ~ '</p>' %}
+                    {% if loop.index == adPos['position'] %}
+                        {% set ArticleContent = ArticleContent ~ '
+                            <div class="u-margin-top-30 u-margin-bottom-30 '~ adPos['class'] ~'">
+                                <div class="j-adslot" id="' ~ inarticleslot ~ '" data-adshape="banner"></div>
+                            </div>' %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+    {% endif %}
+    
+    {% set cacheKey = "articleRecent_articlePage" %}
+    {% set recentArticles = getCache(cacheKey) %}
+    {% if (recentArticles is empty) %}
+        {% set recentArticles = _Article.getRecentArticles({ 
+            blogId: article.blog.id, 
+            limit: 4, 
+            excludeArticleIds : [article.id], 
+            interval: 168 
+        }) %}
+
+        {% set cache = setCache(cacheKey, recentArticles, 500) %} 
+    {% endif %}  
+
+
+
+    {% set cacheKey = "articlePopular_articlePage" %}
+    {% set popularArticles = getCache(cacheKey) %}
+    {% if (popularArticles is empty) %}
+        {% set popularArticles = _Article.getPopularArticles({ 
+            limit: 4, 
+            sortBy: 'VIEWS', 
+            scope: 'network',
+            includePrimaryBlog: true,
+            interval: 336 
+        }) %}
+        {% set cache = setCache(cacheKey, popularArticles, 500) %} 
+    {% endif %} 
+    
+    
+{% endif %}
+
+
+
+
+{% set watermark = false %}
+{% if config['watermark']['settings'] is defined and config['watermark']['sections'][articleBlog|lower] is defined %}
+    {% set watermark = config['watermark']['settings'] %}
+{% endif %}
+
+
+
+
+
+
+
+
+{# ----------------------------------------
+                 COMMENTS
+---------------------------------------- #}
+{% set init = _Comment.twigInit() %}
+{% set commentCount = _Comment.getArticleCommentCount(article.id) %}
+
+{% set comment = null %}
+{% if commentCount > 0 %}
+    {% set comments = _Comment.getByArticle(article.id, {"limit":1, "orderBy" : {"created_at" : "ASC"}, "rootOnly" : true, "resultFormat" : 'array'}) %}
+    {% set comment = comments.comments[0] %}
+    {% set commenters = _Comment.getCommenters(article.id, {"resultFormat" :'array', "resultCount" : 'all', "limit":5}) %}
+
+    {% set commentersString = false %}
+
+    {% if commenters | length > 1 %}
+
+        {% set commentersString = ""%}
+        {% set commentersArr = [] %}
+        
+        {% for author in commenters[0:4] %}
+                {% set commentersArr = commentersArr | merge ([author.firstname ~ " " ~ author.lastname]) %}
+        {% endfor %}
+        {% set commentersString = commentersString ~ commentersArr | join(", ") %}
+        {% if commenters | length > 4 %}
+            {% set commentersString = commentersString ~ " & others" %}
+        {% endif %}
+
+    {% endif %}
+{% endif %}
+
+{% set commentSetting = false %}
+{% set allow_comments = false %}
+{% set show_comments = false %}
+{% if article.additionalInfo is defined and article.additionalInfo.comments is defined and article.additionalInfo.comments != null %} 
+    {% set commentSetting = article.additionalInfo.comments %}
+{% endif %}
+
+{% if commentSetting == "on" %}
+    {% set allow_comments = true %}
+    {% set show_comments = true %}
+{% endif %}
+
+{% if commentSetting == false or commentSetting == "off" %}
+    {% if commentCount > 0 %}
+        {% set show_comments = true %}
+    {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% set articleImg = false %}
+{% set featured = false %}
+{% if article.media|length > 0 %}
+    {% set articleImg = true %}
+    {% set featured = article.media[0].type %}
+{% endif %}
+
+
+
+{% set profileImg = _Media.getMediaUrl(article.createdBy['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop':'thumb', type: 'user'}) %}
+{% set publishDate = _AppHelper.getDefaultTimezoneDateTime(article.publishDate, 'F, Y') %}
+{% set updateDate = _AppHelper.getDefaultTimezoneDateTime(article.updatedDateTime,'F j, Y') %}
+
+
+{% set updated = false %}
+{% if article.publishedDateTime != article.updatedDateTime %}
+    {% set updatedAgo = _AppHelper.getSecondsSincePublished(article.updatedDateTime) %}
+    {% if updatedAgo < 86400 %} 
+        {% set updateDate =_AppHelper.getRelativeTime(article.updatedDateTime) ~ " ago" %} 
+    {% endif %} 
+    {% set updated = true %} 
+{% endif %} 
+
+{% set articleImageSize = 600 %}
+{% if config['defaultSettings']['articleResizeImage'] is defined and config['defaultSettings']['articleResizeImage'] is not empty %}
+    {% set articleImageSize = config['defaultSettings']['articleResizeImage']  %}
+{% endif %}
+
+
+{% set publisher = {height: 60, width: 600, name: networkData.title, logo: ''} %}
+{% if networkData.logoMedia | length > 0 %}
+    {% set publisher = publisher|merge({logo:_Media.getMediaUrl(networkData.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
+{% endif %}
+
+    <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}" itemscope itemtype="http://schema.org/NewsArticle">
+        <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
+        <meta itemprop="url" content="{{article.url}}">
+        <meta itemprop="dateModified" content="{{article.updatedAt}}">
+        <meta itemprop="datePublished" content="{{article.publishedDate}}">
+        {% if publisher.logo is not empty %}
+            <div itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                <meta itemprop="name" content="{{publisher.name}}"/>
+                <div itemprop="logo" itemscope itemtype="https://schema.org/ImageObject">
+                    <meta itemprop="url" content="{{publisher.logo}}"/>
+                    <meta itemprop="width" content="{{publisher.width}}"/>
+                    <meta itemprop="height" content="{{publisher.height}}"/>
+                </div>
+            </div>
+        {% endif %}
+        
+        
+        <div class="c-article c-article-xs c-article__carousel">
+          
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="c-article__top">
+                            <div class="col-12 col-lg-10 mx-auto">
+                                <div class="row relative">
+                                    <div class='col-12 col-lg-8'>
+                                        <div class="c-article__top-container">
+                                            <div class="c-article__category-wrap">
+                                                {% if article.label != article.blog.title %}
+                                                    <div class="c-article__additional-category" >
+                                                        {{article.label}}
+                                                    </div>
+                                                {% endif %}
+                                                <div class="c-article__category">
+                                                    {{article.blog.title}}
+                                                </div>
+                                            </div>
+                                            <h1 class="c-article__title" itemprop="headline">
+                                                {{ quotes.smarten(article.title) }}
+                                            </h1>
+                                            <div class="c-article__additionalInfo">
+                                                <div class="c-article__posted-on">
+                                                    
+                                                </div>
+                                                <div class="c-article__time-info">
+                                                    <div class="c-article__time-info--img">
+                                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
+                                                            height="24" viewbox="0 0 24 24">
+                                                            <defs>
+                                                                <path id="m4x15l1r5a"
+                                                                    d="M11.377 2.535C17.271 2.735 22 7.416 22 13.234 22 19.185 17.065 24 11.034 24 4.934 24 0 19.185 0 13.234c0-1.739.48-3.478 1.302-5.082.411-.736 1.645-.134 1.234.668-.754 1.338-1.165 2.876-1.165 4.414 0 5.216 4.318 9.429 9.663 9.429 5.278 0 9.595-4.213 9.595-9.43 0-5.014-4.112-9.16-9.252-9.361l1.44 1.337c.616.669-.343 1.605-.96.937L9.252 3.67c-.274-.267-.274-.668 0-.936L11.857.194c.617-.602 1.576.334.96.936l-1.44 1.405zm-.067 7.29c0-.846 1.465-.846 1.465 0v5.403c0 .39-.293.651-.732.651H8.38c-.953 0-.953-1.302 0-1.302h2.93V9.825z" />
+                                                            </defs>
+                                                            <g fill="none" fill-rule="evenodd">
+                                                                <g>
+                                                                    <g>
+                                                                        <g>
+                                                                            <g
+                                                                                transform="translate(-797.000000, -164.000000) translate(797.000000, 161.000000) translate(0.000000, 3.000000) translate(1.000000, 0.000000)">
+                                                                                <mask id="fuku2ns3vb" fill="#fff">
+                                                                                    <use xlink:href="#m4x15l1r5a" />
+                                                                                </mask>
+                                                                                <use fill="#7F7F7F"
+                                                                                    xlink:href="#m4x15l1r5a" />
+                                                                                <g fill="#636567" mask="url(#fuku2ns3vb)">
+                                                                                    <rect width="84" height="83" rx="6"
+                                                                                        transform="translate(-24.000000, -26.000000)" />
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                    <div class="c-article__time-info--label">
+                                                        {{article.readingTime}} min read
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
+                                                <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link" data-access="{{article.userHasEditArticleAccess}}">Edit article</a>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row c-article__main-container">
+                    <div class="col-12 col-lg-1">
+                        {% if config.hideShareIcons != 'true' %}
+                            <div class="u-generic-socialIcons u-generic-socialIcons--sticky u-generic-socialIcons-xs">
+                                
+                                <a class="u-generic-socialIcons__item"
+                                    href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
+                                    <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <defs>
+                                            <path id="a" d="M0 .443h32.4v32.4H0z"/>
+                                            <path d="m.067 12.133 5.678-5.506L.05 1.715 0 2.037v9.757c0 .068.022.18.067.339zm6.4-6.166.757.61 1.495 1.236 1.495-1.236.756-.61 5.712-4.93a.944.944 0 0 0-.302-.05H1.042a.719.719 0 0 0-.286.05l5.712 4.93zm-5.425 6.877H16.38a.8.8 0 0 0 .285-.05l-5.728-5.54-2.218 1.813-2.218-1.813-5.728 5.54c.09.033.179.05.269.05zm16.329-.711c.033-.124.05-.237.05-.339V2.037c0-.113-.017-.22-.05-.322l-5.678 4.912 5.678 5.506z" id="c"/>
+                                        </defs>
+                                        <g fill="none" fill-rule="evenodd">
+                                            <g>
+                                                <mask id="b" fill="#fff">
+                                                    <use xlink:href="#a"/>
+                                                </mask>
+                                                <use fill={{themeColor}} xlink:href="#a"/>
+                                                <g mask="url(#b)" fill={{themeColor}}>
+                                                    <rect width="108" height="108" rx="8.1" transform="translate(-11 -31)"/>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(7.11 8.65)">
+                                                <mask id="d" fill="#fff">
+                                                    <use xlink:href="#c"/>
+                                                </mask>
+                                                <use fill="#000" xlink:href="#c"/>
+                                                <g mask="url(#d)" fill="#FFF">
+                                                    <rect x="1" width="87.998" height="87.998" rx="6.6" transform="translate(-36 -40)"/>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+
+                                </a>
+                                <a class="u-generic-socialIcons__item"
+                                    href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                    target="_blank">
+                                    <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <defs>
+                                            <path id="fb_a" d="M0 .443h32.4v32.4H0z"/>
+                                            <path d="M5.476 5.791v-1.5c0-.226.013-.403.04-.53a.986.986 0 0 1 .152-.36.648.648 0 0 1 .366-.248c.165-.05.39-.075.672-.075h1.518V.08h-2.44c-1.41 0-2.422.328-3.036.986-.615.658-.922 1.633-.922 2.922v1.803H0V8.79h1.826v8.73h3.65V8.79h2.44l.328-2.999H5.476z" id="fb_c"/>
+                                        </defs>
+                                        <g fill="none" fill-rule="evenodd">
+                                            <g>
+                                                <mask id="fb_b" fill="#fff">
+                                                    <use xlink:href="#fb_a"/>
+                                                </mask>
+                                                <use fill={{themeColor}} xlink:href="#fb_a"/>
+                                                <g mask="url(#fb_b)" fill={{themeColor}}>
+                                                    <rect width="108" height="108" rx="8.1" transform="translate(-11 -31)"/>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(11.4 7)">
+                                                <mask id="fb_d" fill="#fff">
+                                                    <use xlink:href="#fb_c"/>
+                                                </mask>
+                                                <g mask="url(#fb_d)" fill="#FFF">
+                                                    <rect y="1" width="87.998" height="87.998" rx="6.6" transform="translate(-44 -36)"/>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+
+                                </a>
+                                <a class="u-generic-socialIcons__item"
+                                    href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                    target="_blank">
+                                    <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <defs>
+                                            <path id="tweet_a" d="M0 .443h32.4v32.4H0z"/>
+                                            <path d="M16.6 2.237a6.772 6.772 0 0 1-1.96.56C15.37 2.33 15.866 1.67 16.13.816a6.38 6.38 0 0 1-2.148.881c-.679-.76-1.507-1.14-2.488-1.14-.941 0-1.746.353-2.41 1.059-.667.708-1 1.56-1 2.562 0 .266.026.54.077.82a9.007 9.007 0 0 1-3.901-1.12 9.938 9.938 0 0 1-3.09-2.662A3.63 3.63 0 0 0 .7 3.017a3.649 3.649 0 0 0 1.526 3.021 3.278 3.278 0 0 1-1.526-.46v.04C.685 6.5.943 7.266 1.47 7.92c.527.653 1.18 1.068 1.96 1.24a3.305 3.305 0 0 1-1.527.06c.227.72.628 1.314 1.206 1.782a3.16 3.16 0 0 0 1.978.72C3.857 12.75 2.45 13.263.868 13.263c-.302 0-.578-.014-.829-.041 1.582 1.08 3.322 1.62 5.219 1.62a8.928 8.928 0 0 0 3.391-.599c1.056-.413 1.96-.954 2.713-1.62.754-.667 1.4-1.448 1.94-2.342a10.92 10.92 0 0 0 1.603-5.683c0-.2-.007-.353-.02-.46a7.075 7.075 0 0 0 1.696-1.861l.019-.04z" id="tweet_c"/>
+                                        </defs>
+                                        <g fill="none" fill-rule="evenodd">
+                                            <g>
+                                                <mask id="tweet_b" fill="#fff">
+                                                    <use xlink:href="#tweet_a"/>
+                                                </mask>
+                                                <use fill={{themeColor}} xlink:href="#tweet_a"/>
+                                                <g mask="url(#tweet_b)" fill={{themeColor}}>
+                                                    <rect width="108" height="108" rx="8.1" transform="translate(-11 -31)"/>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(7.45 8.1)">
+                                                <mask id="tweet_d" fill="#fff">
+                                                    <use xlink:href="#tweet_c"/>
+                                                </mask>
+                                                <g mask="url(#tweet_d)" fill="#FFF">
+                                                    <rect x="1" y="1" width="87.998" height="87.998" rx="6.6" transform="translate(-28 -37)"/>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+
+
+                                </a>
+                                <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                    target="_blank">
+                                    <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                        <defs>
+                                            <path id="link_a" d="M0 .443h32.4v32.4H0z"/>
+                                            <path d="M.595 15.4h3.436V5.064H.595V15.4zM2.336.082C1.16.082.391.852.391 1.867c0 .992.747 1.787 1.9 1.787h.022c1.2 0 1.944-.795 1.944-1.787C4.235.853 3.512.082 2.337.082zm14.086 9.391V15.4h-3.436V9.87c0-1.389-.497-2.337-1.74-2.337-.95 0-1.515.639-1.764 1.257-.09.22-.114.528-.114.838V15.4H5.931s.047-9.366 0-10.336h3.437v1.465l-.023.033h.023V6.53c.457-.703 1.272-1.708 3.097-1.708 2.262 0 3.957 1.477 3.957 4.652z" id="link_c"/>
+                                        </defs>
+                                        <g fill="none" fill-rule="evenodd">
+                                            <g>
+                                                <mask id="link_b" fill="#fff">
+                                                    <use xlink:href="#link_a"/>
+                                                </mask>
+                                                <use fill={{themeColor}} xlink:href="#link_a"/>
+                                                <g mask="url(#link_b)" fill={{themeColor}}>
+                                                    <rect width="108" height="108" rx="8.1" transform="translate(-11 -31)"/>
+                                                </g>
+                                            </g>
+                                            <g transform="translate(7.385 8.1)">
+                                                <mask id="link_d" fill="#fff">
+                                                    <use xlink:href="#link_c"/>
+                                                </mask>
+                                                <use fill="#000" xlink:href="#link_c"/>
+                                                <g mask="url(#link_d)" fill="#FFF">
+                                                    <rect width="87.998" height="87.998" rx="6.6" transform="translate(-31 -29)"/>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+
+
+
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-lg-10">
+                        <div class="row">
+                            <div class="col-12 col-lg-8">
+                                <div class="gallery-container relative">
+                                    {% set galleryStyle = 'article' %}
+                                    {% if article.media|length > 1 or not cropped %}
+                                        {% set galleryStyle = 'gallery' %}
+                                    {% endif %}
+
+
+                                    {% if article.media|length > 0 %}
+
+                                     {% if article.media[0]['type'] != 'video' %}
+                                        <div itemprop="image" itemscope itemtype="https://schema.org/ImageObject" >
+                                            <meta itemprop="url" content="{{ _Media.getMediaUrl(article.media[0], 0, 0, {'crop': 'fill', 'gravity': 'auto'} )}}">
+                                        </div>
+                                    {% endif %}
+
+                                   
+                                        {% set imageFeature = featured == 'image' ? true : false %}
+                                        {{this.render('partials/gallery.twig', {
+                                            media: article.media,
+                                            default: imageFeature,
+                                            watermark: watermark,
+                                            galleryStyle: galleryStyle,
+                                            showPaywall: showPaywall
+                                        }) | raw}}
+                                    {% endif %}
+
+                                </div>
+                                <div class="{% if showPaywall == true %} c-article__main__paywall-container {% endif %}" > 
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="c-article__main-content">
+                                                <div class="c-article__container" itemprop="articleBody">
+                                                    {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
+                                                </div>
+                                            </div>
+                                            <hr />
+
+                                            {% if showPaywall == false %}
+                                                {% if config.hideShareIcons != 'true' %}
+                                                    <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
+                                                        <div class="u-generic-socialIcons-text">Share article</div>
+                                                        <a class="u-generic-socialIcons__item"
+                                                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
+                                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <defs>
+                                                                    <path d="M.076 12.788 6.53 6.53.057.95 0 1.315v11.088c0 .077.025.205.076.385zM7.35 5.78l.86.693 1.698 1.405 1.7-1.405.858-.693L18.957.179a1.073 1.073 0 0 0-.343-.058H1.184A.817.817 0 0 0 .859.18L7.35 5.78zm-6.166 7.815h17.43a.91.91 0 0 0 .324-.058l-6.51-6.294-2.52 2.06-2.52-2.06-6.51 6.294a.858.858 0 0 0 .306.058zm18.556-.808c.038-.142.057-.27.057-.385V1.315c0-.129-.019-.25-.057-.366L13.287 6.53l6.453 6.257z" id="email_solid_a"/>
+                                                                </defs>
+                                                                <g transform="translate(.125 3.875)" fill="none" fill-rule="evenodd">
+                                                                    <mask id="email_solid_b" fill="#fff">
+                                                                        <use xlink:href="#email_solid_a"/>
+                                                                    </mask>
+                                                                    <use fill="#000" xlink:href="#email_solid_a"/>
+                                                                    <g mask="url(#email_solid_b)" fill="{{themeColor}}">
+                                                                        <rect width="100" height="100" rx="7.5" transform="translate(-40 -46)"/>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+
+                                                        </a>
+                                                        <a class="u-generic-socialIcons__item"
+                                                            href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                                            target="_blank">
+                                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <defs>
+                                                                    <path d="M6.223 6.581V4.877c0-.257.014-.459.044-.604a1.12 1.12 0 0 1 .174-.409.736.736 0 0 1 .416-.28c.188-.057.444-.087.763-.087h1.726V.091H6.572c-1.6 0-2.75.373-3.45 1.12-.698.748-1.047 1.856-1.047 3.321v2.05H0v3.406h2.075v9.921h4.148V9.99h2.773l.372-3.408H6.223z" id="fb_solid_a"/>
+                                                                </defs>
+                                                                <g transform="translate(5 1)" fill="none" fill-rule="evenodd">
+                                                                    <mask id="fb_solid_b" fill="#fff">
+                                                                        <use xlink:href="#fb_solid_a"/>
+                                                                    </mask>
+                                                                    <g mask="url(#fb_solid_b)" fill="{{themeColor}}">
+                                                                        <rect width="100" height="100" rx="7.5" transform="translate(-50 -40)"/>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                        </a>
+                                                        <a class="u-generic-socialIcons__item"
+                                                            href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                                            target="_blank">
+                                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <defs>
+                                                                    <path d="M19 2.542a7.696 7.696 0 0 1-2.226.636c.827-.53 1.39-1.28 1.691-2.251a7.25 7.25 0 0 1-2.441 1.002c-.771-.865-1.713-1.297-2.827-1.297-1.07 0-1.984.402-2.74 1.204-.757.805-1.135 1.774-1.135 2.912 0 .303.03.613.087.932a10.236 10.236 0 0 1-4.433-1.274 11.293 11.293 0 0 1-3.51-3.024A4.126 4.126 0 0 0 .93 3.429a4.147 4.147 0 0 0 1.735 3.433A3.725 3.725 0 0 1 .93 6.339v.045C.915 7.386 1.208 8.257 1.808 9c.599.743 1.341 1.214 2.226 1.41a3.756 3.756 0 0 1-1.734.067 4.14 4.14 0 0 0 1.37 2.025c.657.53 1.407.803 2.248.819-1.399 1.167-2.997 1.751-4.796 1.751a8.81 8.81 0 0 1-.941-.047c1.798 1.229 3.774 1.842 5.93 1.842 1.37.016 2.655-.212 3.854-.681 1.2-.47 2.227-1.085 3.083-1.842a11.38 11.38 0 0 0 2.205-2.66 12.409 12.409 0 0 0 1.37-3.162c.3-1.09.45-2.19.45-3.297 0-.228-.007-.401-.022-.522a8.04 8.04 0 0 0 1.928-2.116L19 2.542z" id="tweet_solid_a"/>
+                                                                </defs>
+                                                                <g transform="translate(.375 2.25)" fill="none" fill-rule="evenodd">
+                                                                    <mask id="tweet_solid_b" fill="#fff">
+                                                                        <use xlink:href="#tweet_solid_a"/>
+                                                                    </mask>
+                                                                    <g mask="url(#tweet_solid_b)" fill="{{themeColor}}">
+                                                                        <rect width="100" height="100" rx="7.5" transform="translate(-31 -41)"/>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                        </a>
+                                                        <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                <defs>
+                                                                    <path d="M.677 17.5H4.58V5.755H.677V17.5zM2.655.093C1.319.093.445.969.445 2.122c0 1.127.848 2.03 2.158 2.03h.026c1.362 0 2.21-.903 2.21-2.03C4.811.969 3.99.092 2.654.092zM18.66 10.765V17.5h-3.904v-6.284c0-1.578-.565-2.656-1.978-2.656-1.079 0-1.72.726-2.003 1.429-.103.25-.13.6-.13.952V17.5H6.74s.053-10.643 0-11.745h3.906V7.42l-.026.037h.026V7.42c.519-.8 1.445-1.941 3.52-1.941 2.569 0 4.495 1.678 4.495 5.286z" id="link_solid_a"/>
+                                                                </defs>
+                                                                <g transform="translate(.438 2.25)" fill="none" fill-rule="evenodd">
+                                                                    <mask id="link_solid_b" fill="#fff">
+                                                                        <use xlink:href="#link_solid_a"/>
+                                                                    </mask>
+                                                                    <use fill="#000" xlink:href="#link_solid_a"/>
+                                                                    <g mask="url(#link_solid_b)" fill="{{themeColor}}">
+                                                                        <rect width="100" height="100" rx="7.5" transform="translate(-35 -33)"/>
+                                                                    </g>
+                                                                </g>
+                                                            </svg>
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
+                                            {% endif %}
+
+
+
+
+
+
+
+
+
+                                            <div id="comment-container" class="u-margin-top-80 u-margin-bottom-40" data-env="{{env}}">
+
+                                                {# {% if commentCount == 0 and not show_comments %}
+                                                    <p class="comments__closed">Some Newsroom articles are open to comments, <a href="#">click here</a> to learn more. </p>
+                                                {% endif %} #}
+
+                                                {% if guestUser and show_comments %}
+
+                                                    <div class="comments__header">
+                                                        {% set plural = commentCount > 1 ? "s" : "" %}
+                                                        <h3 class="comments__title">{{commentCount}} comment{{plural}}</h3>
+                                                    </div>
+
+
+                                                    {% if comment %}
+                                                        
+                                                        {% if comment.profile_image %}
+                                                            {% set avatar = comment.profile_image | replace({'/upload/': '/upload/c_fill,dpr_auto,f_auto,fl_lossy,g_faces:auto,q_auto,w_80,h_80/'}) %}
+                                                        {% else %}
+                                                            {% set avatar = networkData.templatePath ~ '/static/images/commenter.svg'  %}
+                                                        {% endif %}
+
+                                                        {% set commentDate = _AppHelper.getDefaultTimezoneDateTime(comment.publishedDateTime,'j F Y') %}
+
+                                                        <div class="comments__outerComment">
+                                                            <div class="comments__commentContainer">
+                                                                <div class="comments__Header">
+                                                                    <div class="comments__author">
+                                                                        <img class="comments__Avatar" src={{avatar}} alt="commenter avatar" />
+                                                                        <div class="comments__AuthorDetails">
+                                                                            <div class="comments__AuthorName">{{comment.firstname}} {{comment.lastname}}</div>
+                                                                            <div class="comments__Company">{{comment.organisation}}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="comments__Edits">
+                                                                        <div class="comments__CommentCountContainer">
+                                                                            <div class="comments__count">{{comment.thread_count}}</div>
+                                                                        </div>
+                                                                        <div class="comments__Time">
+                                                                            <div class="comments__EditTime">{{commentDate}}</div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                                {% if this.props.top_pick == 1 %}
+                                                                    <p class="comments__TopPick">Top comment</p>
+                                                                {% endif %}
+
+                                                                <div class="comments__body">{{comment.comment | raw}}</div>
+                                                                
+                                                            </div>
+                                                            <div class="comments__Fade"></div>
+                                                        </div>
+                                                    {% endif %}
+
+                                                    <div class="comment-subscribe">
+                                                        <h2 class="comment-subscribe__header">JOIN THE CONVERSATION</h2>
+                                                        <p class="comment-subscribe__p">Read and post comments with a <br class="d-sm-none" />Newsroom Pro subscription. </p>
+                                                        <p class="comment-subscribe__p comment-subscribe__p--bold">Subscribe now to start a free<br class="d-sm-none" /> 28-day trial. </p>
+                                                        <div class="comment-subscribe__buttons">
+                                                            <a href="/prosubscribe" class="_btn _btn--red comment-subscribe__button">SUBSCRIBE TO PRO</a>
+                                                            <button id="commentSigninBtn" class="_btn _btn--gray u-mobile-margin-top-10 comment-subscribe__button j-signin">SIGN IN TO PRO</button>
+                                                        </div>
+                                                        <a href="{{networkData.defaultBlogUrl}}/prosubscribe" class="comment-subscribe__link">View our subscription options</a>
+                                                    </div>
+
+                                                {% endif %}
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-4 d-none d-lg-block">
+                                <div class="h-100">
+                                    {% if showPaywall != true %}
+                                        <div class="ads-sticky">
+                                            {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
+                                                <div class="mt-4">
+                                                    <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][0]}}" data-adshape="side-fix"></div>
+                                                </div>
+                                            {% endif %}
+                                            {% if config['inventory']['adSpace']['side-fix'][1] is defined %}
+                                                <div class="mt-3">
+                                                    <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][1]}}" data-adshape="side-fix"></div>
+                                                </div>
+                                            {% endif %}
+                                            {% if config['inventory']['adSpace']['side-fix'][2] is defined %}
+                                                <div class="mt-3">
+                                                    <div class="j-adslot" id="{{config['inventory']['adSpace']['side-fix'][2]}}" data-adshape="side-fix"></div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+
+            {% if showPaywall == true %}
+                {{this.render('partials/article/paywall_article_notice.twig', {networkData:networkData, paywallType:paywallType}) | raw}}
+            {% endif %}
+        </div>
+
+
+        {% set theKeywords = '' %}
+        {% if article.keywords is defined and article.keywords != '' %}
+            {% set theKeywords = article.keywords %}
+        {% elseif blogInfo.keywords is defined and blogInfo.keywords != '' %}
+            {% set theKeywords = blogInfo.keywords %}
+        {% endif %}
+
+
+        <div id="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}" data-pageName="" data-pageType="article" data-pageTag="" data-adsection=""></div>
+    </main>
+
+
+{% if not guestUser and show_comments %}
+    {{this.render('partials/_comments.twig', {
+        config: config,
+        networkData: networkData,
+        articleId: article.id,
+        articleGuid: article.guid,
+        commentCount:commentCount,
+        allowComments:allow_comments ? "true" : "false"
+    }) | raw}}
+{% endif %}
