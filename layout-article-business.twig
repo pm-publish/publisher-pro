@@ -331,46 +331,6 @@
                                             <h1 class="c-article__title" itemprop="headline">
                                                 {{ quotes.smarten(article.title) }}
                                             </h1>
-                                            <div class="c-article__additionalInfo">
-                                                <div class="c-article__posted-on">
-                                                    
-                                                </div>
-                                                <div class="c-article__time-info">
-                                                    <div class="c-article__time-info--img">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
-                                                            height="24" viewbox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="m4x15l1r5a"
-                                                                    d="M11.377 2.535C17.271 2.735 22 7.416 22 13.234 22 19.185 17.065 24 11.034 24 4.934 24 0 19.185 0 13.234c0-1.739.48-3.478 1.302-5.082.411-.736 1.645-.134 1.234.668-.754 1.338-1.165 2.876-1.165 4.414 0 5.216 4.318 9.429 9.663 9.429 5.278 0 9.595-4.213 9.595-9.43 0-5.014-4.112-9.16-9.252-9.361l1.44 1.337c.616.669-.343 1.605-.96.937L9.252 3.67c-.274-.267-.274-.668 0-.936L11.857.194c.617-.602 1.576.334.96.936l-1.44 1.405zm-.067 7.29c0-.846 1.465-.846 1.465 0v5.403c0 .39-.293.651-.732.651H8.38c-.953 0-.953-1.302 0-1.302h2.93V9.825z" />
-                                                            </defs>
-                                                            <g fill="none" fill-rule="evenodd">
-                                                                <g>
-                                                                    <g>
-                                                                        <g>
-                                                                            <g
-                                                                                transform="translate(-797.000000, -164.000000) translate(797.000000, 161.000000) translate(0.000000, 3.000000) translate(1.000000, 0.000000)">
-                                                                                <mask id="fuku2ns3vb" fill="#fff">
-                                                                                    <use xlink:href="#m4x15l1r5a" />
-                                                                                </mask>
-                                                                                <use fill="#7F7F7F"
-                                                                                    xlink:href="#m4x15l1r5a" />
-                                                                                <g fill="#636567" mask="url(#fuku2ns3vb)">
-                                                                                    <rect width="84" height="83" rx="6"
-                                                                                        transform="translate(-24.000000, -26.000000)" />
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </g>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="c-article__time-info--label">
-                                                        {{article.readingTime}} min read
-                                                    </div>
-                                                </div>
-                                            </div>
                                             {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
                                                 <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link" data-access="{{article.userHasEditArticleAccess}}">Edit article</a>
                                             {% endif %}
