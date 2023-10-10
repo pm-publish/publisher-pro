@@ -61,7 +61,7 @@
                 <div class="col-12">
                     <div class="c-header-top-bar__container">
                         <aside class="c-header-top-bar__date">{{date}}</aside>
-                        {% if config['directory']['hideAuth'] is defined and config['directory']['hideAuth'] == false %}
+                        {% if config['directory']['hideAuth'] is not defined or (config['directory']['hideAuth'] is defined and config['directory']['hideAuth'] == false) %}
                             {% if paywall %}
                                 {% if loggedin %}
                                     <div class="c-navigation-4 c-navigation-4-xs d-flex d-sm-none">
