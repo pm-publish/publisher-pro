@@ -452,7 +452,7 @@ div[class^="card"] {
 }
 
 .card_design_v2 {
-    .c-cards-view__description, .c-cards-view__author  {
-        display: none;
+    .c-cards-view__description, .c-cards-view__author {
+        display: none !important;
     }
 }
