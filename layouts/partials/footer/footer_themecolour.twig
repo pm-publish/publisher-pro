@@ -49,21 +49,23 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                {% if paywall %}
-                {% if loggedin %}
-                <div class="c-navigation-4 c-navigation-4-xs">
-                    <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
-                        account</a>
-                    <a href="{{_AppHelper.getLogoffUrl()}}"
-                        class="c-navigation__item c-navigation__item--borderred">Log out</a>
-                </div>
-                {% else %}
-                    <div class="c-navigation-4 c-navigation-4-xs">
-                    <a href="javascript:;" id="signinBtn" class="c-navigation__item">Log in</a>
-                    <a href="{{networkData.defaultBlogUrl}}/subscriptions"
-                        class="c-navigation__item subscribe c-navigation__item--borderred">{{subscribeLabel}}</a>
-                    </div>
-                {% endif %}
+                {% if config['directory']['hideAuth'] is not defined and config['directory']['hideAuth'] == false %}
+                    {% if paywall %}
+                        {% if loggedin %}
+                        <div class="c-navigation-4 c-navigation-4-xs">
+                            <a class="c-navigation__item" href="{{networkData.defaultBlogUrl}}/user/edit-profile">My
+                                account</a>
+                            <a href="{{_AppHelper.getLogoffUrl()}}"
+                                class="c-navigation__item c-navigation__item--borderred">Log out</a>
+                        </div>
+                        {% else %}
+                            <div class="c-navigation-4 c-navigation-4-xs">
+                            <a href="javascript:;" id="signinBtn" class="c-navigation__item">Log in</a>
+                            <a href="{{networkData.defaultBlogUrl}}/subscriptions"
+                                class="c-navigation__item subscribe c-navigation__item--borderred">{{subscribeLabel}}</a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                 {% endif %}
             </div>
         </div>

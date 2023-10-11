@@ -450,3 +450,9 @@ div[class^="card"] {
         box-shadow: 2px 3px 5px #d0d0d0;
     }
 }
+
+.card_design_v2 {
+    .c-cards-view__description, .c-cards-view__author  {
+        display: none;
+    }
+}
