@@ -24902,13 +24902,13 @@ Acme.View.articleFeed.prototype.render = function (data) {
 
 
 	// show or hide the load more button depending on article count
-	(articles.length <= 0 && articles.length < self.options.limit)
+	(articles.length < self.options.limit)
 		? self.elem.css('display', 'none')
 		: self.elem.show();
 
 	// reset infinite load depending on article count
 	if (self.waypoint) {
-		(articles.length <= 0 && articles.length < self.options.limit)
+		(articles.length < self.options.limit)
 			? self.waypoint.disable()
 			: self.waypoint.enable();
 	}
