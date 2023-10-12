@@ -24700,6 +24700,8 @@ Acme.Feed.prototype.fetch = function () {
 	//      nonPinnedOffset gets the rest
 	//      They're combined to return full result
 
+	var checkIsGenerateTheCss = 0;
+
 
 	this.url = this.domain + '/home/load-articles';
 
@@ -24790,9 +24792,6 @@ Acme.Feed.prototype.events = function () {
 		}
 	}
 };
-
-
-
 
 
 
@@ -24909,7 +24908,7 @@ Acme.View.articleFeed.prototype.render = function (data) {
 
 	// reset infinite load depending on article count
 	if (self.waypoint) {
-		(articles.length < self.options.limit && articles.length <= 0)
+		(articles.length <= 0 && articles.length < self.options.limit)
 			? self.waypoint.disable()
 			: self.waypoint.enable();
 	}

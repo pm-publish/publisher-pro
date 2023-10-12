@@ -7,8 +7,8 @@ export default class AdLoader {
     this.keywords = null;
     const keyWordElement = document.getElementById("ad-keywords");
 
-    if (
-      keyWordElement &&
+
+    if (keyWordElement &&
       typeof keyWordElement.dataset.keywords !== "undefined" &&
       keyWordElement.dataset.keywords !== ""
     ) {
@@ -31,7 +31,7 @@ export default class AdLoader {
     const self = this;
 
     if (!this.AccountNumber) {
-      console.log("Missing account number for Ads");
+      console.log("Missing account number for Ads.");
       return;
     }
 
@@ -130,7 +130,7 @@ export default class AdLoader {
             try {
               self.adPush(keys[0]);
             } catch (err) {
-              console.log("no ad found to push at advertisment__" + keys[0], err);
+              console.log("No ad found to push at advertisment__" + keys[0], err);
             }
           } // First For Loop
 
