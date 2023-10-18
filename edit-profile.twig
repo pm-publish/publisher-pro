@@ -147,9 +147,9 @@
 
                         {% if pwstats.userManager == true %}
                         <div class="infoBox__area u-margin-top-40">
-                            <div class="infoBox__head">
+                            <div class="infoBox__head align-items-center">
                                 <div class="infoBox__head-label">Payment details</div>
-                                <a href="javascript:;" class="infoBox__head-link js-cus_acnt__showForm">Update credit card</a>
+                                <a href="javascript:;" class="c-button c-button--lightBlue u-font-size-12 js-cus_acnt__showForm">Update credit card</a>
                             </div>
                             <div class="infoBox-dataGrid">
                                 <ul>
@@ -308,7 +308,7 @@
                                     {% if pwstats['status'] == 'cancelled' %}
                                         <a href="javascript:;" id='cancelAccount' class="planInfo__subInfo-button account__btn account__btn--solid" name="">Restart subscription</a>
                                     {% else %}
-                                        <a href="javascript:;" id='cancelAccount' class="planInfo cancel-subBtn">Cancel subscription</a>
+                                        <a href="javascript:;" id='cancelAccount' class="planInfo__subInfo-button account__btn account__btn--solid">Cancel subscription</a>
                                     {% endif %}
                                 </div>
                             </div>
