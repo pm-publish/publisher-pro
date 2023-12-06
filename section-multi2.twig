@@ -64,7 +64,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="c-page-head c-page-head-xs">
-                    <div class="u-heading__large u-heading__large-xs u-pr--6">{{sectionTitle}}</div>
+                    <h1 class="u-heading__large u-heading__large-xs u-pr--6">{{sectionTitle}}</h1>
                 </div>
             </div>
         </div>
@@ -91,7 +91,7 @@
 
 
         {# FOR PRODUCTION #}
-        {% if not dev and blog.title | lower == key | lower %}
+        {% if not dev and ( blog.title | lower == key | lower or blog.slug | lower == key | lower ) %}
 
             {% set feed = _Blog.getBlogFeed({
                 'offset' : 0, 
@@ -154,7 +154,7 @@
     {% endif %}
 
 
-    <div id ="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}"></div>
+    <div id="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}" data-pageName="" data-pageType="section" data-pageTag="" data-adsection=""></div>
 </main><!-- .site-main -->
 
 

@@ -7,6 +7,7 @@
 
 {% set networkData = _Network.getNetworkData() %}
 
+{% set searchCls = 'card-2-mobile card-9-tablet card-9-desktop u-margin-bottom-30 ' ~ config['directory']['cardCls'] %}
 
 
 <!-- used to index each article as we loop over throughout the template -->
@@ -20,7 +21,7 @@
                     <div class="c-search__head">
                         {% set resultString = firstCount < 2 ? 'result' : 'results' %} 
                         <div class="c-search__head-text">Showing results for:</div>
-                        <div class="c-search__head-title">{{search | raw}}</div>
+                        <h1 class="c-search__head-title">{{search | raw}}</h1>
                     </div>
                 </div>
             </div>
@@ -37,7 +38,7 @@
 
                                 {{this.render('partials/_single-article.twig', {
                                     article: article, 
-                                    containerClass: "card-2-mobile card-9-tablet card-9-desktop u-margin-bottom-30"
+                                    containerClass: searchCls
                                 }) | raw}}
 
                             {% endfor %}

@@ -1,7 +1,7 @@
 {% import "partials/quotes.twig" as quotes %}
 
 {{ set(this, 'title', event.title) }}
-{{this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'})}}
+{# {{this.registerLinkTag({rel:'amphtml', href:_AppHelper.getServerUrl(false)~'?amp=1'})}} #}
 
 
 {% set networkData = _Network.getNetworkData() %}
@@ -43,9 +43,9 @@
                                         </div>
                                     </a>
                                 {% endif %}
-                                <div class="c-eventdetail__title">
+                                <h1 class="c-eventdetail__title">
                                     {{ quotes.smarten(event.title) }}  
-                                </div>
+                                </h1>
                             </div>
                         </div>
                     </div>
@@ -118,30 +118,9 @@
                                     <a class="u-generic-socialIcons__item"
                                         href="https://twitter.com/share?text={{ event.title|url_encode }}&url={{event.url}}"
                                         target="_blank">
-                                        <svg width="32" height="32" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                            <defs>
-                                                <path id="tweet_a" d="M0 .443h32.4v32.4H0z"/>
-                                                <path d="M16.6 2.237a6.772 6.772 0 0 1-1.96.56C15.37 2.33 15.866 1.67 16.13.816a6.38 6.38 0 0 1-2.148.881c-.679-.76-1.507-1.14-2.488-1.14-.941 0-1.746.353-2.41 1.059-.667.708-1 1.56-1 2.562 0 .266.026.54.077.82a9.007 9.007 0 0 1-3.901-1.12 9.938 9.938 0 0 1-3.09-2.662A3.63 3.63 0 0 0 .7 3.017a3.649 3.649 0 0 0 1.526 3.021 3.278 3.278 0 0 1-1.526-.46v.04C.685 6.5.943 7.266 1.47 7.92c.527.653 1.18 1.068 1.96 1.24a3.305 3.305 0 0 1-1.527.06c.227.72.628 1.314 1.206 1.782a3.16 3.16 0 0 0 1.978.72C3.857 12.75 2.45 13.263.868 13.263c-.302 0-.578-.014-.829-.041 1.582 1.08 3.322 1.62 5.219 1.62a8.928 8.928 0 0 0 3.391-.599c1.056-.413 1.96-.954 2.713-1.62.754-.667 1.4-1.448 1.94-2.342a10.92 10.92 0 0 0 1.603-5.683c0-.2-.007-.353-.02-.46a7.075 7.075 0 0 0 1.696-1.861l.019-.04z" id="tweet_c"/>
-                                            </defs>
-                                            <g fill="none" fill-rule="evenodd">
-                                                <g>
-                                                    <mask id="tweet_b" fill="#fff">
-                                                        <use xlink:href="#tweet_a"/>
-                                                    </mask>
-                                                    <use fill={{themeColor}} xlink:href="#tweet_a"/>
-                                                    <g mask="url(#tweet_b)" fill={{themeColor}}>
-                                                        <rect width="108" height="108" rx="8.1" transform="translate(-11 -31)"/>
-                                                    </g>
-                                                </g>
-                                                <g transform="translate(7.45 8.1)">
-                                                    <mask id="tweet_d" fill="#fff">
-                                                        <use xlink:href="#tweet_c"/>
-                                                    </mask>
-                                                    <g mask="url(#tweet_d)" fill="#FFF">
-                                                        <rect x="1" y="1" width="87.998" height="87.998" rx="6.6" transform="translate(-28 -37)"/>
-                                                    </g>
-                                                </g>
-                                            </g>
+                                        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <rect width="30" height="30" fill={{themeColor}} />
+                                            <path d="M5.84156 5.88L12.8794 16.14L5.99062 24.12H7.51688L13.5534 17.1225L18.3534 24.12H24.12L16.7672 13.4016L23.2556 5.88H21.7341L16.0922 12.4163L11.6081 5.88L5.84156 5.88ZM7.66406 6.84H11.1028L22.2975 23.16H18.8588L7.66406 6.84Z" fill="white"/>
                                         </svg>
 
 
@@ -282,18 +261,8 @@
                                         <a class="u-generic-socialIcons__item"
                                             href="https://twitter.com/share?text={{ event.title|url_encode }}&url={{event.url}}"
                                             target="_blank">
-                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                <defs>
-                                                    <path d="M19 2.542a7.696 7.696 0 0 1-2.226.636c.827-.53 1.39-1.28 1.691-2.251a7.25 7.25 0 0 1-2.441 1.002c-.771-.865-1.713-1.297-2.827-1.297-1.07 0-1.984.402-2.74 1.204-.757.805-1.135 1.774-1.135 2.912 0 .303.03.613.087.932a10.236 10.236 0 0 1-4.433-1.274 11.293 11.293 0 0 1-3.51-3.024A4.126 4.126 0 0 0 .93 3.429a4.147 4.147 0 0 0 1.735 3.433A3.725 3.725 0 0 1 .93 6.339v.045C.915 7.386 1.208 8.257 1.808 9c.599.743 1.341 1.214 2.226 1.41a3.756 3.756 0 0 1-1.734.067 4.14 4.14 0 0 0 1.37 2.025c.657.53 1.407.803 2.248.819-1.399 1.167-2.997 1.751-4.796 1.751a8.81 8.81 0 0 1-.941-.047c1.798 1.229 3.774 1.842 5.93 1.842 1.37.016 2.655-.212 3.854-.681 1.2-.47 2.227-1.085 3.083-1.842a11.38 11.38 0 0 0 2.205-2.66 12.409 12.409 0 0 0 1.37-3.162c.3-1.09.45-2.19.45-3.297 0-.228-.007-.401-.022-.522a8.04 8.04 0 0 0 1.928-2.116L19 2.542z" id="tweet_solid_a"/>
-                                                </defs>
-                                                <g transform="translate(.375 2.25)" fill="none" fill-rule="evenodd">
-                                                    <mask id="tweet_solid_b" fill="#fff">
-                                                        <use xlink:href="#tweet_solid_a"/>
-                                                    </mask>
-                                                    <g mask="url(#tweet_solid_b)" fill="{{themeColor}}">
-                                                        <rect width="100" height="100" rx="7.5" transform="translate(-31 -41)"/>
-                                                    </g>
-                                                </g>
+                                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px">
+                                                <path fill="{{themeColor}}" d="M 4.4042969 3 C 3.7572969 3 3.3780469 3.7287656 3.7480469 4.2597656 L 9.7363281 12.818359 L 3.7246094 19.845703 C 3.3356094 20.299703 3.6578594 21 4.2558594 21 L 4.9199219 21 C 5.2129219 21 5.4916406 20.871437 5.6816406 20.648438 L 10.919922 14.511719 L 14.863281 20.146484 C 15.238281 20.680484 15.849953 21 16.501953 21 L 19.835938 21 C 20.482937 21 20.862187 20.272188 20.492188 19.742188 L 14.173828 10.699219 L 19.900391 3.9902344 C 20.232391 3.6002344 19.955359 3 19.443359 3 L 18.597656 3 C 18.305656 3 18.027891 3.1276094 17.837891 3.3496094 L 12.996094 9.0097656 L 9.3945312 3.8554688 C 9.0205313 3.3194687 8.4098594 3 7.7558594 3 L 4.4042969 3 z"/>
                                             </svg>
                                         </a>
                                         <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ event.title|url_encode }}&url={{event.url}}" target="_blank">

@@ -12,17 +12,6 @@
 }) }}
 
 
-{# PIJF used in Google Tag Manager for NZ On Air to capture published data #}
-{% set pijf_code = null %}
-{% if article.additionalInfo is defined and article.additionalInfo.pijf is defined and article.additionalInfo.pijf != null %}
-    {% set pijf_code = article.additionalInfo.pijf %}
-{% endif %}
-
-{% if pijf_code %}
-    {% set register = _AppHelper.registerMetaTag({"name": "nzoa", "content": pijf_code}) %}
-{% endif %}
-
-
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['primaryColor'] is defined %}
     {% set themeColor = networkData['styling']['colours']['primaryColor'] %}
@@ -342,76 +331,6 @@
                                             <h1 class="c-article__title" itemprop="headline">
                                                 {{ quotes.smarten(article.title) }}
                                             </h1>
-                                            <div class="c-article__additionalInfo">
-                                                <div class="c-article__posted-on">
-                                                    <time class="c-article__published">{{article.publishedDate}}</time>
-                                                    {% if updated %}
-                                                    <time class="c-article__updated">Updated
-                                                        {{ updateDate | capitalize }}</time>
-                                                    {% endif %}
-
-                                                    <div class="c-article__author" itemscope itemprop="author" itemtype="https://schema.org/Person">
-                                                        <meta itemprop="name" content="{{article.createdBy['displayName']}}">
-                                                        {% if config['hide-author'] is defined and config['hide-author'] %}
-                                                        
-                                                        <p class="c-article__author-name" itemprop="name">{{
-                                                            article.createdBy['displayName'] }}</p>
-                                                        {% else %}
-                                                           
-                                                            <a itemprop="url"  class="c-article__author-name"
-                                                            href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts" >{{
-                                                            article.createdBy['displayName'] }}</a>
-                                                        {% endif %}
-                                                    </div>
-                                                    {% if article['createdBy']['coauthors'] %}
-                                                        {% for author in article['createdBy']['coauthors'] %}
-                                                            <div class="c-article__author">
-                                                                <div class="c-article__avatar" style="background-image: url({{ _Media.getMediaUrl(author['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }});"></div>
-                                                                {% if config['hide-author'] is defined and config['hide-author'] %}
-                                                                    <p class="c-article__author-name">{{ author['displayName'] }}</p>
-                                                                {% else %}
-                                                                    <a class="c-article__author-name" href="{{_AppHelper.getUserProfileUrl(author['username'])}}/posts">{{ author['displayName'] }}</a>
-                                                                {% endif %}
-                                                            </div>
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </div>
-                                                <div class="c-article__time-info">
-                                                    <div class="c-article__time-info--img">
-                                                        <svg xmlns="http://www.w3.org/2000/svg"
-                                                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24"
-                                                            height="24" viewbox="0 0 24 24">
-                                                            <defs>
-                                                                <path id="m4x15l1r5a"
-                                                                    d="M11.377 2.535C17.271 2.735 22 7.416 22 13.234 22 19.185 17.065 24 11.034 24 4.934 24 0 19.185 0 13.234c0-1.739.48-3.478 1.302-5.082.411-.736 1.645-.134 1.234.668-.754 1.338-1.165 2.876-1.165 4.414 0 5.216 4.318 9.429 9.663 9.429 5.278 0 9.595-4.213 9.595-9.43 0-5.014-4.112-9.16-9.252-9.361l1.44 1.337c.616.669-.343 1.605-.96.937L9.252 3.67c-.274-.267-.274-.668 0-.936L11.857.194c.617-.602 1.576.334.96.936l-1.44 1.405zm-.067 7.29c0-.846 1.465-.846 1.465 0v5.403c0 .39-.293.651-.732.651H8.38c-.953 0-.953-1.302 0-1.302h2.93V9.825z" />
-                                                            </defs>
-                                                            <g fill="none" fill-rule="evenodd">
-                                                                <g>
-                                                                    <g>
-                                                                        <g>
-                                                                            <g
-                                                                                transform="translate(-797.000000, -164.000000) translate(797.000000, 161.000000) translate(0.000000, 3.000000) translate(1.000000, 0.000000)">
-                                                                                <mask id="fuku2ns3vb" fill="#fff">
-                                                                                    <use xlink:href="#m4x15l1r5a" />
-                                                                                </mask>
-                                                                                <use fill="#7F7F7F"
-                                                                                    xlink:href="#m4x15l1r5a" />
-                                                                                <g fill="#636567" mask="url(#fuku2ns3vb)">
-                                                                                    <rect width="84" height="83" rx="6"
-                                                                                        transform="translate(-24.000000, -26.000000)" />
-                                                                                </g>
-                                                                            </g>
-                                                                        </g>
-                                                                    </g>
-                                                                </g>
-                                                            </g>
-                                                        </svg>
-                                                    </div>
-                                                    <div class="c-article__time-info--label">
-                                                        {{article.readingTime}} min read
-                                                    </div>
-                                                </div>
-                                            </div>
                                             {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
                                                 <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link" data-access="{{article.userHasEditArticleAccess}}">Edit article</a>
                                             {% endif %}
@@ -495,6 +414,8 @@
                                         <rect width="30" height="30" fill={{themeColor}} />
                                         <path d="M5.84156 5.88L12.8794 16.14L5.99062 24.12H7.51688L13.5534 17.1225L18.3534 24.12H24.12L16.7672 13.4016L23.2556 5.88H21.7341L16.0922 12.4163L11.6081 5.88L5.84156 5.88ZM7.66406 6.84H11.1028L22.2975 23.16H18.8588L7.66406 6.84Z" fill="white"/>
                                     </svg>
+
+
                                 </a>
                                 <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
                                     target="_blank">
@@ -574,7 +495,7 @@
                                             {% if showPaywall == false %}
                                                 {% if config.hideShareIcons != 'true' %}
                                                     <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
-                                                        <div class="u-generic-socialIcons-text">Share</div>
+                                                        <div class="u-generic-socialIcons-text">Share article</div>
                                                         <a class="u-generic-socialIcons__item"
                                                             href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
                                                             <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -724,23 +645,6 @@
 
                             <div class="col-12 col-lg-4 d-none d-lg-block">
                                 <div class="h-100">
-                                    <div class="u-heading__large u-heading__large-xs">Top Stories</div>
-
-                                    <div class="col-12 u-margin-top-30 c-cards__top-stories">
-                                        <div class="row">
-                                            {% for i in 0..3 if popularArticles[i] %}
-                                            <div class="col-12 card-borderBottom__deskVersion">
-                                                {{this.render('partials/_single-article.twig', {
-                                                    article: popularArticles[i],
-                                                    imageSize: {width: 300, height: 180},
-                                                    swap            : false,
-                                                    containerClass: 'card-1-mobile card-1-tablet card-1-desktop',
-                                                    site: site
-                                                }) | raw}}
-                                            </div>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
                                     {% if showPaywall != true %}
                                         <div class="ads-sticky">
                                             {% if config['inventory']['adSpace']['side-fix'][0] is defined %}
@@ -766,25 +670,6 @@
                         </div>
                     </div>  
                 </div>
-
-                {% if showPaywall == false %}
-                    <div class="u-generic-topBorder mb-4"></div>
-                    <div class="c-cards-container c-cards-container-xs bottom-border">
-                        <div class="u-heading__large u-heading__large-xs mb-4">You might also like</div>
-                        <div class="row">
-                            {% for i in 0..3 if recentArticles[i] %}
-                            <div class="col-12 col-lg-3 left-border">
-                                {{this.render('partials/_single-article.twig', {
-                                    article: recentArticles[i],
-                                    imageSize: {width: 296, height: 260},
-                                    containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                                    site: site
-                                }) | raw}}
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div> 
-                {% endif %}
             </div>
 
             {% if showPaywall == true %}

@@ -7,8 +7,8 @@ export default class AdLoader {
     this.keywords = null;
     const keyWordElement = document.getElementById("ad-keywords");
 
-
-    if (keyWordElement &&
+    if (
+      keyWordElement &&
       typeof keyWordElement.dataset.keywords !== "undefined" &&
       keyWordElement.dataset.keywords !== ""
     ) {
@@ -19,7 +19,7 @@ export default class AdLoader {
     if (gaAccount && typeof gaAccount.dataset.accno !== "undefined") {
       this.AccountNumber = gaAccount.dataset.accno;
     }
-
+    
     if (gaAccount && typeof gaAccount.dataset.disableadpush !== "undefined" && gaAccount.dataset.disableadpush == '1') {
       this.DisableAdPush = true;
     }
@@ -31,7 +31,7 @@ export default class AdLoader {
     const self = this;
 
     if (!this.AccountNumber) {
-      console.log("Missing account number for Ads.");
+      console.log("Missing account number for Ads");
       return;
     }
 
@@ -40,7 +40,6 @@ export default class AdLoader {
       return;
     }
 
-    var allAdsKeywords = []
     for (let i = 0; i < this.adslots.length; i++) {
       const elem = this.adslots[i];
       if (!elem.id) continue;
@@ -48,7 +47,7 @@ export default class AdLoader {
       elem.classList.remove("j-adslot");
       elem.classList.add("j-adslot-filled");
 
-      let keysArray = [elem.id];
+      const keysArray = [elem.id];
 
       if (
         (!elem.dataset.responsive || elem.dataset.responsive == "0") &&
@@ -64,77 +63,92 @@ export default class AdLoader {
       }
 
       const keysString = keysArray.join(",");
-      allAdsKeywords.push(keysString)
+      Server.fetch(
+        _appJsConfig.appHostName + "/api/ad/get-all?keywords=" + keysString
+      ).done((data) => {
+        let k = 0;
 
-    }
-    // All Keywords
-    if (allAdsKeywords.length > 0) {
-      Server.create(
-        _appJsConfig.appHostName + "/api/ad/get-all", { 'multiKeywords': allAdsKeywords }).done((data) => {
+        if (data.length < 1) {
+          // console.log('no ads found with those keywords', keysString)
+          return;
+        }
+        if (data.length > 1) {
+          // If more than one matching, randomly show
+          // different ad on each page refresh
+          // k = Math.round(Math.random()*(data.length-1));
+          k = Math.floor(Math.random() * data.length);
+        }
 
+        const item = data[k];
+        const keys = item.keywords.split(",");
+        const adElem = document.getElementById(keys[0]);
+        let target = "";
+        if (item.button.target === "_blank") {
+          target = ' target="_blank" rel="noopener noreferrer"';
+        }
+        if (item.media.path) {
+          const html =
+            '<div id="advertisment__' +
+            keys[0] +
+            '" class="advertisment advertisment__' +
+            keys[0] +
+            " advertisment__" +
+            keys[1] +
+            '"> \
+                                    <a href="' +
+            item.button.url +
+            '"' +
+            target +
+            '> \
+                                        <img src="' +
+            item.media.path +
+            '"> \
+                                    </a> \
+                                </div>';
+          adElem.innerHTML = html;
+          return;
+        }
 
-          if (data.length < 1) {
+        if (item.description) {
+          const html =
+            '<div id="advertisment__' +
+            keys[0] +
+            '" class="advertisment advertisment__' +
+            keys[0] +
+            " advertisment__" +
+            keys[1] +
+            '">' +
+            item.description +
+            "</div>";
+          adElem.innerHTML = html;
+
+          if (self.DisableAdPush) {
+            const adInnerElement = document.getElementById('advertisment__' + keys[0]);
+            const elements = adInnerElement.getElementsByTagName("div");
+            if(!elements || !elements[0]) {
+              return;
+            }
+            
+            const slotId = elements[0].getAttribute("id");
+
+            if(!slotId) {
+              return;
+            }
+
+            googletag.cmd.push(function () {
+              googletag.display(slotId);
+            });
+
             return;
           }
+        }
 
-          let k = 0;
-          for (k; k < data.length; k++) {
-
-            if (data[k].length < 1) {
-              continue;
-            }
-
-            let index = 0;
-            if (data[k].length > 1) {
-              index = Math.floor(Math.random() * data[k].length);
-            }
-
-            const item = data[k][index]
-            const keys = item.keywords.split(",");
-            const adElem = document.getElementById(keys[0]);
-            let target = "";
-            if (item.button.target === "_blank") {
-              target = ' target="_blank" rel="noopener noreferrer"';
-            }
-
-            if (item.media.path) {
-              const html = '<div id="advertisment__' + keys[0] + '" class="advertisment advertisment__' + keys[0] + " advertisment__" + keys[1] + '"><a href="' + item.button.url + '"' + target + '><img src="' + item.media.path + '"></a></div>';
-              adElem.innerHTML = html;
-              continue;
-            }
-
-            if (item.description) {
-              let html = '<div id="advertisment__' + keys[0] + '" class="advertisment advertisment__' + keys[0] + " advertisment__" + keys[1] + '">' + item.description + "</div>";
-
-              adElem.innerHTML = html;
-              if (self.DisableAdPush) {
-                let adInnerElement = document.getElementById('advertisment__' + keys[0]);
-                let elements = adInnerElement.getElementsByTagName("div");
-                if (!elements || !elements[0]) {
-                  continue;
-                }
-
-                let slotId = elements[0].getAttribute("id");
-                if (!slotId) {
-                  continue;
-                }
-
-                googletag.cmd.push(function () {
-                  googletag.display(slotId);
-                });
-
-                continue;
-              }
-            }
-
-            try {
-              self.adPush(keys[0]);
-            } catch (err) {
-              console.log("No ad found to push at advertisment__" + keys[0], err);
-            }
-          } // First For Loop
-
-        });
+        try {
+            self.adPush(keys[0]);
+        } catch (err) {
+          console.log("no ad found to push at advertisment__" + keys[0], err);
+        }
+      });
     }
   }
 
@@ -279,20 +293,20 @@ export default class AdLoader {
         mapping = mappingHpage;
       }
 
-      googletag.pubads().enableSingleRequest();
-      googletag
-        .pubads()
-        .setTargeting("section", [pageName])
-        .setTargeting("keyword", [keyword])
-        .setTargeting("page-type", [pageType])
-        .setTargeting("tag", [pageTag]);
-      googletag.pubads().collapseEmptyDivs();
-      googletag.enableServices();
-      googletag
-        .defineSlot(invSlot, sizes, slotId)
-        .setTargeting("POS", [pos])
-        .defineSizeMapping(mapping)
-        .addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag
+          .pubads()
+          .setTargeting("section", [pageName])
+          .setTargeting("keyword", [keyword])
+          .setTargeting("page-type", [pageType])
+          .setTargeting("tag", [pageTag]);
+        googletag.pubads().collapseEmptyDivs();
+        googletag.enableServices();
+        googletag
+          .defineSlot(invSlot, sizes, slotId)
+          .setTargeting("POS", [pos])
+          .defineSizeMapping(mapping)
+          .addService(googletag.pubads());
 
       googletag.cmd.push(function () {
         googletag.display(slotId);

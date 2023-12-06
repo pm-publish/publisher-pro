@@ -153,7 +153,7 @@ CONFIG OPTIONS SET IN PLATFORM
 
             {% if loop.index in bannerSpots %}
                 {% if config['inventory']['adSpace']['banner'][bannerNo] is defined %}
-                    <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][bannerNo]}}" data-adshape="banner"></div>
+                    <div class="advertisment j-adslot" id="{{config['inventory']['adSpace']['banner'][bannerNo]}}" data-adshape="banner"></div>
                 {% endif %}
                 {% set bannerNo = bannerNo + 1 %}
             {% endif %}
@@ -164,7 +164,8 @@ CONFIG OPTIONS SET IN PLATFORM
         {% endfor %}
 
 
-        <div class="j-keyword-cont" data-keywords="{{blogData.keywords}}"></div>
+        <div id="ad-keywords" class="j-keyword-cont" data-keywords="{{blogData.keywords}}" data-pageName="" data-pageType="blog" data-pageTag="" data-adsection=""></div>
+
     </main><!-- .site-main -->
 
 

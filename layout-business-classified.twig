@@ -32,10 +32,7 @@
 
     {# This page can either render panels or entire section work of articles #}
     {% set fullPage = false %}
-    {% set limit = 3 %}
-    {% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
-        {% set limit = 2 %}
-    {% endif %}
+    {% set limit = 2 %}
 
     {% if url.query | length > 0 %}
 
@@ -73,15 +70,9 @@
         {% set featurePanel = true %}
     {% endif %}
 
-    {% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
-    {% set cardClassesLoading = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop acme-col-lg-4 acme-col-12 acme-col-md-12' %}
-    {% set cardClassesContainer = 'acme-col-12 acme-col-md-12 acme-col-lg-4' %}
-
-    {% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
-        {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
-        {% set cardClassesLoading = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop acme-col-lg-2 acme-col-12 acme-col-md-12' %}
-        {% set cardClassesContainer = 'acme-col-12 acme-col-md-12 acme-col-lg-6' %}
-    {% endif %}
+    {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
+    {% set cardClassesLoading = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop acme-col-lg-6 acme-col-12 acme-col-md-12 ff' %}
+    {% set cardClassesContainer = 'acme-col-12 acme-col-md-12 acme-col-lg-6' %}
 
 
     {# Get the blog feed for the section(s)  #}
@@ -147,23 +138,10 @@
     {% endif %}
 
 
-    <main id="main" class="site-main u-margin-top-60 u-margin-bottom-60" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}" data-v="4">
+    <main id="main" class="site-main u-margin-top-60 u-margin-bottom-60" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
         <div class="acme-container">
             <div class="acme-row">
                 <div class="acme-col-12">
-
-                    <div class="c-section-head">
-                        <a class="what" href="{{blogData.url}}">
-                            <h1 class="c-section-head__title">{{this.title}}</h1>
-                        </a>
-                    
-                    {% if allowPosting %}
-                        <a href="{{networkData.defaultBlogUrl}}/classified-create" class="c-section-head__button c-button c-button--blue">Submit a listing</a>
-                    {% endif %}
-                    
-                        <div class="c-section-head__rule"></div>
-
-                    </div>
 
                 
             {# *********************************************
@@ -291,7 +269,7 @@
                                     'dev'         : dev,
                                     'config'      : {
                                         blogs: [pagesection],
-                                        template: "partials/panels/section-classified-panel",
+                                        template: "partials/panels/section-business-classified-panel",
                                         title: pagesection,
                                         nomargin: true,
                                         wrapper: false,
