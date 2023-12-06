@@ -41,6 +41,24 @@
         border-top: 1px solid $grey3;
         margin-top: 50px;
         padding-top: 25px;
+
+        .u-generic-socialIcons {
+            &__item {
+                svg {
+                    width: 18px;
+                }
+                svg *, svg {
+                    fill: white;
+                }
+                &:hover {
+                    color: var(--sec-color);
+        
+                    svg *, svg {
+                        fill: var(--sec-color);
+                    }
+                }
+            }   
+        }
     }
 
     &__bottom {

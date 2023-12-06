@@ -65,6 +65,24 @@
     overflow-x: hidden;
     overflow-y: auto;
 
+    .u-generic-socialIcons {
+        &__item {
+            svg {
+                width: 18px;
+            }
+            svg *, svg {
+                fill: white;
+            }
+            &:hover {
+                color: var(--sec-color);
+    
+                svg *, svg {
+                    fill: var(--sec-color);
+                }
+            }
+        }   
+    }
+
     &.sidebar-active {
         visibility: visible;
         -webkit-transform: translate3d(0, 0, 0);
