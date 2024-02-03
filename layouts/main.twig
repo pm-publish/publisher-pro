@@ -90,7 +90,7 @@
 
     {% if _AppHelper.getApplicationEnv() == 'PROD'%}
 
-        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=9a0dca88" type="text/css" smedia="all">
+        <link rel="stylesheet" href="{{networkData.templatePath}}/static/deploy/concat.min.css?v=c8db4ff5" type="text/css" smedia="all">
 
     {% else %}
 
@@ -259,10 +259,24 @@
     {% endfor %}
 
 
+    {% if config.extended_access is defined and config.extended_access.active is defined and config.extended_access.active != false %}
+        {% set ExtAccessIntegration = _Integration.get({name:'GoogleSignin'}) %}
+        {% if ExtAccessIntegration is not null %}
+            <script>
+                window.client_id = '{{ExtAccessIntegration.client_id}}';
+            </script>
+        {% else %}
+            <script>
+                window.client_id = '';
+            </script>
+        {% endif %}
+    {% endif %}
+
 
 
     {{ this.render('partials/_javascript.twig', {
-        networkData: networkData
+        networkData: networkData,
+        config: config
     }) | raw }}
 
 

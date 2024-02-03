@@ -112,6 +112,51 @@
 
 
 
+
+
+
+
+
+
+
+
+{% set extAccess = false %}
+{% set isGaa = false %}
+{% if config.extended_access is defined and config.extended_access.active is defined and config.extended_access.active != false %}
+    {% set extAccess = true %}
+    {% set isGaa = _User.isGaa() %}
+{% endif %}
+
+
+{% set ExtAccessIntegration = [] %}
+{% if extAccess and showPaywall and isGaa  %}
+    {% set ExtAccessIntegration = _Integration.get({name:'GoogleSignin'}) %}
+    {% if not guestUser %}
+        {% set showcase = false %}
+
+        {% if ExtAccessIntegration.client_id is defined and ExtAccessIntegration.publication_id is defined %}
+
+            {% set client_id = ExtAccessIntegration.client_id %}
+
+            {% set showcaseResponse = _User.checkShowcaseAccess(ExtAccessIntegration.publication_id, article) %}
+            {% if showcaseResponse.success == 1 and showcaseResponse.entitlement is defined and showcaseResponse.entitlement != false %}
+                {% set showcase = showcaseResponse.entitlement %}
+                {% set showPaywall = false %}
+            {% endif %}
+        {% endif %}
+
+    {% endif %}
+{% endif %}
+
+
+
+
+
+
+
+
+
+
 {% set trialToggle = false %}
 
 {% if showPaywall == true %}
@@ -814,4 +859,156 @@
         commentCount:commentCount,
         allowComments:allow_comments ? "true" : "false"
     }) | raw}}
+{% endif %}
+
+
+
+
+{% set isPaywalled = article.premiumContent ? 'false' : 'true' %}
+
+{% if ExtAccessIntegration.publication_id is defined %}
+<script type="application/ld+json">
+{
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "isAccessibleForFree": {{isPaywalled}},
+        "isPartOf": {
+            "@type": ["CreativeWork", "Product"],
+            "name": "{{networkData.title}}",
+            "productID": "{{ExtAccessIntegration.publication_id}}:showcase"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "{{networkData.title}}"
+        }
+}
+</script>
+{% endif %}
+
+
+
+
+{% set user = false %}
+{% set userCreatedAt = "" %}
+{% set userGuid = "" %}
+
+{# Registered user with access through the publisher subscription #}
+{% if not guestUser %}
+    {% set user = _User.getUser() %}
+    {% if user.userCreated is defined %}
+        {% set userCreatedAt = user.userCreated %}
+    {% elseif user.created_at is defined %}
+        {% set userCreatedAt = user.created_at %}
+    {% endif %}
+
+    {% set userGuid = user.guid %}
+{% endif %}
+
+{% set isPremium = article.premiumContent %}
+
+
+{% if isGaa and ExtAccessIntegration.client_id is defined and ExtAccessIntegration.publication_id is defined %}
+
+<script  subscriptions-control="manual" src="https://news.google.com/swg/js/v1/swg.js"></script>
+<script  src="https://news.google.com/swg/js/v1/swg-gaa.js"></script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+        let isPremium = "{{isPremium}}" == 1 ? true : false;
+        let paywalled = "{{showPaywall}}" == 1 ? true: false;
+        let publisherGranted = "{{isPublisherPaywalled}}" == true ? false : true;
+        let guestUser = "{{guestUser}}" == 1 ? true : false;
+        let articleId = "{{article.id}}";
+
+        
+        window.userState = {
+            granted: false
+        };
+
+        if (isPremium && publisherGranted && !guestUser) {
+            window.userState = {
+                id: "{{userGuid}}",
+                registrationTimestamp: parseInt("{{userCreatedAt}}"),
+                subscriptionTimestamp: parseInt("{{userCreatedAt}}"),
+                granted: publisherGranted,
+                grantReason: "SUBSCRIBER"
+            };
+        }
+
+
+
+        // Registered user with no access #}
+        // if paywalled and not guestUser %}
+        if (!publisherGranted && !guestUser) {
+            window.userState = {
+                id: "{{user.guid}}",
+                registrationTimestamp: parseInt("{{userCreatedAt}}"),
+                granted: false,
+            };
+        }
+
+
+        let handleLoginPromise = new Promise((resolve) => {
+            GaaMetering.getLoginPromise().then(() => {
+                GaaMeteringRegwall.remove();
+                window.loadSigninForm();
+            });
+        });
+
+        let unlockArticle = function() { }
+
+        let registerUserPromise = new Promise((resolve) => {
+            GaaMetering.getGaaUserPromise().then((gaaUser) => {
+                var postData = {
+                    "article_id": articleId,
+                    "user": JSON.stringify(gaaUser),
+                    "url" : window.location.href,
+                };
+
+                Acme.server.create('/auth/extended-access-signup', postData ).done(function(r) {
+                    if (r.success == 1) {
+                        window.userState.id = r.user_id;
+                        window.userState.registrationTimestamp = r.registration;
+                        window.userState.granted = true;
+                        resolve(window.userState); 
+                        location.reload();
+                        return;
+                    }
+                });
+            });
+        });
+
+        let publisherEntitlementPromise = new Promise((resolve) => {
+            // Get the information for the user who has just registered.
+            resolve(window.userState);
+        });
+
+        let showPaywall = function() {
+            var link = _appJsConfig.baseHttpPath + '/user/edit-profile';
+            const loginWindow = window.open(link);
+            return;
+        };
+
+        var showcaseEntitlement = "{{showcase}}";
+
+        var initData = {
+            googleApiClientId: "{{ExtAccessIntegration.client_id}}", 
+            userState: window.userState,
+            handleLoginPromise: handleLoginPromise,
+            registerUserPromise: registerUserPromise,
+            publisherEntitlementPromise: publisherEntitlementPromise,
+            unlockArticle: unlockArticle,
+            showPaywall: showPaywall,
+            allowedReferrers: ["{{networkData.defaultDomain.domain}}", "www.parent.io"],
+        };
+
+        if (showcaseEntitlement) {
+            initData['showcaseEntitlement'] = showcaseEntitlement;
+        }
+        console.log(initData);
+        GaaMetering.init(initData);
+    });   
+
+</script>
 {% endif %}
