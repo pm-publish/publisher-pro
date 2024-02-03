@@ -44,6 +44,25 @@ Acme.SigninView = new SigninModal('modal', 'signin-modal', layouts);
 
 $('#signinBtn, #articleSigninBtn, .j-signin').on('click', function () {
     Acme.SigninView.render("signin", "Sign in");
+
+
+    if (typeof google !== 'undefined') {
+        google.accounts.id.initialize({
+            client_id: window.client_id,
+            callback: googleLogin
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("google_signin"),
+            { 
+                theme: "outline", 
+                size: "large",
+                width: 100
+            }  // customization attributes
+          );
+    }
+    
+
+
 });
 
 $('a.j-register').on('click', function (e) {
@@ -51,8 +70,20 @@ $('a.j-register').on('click', function (e) {
     Acme.SigninView.render("register", "Register your interest");
 });
 
+var googleLogin = function(user) {
+    var postData = {
+        "user": JSON.stringify(user)
+    };
 
-
+    Acme.server.create('/auth/google-signin', postData ).done(function(r) {
+        //console.log(r);
+        if (r.success == 1) {
+            location.reload()
+            return;
+        }
+        Acme.SigninView.errorMsg();
+    });
+}
 
 
 

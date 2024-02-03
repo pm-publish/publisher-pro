@@ -4,7 +4,7 @@ import { Server, Modal } from './framework'
 import { Templates } from './account-templates'
 import { SigninModal }  from './signinModal'
 import Card from './StripeCard'
-
+import { Form } from './form'
 
 export const UserProfileController = function(data)
 {
@@ -208,13 +208,69 @@ UserProfileController.prototype.userEvents = function()
 };
 
 
+UserProfileController.prototype.stripeCardEvent = function () {
+    var self = this;
+    var udform = document.getElementById('update-card-form');
+
+    var random = function(length) {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+           result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    };
+
+    if (udform != null) {
+        var submitFunction = function(event) {
+            event.preventDefault();
+    
+            self.modal.render("spinner", "Updating card...", {'class':'u-relative'});
+    
+            const errorElement = document.getElementById('card-errors');
+    
+            errorElement.textContent = '';
+            // const stripe = Stripe(self.stripekey);
+            self.stripe.createToken(self.card).then(function(result) {
+                if (result.error) {
+                    self.modal.closeWindow();
+    
+                    // Inform the user if there was an error
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Send the token to your server
+                    const formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
+                    Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
+                        if (r.success === 1) {
+                            self.modal.renderLayout('message', {message: "Success"});
+                            location.reload();
+                        } else {
+                            self.modal.closeWindow();
+                            self.showError(r.error);
+                        }
+                    });
+                    self.modal.closeWindow();
+                }
+            });
+        }
+
+
+        udform.removeEventListener('submit', submitFunction);
+        if (self.stripeEventEnabled === false) {
+            udform.addEventListener('submit', submitFunction);
+            self.stripeEventEnabled = true;
+        }
+    }
+}
 
 
 UserProfileController.prototype.events = function () 
 {
     var self = this;
     self.stripeCardEvent();
-
+    
     $('#portal-session').on('click', function(e) {
         const button = $(this);
         button.text('Opening...');
@@ -639,59 +695,188 @@ UserProfileController.prototype.events = function ()
 };
 
 
-UserProfileController.prototype.stripeCardEvent = function () {
-    var self = this;
-    var udform = document.getElementById('update-card-form');
 
-    var random = function(length) {
-        var result           = '';
-        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        var charactersLength = characters.length;
-        for ( var i = 0; i < length; i++ ) {
-           result += characters.charAt(Math.floor(Math.random() * charactersLength));
-        }
-        return result;
-    };
 
-    if (udform != null) {
-        var submitFunction = function(event) {
-            event.preventDefault();
+
+
+(function ($) {
+
+    var StripeCard = function(){};
+    StripeCard.prototype.get = function(stripe) {
     
-            self.modal.render("spinner", "Updating card...", {'class':'u-relative'});
     
-            const errorElement = document.getElementById('card-errors');
+    // Create an instance of Elements
+        var elements = stripe.elements();
     
-            errorElement.textContent = '';
-            // const stripe = Stripe(self.stripekey);
-            self.stripe.createToken(self.card).then(function(result) {
-                if (result.error) {
-                    self.modal.closeWindow();
-    
-                    // Inform the user if there was an error
-                    var errorElement = document.getElementById('card-errors');
-                    errorElement.textContent = result.error.message;
-                } else {
-                    // Send the token to your server
-                    const formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
-                    Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
-                        if (r.success === 1) {
-                            self.modal.renderLayout('message', {message: "Success"});
-                            location.reload();
-                        } else {
-                            self.modal.closeWindow();
-                            self.showError(r.error);
-                        }
-                    });
-                    self.modal.closeWindow();
+        // Custom styling can be passed to options when creating an Element.
+        // (Note that this demo uses a wider set of styles than the guide below.)
+        var style = {
+            base: {
+                color: '#32325d',
+                lineHeight: '24px',
+                fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                fontSmoothing: 'antialiased',
+                fontSize: '16px',
+                '::placeholder': {
+                    color: '#aab7c4'
                 }
-            });
+            },
+            invalid: {
+                color: '#fa755a',
+                iconColor: '#fa755a'
+            }
+        };
+    
+        // Create an instance of the card Element
+        var Card = elements.create('card', {style: style});
+    
+        // Add an instance of the card Element into the `card-element` <div>
+        var cardElement = document.getElementById('card-element');
+        if (cardElement != null) {
+            Card.mount('#card-element');
         }
-
-
-        udform.removeEventListener('submit', submitFunction);
-        if (self.stripeEventEnabled === false) {
-            udform.addEventListener('submit', submitFunction);
-            self.stripeEventEnabled = true;
-        }
+    
+        // Handle real-time validation errors from the card Element.
+        Card.addEventListener('change', function(event) {
+            var displayError = document.getElementById('card-errors');
+            displayError.textContent = '';
+            if (event.error) {
+                displayError.textContent = event.error.message;
+            } 
+        });
+    
+        return Card;
     }
-}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    var PurchaseForm = function(id) {
+        this.id = id || null;
+        // this.parent = Form.prototype;
+    
+        this.data = {
+            "plan_id": null,
+            "terms": false,
+        };
+    
+    
+        this.errorFields = [];
+    
+        this.validateRules = {
+            "plan_id" : ["notEmpty"],
+            "terms" : ["isTrue"],
+        };
+    
+        this.validateFields = Object.keys(this.validateRules);
+   
+        // const modal = new Modal('modal', 'signin-modal', {
+        //     "userPlanChange" : 'userPlanOkCancel'
+        // });
+        // modal.render("userPlanChange", "Error", {"message" : error, "okayLabel": "OK"})        
+
+
+        this.spinner = new Modal('modal', 'spinner-modal', {"spinner": 'spinnerTmpl'});
+        this.stripeSetup();
+        this.loadData();
+        this.events();
+        this.localEvents();
+    
+    };
+    
+    
+    PurchaseForm.prototype = new Form(Acme.Validators);
+    // PurchaseForm.prototype = new Form(Validators);
+    PurchaseForm.constructor = PurchaseForm;
+    
+    PurchaseForm.prototype.stripeSetup = function () {
+        var self = this;
+        var stripekey = $('#stripekey').html();
+        this.stripe = Stripe(stripekey);
+        var stripeCard = new StripeCard();
+        this.card = stripeCard.get(this.stripe);
+    }
+    PurchaseForm.prototype.localEvents = function(event) {
+        var self = this;
+        $('.j-purchaseplan_select').on('click', function(e) {
+
+            var plans = $('#purchase-plans');
+            plans.children().each(function(p) {
+                $(this).addClass('plan-table--unselected');
+            });
+            var newPlan = $(e.target).closest('tr');
+            self.data.plan_id = newPlan.data('planid');
+            newPlan.removeClass('plan-table--unselected');
+        });
+    };
+    PurchaseForm.prototype.submit = function(event) 
+    {
+        var self = this;
+        event.preventDefault();
+    
+        var validated = self.validate();
+        if (!validated) {
+            if (!this.data.terms) {
+                // new Acme.modal();
+                // this.confirmView = new Modal('modal', 'signin-modal', {'terms': 'subscribeTerms'});
+                this.confirmView = new Acme.modal('modal', 'signin-modal', {'terms': 'subscribeTerms'});
+                this.confirmView.render("terms", "Almost there");
+                return;
+            }
+            if (!this.data.plan_id) {
+                this.confirmView = new Acme.modal('modal', 'signin-modal', {'terms': 'purchasePlan'});
+                this.confirmView.render("terms", "Almost there");
+                return;
+            }
+        }
+    
+    
+    
+        self.spinner.render("spinner", "Your request is being processed.");
+    
+        var errorElement = document.getElementById('card-errors');
+    
+        errorElement.textContent = '';
+        // const stripe = Stripe(self.stripekey);
+        self.stripe.createToken(self.card).then(function(result) {
+            // console.log(result);
+            if (result.error) {
+                self.spinner.closeWindow();
+    
+                // Inform the user if there was an error
+                var errorElement = document.getElementById('card-errors');
+                errorElement.textContent = result.error.message;
+            } else {
+                // Send the token to your server
+    
+                var formdata = {
+                    "stripetoken":result.token.id,
+                    "planid": self.data.plan_id,
+                    "redirect" : false
+                }
+    
+                Acme.server.create(_appJsConfig.baseHttpPath + '/auth/paywall-purchase', formdata).done(function(r) {
+                    if (r.success === 1) {
+                        location.reload();
+                        return;
+                    }
+                    self.spinner.closeWindow();
+                });
+    
+            }
+        });
+                
+    };
+    
+    if ($('#stripekey').length > 0 && $('#purchase-plan-form').length > 0 ) {
+        Acme.subscribe = new PurchaseForm('purchase-plan-form');
+    }
+}(jQuery)); 
