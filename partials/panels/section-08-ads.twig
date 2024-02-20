@@ -59,32 +59,12 @@
                 {% endfor %}
             </div>
         </div>
+        
         <!-- Additional Cards -->
         {% if articles|length > 7 %}
             <div class="c-cards-container c-cards-container-xs bottom-border">
                 <div class="row">
                     {% for i in 7..10 if articles[articleCount] %}
-
-                    <div class="col-12 col-lg-3 left-border">
-                        {{this.render('../_single-article.twig', {
-                        article: articles[articleCount],
-                        position: (articleCount+1),
-                        imageSize: {width: 79, height: 96},
-                        containerClass: "card-1-mobile card-1-tablet card-1-desktop",
-                        timeSuppress: timeSuppress
-                        }) | raw}}
-                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        {% endif %}
-
-        {% if articles|length > 11 %}
-            <div class="c-cards-container c-cards-container-xs bottom-border">
-                <div class="row">
-                    {% for i in 11..14 if articles[articleCount] %}
-
                     <div class="col-12 col-lg-3 left-border">
                         {{this.render('../_single-article.twig', {
                         article: articles[articleCount],
