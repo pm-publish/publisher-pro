@@ -6,6 +6,7 @@
 
         &__media {
             @include size(100px);
+            margin-left: 10px;
 
             img {
                 @include size(100%);
@@ -30,7 +31,7 @@
         }
 
         &__container {
-            @include calc(width,'100% - 100px');
+            @include calc(width,'100% - 110px');
             padding: 10px 30px;
             min-height: 100px;
         }
