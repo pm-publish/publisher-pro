@@ -39,7 +39,18 @@
                     {{this.render('partials/_single-article.twig', {
                         article: articles[articleCount], 
                         position: (articleCount+1),
-                        imageSize: {width: 600, height: 300},
+                        imageSize: {width: 950, height: 675},
+                        imageSizes: {
+                            "mobile": {
+                                width: 635, height:450
+                            },
+                            "mobileLrg": {
+                                width: 635, height:450
+                            },
+                            "tablet" : {
+                                width: 950, height:675
+                            }
+                        },
                         containerClass: "card-2-mobile card-2-tablet card-7-desktop c-cards--inverse u-margin-bottom-30"
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -51,7 +62,18 @@
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),
-                                    imageSize: {width: 600, height: 300},
+                                    imageSize: {width: 459, height: 278},
+                                    imageSizes: {
+                                        "mobile": {
+                                            width: 550, height: 333
+                                        },
+                                        "mobileLrg": {
+                                            width: 550, height: 333
+                                        },
+                                        "tablet": {
+                                            width: 703, height: 425
+                                        }
+                                    },
                                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription c-cards--inverse"
                                 }) | raw}}
                                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -80,7 +102,18 @@
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),
-                                    imageSize: {width: 600, height: 300},
+                                    imageSize: {width: 459, height: 278},
+                                    imageSizes: {
+                                        "mobile": {
+                                            width: 550, height: 333
+                                        },
+                                        "mobileLrg": {
+                                            width: 550, height: 333
+                                        },
+                                        "tablet": {
+                                            width: 703, height: 425
+                                        }
+                                    },
                                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
                                 }) | raw}}
                                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -98,7 +131,18 @@
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),
-                                    imageSize: {width: 600, height: 300},
+                                    imageSize: {width: 459, height: 278},
+                                    imageSizes: {
+                                        "mobile": {
+                                            width: 550, height: 333
+                                        },
+                                        "mobileLrg": {
+                                            width: 550, height: 333
+                                        },
+                                        "tablet": {
+                                            width: 703, height: 425
+                                        }
+                                    },
                                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
                                 }) | raw}}
                                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -116,7 +160,18 @@
                                 {{this.render('partials/_single-article.twig', {
                                     article: articles[articleCount], 
                                     position: (articleCount+1),
-                                    imageSize: {width: 600, height: 300},
+                                    imageSize: {width: 459, height: 278},
+                                    imageSizes: {
+                                        "mobile": {
+                                            width: 550, height: 333
+                                        },
+                                        "mobileLrg": {
+                                            width: 550, height: 333
+                                        },
+                                        "tablet": {
+                                            width: 703, height: 425
+                                        }
+                                    },
                                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription"
                                 }) | raw}}
                                 {% set articleCount = (dev) ? articleCount : articleCount + 1 %}

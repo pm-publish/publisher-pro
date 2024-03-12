@@ -22,7 +22,18 @@
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
                     position: (articleCount+1),
-                    imageSize: {width: 633, height: 400},
+                    imageSize: {width: 950, height: 675},
+                    imageSizes: {
+                        "mobile": {
+                            width: 550, height: 333
+                        },
+                        "mobileLrg": {
+                            width: 550, height: 333
+                        },
+                        "tablet": {
+                            width: 703, height: 425
+                        }
+                    },
                     swap : 'false',
                     containerClass: "card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20",
                     timeSuppress: timeSuppress
