@@ -1,0 +1,42 @@
+{% set articleCount = 0 %}
+{% set cardIndex = 0 %}
+
+
+<div class="row" data-section="15">
+	<div class="col-12">
+		<div class="u-generic-topBorder {{colorInverse}}"></div>
+		<div class="c-page-head c-page-head-xs {{colorInverse}}">
+			<div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
+			{% if linkShow %}
+				<a href="{{link}}" class="c-page-head__link">View all</a>
+			{% endif %}
+		</div>
+    </div>
+
+    {% for i in 0..3 if articles[articleCount] %}
+
+    <div class="col-12 col-lg-3">
+        {{this.render('../_single-article.twig', {
+        article: articles[articleCount],
+        position: (articleCount+1),
+        imageSize: {width: 459, height: 278},
+        imageSizes: {
+            "mobile": {
+                width: 550, height: 333
+            },
+            "mobileLrg": {
+                width: 550, height: 333
+            },
+            "tablet": {
+                width: 703, height: 425
+            }
+        },
+        swap : 'false',
+        containerClass: 'card-2-mobile card-2--noDescription card-2--noUserInfo card-2-tablet card-4-desktop',
+        timeSuppress: timeSuppress
+        }) | raw}}
+        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+    </div>
+    {% endfor %}
+</div>
+
