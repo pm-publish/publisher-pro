@@ -228,12 +228,7 @@
 
 
                         <div class="c-article__container c-article__container-sm">
-                            {% if showPaywall == true %}
-                                {{_AppHelper.getArticleExcerpt(article.content, 80) | raw}}
-                            {% else %}
-                                {{ article.content | _resizeImages({'width': articleImageSize}) | raw }}
-                            {% endif %}
-                                {# {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }} #}
+                                {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
                         </div>
 
 

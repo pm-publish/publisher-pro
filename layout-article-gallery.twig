@@ -168,115 +168,115 @@
 
 <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}">
         
-    <div class="c-article c-article-xs c-article__galleryView">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="c-article__top {% if showPaywall == true %} border-bottom-0 {% endif %}">
-                        <div class="col-12 col-lg-10 mx-auto">
-                            <div class="row relative">
-                                <div class="col-12 col-lg-4">
-                                    <div class="c-article__top-container">
-                                        <div class="c-article__category-wrap">
-                                            {% if article.label != article.blog.title %}
-                                                <div class="c-article__additional-category">
-                                                    {{article.label}}
-                                                </div>
-                                            {% endif %}
-                                            <div class="c-article__category">
-                                                {{article.blog.title}}
-                                            </div>
-                                        </div>
-                                        <div class="c-article__title">
-                                            {{ quotes.smarten(article.title) }}
-                                        </div>
-                                        <div class="c-article__posted-on">
-                                            <time class="c-article__published">{{article.publishedDate}}</time>
-                                            {# --------------- Autor ---------------- #}
-                                            <div class="c-article__author" itemscope itemprop="author" itemtype="https://schema.org/Person">
-                                                <meta itemprop="name" content="{{article.createdBy['displayName']}}">
-                                                {% if config['hide-author'] is defined and config['hide-author'] %}
-                                                
-                                                <p class="c-article__author-name" itemprop="name">{{
-                                                    article.createdBy['displayName'] }}</p>
-                                                {% else %}
-                                                    
-                                                    <a itemprop="url"  class="c-article__author-name"
-                                                    href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts" >{{
-                                                    article.createdBy['displayName'] }}</a>
-                                                {% endif %}
-                                            </div>
-                                            {% if article['createdBy']['coauthors'] %}
-                                                {% for author in article['createdBy']['coauthors'] %}
-                                                    <div class="c-article__author">
-                                                        <div class="c-article__avatar" style="background-image: url({{ _Media.getMediaUrl(author['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }});"></div>
-                                                        {% if config['hide-author'] is defined and config['hide-author'] %}
-                                                            <p class="c-article__author-name">{{ author['displayName'] }}</p>
-                                                        {% else %}
-                                                            <a class="c-article__author-name" href="{{_AppHelper.getUserProfileUrl(author['username'])}}/posts">{{ author['displayName'] }}</a>
-                                                        {% endif %}
+        <div class="c-article c-article-xs c-article__galleryView">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="c-article__top {% if showPaywall == true %} border-bottom-0 {% endif %}">
+                            <div class="col-12 col-lg-10 mx-auto">
+                                <div class="row relative">
+                                    <div class="col-12 col-lg-4">
+                                        <div class="c-article__top-container">
+                                            <div class="c-article__category-wrap">
+                                                {% if article.label != article.blog.title %}
+                                                    <div class="c-article__additional-category">
+                                                        {{article.label}}
                                                     </div>
-                                                {% endfor %}
+                                                {% endif %}
+                                                <div class="c-article__category">
+                                                    {{article.blog.title}}
+                                                </div>
+                                            </div>
+                                            <div class="c-article__title">
+                                                {{ quotes.smarten(article.title) }}
+                                            </div>
+                                            <div class="c-article__posted-on">
+                                                <time class="c-article__published">{{article.publishedDate}}</time>
+                                                {# --------------- Autor ---------------- #}
+                                                <div class="c-article__author" itemscope itemprop="author" itemtype="https://schema.org/Person">
+                                                    <meta itemprop="name" content="{{article.createdBy['displayName']}}">
+                                                    {% if config['hide-author'] is defined and config['hide-author'] %}
+                                                    
+                                                    <p class="c-article__author-name" itemprop="name">{{
+                                                        article.createdBy['displayName'] }}</p>
+                                                    {% else %}
+                                                        
+                                                        <a itemprop="url"  class="c-article__author-name"
+                                                        href="{{_AppHelper.getUserProfileUrl(article.createdBy['username'])}}/posts" >{{
+                                                        article.createdBy['displayName'] }}</a>
+                                                    {% endif %}
+                                                </div>
+                                                {% if article['createdBy']['coauthors'] %}
+                                                    {% for author in article['createdBy']['coauthors'] %}
+                                                        <div class="c-article__author">
+                                                            <div class="c-article__avatar" style="background-image: url({{ _Media.getMediaUrl(author['media'], 100, 100, {radius: 'max', gravity: 'face', 'crop': 'thumb', type: 'user'}) }});"></div>
+                                                            {% if config['hide-author'] is defined and config['hide-author'] %}
+                                                                <p class="c-article__author-name">{{ author['displayName'] }}</p>
+                                                            {% else %}
+                                                                <a class="c-article__author-name" href="{{_AppHelper.getUserProfileUrl(author['username'])}}/posts">{{ author['displayName'] }}</a>
+                                                            {% endif %}
+                                                        </div>
+                                                    {% endfor %}
+                                                {% endif %}
+                                                {#--------------- END AUTHOR -------------#}
+                                            </div>
+
+
+                                            {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
+                                                <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link" data-access="{{article.userHasEditArticleAccess}}">Edit article</a>
                                             {% endif %}
-                                            {#--------------- END AUTHOR -------------#}
                                         </div>
-
-
-                                        {% if article.userHasEditArticleAccess is defined and article.userHasEditArticleAccess == 1 %}
-                                            <a href="{{article.editUrl}}" target="_blank" class="c-article__edit-link" data-access="{{article.userHasEditArticleAccess}}">Edit article</a>
-                                        {% endif %}
                                     </div>
-                                </div>
 
-                                <div class="col-12 col-lg-8">
-                                    <div class="gallery-container gallery-container-xs">
-                                        {% set galleryStyle = 'article' %}
-                                        {% if article.media|length > 1 or not cropped %}
-                                            {% set galleryStyle = 'gallery' %}
-                                        {% endif %}
-                                        
-                                        {% if article.media|length> 0 %}
-                                            {% set imageFeature = featured == 'image' ? true : false %}
-                                            {{this.render('partials/gallery.twig', {
-                                                media: article.media,
-                                                default: imageFeature,
-                                                watermark: watermark,
-                                                galleryStyle: galleryStyle,
-                                                showPaywall: showPaywall
-                                            }) | raw}}
-                                        {% endif %}
+                                    <div class="col-12 col-lg-8">
+                                        <div class="gallery-container gallery-container-xs">
+                                            {% set galleryStyle = 'article' %}
+                                            {% if article.media|length > 1 or not cropped %}
+                                                {% set galleryStyle = 'gallery' %}
+                                            {% endif %}
+                                            
+                                            {% if article.media|length> 0 %}
+                                                {% set imageFeature = featured == 'image' ? true : false %}
+                                                {{this.render('partials/gallery.twig', {
+                                                    media: article.media,
+                                                    default: imageFeature,
+                                                    watermark: watermark,
+                                                    galleryStyle: galleryStyle,
+                                                    showPaywall: showPaywall
+                                                }) | raw}}
+                                            {% endif %}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-12 col-lg-10 mx-auto">
-                        {% if config['inventory']['adSpace']['articleAd'][0] is defined %}
-                            <div class="mt-5">
-                                <div class="j-adslot" id="{{config['inventory']['adSpace']['articleAd'][0]}}" data-adshape="articleAd"></div>
-                            </div>
-                        {% endif %}
+                        <div class="col-12 col-lg-10 mx-auto">
+                            {% if config['inventory']['adSpace']['articleAd'][0] is defined %}
+                                <div class="mt-5">
+                                    <div class="j-adslot" id="{{config['inventory']['adSpace']['articleAd'][0]}}" data-adshape="articleAd"></div>
+                                </div>
+                            {% endif %}
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="c-article__main-content mt-5">
-                                    <div class="c-article__container">
-                                        {% if showPaywall == true %}
-                                            {{_AppHelper.getArticleExcerpt(article.content, 80) | raw}}
-                                        {% else %}
-                                            {{ article.content | _resizeImages({'width': articleImageSize}) | raw }}
-                                        {% endif %}
+                            {% if showPaywall != true %}
+                                <div> 
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="c-article__main-content mt-5">
+                                                <div class="c-article__container">
+                                                    {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        {% if showPaywall == true %}
-            {{this.render('partials/article/paywall_article_notice.twig', {networkData:networkData, paywallType:paywallType}) | raw}}
-        {% endif %}
-    </div>
-</main>
+            {% if showPaywall == true %}
+                {{this.render('partials/article/paywall_article_notice.twig', {networkData:networkData, paywallType:paywallType}) | raw}}
+            {% endif %}
+        </div>
+    </main>
