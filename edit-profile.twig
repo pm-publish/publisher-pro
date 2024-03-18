@@ -16,7 +16,10 @@
     {% set totalPlanUserCount = pwstats['user_count'] %}
 {% endif %}
 
-
+{% set extAccess = false %}
+{% if config.extended_access is defined and config.extended_access.active is defined and config.extended_access.active != false %}
+    {% set extAccess = true %}
+{% endif %}
 
 
 <main>
@@ -43,7 +46,7 @@
                 For users who sign up with Extended Access
                 and don't have a publisher plan
             ************************************************** #}
-            {% if pwstats.plan_id == null %}
+            {% if pwstats.plan_id == null and extAccess %}
 
             <div class="acme-row">
                 <div class="acme-col-12 acme-col-lg-8 acme-col-xl-7 acme-offset-xl-1 acme-offset-xxl-2">
