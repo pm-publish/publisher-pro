@@ -157,6 +157,25 @@ SubscribeForm.prototype.submit = function(event)
             self.data['giftcode'] = $('#code-redeem').val();
         }
 
+        var usingCaptcha = false;
+        // captcha_site_key is set in the subscribe twig template based on
+        // rules set in the theme config and reCaptcha integration
+        if (typeof window.Acme.captcha_site_key !== 'undefined') {
+            usingCaptcha = true;
+            grecaptcha.ready(function() {
+                grecaptcha.execute(window.Acme.captcha_site_key, {action: 'submit'}).then(function(token) {
+                    self.data['g-recaptcha-response'] = token;
+                    submitResponse();
+                });
+            });
+        }
+
+
+        if (!usingCaptcha) {
+            console.log('not using captcha');
+            submitResponse();
+        }
+
         var idempotency_key = $('#idempotency_key').html();
         if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
             self.data['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
