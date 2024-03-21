@@ -359,7 +359,7 @@
                                             </div>
                                             <div class="c-article__container">
                                                 {% if showPaywall == true %}
-                                                    {{_AppHelper.getArticleExcerpt(article.content, 80) | raw}}
+                                                    {{_AppHelper.getArticleExcerpt(article.content, 400) | raw}}
                                                 {% else %}
                                                     {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
                                                 {% endif %}
