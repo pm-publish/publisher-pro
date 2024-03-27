@@ -245,9 +245,44 @@
           word-wrap: break-word;
         }
       }
+    }
 
-      b {
-        font-weight: $weightBold !important;
+    strong, b {
+      color: $black;
+      font-family: $secondaryFont !important;
+      font-size: 16px !important;
+      line-height: 1.5 !important;
+      font-weight: bold !important;
+      letter-spacing: normal !important;
+      margin-bottom: 20px !important;
+      word-wrap: break-word;
+
+      * {
+        line-height: 1.5 !important;
+        letter-spacing: normal !important;
+        font-weight: bold !important;
+        font-family: $secondaryFont !important;
+        word-wrap: break-word;
+      }
+      span,
+      b,
+      u,
+      a {
+        color: $black;
+        font-family: $secondaryFont !important;
+        font-size: 16px !important;
+        line-height: 1.5 !important;
+        font-weight: bold !important;
+        letter-spacing: normal !important;
+        margin-bottom: 20px !important;
+        word-wrap: break-word;
+
+        * {
+          line-height: 1.5 !important;
+          letter-spacing: normal !important;
+          font-family: $secondaryFont !important;
+          word-wrap: break-word;
+        }
       }
     }
 
