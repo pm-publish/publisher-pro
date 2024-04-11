@@ -458,3 +458,18 @@ div[class^="card"] {
         display: none !important;
     }
 }
+
+.card__version2 {
+    .c-cards-view__media {
+        max-height: inherit !important;
+        min-height: inherit !important;
+        height: inherit !important;
+
+        @extend .ratio;
+        @extend .ratio-4x3;
+    }
+    .c-cards-view__container {
+        height: inherit !important;
+        flex: 1;
+    }
+}

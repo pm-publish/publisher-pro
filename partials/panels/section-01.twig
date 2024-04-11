@@ -3,7 +3,7 @@
 {% set cardIndex = 0 %}
 
 {% set colorInverse = '' %}
-{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop' %}
+{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop card__version2' %}
 {% if background is defined and background is not empty %}
 {% set colorInverse = 'inverse' %}
 {% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop c-cards--inverse' %}
@@ -23,21 +23,9 @@
     {% for i in 0..3 if articles[articleCount] %}
 
     <div class="col-12 col-lg-3">
-        {{this.render('../_single-article.twig', {
+        {{this.render('../_single-article-v2.twig', {
         article: articles[articleCount],
         position: (articleCount+1),
-        imageSize: {width: 459, height: 278},
-        imageSizes: {
-            "mobile": {
-                width: 550, height: 333
-            },
-            "mobileLrg": {
-                width: 550, height: 333
-            },
-            "tablet": {
-                width: 703, height: 425
-            }
-        },
         swap : 'false',
         containerClass: inverseContainerClass,
         timeSuppress: timeSuppress
