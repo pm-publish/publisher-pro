@@ -25,7 +25,15 @@
                                 {{this.render('../_single-article.twig', {
                                 article: articles[articleCount],
                                 position: (articleCount+1),
-                                imageSize: {width: 520, height: 384},
+                                imageSize: {width: 950, height: 675},
+                                imageSizes: {
+                                    "mobile": {
+                                        width: 635, height:450
+                                    },
+                                    "tablet" : {
+                                        width: 950, height:675
+                                    }
+                                }, 
                                 swap : 'false',
                                 containerClass: "card-2-mobile card-2-tablet card-7-desktop",
                                 timeSuppress: timeSuppress
@@ -38,7 +46,18 @@
                                 {{this.render('../_single-article.twig', {
                                 article: articles[articleCount],
                                 position: (articleCount+1),
-                                imageSize: {width: 306, height: 185},
+                                imageSize: {width: 459, height: 278},
+                                imageSizes: {
+                                    "mobile": {
+                                        width: 550, height: 333
+                                    },
+                                    "mobileLrg": {
+                                        width: 550, height: 333
+                                    },
+                                    "tablet": {
+                                        width: 703, height: 425
+                                    }
+                                },
                                 swap : 'false',
                                 containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
                                 card--verticalMulti card--verticalMulti-xs",
@@ -54,7 +73,18 @@
                         {{this.render('../_single-article.twig', {
                         article: articles[articleCount],
                         position: (articleCount+1),
-                        imageSize: {width: 79, height: 96},
+                        imageSize: {width: 120, height: 145},
+                        imageSizes: {
+                            "mobile": {
+                                width: 120, height: 145
+                            },
+                            "mobileLrg": {
+                                width: 120, height: 145
+                            },
+                            "tablet": {
+                                width: 120, height: 145
+                            }
+                        },
                         swap : 'false',
                         containerClass: "card-1-mobile card-1-tablet card-1-desktop",
                         timeSuppress: timeSuppress

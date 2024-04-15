@@ -257,7 +257,7 @@
                                 </div>
                             {% endif %}
 
-                            {% if showPaywall != true %}
+                            {# {% if showPaywall != true %}
                                 <div> 
                                     <div class="row">
                                         <div class="col-12">
@@ -269,7 +269,23 @@
                                         </div>
                                     </div>
                                 </div>
-                            {% endif %}
+                            {% endif %} #}
+
+                            <div> 
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="c-article__main-content mt-5">
+                                            <div class="c-article__container">
+                                                {% if showPaywall == true %}
+                                                    {{_AppHelper.getArticleExcerpt(article.content, 400) | raw}}
+                                                {% else %}
+                                                    {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

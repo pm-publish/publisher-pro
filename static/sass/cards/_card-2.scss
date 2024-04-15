@@ -68,6 +68,14 @@
             }
         }
     }
+
+    &--noUserInfo {
+        .c-cards-view {
+            &__author {
+                display: none !important;
+            }
+        }
+    }
 }
 .card-2-mobile {
     @media #{$mobile} {

@@ -487,7 +487,11 @@
                                         <div class="col-12">
                                             <div class="c-article__main-content">
                                                 <div class="c-article__container" itemprop="articleBody">
-                                                    {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
+                                                    {% if showPaywall == true %}
+                                                        {{_AppHelper.getArticleExcerpt(article.content, 400) | raw}}
+                                                    {% else %}
+                                                        {{ ArticleContent | _resizeImages({'width': articleImageSize}) | raw }}
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                             <hr />

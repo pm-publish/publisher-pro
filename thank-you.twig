@@ -34,9 +34,14 @@
                                                         {% endif %}
                                                         {% if thankyou['button']['text'] is defined and thankyou['button']['text'] != '' %}
                                                                 {% set buttonText = thankyou['button']['text'] %}
-                                                        {% endif %}                                                                                                
+                                                        {% endif %}
+
+
                                                         <div class="o-media-hero_button-set">
                                                                 <a class="c-button c-button--lightBlue c-button--radius mt-5 px-4" href="{{buttonUrl}}">{{buttonText}}</a>
+                                                                {% if thankyou.optButton is defined and thankyou.optButton is not empty %}
+                                                                        <a class="c-button c-button--lightBlue c-button--radius mt-5 ms-3 px-4" href="{{thankyou.optButton.url}}">{{thankyou.optButton.text}}</a>
+                                                                {% endif %}
                                                         </div>
                                                 </div>
                                         </div>
