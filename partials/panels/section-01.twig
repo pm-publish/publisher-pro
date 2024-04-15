@@ -3,11 +3,21 @@
 {% set cardIndex = 0 %}
 
 {% set colorInverse = '' %}
-{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop card__version2' %}
-{% if background is defined and background is not empty %}
-{% set colorInverse = 'inverse' %}
-{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop c-cards--inverse' %}
+
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+    {% set cardLayoutInfo = 'card__version2' %}
+    {% set articleLayoutInfo = '../_single-article-v2.twig' %}
 {% endif %}
+
+{% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop '~ cardLayoutInfo  %}
+
+{% if background is defined and background is not empty %}
+    {% set colorInverse = 'inverse' %}
+    {% set inverseContainerClass = 'card-2-mobile card-2--noDescription card-2-tablet card-4-desktop c-cards--inverse '~ cardLayoutInfo %}
+{% endif %}
+
 <div class="row panel-1" data-section="01">
     <div class="col-12">
         <div class="u-generic-topBorder {{colorInverse}}">
@@ -22,8 +32,8 @@
 
     {% for i in 0..3 if articles[articleCount] %}
 
-    <div class="col-12 col-lg-3">
-        {{this.render('../_single-article-v2.twig', {
+    <div class="col-12 col-md-6 col-lg-3">
+        {{this.render(articleLayoutInfo, {
         article: articles[articleCount],
         position: (articleCount+1),
         swap : 'false',
