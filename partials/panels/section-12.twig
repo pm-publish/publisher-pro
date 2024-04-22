@@ -1,7 +1,12 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
-
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+    {% set cardLayoutInfo = 'card__version2' %}
+    {% set articleLayoutInfo = '../_single-article-v2.twig' %}
+{% endif %}
 
 {% set cacheKey = "articlePopular_section6" %}
 {% set popular = getCache(cacheKey) %}
@@ -33,11 +38,11 @@
     <div class="row">
         {% for i in 0..5 if popular[i] %}
             <div class="col-12 col-lg-2 left-border">
-                {{this.render('../_single-article.twig', {
+                {{this.render(articleLayoutInfo, {
                     article: popular[i], 
                     imageSuppress: true,
                     swap : 'false',
-                    containerClass: "card-6-mobile card-6-tablet card-6-desktop"
+                    containerClass: "card-6-mobile card-6-tablet card-6-desktop "~ cardLayoutInfo
                 }) | raw}}
             </div>
         {% endfor %}

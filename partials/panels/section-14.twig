@@ -1,6 +1,12 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+    {% set cardLayoutInfo = 'card__version2' %}
+    {% set articleLayoutInfo = '../_single-article-v2.twig' %}
+{% endif %}
 
 <div class="row" data-section="14">
     <div class="col-12">
@@ -20,10 +26,8 @@
                 {% for i in 0..3 if articles[articleCount] %}
 
                 <div class="col-12 col-lg-3 left-border">
-                    {{this.render('../_single-article.twig', {
-                        article: articles[articleCount],
-                        position: (articleCount+1),
-                        imageSize: {width: 120, height: 145},
+                
+                        {# imageSize: {width: 120, height: 145},
                         imageSizes: {
                             "mobile": {
                                 width: 120, height: 145
@@ -34,9 +38,12 @@
                             "tablet": {
                                 width: 120, height: 145
                             }
-                        },
+                        }, #}
+                    {{this.render(articleLayoutInfo, {
+                        article: articles[articleCount],
+                        position: (articleCount+1),
                         swap : 'false',
-                        containerClass: "card-1-mobile card-1-tablet card-1-desktop card-1--with-description",
+                        containerClass: "card-1-mobile card-1-tablet card-1-desktop card-1--with-description "~ cardLayoutInfo,
                         timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -49,10 +56,8 @@
                 {% for i in 4..7 if articles[articleCount] %}
 
                 <div class="col-12 col-lg-3 left-border">
-                    {{this.render('../_single-article.twig', {
-                        article: articles[articleCount],
-                        position: (articleCount+1),
-                        imageSize: {width: 120, height: 145},
+                
+                        {# imageSize: {width: 120, height: 145},
                         imageSizes: {
                             "mobile": {
                                 width: 120, height: 145
@@ -63,8 +68,11 @@
                             "tablet": {
                                 width: 120, height: 145
                             }
-                        },
-                        containerClass: "card-1-mobile card-1-tablet card-1-desktop card-1--with-description",
+                        }, #}
+                    {{this.render(articleLayoutInfo, {
+                        article: articles[articleCount],
+                        position: (articleCount+1),
+                        containerClass: "card-1-mobile card-1-tablet card-1-desktop card-1--with-description "~ cardLayoutInfo,
                         timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}

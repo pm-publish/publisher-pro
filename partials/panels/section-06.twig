@@ -42,6 +42,19 @@
                         article: articles[articleCount],
                         position: (articleCount+1),
                         swap : 'false',
+                        aspect_ratio:'3:4',
+                        imageSize: {width: 120},
+                        imageSizes: {
+                            "mobile": {
+                                width: 120
+                            },
+                            "mobileLrg": {
+                                width: 120
+                            },
+                            "tablet": {
+                                width: 120
+                            }
+                        },
                         containerClass: "card-1-mobile card-1-tablet card-1-desktop "~ cardLayoutInfo,
                         timeSuppress: timeSuppress
                     }) | raw}}
@@ -71,6 +84,20 @@
                     {{this.render(articleLayoutInfo, {
                         article: articles[articleCount],
                         position: (articleCount+1),
+                         swap : 'false',
+                        aspect_ratio:'3:4',
+                        imageSize: {width: 120},
+                        imageSizes: {
+                            "mobile": {
+                                width: 120
+                            },
+                            "mobileLrg": {
+                                width: 120
+                            },
+                            "tablet": {
+                                width: 120
+                            }
+                        },
                         containerClass: "card-1-mobile card-1-tablet card-1-desktop "~ cardLayoutInfo,
                         timeSuppress: timeSuppress
                     }) | raw}}
