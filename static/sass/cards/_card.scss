@@ -463,7 +463,7 @@ div[class^="card"] {
     .c-cards-view__media {
         max-height: inherit !important;
         min-height: inherit !important;
-        height: inherit !important;
+        height: inherit !important; 
 
         @extend .ratio;
         @extend .ratio-4x3;
