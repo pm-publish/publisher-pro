@@ -32,7 +32,7 @@
                     position: (articleCount+1),
                     swap : 'false',
                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
-                    card--verticalMulti card--verticalMulti-xs",
+                    card--verticalMulti card--verticalMulti-xs " ~ cardLayoutInfo,
                     timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -43,7 +43,7 @@
                     article: articles[articleCount],
                     position: (articleCount+1),
                     swap : 'false',
-                    containerClass: "card-2-mobile card-2-tablet card-5-desktop",
+                    containerClass: "card-2-mobile card-2-tablet card-5-desktop " ~ cardLayoutInfo,
                     timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -55,7 +55,7 @@
                     position: (articleCount+1),
                     swap : 'false',
                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
-                    card--verticalMulti card--verticalMulti-xs",
+                    card--verticalMulti card--verticalMulti-xs " ~ cardLayoutInfo,
                     timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
