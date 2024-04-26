@@ -105,7 +105,7 @@
                         {{this.render(articleLayoutInfo, {
                             article: articles[articleCount],
                             position: (articleCount+1),
-                            containerClass: "card-2-mobile card-2--noDescription card-2-tablet card-4-desktop",
+                            containerClass: "card-2-mobile card-2--noDescription card-2-tablet card-4-desktop "~ cardLayoutInfo,
                             timeSuppress: timeSuppress
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
