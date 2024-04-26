@@ -1,6 +1,12 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+    {% set cardLayoutInfo = 'card__version2' %}
+    {% set articleLayoutInfo = '../_single-article-v2.twig' %}
+{% endif %}
 
 <div class="row" data-section="02">
     <div class="col-12">
@@ -21,21 +27,9 @@
             <div class="row">
                 <div class="col-12 col-lg-3 left-border hm-sec1_row_2_c1">
                     {% for i in 4..5 if articles[articleCount] %}
-                    {{this.render('../_single-article.twig', {
+                    {{this.render(articleLayoutInfo, {
                     article: articles[articleCount],
                     position: (articleCount+1),
-                    imageSize: {width: 459, height: 278},
-                    imageSizes: {
-                        "mobile": {
-                            width: 550, height: 333
-                        },
-                        "mobileLrg": {
-                            width: 550, height: 333
-                        },
-                        "tablet": {
-                            width: 703, height: 425
-                        }
-                    },
                     swap : 'false',
                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
                     card--verticalMulti card--verticalMulti-xs",
@@ -45,21 +39,9 @@
                     {% endfor %}
                 </div>
                 <div class="col-12 col-lg-6 left-border hm-sec1_row_2_c2">
-                    {{this.render('../_single-article.twig', {
+                    {{this.render(articleLayoutInfo, {
                     article: articles[articleCount],
                     position: (articleCount+1),
-                    imageSize: {width: 950, height: 675},
-                    imageSizes: {
-                        "mobile": {
-                            width: 550, height: 333
-                        },
-                        "mobileLrg": {
-                            width: 550, height: 333
-                        },
-                        "tablet": {
-                            width: 703, height: 425
-                        }
-                    },
                     swap : 'false',
                     containerClass: "card-2-mobile card-2-tablet card-5-desktop",
                     timeSuppress: timeSuppress
@@ -68,21 +50,9 @@
                 </div>
                 <div class="col-12 col-lg-3 left-border hm-sec1_row_2_c3">
                     {% for i in 6..7 if articles[articleCount] %}
-                    {{this.render('../_single-article.twig', {
+                    {{this.render(articleLayoutInfo, {
                     article: articles[articleCount],
                     position: (articleCount+1),
-                    imageSize: {width: 459, height: 278},
-                    imageSizes: {
-                        "mobile": {
-                            width: 550, height: 333
-                        },
-                        "mobileLrg": {
-                            width: 550, height: 333
-                        },
-                        "tablet": {
-                            width: 703, height: 425
-                        }
-                    },
                     swap : 'false',
                     containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription
                     card--verticalMulti card--verticalMulti-xs",

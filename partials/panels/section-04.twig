@@ -1,6 +1,12 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+    {% set cardLayoutInfo = 'card__version2' %}
+    {% set articleLayoutInfo = '../_single-article-v2.twig' %}
+{% endif %}
 
 <div class="row" data-section="04">
     <div class="col-12">
@@ -19,23 +25,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="c-cards-container c-cards-container-xs bottom-border">
-                    {{this.render('../_single-article.twig', {
+                    {{this.render(articleLayoutInfo, {
                     article: articles[articleCount],
                     position: (articleCount+1),
-                    imageSize: {width: 950, height: 675},
-                    imageSizes: {
-                        "mobile": {
-                            width: 550, height: 333
-                        },
-                        "mobileLrg": {
-                            width: 550, height: 333
-                        },
-                        "tablet": {
-                            width: 703, height: 425
-                        }
-                    },
                     swap : 'false',
-                    containerClass: "card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20",
+                    containerClass: "card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20 "~cardLayoutInfo,
                     timeSuppress: timeSuppress
                     }) | raw}}
                     {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -49,10 +43,7 @@
                         {% for i in 1..4 if articles[articleCount] %}
 
                         <div class="col-12 col-lg-3 left-border">
-                            {{this.render('../_single-article.twig', {
-                            article: articles[articleCount],
-                            position: (articleCount+1),
-                            imageSize: {width: 120, height: 145},
+                            {# imageSize: {width: 120, height: 145},
                             imageSizes: {
                                 "mobile": {
                                     width: 120, height: 145
@@ -63,9 +54,25 @@
                                 "tablet": {
                                     width: 120, height: 145
                                 }
-                            },
+                            }, #}
+                            {{this.render(articleLayoutInfo, {
+                            article: articles[articleCount],
+                            position: (articleCount+1),
                             swap : 'false',
-                            containerClass: "card-1-mobile card-1-tablet card-1-desktop u-margin-bottom-20",
+                            aspect_ratio:'3:4',
+                            imageSize: {width: 120},
+                            imageSizes: {
+                                "mobile": {
+                                    width: 120
+                                },
+                                "mobileLrg": {
+                                    width: 120
+                                },
+                                "tablet": {
+                                    width: 120
+                                }
+                            },
+                            containerClass: "card-1-mobile card-1-tablet card-1-desktop u-margin-bottom-20 "~cardLayoutInfo,
                             timeSuppress: timeSuppress
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -78,23 +85,24 @@
                         {% for i in 5..8 if articles[articleCount] %}
 
                         <div class="col-12 col-lg-3 left-border">
-                            {{this.render('../_single-article.twig', {
+                            {{this.render(articleLayoutInfo, {
                             article: articles[articleCount],
                             position: (articleCount+1),
-                            imageSize: {width: 120, height: 145},
+                            swap : 'false',
+                            aspect_ratio:'3:4',
+                            imageSize: {width: 120},
                             imageSizes: {
                                 "mobile": {
-                                    width: 120, height: 145
+                                    width: 120
                                 },
                                 "mobileLrg": {
-                                    width: 120, height: 145
+                                    width: 120
                                 },
                                 "tablet": {
-                                    width: 120, height: 145
+                                    width: 120
                                 }
                             },
-                            swap : 'false',
-                            containerClass: "card-1-mobile card-1-tablet card-1-desktop",
+                            containerClass: "card-1-mobile card-1-tablet card-1-desktop "~cardLayoutInfo,
                             timeSuppress: timeSuppress
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}

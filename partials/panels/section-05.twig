@@ -3,28 +3,60 @@
 {% set colorInverse = '' %}
 {% set inverseContainerClass = '' %}
 {% if background is defined and background is not empty %}
-    {% set colorInverse = 'inverse' %}
-    {% set inverseContainerClass = 'c-cards--inverse' %}
+	{% set colorInverse = 'inverse' %}
+	{% set inverseContainerClass = 'c-cards--inverse' %}
 {% endif %}
 
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+	{% set cardLayoutInfo = 'card__version2' %}
+	{% set articleLayoutInfo = '../_single-article-v2.twig' %}
+{% endif %}
+
+
 <div class="row" data-section="05">
-    <div class="col-12">
-        <div class="u-generic-topBorder {{colorInverse}}"></div>
-        <div class="c-page-head c-page-head-xs {{colorInverse}}">
-            <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
-            {% if linkShow %}
-                <a href="{{link}}" class="c-page-head__link">View all</a>
-            {% endif %}
-        </div>
-    </div>
+	<div class="col-12">
+		<div class="u-generic-topBorder {{colorInverse}}"></div>
+		<div class="c-page-head c-page-head-xs {{colorInverse}}">
+			<div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
+			{% if linkShow %}
+				<a href="{{link}}" class="c-page-head__link">View all</a>
+			{% endif %}
+		</div>
+	</div>
 </div>
 
 <div class="row">
-    <div class="col-12">
-        {{this.render('../_single-article.twig', {
+	<div
+		class="col-12">
+		{# imageSize: {width: 950, height: 675},
+        imageSizes: {
+            "mobile": {
+                width: 550, height: 333
+            },
+            "mobileLrg": {
+                width: 550, height: 333
+            },
+            "tablet": {
+                width: 703, height: 425
+            }
+        }, #}
+		{{this.render(articleLayoutInfo, {
             article: articles[articleCount],
             position: (articleCount+1),
-            imageSize: {width: 950, height: 675},
+            swap : 'false',
+            containerClass: 'card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20 '~ cardLayoutInfo ~ ' ' ~ inverseContainerClass,
+            timeSuppress: timeSuppress
+            }) | raw}}
+		{% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+	</div>
+
+	{% for i in 1..4 if articles[articleCount] %}
+
+		<div
+			class="col-12 col-lg-3 left-border">
+			{# imageSize: {width: 459, height: 278},
             imageSizes: {
                 "mobile": {
                     width: 550, height: 333
@@ -35,37 +67,15 @@
                 "tablet": {
                     width: 703, height: 425
                 }
-            },
-            swap : 'false',
-            containerClass: 'card-2-mobile card-2-tablet card-7-desktop u-margin-bottom-20 '~inverseContainerClass,
-            timeSuppress: timeSuppress
-            }) | raw}}
-        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-    </div>
-
-    {% for i in 1..4 if articles[articleCount] %}
-
-    <div class="col-12 col-lg-3 left-border">
-        {{this.render('../_single-article.twig', {
+            }, #}
+			{{this.render(articleLayoutInfo, {
             article: articles[articleCount],
             position: (articleCount+1),
-            imageSize: {width: 459, height: 278},
-            imageSizes: {
-                "mobile": {
-                    width: 550, height: 333
-                },
-                "mobileLrg": {
-                    width: 550, height: 333
-                },
-                "tablet": {
-                    width: 703, height: 425
-                }
-            },
             swap : 'false',
-            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription "~inverseContainerClass,
+            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--noDescription "~ cardLayoutInfo ~ ' ' ~ inverseContainerClass,
             timeSuppress: timeSuppress
             }) | raw}}
-            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-    </div>
-    {% endfor %}
+			{% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+		</div>
+	{% endfor %}
 </div>

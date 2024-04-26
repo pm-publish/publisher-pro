@@ -176,8 +176,6 @@
     {% set blogguid = article.primaryBlog is defined and article.primaryBlog.guid != "" ? article.primaryBlog.guid : article.blog.guid %}
     {% set blogTitle = article.primaryBlog is defined and article.primaryBlog.title != "" ? article.primaryBlog.title  : article.blog.title %}
 
-    {{_AppHelper.printArray(aspect_ratio)}}
-
     {% set params = {
         imageSuppress   : imageSuppress,
         hasMediaClass   : (displayMedia) ? 'withImage__content': 'without-image',

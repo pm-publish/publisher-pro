@@ -8,8 +8,8 @@
         margin-bottom: 15px;
 
         &__media {
-            width: 79px;
-            height: 96px;
+            width: 80px;
+            height: 100px;
             position: absolute;
             left: 0;
             &.c-cards-view__media--video {
@@ -86,6 +86,12 @@
 .card-1-mobile {
     @media #{$mobile} {
         @include card-1-base();
+    }
+
+    &.card__version2 {
+        .c-cards-view__media {
+            height: 106px !important;
+        }
     }
 
     &.card-1--with-description {

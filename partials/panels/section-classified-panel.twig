@@ -1,6 +1,14 @@
 {% set articleCount = 0 %}
 {% set cardIndex = 0 %}
 
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+    {% set cardLayoutInfo = 'card__version2' %}
+    {% set articleLayoutInfo = '../_single-article-v2.twig' %}
+{% endif %}
+
+
 {% set countTerm = "" %}
 
 {% if blogData.count != "" %}
@@ -18,12 +26,12 @@
     {% set limit = featurelisting %}
 {% endif %}
 
-{% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop' %}
+{% set cardClasses = 'acme-card-1-mobile acme-card-1-tablet acme-card-1-desktop '~ cardLayoutInfo %}
 {% set acmeClasses = 'acme-col-12 acme-col-md-12 acme-col-lg-4' %}
 
 
 {% if config['classifieds']['new-card-style'] is defined and config['classifieds']['new-card-style'] == true %}
-    {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop' %}
+    {% set cardClasses = 'acme-card-2-mobile acme-card-2-tablet acme-card-2-desktop '~ cardLayoutInfo %}
     {% set acmeClasses = 'acme-col-12 acme-col-md-12 acme-col-lg-6' %}
 {% endif %}
 
@@ -40,11 +48,8 @@
 <div class="acme-row">
     {% for i in 0..(limit - 1) if articles[i] %}
         <div class="{{acmeClasses}}">
-            {{this.render('../_single-article.twig', {
-                article: articles[articleCount], 
-                position: (articleCount+1),
-                cardType: "acme-",
-                imageSize: {width: 285, height: 192},
+        
+                {# imageSize: {width: 285, height: 192},
                 imageSizes: {
                     "mobile": {
                         width: 285, height: 192
@@ -55,7 +60,11 @@
                     "tablet": {
                         width: 285, height: 192
                     }
-                },
+                }, #}
+            {{this.render(articleLayoutInfo, {
+                article: articles[articleCount], 
+                position: (articleCount+1),
+                cardType: "acme-",
                 contentType: contentType,
                 containerClass: cardClasses
             }) | raw}}
@@ -66,11 +75,12 @@
 
 
 {% if articles | length >= 3 %}
+
+        {# imageSize: {width: 285, height: 192}, #}
     {{this.render('/partials/_section-loadmore.twig', {
         sectionNumber: loadmore_id, 
         limit: 6,
         blogId: blogData['guid'],
-        imageSize: {width: 285, height: 192},
         contentType: contentType,
         cardClass: cardClasses ~ ' ' ~ acmeClasses,
         cardCount: articleCount,

@@ -2,6 +2,13 @@
 {% set cardIndex = 0 %}
 
 
+{% set cardLayoutInfo = '' %}
+{% set articleLayoutInfo = '../_single-article.twig' %}
+{% if cardLayout is defined and cardLayout is not empty and cardLayout == 'version2' %}
+    {% set cardLayoutInfo = 'card__version2' %}
+    {% set articleLayoutInfo = '../_single-article-v2.twig' %}
+{% endif %}
+
 <div class="row" data-section="09">
     <div class="col-12">
         <div class="u-generic-topBorder "></div>
@@ -17,11 +24,9 @@
 
 <div class="row">
     <div class="col-12 col-md-6">
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
+
+    
+            {# imageSize: {width: 95, height: 130},
             imageSizes: {
                 "mobile": {
                     width: 95, height: 130
@@ -32,18 +37,32 @@
                 "tablet": {
                     width: 95, height: 130
                 }
-            },
+            }, #}
+
+         {{this.render(articleLayoutInfo, {
+            article: articles[articleCount], 
+            position: (articleCount+1),
+            containerClass: "card-8-mobile card-8-tablet card-8-desktop "~ cardLayoutInfo,
             swap : 'false',
+            aspect_ratio:'3:4',
+            imageSize: {width: 98},
+            imageSizes: {
+                "mobile": {
+                    width: 98
+                },
+                "mobileLrg": {
+                    width: 98
+                },
+                "tablet": {
+                    width: 98
+                }
+            },
             template: 'feature',
             url: altUrls[0] is defined ? networkData.defaultBlogUrl ~ altUrls[0] : ''
         }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
         
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
+            {# imageSize: {width: 95, height: 130},
             imageSizes: {
                 "mobile": {
                     width: 95, height: 130
@@ -54,18 +73,18 @@
                 "tablet": {
                     width: 95, height: 130
                 }
-            },
+            }, #}
+         {{this.render(articleLayoutInfo, {
+            article: articles[articleCount], 
+            position: (articleCount+1),
+            containerClass: "card-8-mobile card-8-tablet card-8-desktop "~ cardLayoutInfo,
             swap : 'false',
             template: 'feature',
             url: altUrls[1] is defined ? networkData.defaultBlogUrl ~ altUrls[1] : ''
         }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
+            {# imageSize: {width: 95, height: 130},
             imageSizes: {
                 "mobile": {
                     width: 95, height: 130
@@ -76,7 +95,11 @@
                 "tablet": {
                     width: 95, height: 130
                 }
-            },
+            }, #}
+         {{this.render(articleLayoutInfo, {
+            article: articles[articleCount], 
+            position: (articleCount+1),
+            containerClass: "card-8-mobile card-8-tablet card-8-desktop "~ cardLayoutInfo,
             swap : 'false',
             template: 'feature',
             url: altUrls[2] is defined ? networkData.defaultBlogUrl ~ altUrls[2] : ''
@@ -85,11 +108,8 @@
     </div>
 
     <div class="col-12 col-md-6">
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
+    
+            {# imageSize: {width: 95, height: 130},
             imageSizes: {
                 "mobile": {
                     width: 95, height: 130
@@ -100,18 +120,18 @@
                 "tablet": {
                     width: 95, height: 130
                 }
-            },
+            }, #}
+         {{this.render(articleLayoutInfo, {
+            article: articles[articleCount], 
+            position: (articleCount+1),
+            containerClass: "card-8-mobile card-8-tablet card-8-desktop "~ cardLayoutInfo,
             swap : 'false',
             template: 'feature',
             url: altUrls[3] is defined ? networkData.defaultBlogUrl ~ altUrls[3] : ''
         }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
         
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
+            {# imageSize: {width: 95, height: 130},
             imageSizes: {
                 "mobile": {
                     width: 95, height: 130
@@ -122,18 +142,18 @@
                 "tablet": {
                     width: 95, height: 130
                 }
-            },
+            }, #}
+         {{this.render(articleLayoutInfo, {
+            article: articles[articleCount], 
+            position: (articleCount+1),
+            containerClass: "card-8-mobile card-8-tablet card-8-desktop "~ cardLayoutInfo,
             swap : 'false',
             template: 'feature',
             url: altUrls[4] is defined ? networkData.defaultBlogUrl ~ altUrls[4] : ''
         }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
 
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
+            {# imageSize: {width: 95, height: 130},
             imageSizes: {
                 "mobile": {
                     width: 95, height: 130
@@ -144,7 +164,11 @@
                 "tablet": {
                     width: 95, height: 130
                 }
-            },
+            }, #}
+         {{this.render(articleLayoutInfo, {
+            article: articles[articleCount], 
+            position: (articleCount+1),
+            containerClass: "card-8-mobile card-8-tablet card-8-desktop "~ cardLayoutInfo,
             swap : 'false',
             template: 'feature',
             url: altUrls[5] is defined ? networkData.defaultBlogUrl ~ altUrls[5] : ''
