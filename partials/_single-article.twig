@@ -283,7 +283,6 @@
                 networkData: networkData
             } ) | raw }}
         </article>
-        {{_AppHelper.printArray(feedBlogGuid)}}
         {# Article admin buttons to delete/edit/pin #}
         {% if article.userHasBlogAccess == '1' and amp != true %}
             {{ this.render('_article_admin.twig', {
