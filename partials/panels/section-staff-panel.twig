@@ -21,6 +21,7 @@
             {{this.render('../_single-card.twig', {
                 article: articles[articleCount], 
                 position: (articleCount+1),
+feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
                 cardType: "acme-",
 				template: "staff",
                 imageSize: {width: 285, height: 192},

@@ -26,6 +26,7 @@
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
                     position: (articleCount+1),
+feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
                     imageSize: {width: 459, height: 278},
                     imageSizes: {
                         "mobile": {
@@ -61,6 +62,7 @@
                     {{this.render('../_single-article.twig', {
                     article: articles[articleCount],
                     position: (articleCount+1),
+feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
                     imageSize: {width: 120, height: 145},
                     imageSizes: {
                         "mobile": {
@@ -91,6 +93,7 @@
                         {{this.render('../_single-article.twig', {
                         article: articles[articleCount],
                         position: (articleCount+1),
+feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
                         imageSize: {width: 120, height: 145},
                         imageSizes: {
                             "mobile": {
