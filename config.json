@@ -193,6 +193,16 @@
                     "name": "link_4_url",
                     "label": "Link four url",
                     "type": "inputbox"
+                },
+                {
+                    "name": "travel_cover",
+                    "label": "Travel Cover",
+                    "type": "inputbox"
+                },
+                {
+                    "name": "travel_link",
+                    "label": "Travel Link",
+                    "type": "inputbox"
                 }
             ]
         }

@@ -12,6 +12,11 @@
             height: 130px;
             position: absolute;
             left: 0;
+
+            &.travel_media {
+                left: auto;
+                right: 0;
+            }
             &.c-cards-view__media--video {
                 &:before {
                     display: none;
@@ -49,6 +54,10 @@
             margin-left: 110px;
             min-height: 145px;
             height: initial;
+
+            &.with_travel {
+                @include calc(width, "100% - 220px");
+            }
 
             &-topSection {
                 margin-bottom: 6px;
