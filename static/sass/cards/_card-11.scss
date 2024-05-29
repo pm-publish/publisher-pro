@@ -47,6 +47,20 @@
     @media #{$mobile} {
         @include card-11-base();
     }
+    &.card-11-highlighter {
+        @media #{$mobile} {
+            .c-cards-view {
+                &__container {
+                    margin: 30px;
+                }
+                &__heading  {
+                    @include font-size(20);
+                    line-height: 1.4;
+                    color: $white;
+                }
+            }
+        }
+    }
 }
 
 @mixin card-11-tablet-base() {
@@ -71,9 +85,19 @@
             .c-cards-view {
                 @include flex-direction(row, horizontal);
 
+                &__media {
+                    flex: 1 0 10%;
+                }
+
                 &__container {
-                    flex: 1 0 calc(100% - 270px);
-                    margin-left: 35px;
+                    //flex: 1 0 calc(100% - 270px);
+                    flex: 1 0;
+                    margin: 30px;
+                }
+                &__heading  {
+                    @include font-size(26);
+                    line-height: 1.4;
+                    color: $white;
                 }
             }
         }
@@ -101,10 +125,13 @@
 
             .c-cards-view {
                 @include flex-direction(row, horizontal);
-
+                &__media {
+                    flex: 1 0 20%;
+                }
                 &__container {
-                    flex: 1 0 calc(100% - 270px);
-                    margin-left: 35px;
+                    //flex: 1 0 calc(100% - 270px);
+                    flex: 1 0;
+                    margin: 30px;
 
                     &-topSection {
                         @include flexbox;
@@ -126,12 +153,17 @@
 .card-11-highlighter {
     .c-cards-view {
         background-color: $black;
-        padding: 32px;
+        //padding: 32px;
         &__media {
             background-color: transparent;
+            @include flex-direction(column, vertical);
+            margin-bottom: 0;
+            picture {
+                flex: 1;
+            }
             img {
-                width: inherit;
-                height: 319px;
+                width: 100% !important;
+                height: 100% !important;
             }
         }
 
