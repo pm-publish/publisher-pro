@@ -742,7 +742,7 @@ UserProfileController.prototype.events = function ()
             var displayError = document.getElementById('card-errors');
             displayError.textContent = '';
             if (event.error) {
-                console.log('m2', result.error.message);
+                console.log('m2', event.error.message);
                 displayError.textContent = event.error.message;
             } 
         });
