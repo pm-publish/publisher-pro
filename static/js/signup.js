@@ -129,8 +129,12 @@ SubscribeForm.prototype.submit = function (event) {
           text = text + r.error[key] + " ";
         }
       }
-      console.log('vv', r.error);
-      errorElement.textContent = text;
+      console.log('vv', text);
+      if(text == 'Email already exists. Please provide another email.') {
+        console.log('ss', 'gettin data')
+        text = `This email address already exist, please provide another email or <a href="#">click here to login</a>`
+      }
+      errorElement.innerHTML = text;
     }
     self.signupModal.closeWindow();
   };
