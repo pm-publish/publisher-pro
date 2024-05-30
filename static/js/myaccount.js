@@ -238,6 +238,7 @@ UserProfileController.prototype.stripeCardEvent = function () {
     
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
+                    console.log('m1', result.error.message);
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
@@ -741,6 +742,7 @@ UserProfileController.prototype.events = function ()
             var displayError = document.getElementById('card-errors');
             displayError.textContent = '';
             if (event.error) {
+                console.log('m2', result.error.message);
                 displayError.textContent = event.error.message;
             } 
         });
@@ -852,6 +854,7 @@ UserProfileController.prototype.events = function ()
                 self.spinner.closeWindow();
     
                 // Inform the user if there was an error
+                console.log('m3', result.error.message);
                 var errorElement = document.getElementById('card-errors');
                 errorElement.textContent = result.error.message;
             } else {

@@ -182,6 +182,7 @@ SubscribeForm.prototype.submit = function (event) {
         self.signupModal.closeWindow();
         // Inform the user if there was an error
         var errorElement = document.getElementById("card-errors");
+        console.log('m4', result.error.message);
         errorElement.textContent = result.error.message;
       } else {
         // Send the token to your server

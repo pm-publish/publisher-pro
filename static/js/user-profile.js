@@ -668,6 +668,7 @@ UserProfileController.prototype.events = function ()
 
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
+                    console.log('m5', result.error.message);
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
