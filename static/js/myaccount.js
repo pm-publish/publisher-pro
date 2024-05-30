@@ -227,7 +227,6 @@ UserProfileController.prototype.stripeCardEvent = function () {
             event.preventDefault();
     
             self.modal.render("spinner", "Updating card...", {'class':'u-relative'});
-            console.log('mayank2');
             const errorElement = document.getElementById('card-errors');
     
             errorElement.textContent = '';
@@ -238,7 +237,6 @@ UserProfileController.prototype.stripeCardEvent = function () {
     
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
-                    console.log('m1', result.error.message);
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
@@ -742,7 +740,6 @@ UserProfileController.prototype.events = function ()
             var displayError = document.getElementById('card-errors');
             displayError.textContent = '';
             if (event.error) {
-                console.log('m2', event.error.message);
                 displayError.textContent = event.error.message;
             } 
         });
@@ -847,7 +844,6 @@ UserProfileController.prototype.events = function ()
         var errorElement = document.getElementById('card-errors');
     
         errorElement.textContent = '';
-        console.log('mayank1');
         // const stripe = Stripe(self.stripekey);
         self.stripe.createToken(self.card).then(function(result) {
             // console.log(result);
@@ -856,7 +852,6 @@ UserProfileController.prototype.events = function ()
     
                 // Inform the user if there was an error
                 var errorElement = document.getElementById('card-errors');
-                console.log('m3', result.error.message);
                 errorElement.textContent = result.error.message;
             } else {
                 // Send the token to your server

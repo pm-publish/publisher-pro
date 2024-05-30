@@ -132,9 +132,9 @@ SubscribeForm.prototype.submit = function (event) {
       console.log('vv', text);
       if(text.trim() == 'Email already exists. Please provide another email.') {
         console.log('ss', 'gettin data')
-        text = `This email address already exist, please provide another email or <a href="#">click here to login</a>`
+        text = `This email address already exist, please provide another email or <a id="signinBtn" href="javascript:;">click here to login</a>`
       }
-      errorElement.innerHTML = text + 'd';
+      errorElement.innerHTML = text;
     }
     self.signupModal.closeWindow();
   };
@@ -186,7 +186,6 @@ SubscribeForm.prototype.submit = function (event) {
         self.signupModal.closeWindow();
         // Inform the user if there was an error
         var errorElement = document.getElementById("card-errors");
-        console.log('m4', result.error.message);
         errorElement.textContent = result.error.message;
       } else {
         // Send the token to your server

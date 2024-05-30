@@ -32,13 +32,11 @@ export default class StripeCard {
         if (cardElement != null) {
             Card.mount('#card-element');
         }
-        console.log('mayank22');
         // Handle real-time validation errors from the card Element.
         Card.addEventListener('change', function(event) {
             var displayError = document.getElementById('card-errors');
             displayError.textContent = '';
             if (event.error) {
-                console.log('m66', event.error.message);
                 displayError.textContent = event.error.message;
             } 
         });

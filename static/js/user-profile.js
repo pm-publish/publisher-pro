@@ -658,7 +658,6 @@ UserProfileController.prototype.events = function ()
             self.modal.render("spinner", "Your request is being processed.");
 
             const errorElement = document.getElementById('card-errors');
-            console.log('mayank3');
             errorElement.textContent = '';
             // const stripe = Stripe(self.stripekey);
             self.stripe.createToken(self.card).then(function(result) {
@@ -668,7 +667,6 @@ UserProfileController.prototype.events = function ()
 
                     // Inform the user if there was an error
                     var errorElement = document.getElementById('card-errors');
-                    console.log('m5', result.error.message);
                     errorElement.textContent = result.error.message;
                 } else {
                     // Send the token to your server
