@@ -130,11 +130,11 @@ SubscribeForm.prototype.submit = function (event) {
         }
       }
       console.log('vv', text);
-      if(text == 'Email already exists. Please provide another email.') {
+      if(text.trim() == 'Email already exists. Please provide another email.') {
         console.log('ss', 'gettin data')
         text = `This email address already exist, please provide another email or <a href="#">click here to login</a>`
       }
-      errorElement.innerHTML = text;
+      errorElement.innerHTML = text + 'd';
     }
     self.signupModal.closeWindow();
   };
