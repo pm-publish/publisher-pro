@@ -129,7 +129,7 @@ SubscribeForm.prototype.submit = function (event) {
           text = text + r.error[key] + " ";
         }
       }
-
+      console.log('vv', r.error);
       errorElement.textContent = text;
     }
     self.signupModal.closeWindow();
