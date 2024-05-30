@@ -658,7 +658,7 @@ UserProfileController.prototype.events = function ()
             self.modal.render("spinner", "Your request is being processed.");
 
             const errorElement = document.getElementById('card-errors');
-
+            console.log('mayank3');
             errorElement.textContent = '';
             // const stripe = Stripe(self.stripekey);
             self.stripe.createToken(self.card).then(function(result) {
