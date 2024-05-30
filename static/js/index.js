@@ -43,6 +43,7 @@ var layouts = {
 Acme.SigninView = new SigninModal('modal', 'signin-modal', layouts);
 
 $('#signinBtn, #articleSigninBtn, .j-signin').on('click', function () {
+    console.log('signup');
     Acme.SigninView.render("signin", "Sign in");
 
 

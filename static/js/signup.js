@@ -129,10 +129,8 @@ SubscribeForm.prototype.submit = function (event) {
           text = text + r.error[key] + " ";
         }
       }
-      console.log('vv', text);
       if(text.trim() == 'Email already exists. Please provide another email.') {
-        console.log('ss', 'gettin data')
-        text = `This email address already exist, please provide another email or <a id="signinBtn" href="javascript:;">click here to login</a>`
+        text = `This email address already exist, please provide another email or <a class="j-signin" href="javascript:;">click here to login</a>`
       }
       errorElement.innerHTML = text;
     }
