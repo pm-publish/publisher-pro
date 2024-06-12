@@ -227,7 +227,6 @@ UserProfileController.prototype.stripeCardEvent = function () {
             event.preventDefault();
     
             self.modal.render("spinner", "Updating card...", {'class':'u-relative'});
-    
             const errorElement = document.getElementById('card-errors');
     
             errorElement.textContent = '';

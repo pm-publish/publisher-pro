@@ -8,9 +8,13 @@
 {% set config = this.params.config %}
 {% set label = true %}
 {% set additionalLabel = false %}
+{% set travelCover = false %}
 {% if config.cardOptions is defined %}
     {% set label = config.cardOptions.label is defined ? config.cardOptions.label : label %}
     {% set additionalLabel = config.cardOptions['additional-label'] is defined ? config.cardOptions['additional-label'] : additionalLabel %}
+{% endif %}
+{% if params.additionalInfo.travel_cover != "" %}
+    {% set travelCover = true %}
 {% endif %}
 
 {% if params.hasMedia %}
@@ -33,14 +37,13 @@
     
 
 {% endif %}
-
 <div class="social-icon"></div>
 
-<div class="{{params.cardType}}c-cards-view__container">
+<div class="{{params.cardType}}c-cards-view__container {% if travelCover %} with_travel {% endif %}">
     <div class="c-cards-view__container-topSection">
         <div class="c-cards-view__category-wrap">
             {% if params.category != params.blogTitle and additionalLabel == true %}
-                        <div class="{{params.cardType}}c-cards-view__additional-category" {% if params.category | lower == 'breaking news' %} style="background-color: #D0312D" {% endif %}>{{params.category}}</div>
+                <div class="{{params.cardType}}c-cards-view__additional-category" {% if params.category | lower == 'breaking news' %} style="background-color: #D0312D" {% endif %}>{{params.category}}</div>
             {% endif %}
             {% if label == true %}
                 <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
@@ -58,3 +61,9 @@
         <div class="{{params.cardType}}c-cards-view__time">{{params.publishDate}}</div>
     </div>
 </div>
+{% if travelCover %}
+    <button {% if params.additionalInfo['travel_link'] != "" %} onclick="window.open('{{params.additionalInfo['travel_link']}}', '_blank'); return false;"{% endif %} class="{{params.cardType}}c-cards-view__media travel_media {{params.videoClass}}" title="{{imageSize}}">
+        <img width="95" height="130" class="img-fluid" src="{{params.additionalInfo['travel_cover']}}" />
+    </button>
+
+{% endif %}

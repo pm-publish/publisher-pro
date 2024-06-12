@@ -23,12 +23,18 @@ export const pinUnpinArticle = function(elem, options){
             var position = parseInt($(elem).attr('data-position'));
             var existingStatus = $(elem).attr('data-status');
             var isSocial = $(elem).data('social');
+            var blogguid = $(elem).data('blogguid');
             
             if(isNaN(articleId) || articleId <= 0 || isNaN(position) || position <= 0) {
                 return;
             }
 
-            const data = {id: articleId, status: existingStatus, social: isSocial, position: position};
+            var data = {id: articleId, status: existingStatus, social: isSocial, position: position};
+           
+            if(typeof blogguid != 'undefined' && blogguid != "") {
+                data['blogGuid'] = blogguid;
+            }
+
             Server.create(_appJsConfig.baseHttpPath + '/home/pin-article', data).done(function(r) {
                 $(elem).attr('data-status', ((existingStatus == 1) ? 0 : 1));
                 var msg = (existingStatus == 1) ? "Article un-pinned successfully" : "Article pinned successfully";

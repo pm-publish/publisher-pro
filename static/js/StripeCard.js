@@ -32,7 +32,6 @@ export default class StripeCard {
         if (cardElement != null) {
             Card.mount('#card-element');
         }
-
         // Handle real-time validation errors from the card Element.
         Card.addEventListener('change', function(event) {
             var displayError = document.getElementById('card-errors');
