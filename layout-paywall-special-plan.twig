@@ -5,38 +5,23 @@
 {% set blogName     = blogData.title %}
 {% set config       = _Network.getThemeConfig() %}
 
-
-
-
-{% if not _User.isGuest() %}
+{# {% if not _User.isGuest() %}
     {% set redir = _Page.setHttpRedirects(
         { '|^/.*|': networkData.defaultBlogUrl ~ '/user/edit-profile', }, false) 
     %} 
-{% endif %}
+{% endif %} #}
 
-
-{# Allow delimiters in the plan description to hide plans from the paywall page. #}
-{# Example: {"showplan":false, "order":2}!*! <p>rest of description</p> #}
 {% set visiblePlans = [] %}            
 {% for plan in plans %}
-    {% set continue = false %}
-
     {% if "!*!" in plan.description %}
         {% set description = plan.description | split("!*!") %}
-
         {% set data = _AppHelper.jsonDecode( description[0] ) %}
-
-        {% if data['showplan'] is defined and data['showplan'] == false %}
-            {% set continue = true %}
-        {% endif %}
-
-        {% if not continue %}
+        {% if data['special'] is defined and data['special'] == true %}
             {% set visiblePlans = visiblePlans | merge({ ("0") : plan}) %}
         {% endif %}
-    {% else %}
-        {% set visiblePlans = visiblePlans | merge({ ("0") : plan}) %}
     {% endif %} 
 {% endfor %}
+
 
 
 
