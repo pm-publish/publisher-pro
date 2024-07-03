@@ -565,6 +565,44 @@
         color: $white;
       }
     }
+
+    .callout {
+			--border-color: #e91e1e;
+			padding: 1.2em 2em;
+			border: 1px solid var(--border-color);
+			border-left: 10px solid var(--border-color);
+			background: #fff9fb;
+			border-radius: 5px;
+			margin: 1.5em 2em;
+			box-shadow: 5px 5px 0 #ffe6ef;
+		}
+    .needs-clarification {
+      outline: 1px dashed #c8a24b;
+      background: #ffe19c;
+      border-radius: 2px;
+      position: relative;
+    }
+    .needs-clarification:after{
+      content: "?";
+      display: inline-block;
+      color: #fff;
+      background: #3b3b3b;
+      font-size: 12px;
+      vertical-align: super;
+      width: 12px;
+      height: 12px;
+      line-height: 12px;
+      border-radius: 10px;
+      text-align: center;
+      position: absolute;
+      right: -6px;
+      top: -6px;
+      font-weight: bold;
+      letter-spacing: initial;
+    }
+    .small-caps {
+      font-variant: small-caps !important;
+    }
   }
 
   &__paywalled-view {
