@@ -43,9 +43,14 @@ var layouts = {
 Acme.SigninView = new SigninModal('modal', 'signin-modal', layouts);
 
 $(document).on('click', '#signinBtn, #articleSigninBtn, .j-signin', function () {
+    loadSigninForm();
+    
+});
+
+window.loadSigninForm = function() {
+
     Acme.SigninView.render("signin", "Sign in");
-
-
+    console.log('l')
     // if (typeof google !== 'undefined') {
     //     google.accounts.id.initialize({
     //         client_id: window.client_id,
@@ -60,8 +65,10 @@ $(document).on('click', '#signinBtn, #articleSigninBtn, .j-signin', function () 
     //         }  // customization attributes
     //     );
     // }
-    
-});
+
+}
+
+
 
 $('a.j-register').on('click', function (e) {
     e.preventDefault();
