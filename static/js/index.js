@@ -43,27 +43,24 @@ var layouts = {
 Acme.SigninView = new SigninModal('modal', 'signin-modal', layouts);
 
 $(document).on('click', '#signinBtn, #articleSigninBtn, .j-signin', function () {
-    console.log('signup');  
     Acme.SigninView.render("signin", "Sign in");
 
 
-    if (typeof google !== 'undefined') {
-        google.accounts.id.initialize({
-            client_id: window.client_id,
-            callback: googleLogin
-          });
-          google.accounts.id.renderButton(
-            document.getElementById("google_signin"),
-            { 
-                theme: "outline", 
-                size: "large",
-                width: 100
-            }  // customization attributes
-          );
-    }
+    // if (typeof google !== 'undefined') {
+    //     google.accounts.id.initialize({
+    //         client_id: window.client_id,
+    //         callback: googleLogin
+    //       });
+    //       google.accounts.id.renderButton(
+    //         document.getElementById("google_signin"),
+    //         { 
+    //             theme: "outline", 
+    //             size: "large",
+    //             width: 100
+    //         }  // customization attributes
+    //     );
+    // }
     
-
-
 });
 
 $('a.j-register').on('click', function (e) {
