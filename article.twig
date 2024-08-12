@@ -11,6 +11,7 @@
     "networkData": networkData
 }) }}
 
+{% set guestUser  = _User.isGuest() %}
 
 {# PIJF used in Google Tag Manager for NZ On Air to capture published data #}
 {% set pijf_code = null %}
