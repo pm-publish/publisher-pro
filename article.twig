@@ -13,17 +13,6 @@
 
 {% set guestUser  = _User.isGuest() %}
 
-{# PIJF used in Google Tag Manager for NZ On Air to capture published data #}
-{% set pijf_code = null %}
-{% if article.additionalInfo is defined and article.additionalInfo.pijf is defined and article.additionalInfo.pijf != null %}
-    {% set pijf_code = article.additionalInfo.pijf %}
-{% endif %}
-
-{% if pijf_code %}
-    {% set register = _AppHelper.registerMetaTag({"name": "nzoa", "content": pijf_code}) %}
-{% endif %}
-
-
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['primaryColor'] is defined %}
     {% set themeColor = networkData['styling']['colours']['primaryColor'] %}
@@ -54,6 +43,8 @@
 
 
 {% set showPaywall = false %}
+{% set paywallReason = "" %}
+
 {% set ArticleContent = article.content %}
 
 {% set pwstats = {} %}
@@ -80,6 +71,8 @@
     {% if bypassPaywall == false %} 
         {% set showPaywall = true %}
     {% endif %}
+
+    {% set paywallReason = article.showPaywallReason %}
 
     {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
     {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
@@ -348,7 +341,7 @@
     {% set publisher = publisher|merge({logo:_Media.getMediaUrl(networkData.logoMedia, publisher.width, publisher.height, {'crop': 'lpad'} )})%}
 {% endif %}
 
-    <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}" itemscope itemtype="http://schema.org/NewsArticle">
+    <main id="main" class="o-body-container o-body-container-md u-margin-top-60 {% if showPaywall == true %} mb-0 {% endif %}" role="main" data-paywall-type="{{paywallType}}" data-paywall-reason="{{paywallReason}} itemscope itemtype="http://schema.org/NewsArticle">
         <meta itemscope itemprop="mainEntityOfPage"  itemType="https://schema.org/WebPage" itemid="{{article.url}}"/>
         <meta itemprop="url" content="{{article.url}}">
         <meta itemprop="dateModified" content="{{article.updatedAt}}">
