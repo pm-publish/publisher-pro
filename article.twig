@@ -11,6 +11,7 @@
     "networkData": networkData
 }) }}
 
+{% set guestUser  = _User.isGuest() %}
 
 {% set themeColor = "#4A90E2" %}
 {% if networkData['styling']['colours']['primaryColor'] is defined %}
