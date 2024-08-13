@@ -43,7 +43,8 @@
 
 
 {% set showPaywall = false %}
-{% set paywallReason = "" %}
+{% set paywallReason = article.showPaywallReason is defined ? article.showPaywallReason : "" %}
+
 
 {% set ArticleContent = article.content %}
 
@@ -72,7 +73,6 @@
         {% set showPaywall = true %}
     {% endif %}
 
-    {% set paywallReason = article.showPaywallReason %}
 
     {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
     {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
@@ -104,8 +104,8 @@
 {% endif %}
 
 
-
-
+{# used in extended access script at the bottom #}
+{% set isPublisherPaywalled = showPaywall %}
 
 
 
@@ -989,6 +989,8 @@
         };
 
         var showcaseEntitlement = "{{showcase}}";
+        
+        console.log("sc_entitlement", showcaseEntitlement)
 
         var initData = {
             googleApiClientId: "{{ExtAccessIntegration.client_id}}", 
