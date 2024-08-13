@@ -43,7 +43,8 @@
 
 
 {% set showPaywall = false %}
-{% set paywallReason = "" %}
+{% set paywallReason = article.showPaywallReason is defined ? article.showPaywallReason : "" %}
+
 
 {% set ArticleContent = article.content %}
 
@@ -72,7 +73,6 @@
         {% set showPaywall = true %}
     {% endif %}
 
-    {% set paywallReason = article.showPaywallReason %}
 
     {# DETERMINE IF PAYWALL IS 'PAID' OR 'FREE' #}
     {% if articleBlogInfo['paywallAllowSignupOnly'] == true %}
@@ -104,8 +104,8 @@
 {% endif %}
 
 
-
-
+{# used in extended access script at the bottom #}
+{% set isPublisherPaywalled = showPaywall %}
 
 
 
@@ -958,16 +958,13 @@
 
         let registerUserPromise = new Promise((resolve) => {
             GaaMetering.getGaaUserPromise().then((gaaUser) => {
-                console.log('registering user')
                 var postData = {
                     "article_id": articleId,
                     "user": JSON.stringify(gaaUser),
                     "url" : window.location.href,
                 };
-                console.log(postData)
 
                 Acme.server.create('/auth/extended-access-signup', postData ).done(function(r) {
-                    console.log(r)
                     if (r.success == 1) {
                         window.userState.id = r.user_id;
                         window.userState.registrationTimestamp = r.registration;
@@ -992,6 +989,8 @@
         };
 
         var showcaseEntitlement = "{{showcase}}";
+        
+        console.log("sc_entitlement", showcaseEntitlement)
 
         var initData = {
             googleApiClientId: "{{ExtAccessIntegration.client_id}}", 
