@@ -958,13 +958,16 @@
 
         let registerUserPromise = new Promise((resolve) => {
             GaaMetering.getGaaUserPromise().then((gaaUser) => {
+                console.log('registering user')
                 var postData = {
                     "article_id": articleId,
                     "user": JSON.stringify(gaaUser),
                     "url" : window.location.href,
                 };
+                console.log(postData)
 
                 Acme.server.create('/auth/extended-access-signup', postData ).done(function(r) {
+                    console.log(r)
                     if (r.success == 1) {
                         window.userState.id = r.user_id;
                         window.userState.registrationTimestamp = r.registration;
