@@ -357,7 +357,9 @@
             </div>
         {% endif %}
         
-        
+        <div style="display:none">
+        {% set log = _AppHelper.printArray(showcaseResponse) %}
+        </div>
         <div class="c-article c-article-xs c-article__carousel">
           
             <div class="container">
@@ -919,7 +921,12 @@
         let guestUser = "{{guestUser}}" == 1 ? true : false;
         let articleId = "{{article.id}}";
 
-        
+
+
+        console.log('screspon', {{showcaseResponse.success}})
+        console.log('screspon2', {{showcaseResponse.entitlement}})
+        console.log('screspon3', {{showcaseResponse.error}})
+
         window.userState = {
             granted: false
         };
