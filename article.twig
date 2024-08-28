@@ -358,7 +358,9 @@
         {% endif %}
         
         <div style="display:none">
-        {% set log = _AppHelper.printArray(showcaseResponse) %}
+            {% if showcaseResponse is defined %}
+                {% set log = _AppHelper.printArray(showcaseResponse) %}
+            {% endif %}
         </div>
         <div class="c-article c-article-xs c-article__carousel">
           
