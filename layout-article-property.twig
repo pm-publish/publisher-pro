@@ -314,14 +314,14 @@
                                             }) | raw}}
                                         {% endif %}
                                     </div>
-
-                                    <div id="owl-thumbs" class="owl-thumbs article-gallery__thumbs article-gallery__thumbs-horizontal" data-slider-id="1">
-                                        {% for thumb in article.media %}
-                                            {% set articleImg = _Media.getMediaUrl(thumb,152, 95, {'crop': 'fill', 'gravity':'faces'} ) %}
-                                            <img id="owl-{{loop.index}}" src="{{articleImg}}" class="owl-thumb-item">
-                                        {% endfor %}
-                                    </div>
-
+                                    {% if article.media|length > 1 %}
+                                        <div id="owl-thumbs" class="owl-thumbs article-gallery__thumbs article-gallery__thumbs-horizontal" data-slider-id="1">
+                                            {% for thumb in article.media %}
+                                                {% set articleImg = _Media.getMediaUrl(thumb,152, 95, {'crop': 'fill', 'gravity':'faces'} ) %}
+                                                <img id="owl-{{loop.index}}" src="{{articleImg}}" class="owl-thumb-item">
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             <div class="{% if showPaywall == true %} c-article__main__paywall-container {% endif %}"> 
@@ -329,12 +329,9 @@
                                     <div class="col-12">
                                         <div class="c-article__main-content">
                                             <h1 class="c-article__price">{{ article.additionalInfo.pricerange}}</h1>
-                                            <p class="c-article__address">
-                                                {% if article.additionalInfo.address != '' %}
-                                                    {{ article.additionalInfo.address }}
-                                                {% endif %}
-                                            </p>
-
+                                            {% if article.additionalInfo.address != '' %}
+                                                <p class="c-article__address">{{ article.additionalInfo.address }}</p>
+                                            {% endif %}
                                             <div class="c-article__features u-margin-bottom-20">
                                                 {% if article.additionalInfo.bedroom_count %}
                                                     <div class="c-article__feature">
@@ -482,7 +479,7 @@
                                 
                                 {% if article.additionalInfo.contactemail %}  
                                     <a href="mailto:{{article.additionalInfo.contactemail}}">
-                                        <span class="c-propertyarticle-agent__emailbutton u-margin-top-20">Contact Agent</span>
+                                        <span class="c-propertyarticle-agent__emailbutton u-margin-top-20">Contact</span>
                                     </a>
                                 {% endif %}
                                 <hr class="divide">
