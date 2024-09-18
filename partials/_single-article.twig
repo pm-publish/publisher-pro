@@ -75,7 +75,6 @@
 {% set config = _Network.getThemeConfig() %}
 {% set displayMedia = ((article.hasMedia or article.hasPreviewMedia) and imageSuppress != true) ? true : false %}
 
-
 {# // used for dev to turn an article into a social card for testing ui #}
 {# {% if dev %} #}
     {# {% set article = article | merge({
@@ -201,6 +200,7 @@
         social          : isArticle,
         title           : articleTitle,
         articleImg      : _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, imageparams ),
+        articleMediaDisplay: article.featuredMediaOriginal.path != '' ? true : false,
         articleImgOriginal : _Media.getMediaUrl(article.featuredMediaOriginal,imgWidth, imgHeight, imageparams ),
         guid            : article.guid,
         url             : redirUrl,
