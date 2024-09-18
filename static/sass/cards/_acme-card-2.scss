@@ -8,6 +8,10 @@
             display: inline-flex !important;
         }
 
+        &__featureImageOriginal {
+            display: block;
+        }
+
         &__media {
             @include size(100px);
             margin-left: 10px;

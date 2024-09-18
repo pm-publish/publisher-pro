@@ -5,14 +5,13 @@
     {% set imageSize = "Width: " ~ params.imgWidth ~ " Height: " ~ params.imgHeight %}
 {% endif %}
 
-{% set config = this.params.config %}
+
 {% set label = true %}
 {% set additionalLabel = false %}
 {% if config.cardOptions is defined %}
     {% set label = config.cardOptions.label is defined ? config.cardOptions.label : label %}
     {% set additionalLabel = config.cardOptions['additional-label'] is defined ? config.cardOptions['additional-label'] : additionalLabel %}
 {% endif %}
-
 
 {% if params.hasMedia == 'True' %}
     <figure class="{{params.cardType}}c-cards-view__media {{params.videoClass}}" title="{{imageSize}}">
@@ -57,7 +56,6 @@
                     </picture>
                 </figure>
             {% endif %}
-            
             <div class="{{params.cardType}}c-cards-view__container-categorisedInfo__box">
                 <div class="{{params.cardType}}c-cards-view__category-wrap">
                     {% if params.category != params.blogTitle and additionalLabel == true %}
@@ -79,6 +77,13 @@
         {% endif %}
         <p class="u-loadmore-button click_here_btn mt-2">Click here</p>
     </div>
+    {% if config.classifieds['show-preview-image'] == true and params.hasMedia == 'True' %}
+        <figure class="mt-2 {{params.cardType}}c-cards-view__featureImageOriginal" title="{{imageSize}}">
+            <picture>
+                <img class="img-fluid" src="{{params.articleImgOriginal}}" data-original="{{param.articleImgOriginal}}">
+            </picture>
+        </figure>
+    {% endif %}
     <div class="{{params.cardType}}c-cards-view__author {{params.videoClass}}">
         <div class="{{params.cardType}}c-cards-view__author-name">{{ params.author }}</div>
         <div class="{{params.cardType}}c-cards-view__time">{{params.publishDate}}</div>

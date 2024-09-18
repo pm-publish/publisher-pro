@@ -72,7 +72,7 @@
     "desktop" : imageSizes is defined and imageSizes.desktop is defined ? imageSizes.desktop : {width:imgWidth, height:imgHeight},
 } %}
 
-
+{% set config = _Network.getThemeConfig() %}
 {% set displayMedia = ((article.hasMedia or article.hasPreviewMedia) and imageSuppress != true) ? true : false %}
 
 
@@ -176,8 +176,6 @@
     {% set blogguid = article.primaryBlog is defined and article.primaryBlog.guid != "" ? article.primaryBlog.guid : article.blog.guid %}
     {% set blogTitle = article.primaryBlog is defined and article.primaryBlog.title != "" ? article.primaryBlog.title  : article.blog.title %}
 
-
-
     {% set params = {
         imageSuppress   : imageSuppress,
         hasMediaClass   : (displayMedia) ? 'withImage__content': 'without-image',
@@ -203,6 +201,7 @@
         social          : isArticle,
         title           : articleTitle,
         articleImg      : _Media.getMediaUrl(article.featuredMedia,imgWidth, imgHeight, imageparams ),
+        articleImgOriginal : _Media.getMediaUrl(article.featuredMediaOriginal,imgWidth, imgHeight, imageparams ),
         guid            : article.guid,
         url             : redirUrl,
         id              : article.articleId,
@@ -254,8 +253,6 @@
 
 {% endif %}
 
-
-
 <div class="{{containerClass}}" data-title="{{ params.title | raw }}" {{inline}}>
     
 
@@ -279,7 +276,8 @@
         {# Article content including image #}
         <article class="{{cardType}}c-cards-view {{params.social == 0 ? "" : "social"}} {{params.category}} {{params.hasMediaClass}} {{lightbox}} {{contentType}} {{params.status}}">
             {{ this.render('_article-' ~ template ~ '.twig', {
-                params:params, 
+                params:params,
+                config: config,
                 networkData: networkData
             } ) | raw }}
         </article>
