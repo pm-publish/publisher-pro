@@ -864,7 +864,7 @@ UserProfileController.prototype.events = function ()
                 var formdata = {
                     "stripetoken":result.token.id,
                     "planid": self.data.plan_id,
-                    "redirect" : false
+                    "redirect" : false 
                 }
 
                 var idempotency_key = $('#idempotency_key').html();
