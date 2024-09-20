@@ -43,6 +43,7 @@ UserProfileController.prototype.showError = function(error) {
     const modal = new Modal('modal', 'signin-modal', {
         "userPlanChange" : 'userPlanOkCancel'
     });
+    modal.setTemplates(Templates);
     modal.render("userPlanChange", "Error", {"message" : error, "okayLabel": "OK"})
 }
 
@@ -626,7 +627,10 @@ UserProfileController.prototype.events = function ()
             planid: newPlan.data('planid') 
         };
 
-
+        var idempotency_key = $('#idempotency_key').html();
+        if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+            requestData['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+        }
 
         const changeModal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel'
@@ -861,6 +865,11 @@ UserProfileController.prototype.events = function ()
                     "stripetoken":result.token.id,
                     "planid": self.data.plan_id,
                     "redirect" : false
+                }
+
+                var idempotency_key = $('#idempotency_key').html();
+                if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+                    formdata['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
                 }
     
                 Acme.server.create(_appJsConfig.baseHttpPath + '/auth/paywall-purchase', formdata).done(function(r) {
