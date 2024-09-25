@@ -243,6 +243,10 @@ UserProfileController.prototype.stripeCardEvent = function () {
                     // Send the token to your server
                     const formdata = {"stripetoken":result.token.id, "uitoken": "ui." + random(8)};
                     Server.create(_appJsConfig.baseHttpPath + '/user/update-payment-details', formdata).done((r) => {
+                        var idempotency_key = $('#idempotency_key').html();
+                        if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+                            requestData['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+                        }
                         if (r.success === 1) {
                             self.modal.renderLayout('message', {message: "Success"});
                             location.reload();
@@ -627,11 +631,6 @@ UserProfileController.prototype.events = function ()
             planid: newPlan.data('planid') 
         };
 
-        var idempotency_key = $('#idempotency_key').html();
-        if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
-            requestData['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
-        }
-
         const changeModal = new Modal('modal', 'signin-modal', {
             "userPlanChange" : 'userPlanOkCancel'
         });
@@ -865,11 +864,6 @@ UserProfileController.prototype.events = function ()
                     "stripetoken":result.token.id,
                     "planid": self.data.plan_id,
                     "redirect" : false 
-                }
-
-                var idempotency_key = $('#idempotency_key').html();
-                if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
-                    formdata['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
                 }
     
                 Acme.server.create(_appJsConfig.baseHttpPath + '/auth/paywall-purchase', formdata).done(function(r) {
