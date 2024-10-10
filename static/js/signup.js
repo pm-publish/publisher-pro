@@ -92,7 +92,7 @@ SubscribeForm.prototype.render = function (checkTerms) {
     }
   }
 };
-SubscribeForm.prototype.submit = function (event) {
+SubscribeForm.prototype.submit = async function (event) {
   var self = this;
   event.preventDefault();
 
@@ -155,31 +155,54 @@ SubscribeForm.prototype.submit = function (event) {
 
     // captcha_site_key is set in the subscribe twig template based on
     // rules set in the theme config and reCaptcha integration
-    if (typeof window.Acme.captcha_site_key !== "undefined") {
-      grecaptcha.ready(function () {
-        grecaptcha
-          .execute(window.Acme.captcha_site_key, { action: "submit" })
-          .then(function (token) {
-            self.data["g-recaptcha-response"] = token;
-          });
+    // if (typeof window.Acme.captcha_site_key !== "undefined") {
+    //   grecaptcha.ready(function () {
+    //     grecaptcha
+    //       .execute(window.Acme.captcha_site_key, { action: "submit" })
+    //       .then(function (token) {
+    //         self.data["g-recaptcha-response"] = token;
+    //       });
+    //   });
+    // }
+
+    async function generateRecaptchaToken() {
+      return new Promise((resolve) => {
+        grecaptcha.ready(function () {
+          grecaptcha
+            .execute(window.Acme.captcha_site_key, { action: "submit" })
+            .then(function (token) {
+              resolve(token);
+            });
+        });
       });
     }
 
-    var idempotency_key = $("#idempotency_key").html();
-    if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
-      self.data["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
-    }
-
-    self.data["stripetoken"] = null;
-    Server.create("/auth/paywall-signup", self.data)
-      .done(submitResponse)
-      .fail(function (r) {
+    async function submitForm() {
+      // captcha_site_key is set in the subscribe twig template based on
+      // rules set in the theme config and reCaptcha integration
+      if (typeof window.Acme.captcha_site_key !== "undefined") {
+        self.data["g-recaptcha-response"] = await generateRecaptchaToken();
+      }
+      self.data["stripetoken"] = null;
+      try {
+        const response = await Server.create("/auth/paywall-signup", self.data);
+        submitResponse(response);
+      } catch (error) {
         self.signupModal.closeWindow();
-      });
+      }
+    }
+
+    await submitForm()
+    
+    // Server.create("/auth/paywall-signup", self.data)
+    //   .done(submitResponse)
+    //   .fail(function (r) {
+    //     self.signupModal.closeWindow();
+    //   });
   } else {
     // modal.render("spinner", "Your request is being processed.");
     this.signupModal.render("spinner", "Your request is being processed.");
-    var stripeCall = this.stripe.createToken(self.card).then(function (result) {
+    var stripeCall = this.stripe.createToken(self.card).then(async function (result) {
       if (result.error) {
         self.signupModal.closeWindow();
         // Inform the user if there was an error
@@ -194,26 +217,28 @@ SubscribeForm.prototype.submit = function (event) {
 
         // captcha_site_key is set in the subscribe twig template based on
         // rules set in the theme config and reCaptcha integration
-        if (typeof window.Acme.captcha_site_key !== "undefined") {
-          grecaptcha.ready(function () {
-            grecaptcha
-              .execute(window.Acme.captcha_site_key, { action: "submit" })
-              .then(function (token) {
-                self.data["g-recaptcha-response"] = token;
-              });
-          });
-        }
+        // if (typeof window.Acme.captcha_site_key !== "undefined") {
+        //   grecaptcha.ready(function () {
+        //     grecaptcha
+        //       .execute(window.Acme.captcha_site_key, { action: "submit" })
+        //       .then(function (token) {
+        //         self.data["g-recaptcha-response"] = token;
+        //       });
+        //   });
+        // }
 
-        var idempotency_key = $("#idempotency_key").html();
-        if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
-          self.data["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
-        }
+        // var idempotency_key = $("#idempotency_key").html();
+        // if (typeof idempotency_key !== "undefined" && idempotency_key != "") {
+        //   self.data["idempotency_key"] = idempotency_key; // Duplicate Request Prevent
+        // }
 
-        Server.create("/auth/paywall-signup", self.data)
-          .done(submitResponse)
-          .fail(function (r) {
-            self.signupModal.closeWindow();
-          });
+        // Server.create("/auth/paywall-signup", self.data)
+        //   .done(submitResponse)
+        //   .fail(function (r) {
+        //     self.signupModal.closeWindow();
+        //   });
+
+        await submitForm();
       }
     });
   }
