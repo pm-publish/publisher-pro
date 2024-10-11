@@ -183,7 +183,7 @@ SubscribeForm.prototype.submit = async function (event) {
       if (typeof window.Acme.captcha_site_key !== "undefined") {
         self.data["g-recaptcha-response"] = await generateRecaptchaToken();
       }
-      self.data["stripetoken"] = null;
+      self.data["stripetoken"] = null;   
       try {
         const response = await Server.create("/auth/paywall-signup", self.data);
         submitResponse(response);
@@ -192,7 +192,7 @@ SubscribeForm.prototype.submit = async function (event) {
       }
     }
 
-    await submitForm()
+    await submitForm() 
     
     // Server.create("/auth/paywall-signup", self.data)
     //   .done(submitResponse)
