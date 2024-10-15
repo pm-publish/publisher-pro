@@ -137,6 +137,38 @@ SubscribeForm.prototype.submit = async function (event) {
     self.signupModal.closeWindow();
   };
 
+  async function generateRecaptchaToken() {
+    return new Promise((resolve) => {
+      grecaptcha.ready(function () {
+        grecaptcha
+          .execute(window.Acme.captcha_site_key, { action: "submit" })
+          .then(function (token) {
+            resolve(token);
+          });
+      });
+    });
+  }
+
+  async function submitForm() {
+    // captcha_site_key is set in the subscribe twig template based on
+    // rules set in the theme config and reCaptcha integration
+    if (typeof window.Acme.captcha_site_key !== "undefined") {
+      self.data["g-recaptcha-response"] = await generateRecaptchaToken();
+    }
+    var idempotency_key = $('#idempotency_key').html();
+    if(typeof idempotency_key !== "undefined" && idempotency_key != "") {
+        self.data['idempotency_key'] = idempotency_key; // Duplicate Request Prevent 
+    }
+    try {
+      const response = await Server.create("/auth/paywall-signup", self.data);
+      submitResponse(response);
+    } catch (error) {
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = error.statusText
+        self.signupModal.closeWindow();
+    }
+  }
+
   this.signupModal = new Modal("modal", "spinner-modal", {
     spinner: "spinnerTmpl",
   });
@@ -164,34 +196,7 @@ SubscribeForm.prototype.submit = async function (event) {
     //       });
     //   });
     // }
-
-    async function generateRecaptchaToken() {
-      return new Promise((resolve) => {
-        grecaptcha.ready(function () {
-          grecaptcha
-            .execute(window.Acme.captcha_site_key, { action: "submit" })
-            .then(function (token) {
-              resolve(token);
-            });
-        });
-      });
-    }
-
-    async function submitForm() {
-      // captcha_site_key is set in the subscribe twig template based on
-      // rules set in the theme config and reCaptcha integration
-      if (typeof window.Acme.captcha_site_key !== "undefined") {
-        self.data["g-recaptcha-response"] = await generateRecaptchaToken();
-      }
-      self.data["stripetoken"] = null;   
-      try {
-        const response = await Server.create("/auth/paywall-signup", self.data);
-        submitResponse(response);
-      } catch (error) {
-        self.signupModal.closeWindow();
-      }
-    }
-
+    self.data["stripetoken"] = null;  
     await submitForm() 
     
     // Server.create("/auth/paywall-signup", self.data)
