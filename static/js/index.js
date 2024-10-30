@@ -50,21 +50,20 @@ $(document).on('click', '#signinBtn, #articleSigninBtn, .j-signin', function () 
 window.loadSigninForm = function() {
 
     Acme.SigninView.render("signin", "Sign in");
-    console.log('l')
-    // if (typeof google !== 'undefined') {
-    //     google.accounts.id.initialize({
-    //         client_id: window.client_id,
-    //         callback: googleLogin
-    //       });
-    //       google.accounts.id.renderButton(
-    //         document.getElementById("google_signin"),
-    //         { 
-    //             theme: "outline", 
-    //             size: "large",
-    //             width: 100
-    //         }  // customization attributes
-    //     );
-    // }
+    if (typeof google !== 'undefined') {
+        google.accounts.id.initialize({
+            client_id: window.client_id,
+            callback: googleLogin
+          });
+          google.accounts.id.renderButton(
+            document.getElementById("google_signin"),
+            { 
+                theme: "outline", 
+                size: "large",
+                width: 100
+            }  // customization attributes
+        );
+    }
 
 }
 
