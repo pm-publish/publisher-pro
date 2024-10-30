@@ -1161,7 +1161,7 @@ hr.divide {
     -ms-flex-direction: row;
     -webkit-flex-direction: row;
     -moz-flex-direction: row;
-    display: flex;
+    display: flex !important;
     display: -webkit-flex;
     display: -moz-flex;
     display: -ms-flexbox;

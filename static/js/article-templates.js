@@ -309,7 +309,7 @@ export const Templates = {
             <button data-elem="signin" id="modal-signinBtn" type="submit" class="{{class-prefix}}login-form__button _btn _btn--red signin">Sign in</button> \
         </div> \
         \
-        <div id="google_signin" class="c-login-modal__google u-margin-bottom-40"></div> \
+        <div id="google_signin" class="c-login-modal__google flex_row u-flex-justify-center u-margin-top-40 u-margin-bottom-40"></div> \
         \
         <script>$("#loginName").on("input", function() {window.scrollBy(0,1);window.scrollBy(0,-1);})</script>\
     </form>',
