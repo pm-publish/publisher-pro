@@ -58,10 +58,10 @@
             <div class="{{params.cardType}}c-cards-view__container-categorisedInfo__box">
                 <div class="{{params.cardType}}c-cards-view__category-wrap">
                     {% if params.category != params.blogTitle and additionalLabel == true %}
-                        <div class="{{params.cardType}}c-cards-view__additional-category" {% if params.category | lower == 'breaking news' %} style="background-color: #D0312D" {% endif %}>{{params.category}}</div>
+                        <div class="{{params.cardType}}c-cards-view__additional-category" {% if params.category | lower == 'breaking news' %} style="background-color: #D0312D" {% else %} {% if config.useBlogFeatureColorInLabel == 1  %} style="color: {{params.labelColor}}" {% endif %} {% endif %}>{{params.category}}</div>
                     {% endif %}
                     {% if label == true %}
-                        <div class="{{params.cardType}}c-cards-view__category">{{params.blogTitle}}</div>
+                        <div class="{{params.cardType}}c-cards-view__category" {% if config.useBlogFeatureColorInLabel == 1  %} style="color: {{params.labelColor}}" {% endif %}>{{params.blogTitle}}</div>
                     {% endif %}
                 </div>        
                 <h2 class="{{params.cardType}}c-cards-view__heading js-c-cards-view-heading j-truncate j-headline">{{ params.title }}</h2>
