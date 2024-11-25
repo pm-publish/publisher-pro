@@ -103,8 +103,6 @@
     }) %} #}
 {# {% endif %} #}
 
-
-
 {% set isArticle = (article.articleId > 0 or (isArticle is defined and isArticle == 'true')) ? 0 : 1 %}
 
 
@@ -190,6 +188,7 @@
         profileImg      : profileImg,
         hasMedia        : (displayMedia) ? 'True' : 'False',
         blogguid        : blogguid,
+        labelColor      : article.labelColor,
         blogTitle       : blogTitle,
         category        : article.label,
         cardType        : cardType, 
