@@ -22,7 +22,7 @@
 <div class="acme-row c-section-head">
     <div class="acme-col-12">
         <a href="{{link}}">
-            <div id="section-{{loadmore_id}}" class="c-section-head__title">{{title}}</div>
+            <div id="section-{{loadmore_id}}" class="c-section-head__title" {% if labelColor != '' %} style="color:{{labelColor}}" {% endif %}>{{title}}</div>
             {# <div class="c-section-head__count">{{blogData.count}} {{countTerm}}</div> #}
         </a> 
         <div class="c-section-head__rule"></div>

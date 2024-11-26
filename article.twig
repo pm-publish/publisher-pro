@@ -374,11 +374,11 @@
                                         <div class="c-article__top-container">
                                             <div class="c-article__category-wrap">
                                                 {% if article.label != article.blog.title %}
-                                                    <div class="c-article__additional-category" >
+                                                    <div class="c-article__additional-category" {% if config.useBlogFeatureColorInLabel is defined and config.useBlogFeatureColorInLabel == 1%} style="color: {{article.labelColor}}" {% endif %}>
                                                         {{article.label}}
                                                     </div>
                                                 {% endif %}
-                                                <div class="c-article__category">
+                                                <div class="c-article__category" {% if config.useBlogFeatureColorInLabel is defined and config.useBlogFeatureColorInLabel == 1%} style="color: {{article.labelColor}}" {% endif %}>
                                                     {{article.blog.title}}
                                                 </div>
                                             </div>

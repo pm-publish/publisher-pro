@@ -13,7 +13,7 @@
         <div class="u-generic-topBorder {{colorInverse}}">
         </div>
         <div class="c-page-head c-page-head-xs {{colorInverse}}">
-            <div class="u-heading__large u-heading__large-xs u-pr--6">{{title}}</div>
+            <div class="u-heading__large u-heading__large-xs u-pr--6" {% if labelColor != '' %} style="color:{{labelColor}}" {% endif %}>{{title}}</div>
             {% if linkShow %}
                 <a href="{{link}}" class="c-page-head__link">View all</a>
             {% endif %}
