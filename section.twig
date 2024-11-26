@@ -34,13 +34,12 @@
     {% set ctaURL = cta.button['url'] %}
 {% endif %}
 
-
 <main id="main" class="site-main u-margin-top-60" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="c-page-head c-page-head--withBorder c-page-head-xs">
-                    <h1 class="u-heading__large u-heading__large-xs u-pr--6">{{blogData.title}}</h1>
+                    <h1 class="u-heading__large u-heading__large-xs u-pr--6" {% if config.useBlogFeatureColorInLabel is defined and config.useBlogFeatureColorInLabel == 1 %} style="color:{{blogData.featuredColor}}" {% endif %}>{{blogData.title}}</h1>
                 </div>
             </div>
         </div>
