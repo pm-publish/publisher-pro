@@ -165,7 +165,7 @@
                     <p class="c-footer__addresses__content c-footer__addresses__content--name">{{addresses.name}}</p>
                     {% endif %}
                     {% if addresses.email != "" %}
-                    <p class="c-footer__addresses__content">{{addresses.email}}</p>
+                    <a href="mailto:{{addresses.email}}" class="c-footer__addresses__content">{{addresses.email}}</p>
                     {% endif %}
                     <p class="c-footer__addresses__content">
                         {{addresses.address}}<br />{{addresses.city}}<br />{{addresses.state}}
