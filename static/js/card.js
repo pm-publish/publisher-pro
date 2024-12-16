@@ -48,8 +48,8 @@ Card.prototype.render = function(options = {})
     card['imgClass'] = (this.data.lazyloadImage == false) ? '' : 'lazyload';
     
     card['readingTime'] = self.renderReadingTime(this.data.readingTime);
-    var width = typeof options.imageWidth !== "undefined" ? options.imageWidth : 500;
-    var height = typeof options.imageHeight !== "undefined" ? options.imageHeight : 350;
+    var width = typeof options.imageWidth !== "undefined" ? options.imageWidth : 600; 
+    var height = typeof options.imageHeight !== "undefined" ? options.imageHeight : 300;
     var gravity = typeof options.imageGravity !== "undefined" ? options.imageGravity : null;
 
     if (options.imageOriginal) {
