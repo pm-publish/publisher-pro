@@ -213,14 +213,30 @@
         }
     }
 }
-.c-header__weather-info {
-    margin-top: 10px;
+.c-header-main__co_weather {
+    display: flex;
+    flex-direction: column;
+
+    &.withWeather {
+        .c-header-main__menu {
+            width: auto ;
+        }
+    }
+
     @media (min-width: 767px) {
         margin-top: 0px;
         padding: 0;
-        position: absolute;
-        left: 30px;
-        top: 30px;
+        display: flex;
+        flex-direction: row;
+        align-items: center; 
 
+    }
+}
+.c-header__weather-info {
+    margin-top: 10px;
+    
+    @media (min-width: 767px) {
+        margin-top: 0px;
+        padding: 0;
     }
 }
