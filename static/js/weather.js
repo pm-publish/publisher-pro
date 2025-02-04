@@ -1,3 +1,4 @@
+import Handlebars from 'handlebars'
 (function ($) {
  
     $(document).ready(function() {
@@ -16,7 +17,7 @@
                 }
             };
         };
-        Acme.Weather.prototype = new Acme.Model();
+        Acme.Weather.prototype = new Acme.modal();
         Acme.Weather.constructor = Acme.Weather;
         Acme.Weather.prototype.fetch = function()
         {

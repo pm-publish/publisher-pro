@@ -10,7 +10,6 @@ import { Form } from './form'
 import AdLoader from './advertising'
 import {SubscribeForm} from './signup'
 // import {weather} from './weather' 
-// import {dialogue} from './dialog-confirm' 
  
 
 window.Acme = window.Acme || {};
@@ -23,6 +22,7 @@ window.Acme.Form = Form;
 window.Acme.listMenu = ListMenu;
 window.Acme.lightBox = LightBox;
 window.Acme.modal = Modal;
+window.Acme.View = View;
 window.Acme.EventForm = EventForm;
 window.Acme.server = Server;
 window.Acme.PubSub = PubSub;
