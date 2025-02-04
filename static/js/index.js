@@ -9,8 +9,8 @@ import { Card } from './card'
 import { Form } from './form'
 import AdLoader from './advertising'
 import {SubscribeForm} from './signup'
-// import {weather} from './weather' 
- 
+import {weather} from './weather'
+
 
 window.Acme = window.Acme || {};
 window.Acme.UserProfileController = UserProfileController;

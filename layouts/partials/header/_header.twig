@@ -55,7 +55,6 @@
 
 <div class='c-header c-header-xs {{ config['headerSticky'] is defined and config['headerSticky'] != false ? 'js_header' : '' }}'>
     {# Begin header top bar #}
-    <div id="weather" class="c-header__weather-info c-header__weather-info-xs j-weather-panel"></div>
     <div class="c-header-top-bar">
         <div class="container">
             <div class="row">
@@ -94,18 +93,22 @@
         </div>
     </div>
     {# End header top bar #}
-    
     {# Begin header main #}
     <div class="c-header-main">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="c-header-main__container">
-                        <div class="c-header-main__menu">
-                            <div class="c-hamburger__wrap js-menu">
-                                <div class="c-hamburger__wrap-icons o-hamburger"></div>
-                                <div class="c-hamburger__wrap-text">Menu</div>
+                        <div>
+                            <div class="c-header-main__menu">
+                                <div class="c-hamburger__wrap js-menu">
+                                    <div class="c-hamburger__wrap-icons o-hamburger"></div>
+                                    <div class="c-hamburger__wrap-text">Menu</div>
+                                </div>
                             </div>
+                            {% if config.weather['location'] is not empty %}
+                                <div id="weather" class="c-header__weather-info c-header__weather-info-xs j-weather-panel"></div>
+                            {% endif %}
                         </div>
                         <div class="c-header-main__logo">
                             <a href="{{networkData.defaultBlogUrl}}" class="c-header-main__logo-item">

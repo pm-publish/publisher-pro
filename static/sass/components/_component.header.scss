@@ -5,6 +5,7 @@
         @include flexbox;
         @include align-items(center);
         @include justify-content(space-between);
+        position: relative;
     }
 
     &__menu, .c-navigation-4 {
@@ -210,5 +211,16 @@
         .c-header-top-bar {
             display: none;
         }
+    }
+}
+.c-header__weather-info {
+    margin-top: 10px;
+    @media (min-width: 767px) {
+        margin-top: 0px;
+        padding: 0;
+        position: absolute;
+        left: 30px;
+        top: 30px;
+
     }
 }
