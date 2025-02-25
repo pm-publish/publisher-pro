@@ -130,6 +130,7 @@ import Handlebars from 'handlebars'
                                 });
                             });
                             $('.j-weather-panel-dropdown').append(forecast);
+                            $('.j-weather-panel-dropdown').append('<a href="#" class="js-resetWeather">Rest Weather</a>');
 
                         }
 
@@ -362,10 +363,18 @@ import Handlebars from 'handlebars'
                 'container': $('#weather')
             }
         );
-    
+
+
+        $(document).on('click', '.js-resetWeather', function() {
+            localStorage.removeItem('weather-location');
+            localStorage.removeItem('weather-town');
+            window.location.reload();
+        });        
 
     });
 
+
+    
 
 
 
