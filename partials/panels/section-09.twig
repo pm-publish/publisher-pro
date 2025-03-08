@@ -1,6 +1,5 @@
 {% set articleCount = 0 %}
-{% set cardIndex = 0 %}
-
+{% set totalArticlesHalf = articles | length  / 2 - 1 %}
 
 <div class="row" data-section="09">
     <div class="col-12">
@@ -14,9 +13,9 @@
     </div>
 </div>
 
-
 <div class="row">
     <div class="col-12 col-md-6">
+        {% for i in 0..totalArticlesHalf %}
          {{this.render('../_single-article.twig', {
             article: articles[articleCount], 
             position: (articleCount+1),
@@ -39,55 +38,12 @@
             url: altUrls[0] is defined ? networkData.defaultBlogUrl ~ altUrls[0] : ''
         }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+        {% endfor %}
         
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
-            imageSizes: {
-                "mobile": {
-                    width: 95, height: 130
-                },
-                "mobileLrg": {
-                    width: 95, height: 130
-                },
-                "tablet": {
-                    width: 95, height: 130
-                }
-            },
-            swap : 'false',
-            template: 'feature',
-            url: altUrls[1] is defined ? networkData.defaultBlogUrl ~ altUrls[1] : ''
-        }) | raw}}
-        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
-            imageSizes: {
-                "mobile": {
-                    width: 95, height: 130
-                },
-                "mobileLrg": {
-                    width: 95, height: 130
-                },
-                "tablet": {
-                    width: 95, height: 130
-                }
-            },
-            swap : 'false',
-            template: 'feature',
-            url: altUrls[2] is defined ? networkData.defaultBlogUrl ~ altUrls[2] : ''
-        }) | raw}}
-        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
     </div>
 
     <div class="col-12 col-md-6">
+        {% for i in 0..totalArticlesHalf %}
          {{this.render('../_single-article.twig', {
             article: articles[articleCount], 
             position: (articleCount+1),
@@ -110,51 +66,6 @@
             url: altUrls[3] is defined ? networkData.defaultBlogUrl ~ altUrls[3] : ''
         }) | raw}}
         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-        
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
-            imageSizes: {
-                "mobile": {
-                    width: 95, height: 130
-                },
-                "mobileLrg": {
-                    width: 95, height: 130
-                },
-                "tablet": {
-                    width: 95, height: 130
-                }
-            },
-            swap : 'false',
-            template: 'feature',
-            url: altUrls[4] is defined ? networkData.defaultBlogUrl ~ altUrls[4] : ''
-        }) | raw}}
-        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
-
-         {{this.render('../_single-article.twig', {
-            article: articles[articleCount], 
-            position: (articleCount+1),
-            feedBlogGuid: articles[articleCount]['requestedBlog']['guid'],
-            containerClass: "card-8-mobile card-8-tablet card-8-desktop",
-            imageSize: {width: 95, height: 130},
-            imageSizes: {
-                "mobile": {
-                    width: 95, height: 130
-                },
-                "mobileLrg": {
-                    width: 95, height: 130
-                },
-                "tablet": {
-                    width: 95, height: 130
-                }
-            },
-            swap : 'false',
-            template: 'feature',
-            url: altUrls[5] is defined ? networkData.defaultBlogUrl ~ altUrls[5] : ''
-        }) | raw}}
-        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+        {% endfor %}
     </div>
 </div>
