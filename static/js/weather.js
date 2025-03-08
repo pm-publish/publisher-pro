@@ -44,7 +44,6 @@ import Handlebars from 'handlebars'
     
 
 
-
         Acme.WeatherHeader_View_Class = function()
         {
             this.data = null; 
