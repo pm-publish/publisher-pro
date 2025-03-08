@@ -23,7 +23,8 @@ import Handlebars from 'handlebars'
         {
             var self = this;
             // Acme.server.fetch('https://weather.pagemasters.com.au/weather?q=' + this.location)
-            Acme.server.fetch('https://weather.publish.net.au/weather?q=' + this.location)
+            if(this.location != undefined) {
+                Acme.server.fetch('https://weather.publish.net.au/weather?q=' + this.location)
                 .done(function(r) {
                     self.data = r.data[0];
                     if (self.data.location.indexOf("Err:") == 0) {
@@ -37,6 +38,8 @@ import Handlebars from 'handlebars'
                 }).fail(function(r) {
                     console.log(r);
                 });
+            }
+            
         };
     
 
@@ -130,7 +133,9 @@ import Handlebars from 'handlebars'
                                 });
                             });
                             $('.j-weather-panel-dropdown').append(forecast);
-                            $('.j-weather-panel-dropdown').append('<a href="#" class="js-resetWeather">Rest Weather</a>');
+                            if(data.location != localStorage.getItem('weather-location')) {
+                                $('.j-weather-panel-dropdown').append('<a href="#" class="js-resetWeather">Reset</a>');
+                            }
 
                         }
 
@@ -320,9 +325,9 @@ import Handlebars from 'handlebars'
         Acme.weather_model = new Acme.Weather();
 
         var location = localStorage.getItem('weather-location');
+        var locationConfig = localStorage.getItem('weather-location-config');
         var town = localStorage.getItem('weather-town');
-        
-        if (!location) {
+        if (!location ||location != locationConfig) {
             Acme.server.fetch(_appJsConfig.appHostName + '/api/theme/get-config')
                 .done(function(r) {
                     var data = r.data['weather'];
@@ -330,6 +335,7 @@ import Handlebars from 'handlebars'
                         var location = data.location;
                         var town = data.town;
                         localStorage.setItem('weather-location', location);
+                        localStorage.setItem('weather-location-config', location);
                         localStorage.setItem('weather-town', town);
                         Acme.PubSub.publish("state_changed", 
                             {
