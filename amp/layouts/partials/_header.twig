@@ -27,7 +27,7 @@
 {% endif %}
 
 {% if network.logoMedia | length > 0 %}
-    {% set logo = _Media.getMediaUrl(network.logoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
+    {% set logo = _Media.getMediaUrl(network.logoMedia, logoWidth, logoHeight, {'crop': 'pad'} ) %}
 {% endif %}
 
 

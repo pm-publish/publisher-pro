@@ -27,7 +27,7 @@
 {# {% set log = _AppHelper.log(networkData.secondaryLogoMedia) %} #}
 
 {% if networkData.secondaryLogoMedia | length > 0 %}
-    {% set logo = _Media.getMediaUrl(networkData.secondaryLogoMedia, logoWidth, logoHeight, {'crop': 'fit'} ) %}
+    {% set logo = _Media.getMediaUrl(networkData.secondaryLogoMedia, logoWidth, logoHeight, {'crop': 'pad'} ) %}
 {% endif %}
 
 
