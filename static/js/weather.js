@@ -326,15 +326,28 @@ import Handlebars from 'handlebars'
         var location = localStorage.getItem('weather-location');
         var locationConfig = localStorage.getItem('weather-location-config');
         var town = localStorage.getItem('weather-town');
-        if (!location ||location != locationConfig) {
+        //if (!location || location != locationConfig) {}
+        // else {
+        //     Acme.PubSub.publish("state_changed", 
+        //     {
+        //         'weather-location' : {
+        //             'location'  : location,
+        //             'town'      : town
+        //         }
+        //     });
+        
             Acme.server.fetch(_appJsConfig.appHostName + '/api/theme/get-config')
                 .done(function(r) {
+                    let weatherHit = true;
                     var data = r.data['weather'];
+                    if(data.location == localStorage.getItem('weather-location')) {
+                        weatherHit = false
+                    }
                     if (data) {
                         var location = data.location;
                         var town = data.town;
                         localStorage.setItem('weather-location', location);
-                        localStorage.setItem('weather-location-config', location);
+                        localStorage.setItem('weather-updated', weatherHit);
                         localStorage.setItem('weather-town', town);
                         Acme.PubSub.publish("state_changed", 
                             {
@@ -347,17 +360,7 @@ import Handlebars from 'handlebars'
                 }).fail(function(r) {
                     console.log(r);
                 });
-        } else {
 
-            Acme.PubSub.publish("state_changed", 
-            {
-                'weather-location' : {
-                    'location'  : location,
-                    'town'      : town
-                }
-            });
-
-        }
 
 
 
