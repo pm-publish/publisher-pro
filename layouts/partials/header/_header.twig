@@ -61,6 +61,10 @@
                 <div class="col-12">
                     <div class="c-header-top-bar__container">
                         <aside class="c-header-top-bar__date">{{date}}</aside>
+                        {% if config.headerInfo.theme_text is defined and config.headerInfo.theme_text is not empty %}
+                            <div class="c-header_additional_info_text">{{config.headerInfo.theme_text}}</div>
+                        {% endif %}
+                        
                         {% if config['directory']['hideAuth'] is not defined and config['directory']['hideAuth'] == false %}
                             {% if paywall %}
                                 {% if loggedin %}
@@ -144,6 +148,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
+                    {% if config.headerInfo.theme_url is defined and config.headerInfo.theme_url is not empty %}
+                        <div class="c-header_additional_info_url">
+                            <img src={{config.headerInfo.theme_url}} alt="small icon" />
+                        </div>
+                    {% endif %}
                     <div class="c-navigation-2 c-navigation-2-xs">
                         <ul class="c-navigation__grid">
                             {{this.render('../_submenu_navigation.twig', {
