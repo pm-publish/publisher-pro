@@ -617,72 +617,80 @@
                                                 </div>
                                             </div>
                                             <hr />
-
-                                            {% if showPaywall == false %}
-                                                {% if config.hideShareIcons != 'true' %}
-                                                    <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
-                                                        <div class="u-generic-socialIcons-text">Share</div>
-                                                        <a class="u-generic-socialIcons__item"
-                                                            href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
-                                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                <defs>
-                                                                    <path d="M.076 12.788 6.53 6.53.057.95 0 1.315v11.088c0 .077.025.205.076.385zM7.35 5.78l.86.693 1.698 1.405 1.7-1.405.858-.693L18.957.179a1.073 1.073 0 0 0-.343-.058H1.184A.817.817 0 0 0 .859.18L7.35 5.78zm-6.166 7.815h17.43a.91.91 0 0 0 .324-.058l-6.51-6.294-2.52 2.06-2.52-2.06-6.51 6.294a.858.858 0 0 0 .306.058zm18.556-.808c.038-.142.057-.27.057-.385V1.315c0-.129-.019-.25-.057-.366L13.287 6.53l6.453 6.257z" id="email_solid_a"/>
-                                                                </defs>
-                                                                <g transform="translate(.125 3.875)" fill="none" fill-rule="evenodd">
-                                                                    <mask id="email_solid_b" fill="#fff">
-                                                                        <use xlink:href="#email_solid_a"/>
-                                                                    </mask>
-                                                                    <use fill="#000" xlink:href="#email_solid_a"/>
-                                                                    <g mask="url(#email_solid_b)" fill="{{themeColor}}">
-                                                                        <rect width="100" height="100" rx="7.5" transform="translate(-40 -46)"/>
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-
-                                                        </a>
-                                                        <a class="u-generic-socialIcons__item"
-                                                            href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
-                                                            target="_blank">
-                                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                <defs>
-                                                                    <path d="M6.223 6.581V4.877c0-.257.014-.459.044-.604a1.12 1.12 0 0 1 .174-.409.736.736 0 0 1 .416-.28c.188-.057.444-.087.763-.087h1.726V.091H6.572c-1.6 0-2.75.373-3.45 1.12-.698.748-1.047 1.856-1.047 3.321v2.05H0v3.406h2.075v9.921h4.148V9.99h2.773l.372-3.408H6.223z" id="fb_solid_a"/>
-                                                                </defs>
-                                                                <g transform="translate(5 1)" fill="none" fill-rule="evenodd">
-                                                                    <mask id="fb_solid_b" fill="#fff">
-                                                                        <use xlink:href="#fb_solid_a"/>
-                                                                    </mask>
-                                                                    <g mask="url(#fb_solid_b)" fill="{{themeColor}}">
-                                                                        <rect width="100" height="100" rx="7.5" transform="translate(-50 -40)"/>
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-                                                        </a>
-                                                        <a class="u-generic-socialIcons__item"
-                                                            href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
-                                                            target="_blank">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px">
-                                                            <path fill="{{themeColor}}" d="M 4.4042969 3 C 3.7572969 3 3.3780469 3.7287656 3.7480469 4.2597656 L 9.7363281 12.818359 L 3.7246094 19.845703 C 3.3356094 20.299703 3.6578594 21 4.2558594 21 L 4.9199219 21 C 5.2129219 21 5.4916406 20.871437 5.6816406 20.648438 L 10.919922 14.511719 L 14.863281 20.146484 C 15.238281 20.680484 15.849953 21 16.501953 21 L 19.835938 21 C 20.482937 21 20.862187 20.272188 20.492188 19.742188 L 14.173828 10.699219 L 19.900391 3.9902344 C 20.232391 3.6002344 19.955359 3 19.443359 3 L 18.597656 3 C 18.305656 3 18.027891 3.1276094 17.837891 3.3496094 L 12.996094 9.0097656 L 9.3945312 3.8554688 C 9.0205313 3.3194687 8.4098594 3 7.7558594 3 L 4.4042969 3 z"/>
-                                                            </svg>
-                                                        </a>
-                                                        <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
-                                                            <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                                                                <defs>
-                                                                    <path d="M.677 17.5H4.58V5.755H.677V17.5zM2.655.093C1.319.093.445.969.445 2.122c0 1.127.848 2.03 2.158 2.03h.026c1.362 0 2.21-.903 2.21-2.03C4.811.969 3.99.092 2.654.092zM18.66 10.765V17.5h-3.904v-6.284c0-1.578-.565-2.656-1.978-2.656-1.079 0-1.72.726-2.003 1.429-.103.25-.13.6-.13.952V17.5H6.74s.053-10.643 0-11.745h3.906V7.42l-.026.037h.026V7.42c.519-.8 1.445-1.941 3.52-1.941 2.569 0 4.495 1.678 4.495 5.286z" id="link_solid_a"/>
-                                                                </defs>
-                                                                <g transform="translate(.438 2.25)" fill="none" fill-rule="evenodd">
-                                                                    <mask id="link_solid_b" fill="#fff">
-                                                                        <use xlink:href="#link_solid_a"/>
-                                                                    </mask>
-                                                                    <use fill="#000" xlink:href="#link_solid_a"/>
-                                                                    <g mask="url(#link_solid_b)" fill="{{themeColor}}">
-                                                                        <rect width="100" height="100" rx="7.5" transform="translate(-35 -33)"/>
-                                                                    </g>
-                                                                </g>
-                                                            </svg>
-                                                        </a>
-                                                    </div>
+                                            <div class="d-flex align-items-center justify-content-between ">
+                                                <div class="c-navigation-4 c-navigation-4--inverse c-navigation-4-xs d-sm-flex p-0 mb-3 mb-xl-5">
+                                                {%if config.paywall.displaySubscribeButton == true%}
+                                                    {% if _User.isGuest() %}
+                                                        <a href="http://www.parent.io/subscriptions#subscriptions" class="c-navigation__item c-navigation__item--borderred subscribe">Subscribe</a>
+                                                    {% endif %}
                                                 {% endif %}
-                                            {% endif %}
+                                                </div>
+                                                {% if showPaywall == false %}
+                                                    {% if config.hideShareIcons != 'true' %}
+                                                        <div class="u-generic-socialIcons mb-3 mb-xl-5 justify-content-end">
+                                                            <div class="u-generic-socialIcons-text">Share</div>
+                                                            <a class="u-generic-socialIcons__item"
+                                                                href="mailto:?subject=Check%20out%20this%20article&body={{article.url}}" target="_blank">
+                                                                <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <defs>
+                                                                        <path d="M.076 12.788 6.53 6.53.057.95 0 1.315v11.088c0 .077.025.205.076.385zM7.35 5.78l.86.693 1.698 1.405 1.7-1.405.858-.693L18.957.179a1.073 1.073 0 0 0-.343-.058H1.184A.817.817 0 0 0 .859.18L7.35 5.78zm-6.166 7.815h17.43a.91.91 0 0 0 .324-.058l-6.51-6.294-2.52 2.06-2.52-2.06-6.51 6.294a.858.858 0 0 0 .306.058zm18.556-.808c.038-.142.057-.27.057-.385V1.315c0-.129-.019-.25-.057-.366L13.287 6.53l6.453 6.257z" id="email_solid_a"/>
+                                                                    </defs>
+                                                                    <g transform="translate(.125 3.875)" fill="none" fill-rule="evenodd">
+                                                                        <mask id="email_solid_b" fill="#fff">
+                                                                            <use xlink:href="#email_solid_a"/>
+                                                                        </mask>
+                                                                        <use fill="#000" xlink:href="#email_solid_a"/>
+                                                                        <g mask="url(#email_solid_b)" fill="{{themeColor}}">
+                                                                            <rect width="100" height="100" rx="7.5" transform="translate(-40 -46)"/>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+
+                                                            </a>
+                                                            <a class="u-generic-socialIcons__item"
+                                                                href="https://www.facebook.com/sharer/sharer.php?u={{article.url}}&title={{ article.title|url_encode }}"
+                                                                target="_blank">
+                                                                <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <defs>
+                                                                        <path d="M6.223 6.581V4.877c0-.257.014-.459.044-.604a1.12 1.12 0 0 1 .174-.409.736.736 0 0 1 .416-.28c.188-.057.444-.087.763-.087h1.726V.091H6.572c-1.6 0-2.75.373-3.45 1.12-.698.748-1.047 1.856-1.047 3.321v2.05H0v3.406h2.075v9.921h4.148V9.99h2.773l.372-3.408H6.223z" id="fb_solid_a"/>
+                                                                    </defs>
+                                                                    <g transform="translate(5 1)" fill="none" fill-rule="evenodd">
+                                                                        <mask id="fb_solid_b" fill="#fff">
+                                                                            <use xlink:href="#fb_solid_a"/>
+                                                                        </mask>
+                                                                        <g mask="url(#fb_solid_b)" fill="{{themeColor}}">
+                                                                            <rect width="100" height="100" rx="7.5" transform="translate(-50 -40)"/>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </a>
+                                                            <a class="u-generic-socialIcons__item"
+                                                                href="https://twitter.com/share?text={{ article.title|url_encode }}&url={{article.url}}"
+                                                                target="_blank">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px">
+                                                                <path fill="{{themeColor}}" d="M 4.4042969 3 C 3.7572969 3 3.3780469 3.7287656 3.7480469 4.2597656 L 9.7363281 12.818359 L 3.7246094 19.845703 C 3.3356094 20.299703 3.6578594 21 4.2558594 21 L 4.9199219 21 C 5.2129219 21 5.4916406 20.871437 5.6816406 20.648438 L 10.919922 14.511719 L 14.863281 20.146484 C 15.238281 20.680484 15.849953 21 16.501953 21 L 19.835938 21 C 20.482937 21 20.862187 20.272188 20.492188 19.742188 L 14.173828 10.699219 L 19.900391 3.9902344 C 20.232391 3.6002344 19.955359 3 19.443359 3 L 18.597656 3 C 18.305656 3 18.027891 3.1276094 17.837891 3.3496094 L 12.996094 9.0097656 L 9.3945312 3.8554688 C 9.0205313 3.3194687 8.4098594 3 7.7558594 3 L 4.4042969 3 z"/>
+                                                                </svg>
+                                                            </a>
+                                                            <a class="u-generic-socialIcons__item" href="https://linkedin.com/share?text={{ article.title|url_encode }}&url={{article.url}}" target="_blank">
+                                                                <svg width="20" height="21" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                                                    <defs>
+                                                                        <path d="M.677 17.5H4.58V5.755H.677V17.5zM2.655.093C1.319.093.445.969.445 2.122c0 1.127.848 2.03 2.158 2.03h.026c1.362 0 2.21-.903 2.21-2.03C4.811.969 3.99.092 2.654.092zM18.66 10.765V17.5h-3.904v-6.284c0-1.578-.565-2.656-1.978-2.656-1.079 0-1.72.726-2.003 1.429-.103.25-.13.6-.13.952V17.5H6.74s.053-10.643 0-11.745h3.906V7.42l-.026.037h.026V7.42c.519-.8 1.445-1.941 3.52-1.941 2.569 0 4.495 1.678 4.495 5.286z" id="link_solid_a"/>
+                                                                    </defs>
+                                                                    <g transform="translate(.438 2.25)" fill="none" fill-rule="evenodd">
+                                                                        <mask id="link_solid_b" fill="#fff">
+                                                                            <use xlink:href="#link_solid_a"/>
+                                                                        </mask>
+                                                                        <use fill="#000" xlink:href="#link_solid_a"/>
+                                                                        <g mask="url(#link_solid_b)" fill="{{themeColor}}">
+                                                                            <rect width="100" height="100" rx="7.5" transform="translate(-35 -33)"/>
+                                                                        </g>
+                                                                    </g>
+                                                                </svg>
+                                                            </a>
+                                                        </div>
+                                                    {% endif %}
+                                                {% endif %}
+                                            </div>
 
 
 
