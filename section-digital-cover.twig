@@ -1,0 +1,173 @@
+{{ set(this, 'title', _Blog.getBlogTitle()) }}
+{% set networkData = _Network.getNetworkData() %}
+{% set site        = networkData.title | lower | split(" ")[0]%}
+{% set blogData     = _Blog.getBlog(null, {'excludeMenus' : true}) %}
+{% set config       = _Network.getThemeConfig() %}
+
+
+{{ set(this, 'params', {
+    "config": config,
+    "networkData": networkData
+}) }}
+
+
+{% set limit = 15 %}
+
+{% set articlesArr = _Blog.getBlogFeed({'limit': limit, 'offset': 0}) %}
+{% set articles = articlesArr.articles %}
+{% set firstCount = articles | length %}
+
+<!-- used to index each article as we loop over throughout the template -->
+{% set articleCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set popCount = _AppHelper.getApplicationEnv() == 'DEV' ? 0 : 0 %}
+{% set dev = _AppHelper.getApplicationEnv() == 'DEV' ? false : false %}
+
+
+{% set blogLower = blogData.title | lower | split(" ")[0] %}
+{% set cta = _CallToAction.getKeywordBasedCTA('cta_'~blogLower)%}
+{% set ctaURL = ""%}
+{% if cta.button['url'] %}
+    {% set ctaURL = cta.button['url'] %}
+{% endif %}
+
+
+<main id="main" class="site-main u-margin-top-60 digital_edition_cover" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="c-page-head c-page-head--withBorder c-page-head-xs">
+                    <h1 class="u-heading__large u-heading__large-xs u-pr--6">{{blogData.title}}</h1>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                {{this.render('partials/_single-article.twig', {
+                    article: articles[articleCount], 
+                    position: (articleCount+1),
+                    imageSize: {width: 650, height: 900},
+                    imageSizes: {
+                        "mobile": {
+                            width: 230, height: 319
+                        },
+                        "mobileLrg": {
+                            width: 230, height: 319
+                        },
+                        "tablet": {
+                            width: 230, height: 319
+                        }
+                    },
+                    containerClass: "card-11-mobile card-11-tablet card-11-desktop card-11-highlighter hide_digital_highlight_content"
+                }) | raw}}
+                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="row">
+                {% for i in 1..4 if articles[articleCount] %}
+                    <div class="col-12 col-md-6 digital_edition_cover_bordered">
+                        {{this.render('partials/_single-article.twig', {
+                            article: articles[articleCount], 
+                            position: (articleCount+1),
+                            imageSize: {width: 650, height: 900},
+                            imageSizes: {
+                                "mobile": {
+                                    width: 230, height: 319
+                                },
+                                "mobileLrg": {
+                                    width: 230, height: 319
+                                },
+                                "tablet": {
+                                    width: 230, height: 319
+                                }
+                            },
+                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--portrait"
+                        }) | raw}}
+                        {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                {% if config['inventory']['adSpace']['banner'][1] is defined %}
+                    <div class="my-5 overflow-hidden">
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
+                    </div>
+                {% endif %}
+                <div class="row">
+                    {% for i in 5..14 if articles[articleCount] %}
+                        <div class="col-12 col-md-6 col-lg-3 digital_edition_cover_bordered">
+                            {{this.render('partials/_single-article.twig', {
+                                article: articles[articleCount], 
+                                position: (articleCount+1),
+                                imageSize: {width: 650, height: 900},
+                                imageSizes: {
+                                    "mobile": {
+                                        width: 230, height: 319
+                                    },
+                                    "mobileLrg": {
+                                        width: 230, height: 319
+                                    },
+                                    "tablet": {
+                                        width: 230, height: 319
+                                    }
+                                },
+                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2-desktop--portrait"
+                            }) | raw}}
+                            {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+                <section class="row mt-4" id="loadmore_section"></section>
+
+                <section class="mt-4 text-center loadmore__section {{site}}">
+                    {% if articles|length >= limit %}
+                        {{ this.render('/partials/load_more.twig', {
+                            name            : "section-load",
+                            label           : "Load more",
+                            buttonClass     : "u-loadmore-button",
+                        }) | raw }}
+                    {% endif %}
+                </section>
+                {% if config['inventory']['adSpace']['banner'][2] is defined %}
+                    <div class="my-5 overflow-hidden">
+                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][2]}}" data-adshape="banner"></div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% set theKeywords = '' %}
+    {% if blogData.keywords is defined and blogData.keywords != '' %}
+        {% set theKeywords = blogData.keywords %}
+    {% endif %}
+
+
+    <div id="ad-keywords" class="j-keyword-cont" data-keywords="{{theKeywords}}" data-pageName="" data-pageType="section" data-pageTag="" data-adsection=""></div>
+</main>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        const events = new Acme.Card();
+
+        Acme.loadMore = new Acme.ArticleFeed({
+            model           : Acme.Card,
+            container       : 'loadmore_section',
+            offset          : {{limit}},
+            infinite        : true,
+            limit           : 12,
+            imageWidth      : 650,
+            imageHeight     : 900,
+            label           : "Load more",
+            name            : 'section-load',
+            blogid          : "{{ blogData['guid'] }}",
+            card_class      : 'card-11-mobile card-11-tablet card-11-desktop col-12 col-md-6 col-lg-3 mb-4 digital_edition_cover_bordered',
+            non_pinned      : "{{ articlesArr.existingNonPinnedCount }}"
+        });
+    });
+</script>

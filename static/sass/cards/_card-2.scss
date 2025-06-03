@@ -76,6 +76,18 @@
             }
         }
     }
+    &--portrait {
+        .c-cards-view__media  {
+            background-color: #f6f5f5; 
+            @include flexbox;
+            @include align-items(center);
+            @include justify-content(center);
+        }
+        img {
+                width: inherit;
+                height: 185px;
+            }
+    }
 }
 .card-2-mobile {
     @media #{$mobile} {
