@@ -61,6 +61,9 @@
             }
         }
         &.hide_digital_highlight_content {
+            .c-cards-view__media img {
+                max-height: 750px; 
+            }
             .c-cards-view__container {
                 display: none; 
             }
