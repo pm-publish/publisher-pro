@@ -30,7 +30,6 @@
     {% set ctaURL = cta.button['url'] %}
 {% endif %}
 
-
 <main id="main" class="site-main u-margin-top-60 digital_edition_cover" role="main" data-article-limit="{{limit}}" data-article-count="{{articles | length}}">
     <div class="container">
         <div class="row">
@@ -43,7 +42,11 @@
         
         <div class="row">
             <div class="col-12 col-lg-6">
-                dssd
+                <div class="digital_edition_cover_background" style="margin-top:15px;height: calc(100% - 20px);overflow-hidden;background-color:#000000">
+                    {% if blogData.media.cover['path'] is defined and blogData.media.cover['path'] is not empty %}
+                        <img src={{blogData.media.cover['path']}} alt="image" class="img-fluid" />
+                    {% endif %}
+                </div>
             </div>
             <div class="col-12 col-lg-6">
                 <div class="row">
@@ -144,7 +147,7 @@
             label           : "Load more",
             name            : 'section-load',
             blogid          : "{{ blogData['guid'] }}",
-            card_class      : 'card-11-mobile card-11-tablet card-11-desktop col-12 col-md-6 col-lg-3 mb-4 digital_edition_cover_bordered',
+            card_class      : 'card-2-mobile card-2-tablet card-2-desktop col-12 col-md-6 col-lg-3 mb-4 digital_edition_cover_bordered',
             non_pinned      : "{{ articlesArr.existingNonPinnedCount }}"
         });
     });
