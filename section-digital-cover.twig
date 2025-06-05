@@ -43,28 +43,11 @@
         
         <div class="row">
             <div class="col-12 col-lg-6">
-                {{this.render('partials/_single-article.twig', {
-                    article: articles[articleCount], 
-                    position: (articleCount+1),
-                    imageSize: {width: 650, height: 900},
-                    imageSizes: {
-                        "mobile": {
-                            width: 230, height: 319
-                        },
-                        "mobileLrg": {
-                            width: 230, height: 319
-                        },
-                        "tablet": {
-                            width: 230, height: 319
-                        }
-                    },
-                    containerClass: "card-11-mobile card-11-tablet card-11-desktop card-11-highlighter hide_digital_highlight_content"
-                }) | raw}}
-                {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
+                dssd
             </div>
             <div class="col-12 col-lg-6">
                 <div class="row">
-                {% for i in 1..4 if articles[articleCount] %}
+                {% for i in 0..3 if articles[articleCount] %}
                     <div class="col-12 col-md-6 digital_edition_cover_bordered">
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
@@ -81,7 +64,7 @@
                                     width: 230, height: 319
                                 }
                             },
-                            containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--portrait"
+                            containerClass: "card-2-mobile card-2-tablet card-2-desktop"
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                     </div>
@@ -91,11 +74,6 @@
         </div>
         <div class="row">
             <div class="col-12">
-                {% if config['inventory']['adSpace']['banner'][1] is defined %}
-                    <div class="my-5 overflow-hidden">
-                        <div class="j-adslot" id="{{config['inventory']['adSpace']['banner'][1]}}" data-adshape="banner"></div>
-                    </div>
-                {% endif %}
                 <div class="row">
                     {% for i in 5..14 if articles[articleCount] %}
                         <div class="col-12 col-md-6 col-lg-3 digital_edition_cover_bordered">
@@ -114,7 +92,7 @@
                                         width: 230, height: 319
                                     }
                                 },
-                                containerClass: "card-2-mobile card-2-tablet card-2-desktop card-2--portrait"
+                                containerClass: "card-2-mobile card-2-tablet card-2-desktop"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
                         </div>

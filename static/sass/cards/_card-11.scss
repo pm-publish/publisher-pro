@@ -86,6 +86,10 @@
             position: absolute;
             height: calc(100% - 20px);
         }
+
+        .c-cards-view {
+            border-bottom: none !important;
+        }
     }
 }
 
