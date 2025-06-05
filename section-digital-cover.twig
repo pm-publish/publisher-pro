@@ -55,18 +55,7 @@
                         {{this.render('partials/_single-article.twig', {
                             article: articles[articleCount], 
                             position: (articleCount+1),
-                            imageSize: {width: 650, height: 900},
-                            imageSizes: {
-                                "mobile": {
-                                    width: 230, height: 319
-                                },
-                                "mobileLrg": {
-                                    width: 230, height: 319
-                                },
-                                "tablet": {
-                                    width: 230, height: 319
-                                }
-                            },
+                            imageSize: {width: 600, height: 300},
                             containerClass: "card-2-mobile card-2-tablet card-2-desktop"
                         }) | raw}}
                         {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
@@ -83,18 +72,7 @@
                             {{this.render('partials/_single-article.twig', {
                                 article: articles[articleCount], 
                                 position: (articleCount+1),
-                                imageSize: {width: 650, height: 900},
-                                imageSizes: {
-                                    "mobile": {
-                                        width: 230, height: 319
-                                    },
-                                    "mobileLrg": {
-                                        width: 230, height: 319
-                                    },
-                                    "tablet": {
-                                        width: 230, height: 319
-                                    }
-                                },
+                                imageSize: {width: 600, height: 300},
                                 containerClass: "card-2-mobile card-2-tablet card-2-desktop"
                             }) | raw}}
                             {% set articleCount = (dev) ? articleCount : articleCount + 1 %}
